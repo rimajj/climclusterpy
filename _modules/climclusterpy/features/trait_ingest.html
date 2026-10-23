@@ -1,0 +1,619 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>climclusterpy.features.trait_ingest &mdash; climclusterpy 0.5</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/custom.css?v=f2cc2102" />
+
+  
+    <link rel="shortcut icon" href="../../../_static/logo.svg"/>
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=1dd76d02"></script>
+      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            climclusterpy
+              <img src="../../../_static/logo.svg" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorials/index.html">Tutorials</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../tutorials/one_call_roundtrip.html">Tutorial 0 — the whole workflow in two calls</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/one_call_roundtrip.html#the-idea">The idea</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/one_call_roundtrip.html#call-1-build-the-reduced-grid">Call 1 — build the reduced grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/one_call_roundtrip.html#call-2-rebuild-the-original-grid">Call 2 — rebuild the original grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/one_call_roundtrip.html#the-complete-script">The complete script</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/one_call_roundtrip.html#run-it">Run it</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/one_call_roundtrip.html#next-steps">Next steps</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../tutorials/euclidean_clustering.html">Tutorial 1 — Euclidean clustering</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/euclidean_clustering.html#load-data-and-build-a-feature-matrix">Load data and build a feature matrix</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/euclidean_clustering.html#cluster">Cluster</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/euclidean_clustering.html#the-complete-script">The complete script</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/euclidean_clustering.html#run-it">Run it</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/euclidean_clustering.html#next-steps">Next steps</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../tutorials/lmnn_clustering.html">Tutorial 2 — LMNN metric-learning clustering</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/lmnn_clustering.html#provide-a-supervision-signal">Provide a supervision signal</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/lmnn_clustering.html#learn-a-metric-and-cluster">Learn a metric and cluster</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/lmnn_clustering.html#the-complete-script">The complete script</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/lmnn_clustering.html#run-it">Run it</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/lmnn_clustering.html#next-steps">Next steps</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../tutorials/supervision.html">Tutorial 3 — Supervision signals</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/supervision.html#koppengeiger-from-monthly-climatology">Köppen–Geiger from monthly climatology</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/supervision.html#model-output-trait-clustering">Model-output (trait) clustering</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/supervision.html#the-complete-script">The complete script</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/supervision.html#run-it">Run it</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/supervision.html#ecoregion-supervision">Ecoregion supervision</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../tutorials/reconstruction.html">Tutorial 4 — Reconstruct the original grid</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/reconstruction.html#the-round-trip">The round trip</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/reconstruction.html#verify">Verify</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/reconstruction.html#the-complete-script">The complete script</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/reconstruction.html#run-it">Run it</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/reconstruction.html#next-steps">Next steps</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../tutorials/index.html#a-note-on-the-synthetic-data">A note on the synthetic data</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">How-to guides</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../howto/index.html">How-to guides</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../howto/install.html">Install climclusterpy</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/install.html#base-install">Base install</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/install.html#optional-extras">Optional extras</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/install.html#installing-the-geospatial-extras-with-conda">Installing the geospatial extras with conda</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/install.html#pytorch-cpu-vs-gpu">PyTorch (CPU vs. GPU)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/install.html#environment-variables">Environment variables</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/install.html#building-the-documentation">Building the documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../howto/inputs.html">Prepare the input files</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/inputs.html#check-your-input-first">Check your input first</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/inputs.html#the-files">The files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/inputs.html#grid-and-coordinates">Grid and coordinates</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/inputs.html#which-cells-exist-the-soil-code">Which cells exist: the soil code</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/inputs.html#the-time-axis">The time axis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/inputs.html#missing-values">Missing values</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/inputs.html#another-vegetation-model-s-input">Another vegetation model’s input</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/inputs.html#output-files">Output files</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../howto/clustering.html">Cluster a feature matrix (choose a mode)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/clustering.html#euclidean-mode-no-supervision">Euclidean mode (no supervision)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/clustering.html#lmnn-mode-supervised-metric-learning">LMNN mode (supervised metric learning)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/clustering.html#lower-level-control">Lower-level control</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../howto/supervision.html">Build an LMNN supervision signal</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/supervision.html#from-climate-koppengeiger">From climate — Köppen–Geiger</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/supervision.html#from-model-output-traits">From model output — traits</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/supervision.html#from-a-shapefile-ecoregions2017">From a shapefile — Ecoregions2017</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/supervision.html#using-the-signal">Using the signal</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/supervision.html#in-one-call">In one call</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/supervision.html#saved-results-are-reused-only-for-the-same-inputs">Saved results are reused only for the same inputs</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../howto/cell_selection.html">Choosing the cells a cluster is simulated on</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/cell_selection.html#the-patch-budget">The patch budget</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/cell_selection.html#what-the-drawn-cells-carry">What the drawn cells carry</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/cell_selection.html#reproducibility">Reproducibility</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/cell_selection.html#looking-at-a-draw-without-building-a-grid">Looking at a draw without building a grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/cell_selection.html#back-to-the-full-grid">Back to the full grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/cell_selection.html#a-model-that-reads-its-own-inputs-the-grid-only-then-cut-the-rest">A model that reads its own inputs: the grid only, then cut the rest</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../howto/reconstruct.html">Reconstruct the original grid</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/reconstruct.html#the-usual-call">The usual call</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/reconstruct.html#picking-up-where-you-left-off">Picking up where you left off</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/reconstruct.html#without-a-result-or-run-folder">Without a result or run folder</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/reconstruct.html#required-mapping-files">Required mapping files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/reconstruct.html#reconstruction-paths-kind">Reconstruction paths (<code class="docutils literal notranslate"><span class="pre">kind</span></code>)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/reconstruct.html#verifying-the-result">Verifying the result</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../reference/index.html">Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../reference/api.html">Public API — <code class="xref py py-mod docutils literal notranslate"><span class="pre">climclusterpy</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/api.html#the-two-headline-functions">The two headline functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/api.html#before-and-after-the-model-run">Before and after the model run</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/api.html#input-for-a-model-other-than-lpjml">Input for a model other than LPJmL</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/api.html#other-ways-to-build-the-reduced-grid">Other ways to build the reduced grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/api.html#reusing-a-trained-metric">Reusing a trained metric</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/api.html#the-model-s-other-inputs">The model’s other inputs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/api.html#writing-the-reduced-grid-yourself">Writing the reduced grid yourself</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/api.html#building-blocks">Building blocks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/api.html#result-objects">Result objects</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../reference/toplevel.html">Data, timeseries, I/O &amp; plotting</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/toplevel.html#module-climclusterpy.data">Data loading &amp; the grid registry</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/toplevel.html#how-much-the-package-reports">How much the package reports</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/toplevel.html#coordinates">Coordinates</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/toplevel.html#module-climclusterpy.timeseries">Per-cluster timeseries</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/toplevel.html#module-climclusterpy.io">File input/output</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/toplevel.html#module-climclusterpy.preprocessing">Preprocessing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/toplevel.html#module-climclusterpy.viz">Plotting</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../reference/features.html">Feature engineering</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/features.html#ecological-summaries">Ecological summaries</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/features.html#vegetation-model-traits">Vegetation-model traits</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/features.html#standardization-filtering">Standardization &amp; filtering</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../reference/clustering.html">Clustering &amp; metric learning</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/clustering.html#hierarchical-clustering">Hierarchical clustering</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/clustering.html#module-climclusterpy.clustering.lmnn">LMNN metric learning</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../reference/supervision.html">Supervision labels</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/supervision.html#koppengeiger-climate-zones">Köppen–Geiger climate zones</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/supervision.html#vegetation-model-output-traits">Vegetation-model output traits</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/supervision.html#ecoregion-polygons">Ecoregion polygons</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/supervision.html#daily-input-helpers">Daily-input helpers</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../reference/grid.html">Grid building &amp; reconstruction</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/grid.html#where-each-reduced-cell-is-placed">Where each reduced cell is placed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/grid.html#writing-the-reduced-grid">Writing the reduced grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/grid.html#reconstruction">Reconstruction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/grid.html#lpjml-clm-conversion">LPJmL CLM conversion</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../reference/cli.html">Command-line interface (<code class="docutils literal notranslate"><span class="pre">climclu</span></code>)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/cli.html#the-two-headline-commands">The two headline commands</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/cli.html#building-blocks">Building blocks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/cli.html#options-shared-by-every-action-command">Options shared by every action command</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/cli.html#errors-and-exit-codes">Errors and exit codes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../reference/index.html#which-function-do-i-need">Which function do I need?</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Explanation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../explanation/index.html">Explanation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../explanation/overview.html">Overview</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/overview.html#design-philosophy">Design Philosophy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/overview.html#workflow-summary">Workflow Summary</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/overview.html#key-innovations">Key Innovations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/overview.html#use-cases">Use Cases</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/overview.html#limitations">Limitations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/overview.html#future-directions">Future Directions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/overview.html#references">References</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../explanation/methods.html">Scientific Methods</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/methods.html#data-acquisition-and-preprocessing">Data Acquisition and Preprocessing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/methods.html#ecoregion-assignment">Ecoregion Assignment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/methods.html#ecological-feature-summarization">Ecological Feature Summarization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/methods.html#feature-standardization-and-filtering">Feature Standardization and Filtering</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/methods.html#large-margin-nearest-neighbor-lmnn-metric-learning">Large Margin Nearest Neighbor (LMNN) Metric Learning</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/methods.html#hierarchical-clustering">Hierarchical Clustering</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/methods.html#representative-cell-selection">Representative Cell Selection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/methods.html#evaluation-metrics">Evaluation Metrics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/methods.html#netcdf-processing">NetCDF Processing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/methods.html#computational-implementation">Computational Implementation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../explanation/index.html#reconstruction-correctness">Reconstruction correctness</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">climclusterpy</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">climclusterpy.features.trait_ingest</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for climclusterpy.features.trait_ingest</h1><div class="highlight"><pre>
+<span></span><span class="sd">"""Read vegetation-model trait output into a per-cell table.</span>
+
+<span class="sd">Trait supervision (:mod:`climclusterpy.supervision.traits`) needs one row per grid</span>
+<span class="sd">cell with one column per trait. Model output rarely arrives that way, so this</span>
+<span class="sd">module accepts the two forms it actually comes in and produces that table:</span>
+
+<span class="sd">* **a directory of trait NetCDFs** — one file per trait (``sla_2000_2019.nc``,</span>
+<span class="sd">  ``height_2000_2019.nc``, …), gridded and usually with a time axis. Continuous</span>
+<span class="sd">  traits are averaged over time; a categorical ``dominant_type`` is reduced by</span>
+<span class="sd">  temporal mode (the type that prevails, not a meaningless average).</span>
+<span class="sd">* **a prepared per-cell CSV** — already one row per cell, e.g. written by an</span>
+<span class="sd">  earlier run or by the user's own aggregation.</span>
+
+<span class="sd">Either way the rows come back aligned to the registry's valid cells, in the same</span>
+<span class="sd">order as the clustering feature matrix, so supervision labels and features refer</span>
+<span class="sd">to the same cell by position *and* by ``cell_id``.</span>
+<span class="sd">"""</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">glob</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"DEFAULT_TRAITS"</span><span class="p">,</span> <span class="s2">"DOMINANT_TYPE_COLUMN"</span><span class="p">,</span> <span class="s2">"build_trait_features_df"</span><span class="p">]</span>
+
+<span class="c1">#: Traits used by default — the continuous plant properties that drive the</span>
+<span class="c1">#: vegetation model's carbon and water fluxes.</span>
+<span class="n">DEFAULT_TRAITS</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="s2">"sla"</span><span class="p">,</span> <span class="s2">"wooddens"</span><span class="p">,</span> <span class="s2">"height"</span><span class="p">,</span> <span class="s2">"vegc"</span><span class="p">)</span>
+
+<span class="c1">#: The categorical trait, one-hot encoded rather than averaged.</span>
+<span class="n">DOMINANT_TYPE_COLUMN</span> <span class="o">=</span> <span class="s2">"dominant_type"</span>
+
+<span class="c1"># Column names that are cell identity, never a trait.</span>
+<span class="n">_METADATA_COLUMNS</span> <span class="o">=</span> <span class="nb">frozenset</span><span class="p">({</span><span class="s2">"cell_id"</span><span class="p">,</span> <span class="s2">"latitude"</span><span class="p">,</span> <span class="s2">"longitude"</span><span class="p">,</span> <span class="s2">"lat"</span><span class="p">,</span> <span class="s2">"lon"</span><span class="p">})</span>
+
+<span class="c1"># Aliases people actually use for the same trait, so a directory of files named</span>
+<span class="c1"># after the model's own conventions works without renaming anything.</span>
+<span class="n">_TRAIT_ALIASES</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="o">...</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">"biomass"</span><span class="p">:</span> <span class="p">(</span><span class="s2">"biomass"</span><span class="p">,</span> <span class="s2">"vegc"</span><span class="p">,</span> <span class="s2">"vegc_from_ind"</span><span class="p">),</span>
+    <span class="s2">"vegc"</span><span class="p">:</span> <span class="p">(</span><span class="s2">"vegc"</span><span class="p">,</span> <span class="s2">"vegc_from_ind"</span><span class="p">,</span> <span class="s2">"biomass"</span><span class="p">),</span>
+    <span class="s2">"wooddens"</span><span class="p">:</span> <span class="p">(</span><span class="s2">"wooddens"</span><span class="p">,</span> <span class="s2">"wood_density"</span><span class="p">,</span> <span class="s2">"wooddensity"</span><span class="p">),</span>
+    <span class="s2">"sla"</span><span class="p">:</span> <span class="p">(</span><span class="s2">"sla"</span><span class="p">,</span> <span class="s2">"specific_leaf_area"</span><span class="p">),</span>
+    <span class="s2">"height"</span><span class="p">:</span> <span class="p">(</span><span class="s2">"height"</span><span class="p">,</span> <span class="s2">"canopy_height"</span><span class="p">),</span>
+    <span class="s2">"age"</span><span class="p">:</span> <span class="p">(</span><span class="s2">"age"</span><span class="p">,</span> <span class="s2">"stand_age"</span><span class="p">),</span>
+<span class="p">}</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_candidate_names</span><span class="p">(</span><span class="n">trait</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="o">...</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">"""Return the file/variable-name spellings to accept for ``trait``."""</span>
+    <span class="k">return</span> <span class="n">_TRAIT_ALIASES</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">trait</span><span class="o">.</span><span class="n">lower</span><span class="p">(),</span> <span class="p">(</span><span class="n">trait</span><span class="o">.</span><span class="n">lower</span><span class="p">(),))</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_find_trait_file</span><span class="p">(</span><span class="n">directory</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">trait</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Return the NetCDF in ``directory`` holding ``trait``.</span>
+
+<span class="sd">    Raises</span>
+<span class="sd">    ------</span>
+<span class="sd">    FileNotFoundError</span>
+<span class="sd">        If no file matches, listing what the directory does contain — a missing</span>
+<span class="sd">        trait must fail loudly rather than silently drop a supervision dimension.</span>
+<span class="sd">    ValueError</span>
+<span class="sd">        If several files match ambiguously.</span>
+<span class="sd">    """</span>
+    <span class="n">available</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">p</span><span class="p">)</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">directory</span><span class="p">,</span> <span class="s2">"*.nc"</span><span class="p">)))</span>
+    <span class="n">matches</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">_candidate_names</span><span class="p">(</span><span class="n">trait</span><span class="p">):</span>
+        <span class="n">matches</span> <span class="o">+=</span> <span class="p">[</span><span class="n">f</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">available</span> <span class="k">if</span> <span class="n">f</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="n">name</span><span class="p">)]</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">matches</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">_candidate_names</span><span class="p">(</span><span class="n">trait</span><span class="p">):</span>
+            <span class="n">matches</span> <span class="o">+=</span> <span class="p">[</span><span class="n">f</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">available</span> <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">f</span><span class="o">.</span><span class="n">lower</span><span class="p">()]</span>
+
+    <span class="n">unique</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">matches</span><span class="p">))</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">unique</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">FileNotFoundError</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">"No NetCDF for trait </span><span class="si">{</span><span class="n">trait</span><span class="si">!r}</span><span class="s2"> in </span><span class="si">{</span><span class="n">directory</span><span class="si">!r}</span><span class="s2">. Looked for files starting with "</span>
+            <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="nb">list</span><span class="p">(</span><span class="n">_candidate_names</span><span class="p">(</span><span class="n">trait</span><span class="p">))</span><span class="si">}</span><span class="s2">; the directory contains </span><span class="si">{</span><span class="n">available</span><span class="w"> </span><span class="ow">or</span><span class="w"> </span><span class="s1">'no .nc files'</span><span class="si">}</span><span class="s2">."</span>
+        <span class="p">)</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">unique</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">"Ambiguous NetCDFs for trait </span><span class="si">{</span><span class="n">trait</span><span class="si">!r}</span><span class="s2"> in </span><span class="si">{</span><span class="n">directory</span><span class="si">!r}</span><span class="s2">: </span><span class="si">{</span><span class="n">unique</span><span class="si">}</span><span class="s2">. "</span>
+            <span class="s2">"Keep one file per trait, or pass a prepared per-cell CSV instead."</span>
+        <span class="p">)</span>
+    <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">directory</span><span class="p">,</span> <span class="n">unique</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_reduce_over_time</span><span class="p">(</span><span class="n">da</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">categorical</span><span class="p">:</span> <span class="nb">bool</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Collapse a trait DataArray's non-spatial dims to one value per cell."""</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">xarray</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">xr</span>
+
+    <span class="n">time_dims</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="n">d</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">da</span><span class="o">.</span><span class="n">dims</span> <span class="k">if</span> <span class="n">d</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">"lat"</span><span class="p">,</span> <span class="s2">"latitude"</span><span class="p">,</span> <span class="s2">"y"</span><span class="p">,</span> <span class="s2">"lon"</span><span class="p">,</span> <span class="s2">"longitude"</span><span class="p">,</span> <span class="s2">"x"</span><span class="p">)</span>
+    <span class="p">]</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">time_dims</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">da</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">categorical</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">da</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="n">time_dims</span><span class="p">,</span> <span class="n">skipna</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="c1"># Categorical: the prevailing class, not an average of class codes.</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_mode</span><span class="p">(</span><span class="n">values</span><span class="p">,</span> <span class="n">axis</span><span class="o">=-</span><span class="mi">1</span><span class="p">):</span>
+        <span class="n">values</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">moveaxis</span><span class="p">(</span><span class="n">values</span><span class="p">,</span> <span class="n">axis</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">out</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">(</span><span class="n">values</span><span class="o">.</span><span class="n">shape</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+        <span class="n">flat_in</span> <span class="o">=</span> <span class="n">values</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">values</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+        <span class="n">flat_out</span> <span class="o">=</span> <span class="n">out</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">flat_in</span><span class="p">):</span>
+            <span class="n">row</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">isfinite</span><span class="p">(</span><span class="n">row</span><span class="p">)]</span>
+            <span class="k">if</span> <span class="n">row</span><span class="o">.</span><span class="n">size</span><span class="p">:</span>
+                <span class="n">codes</span><span class="p">,</span> <span class="n">counts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="n">return_counts</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+                <span class="n">flat_out</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">codes</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">counts</span><span class="p">))]</span>
+        <span class="k">return</span> <span class="n">out</span>
+
+    <span class="k">return</span> <span class="n">xr</span><span class="o">.</span><span class="n">apply_ufunc</span><span class="p">(</span>
+        <span class="n">_mode</span><span class="p">,</span>
+        <span class="n">da</span><span class="p">,</span>
+        <span class="n">input_core_dims</span><span class="o">=</span><span class="p">[</span><span class="n">time_dims</span><span class="p">],</span>
+        <span class="n">kwargs</span><span class="o">=</span><span class="p">{</span><span class="s2">"axis"</span><span class="p">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">},</span>
+        <span class="n">vectorize</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">dask</span><span class="o">=</span><span class="s2">"forbidden"</span><span class="p">,</span>
+    <span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_from_netcdf_dir</span><span class="p">(</span>
+    <span class="n">directory</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">registry</span><span class="p">,</span>
+    <span class="n">traits</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
+    <span class="n">include_dominant_type</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Build the per-cell trait table from a directory of gridded trait NetCDFs."""</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">xarray</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">xr</span>
+
+    <span class="n">cell_ids</span> <span class="o">=</span> <span class="n">registry</span><span class="o">.</span><span class="n">get_valid_original_ids</span><span class="p">()</span>
+    <span class="n">lats</span><span class="p">,</span> <span class="n">lons</span> <span class="o">=</span> <span class="n">registry</span><span class="o">.</span><span class="n">get_valid_lat_lon</span><span class="p">()</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">"cell_id"</span><span class="p">:</span> <span class="n">cell_ids</span><span class="p">,</span> <span class="s2">"latitude"</span><span class="p">:</span> <span class="n">lats</span><span class="p">,</span> <span class="s2">"longitude"</span><span class="p">:</span> <span class="n">lons</span><span class="p">})</span>
+
+    <span class="n">wanted</span> <span class="o">=</span> <span class="p">[(</span><span class="n">t</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">traits</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">include_dominant_type</span><span class="p">:</span>
+        <span class="n">wanted</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">DOMINANT_TYPE_COLUMN</span><span class="p">,</span> <span class="kc">True</span><span class="p">))</span>
+
+    <span class="k">for</span> <span class="n">trait</span><span class="p">,</span> <span class="n">categorical</span> <span class="ow">in</span> <span class="n">wanted</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">path</span> <span class="o">=</span> <span class="n">_find_trait_file</span><span class="p">(</span><span class="n">directory</span><span class="p">,</span> <span class="n">trait</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">FileNotFoundError</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">categorical</span><span class="p">:</span>
+                <span class="c1"># dominant_type is a bonus dimension, not a requirement: a model run</span>
+                <span class="c1"># without it still yields perfectly good continuous supervision.</span>
+                <span class="k">continue</span>
+            <span class="k">raise</span>
+
+        <span class="k">with</span> <span class="n">xr</span><span class="o">.</span><span class="n">open_dataset</span><span class="p">(</span><span class="n">path</span><span class="p">)</span> <span class="k">as</span> <span class="n">ds</span><span class="p">:</span>
+            <span class="n">var</span> <span class="o">=</span> <span class="n">_pick_variable</span><span class="p">(</span><span class="n">ds</span><span class="p">,</span> <span class="n">trait</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span>
+            <span class="n">da</span> <span class="o">=</span> <span class="n">registry</span><span class="o">.</span><span class="n">align_to_original</span><span class="p">(</span><span class="n">ds</span><span class="p">[[</span><span class="n">var</span><span class="p">]]</span><span class="o">.</span><span class="n">rename</span><span class="p">({</span><span class="n">var</span><span class="p">:</span> <span class="n">trait</span><span class="p">}))[</span><span class="n">trait</span><span class="p">]</span>
+            <span class="n">reduced</span> <span class="o">=</span> <span class="n">_reduce_over_time</span><span class="p">(</span><span class="n">da</span><span class="p">,</span> <span class="n">categorical</span><span class="o">=</span><span class="n">categorical</span><span class="p">)</span>
+            <span class="n">flat</span> <span class="o">=</span> <span class="n">registry</span><span class="o">.</span><span class="n">flatten_on_valid</span><span class="p">(</span><span class="n">reduced</span><span class="p">)</span>
+
+        <span class="n">flat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">flat</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">out</span><span class="p">),</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">flat</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">"Trait </span><span class="si">{</span><span class="n">trait</span><span class="si">!r}</span><span class="s2"> from </span><span class="si">{</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">path</span><span class="p">)</span><span class="si">}</span><span class="s2"> reduced to </span><span class="si">{</span><span class="n">flat</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2"> values "</span>
+                <span class="s2">"per cell; expected exactly 1. Check the file's non-spatial dimensions."</span>
+            <span class="p">)</span>
+        <span class="n">out</span><span class="p">[</span><span class="n">trait</span><span class="p">]</span> <span class="o">=</span> <span class="n">flat</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span>
+
+    <span class="k">return</span> <span class="n">out</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_pick_variable</span><span class="p">(</span><span class="n">ds</span><span class="p">,</span> <span class="n">trait</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Return the data variable in ``ds`` holding ``trait``."""</span>
+    <span class="n">names</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">ds</span><span class="o">.</span><span class="n">data_vars</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">names</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">path</span><span class="si">!r}</span><span class="s2"> contains no data variables."</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">names</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">names</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">candidate</span> <span class="ow">in</span> <span class="n">_candidate_names</span><span class="p">(</span><span class="n">trait</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">names</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">name</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="n">candidate</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">name</span>
+    <span class="k">for</span> <span class="n">candidate</span> <span class="ow">in</span> <span class="n">_candidate_names</span><span class="p">(</span><span class="n">trait</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">names</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">candidate</span> <span class="ow">in</span> <span class="n">name</span><span class="o">.</span><span class="n">lower</span><span class="p">():</span>
+                <span class="k">return</span> <span class="n">name</span>
+    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+        <span class="sa">f</span><span class="s2">"Cannot tell which variable in </span><span class="si">{</span><span class="n">path</span><span class="si">!r}</span><span class="s2"> holds trait </span><span class="si">{</span><span class="n">trait</span><span class="si">!r}</span><span class="s2">: found </span><span class="si">{</span><span class="n">names</span><span class="si">}</span><span class="s2">. "</span>
+        <span class="s2">"Rename the variable to the trait name, or pass a prepared per-cell CSV."</span>
+    <span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_from_csv</span><span class="p">(</span>
+    <span class="n">csv_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">registry</span><span class="p">,</span>
+    <span class="n">traits</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
+    <span class="n">include_dominant_type</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Load and validate a prepared per-cell trait table, aligning it to the registry."""</span>
+    <span class="n">table</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">csv_path</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="s2">"cell_id"</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">table</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">"Trait CSV </span><span class="si">{</span><span class="n">csv_path</span><span class="si">!r}</span><span class="s2"> needs a 'cell_id' column so rows can be matched to grid "</span>
+            <span class="sa">f</span><span class="s2">"cells by identity; found columns </span><span class="si">{</span><span class="nb">list</span><span class="p">(</span><span class="n">table</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span><span class="si">}</span><span class="s2">."</span>
+        <span class="p">)</span>
+
+    <span class="n">resolved</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">trait</span> <span class="ow">in</span> <span class="n">traits</span><span class="p">:</span>
+        <span class="n">match</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span>
+            <span class="p">(</span><span class="n">c</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">table</span><span class="o">.</span><span class="n">columns</span> <span class="k">if</span> <span class="n">c</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="n">_candidate_names</span><span class="p">(</span><span class="n">trait</span><span class="p">)),</span>
+            <span class="kc">None</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="k">if</span> <span class="n">match</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">"Trait CSV </span><span class="si">{</span><span class="n">csv_path</span><span class="si">!r}</span><span class="s2"> has no column for trait </span><span class="si">{</span><span class="n">trait</span><span class="si">!r}</span><span class="s2"> (tried "</span>
+                <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="nb">list</span><span class="p">(</span><span class="n">_candidate_names</span><span class="p">(</span><span class="n">trait</span><span class="p">))</span><span class="si">}</span><span class="s2">); found columns </span><span class="si">{</span><span class="nb">list</span><span class="p">(</span><span class="n">table</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span><span class="si">}</span><span class="s2">."</span>
+            <span class="p">)</span>
+        <span class="n">resolved</span><span class="p">[</span><span class="n">trait</span><span class="p">]</span> <span class="o">=</span> <span class="n">match</span>
+
+    <span class="n">keep</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"cell_id"</span><span class="p">,</span> <span class="o">*</span><span class="n">resolved</span><span class="o">.</span><span class="n">values</span><span class="p">()]</span>
+    <span class="k">if</span> <span class="n">include_dominant_type</span> <span class="ow">and</span> <span class="n">DOMINANT_TYPE_COLUMN</span> <span class="ow">in</span> <span class="n">table</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+        <span class="n">keep</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">DOMINANT_TYPE_COLUMN</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">coord</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">"latitude"</span><span class="p">,</span> <span class="s2">"longitude"</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">coord</span> <span class="ow">in</span> <span class="n">table</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+            <span class="n">keep</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">coord</span><span class="p">)</span>
+
+    <span class="n">table</span> <span class="o">=</span> <span class="n">table</span><span class="p">[</span><span class="n">keep</span><span class="p">]</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="n">v</span><span class="p">:</span> <span class="n">k</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">resolved</span><span class="o">.</span><span class="n">items</span><span class="p">()})</span>
+
+    <span class="c1"># Reindex onto the registry's valid cells so the rows line up with the feature</span>
+    <span class="c1"># matrix. An inner join would silently shrink the grid; a left join surfaces</span>
+    <span class="c1"># exactly which cells the trait file is missing.</span>
+    <span class="n">cell_ids</span> <span class="o">=</span> <span class="n">registry</span><span class="o">.</span><span class="n">get_valid_original_ids</span><span class="p">()</span>
+    <span class="n">lats</span><span class="p">,</span> <span class="n">lons</span> <span class="o">=</span> <span class="n">registry</span><span class="o">.</span><span class="n">get_valid_lat_lon</span><span class="p">()</span>
+    <span class="n">frame</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">"cell_id"</span><span class="p">:</span> <span class="n">cell_ids</span><span class="p">,</span> <span class="s2">"latitude"</span><span class="p">:</span> <span class="n">lats</span><span class="p">,</span> <span class="s2">"longitude"</span><span class="p">:</span> <span class="n">lons</span><span class="p">})</span>
+    <span class="n">merged</span> <span class="o">=</span> <span class="n">frame</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span>
+        <span class="n">table</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="n">c</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">"latitude"</span><span class="p">,</span> <span class="s2">"longitude"</span><span class="p">)</span> <span class="k">if</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">table</span><span class="o">.</span><span class="n">columns</span><span class="p">]),</span>
+        <span class="n">on</span><span class="o">=</span><span class="s2">"cell_id"</span><span class="p">,</span>
+        <span class="n">how</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="n">trait_cols</span> <span class="o">=</span> <span class="p">[</span><span class="n">c</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">merged</span><span class="o">.</span><span class="n">columns</span> <span class="k">if</span> <span class="n">c</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">_METADATA_COLUMNS</span><span class="p">]</span>
+    <span class="n">missing</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">merged</span><span class="p">[</span><span class="n">trait_cols</span><span class="p">]</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span>
+    <span class="k">if</span> <span class="n">missing</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">"Trait CSV </span><span class="si">{</span><span class="n">csv_path</span><span class="si">!r}</span><span class="s2"> covers only </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">merged</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">missing</span><span class="si">}</span><span class="s2"> of </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">merged</span><span class="p">)</span><span class="si">}</span><span class="s2"> valid "</span>
+            <span class="sa">f</span><span class="s2">"grid cells (</span><span class="si">{</span><span class="n">missing</span><span class="si">}</span><span class="s2"> cells have no trait values at all). Supervision must cover "</span>
+            <span class="s2">"every cell being clustered — check that the CSV's cell_id values come from the same "</span>
+            <span class="s2">"grid as the climate input."</span>
+        <span class="p">)</span>
+    <span class="k">return</span> <span class="n">merged</span>
+
+
+<div class="viewcode-block" id="build_trait_features_df">
+<a class="viewcode-back" href="../../../reference/features.html#climclusterpy.features.build_trait_features_df">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">build_trait_features_df</span><span class="p">(</span>
+    <span class="n">supervision_data</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">registry</span><span class="p">,</span>
+    <span class="o">*</span><span class="p">,</span>
+    <span class="n">traits</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span> <span class="o">=</span> <span class="n">DEFAULT_TRAITS</span><span class="p">,</span>
+    <span class="n">include_dominant_type</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Build a per-cell trait table from model output, in whichever form it arrives.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    supervision_data : str</span>
+<span class="sd">        Either a directory of per-trait NetCDF files, or a prepared per-cell CSV.</span>
+<span class="sd">        The form is detected from the path (a ``.csv`` file vs a directory).</span>
+<span class="sd">    registry : DataRegistry</span>
+<span class="sd">        Registry for the grid being clustered. Defines which cells are valid and in</span>
+<span class="sd">        what order, so the returned rows align with the clustering feature matrix.</span>
+<span class="sd">    traits : sequence of str, optional</span>
+<span class="sd">        Continuous traits to read. Defaults to :data:`DEFAULT_TRAITS`. Common</span>
+<span class="sd">        aliases are accepted (``biomass`` matches a ``vegc`` file, and so on).</span>
+<span class="sd">    include_dominant_type : bool, optional</span>
+<span class="sd">        Also read the categorical ``dominant_type`` when present (default</span>
+<span class="sd">        ``True``). It is optional in the input: a run without it still produces</span>
+<span class="sd">        usable continuous supervision.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    pandas.DataFrame</span>
+<span class="sd">        Columns ``cell_id, latitude, longitude``, one column per trait, and</span>
+<span class="sd">        ``dominant_type`` when available. One row per valid grid cell, in registry</span>
+<span class="sd">        order.</span>
+
+<span class="sd">    Raises</span>
+<span class="sd">    ------</span>
+<span class="sd">    FileNotFoundError</span>
+<span class="sd">        If ``supervision_data`` does not exist, or a requested trait has no file.</span>
+<span class="sd">    ValueError</span>
+<span class="sd">        If a trait column/variable cannot be identified, or the input does not</span>
+<span class="sd">        cover every valid cell.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; traits = build_trait_features_df(  # doctest: +SKIP</span>
+<span class="sd">    ...     "/path/to/model_output/trait_grids",</span>
+<span class="sd">    ...     registry,</span>
+<span class="sd">    ...     traits=["sla", "wooddens", "height", "biomass"],</span>
+<span class="sd">    ... )</span>
+<span class="sd">    """</span>
+    <span class="n">traits</span> <span class="o">=</span> <span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">traits</span><span class="p">]</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">traits</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"At least one trait is required for trait supervision."</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">supervision_data</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">FileNotFoundError</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">"supervision_data path does not exist: </span><span class="si">{</span><span class="n">supervision_data</span><span class="si">!r}</span><span class="s2">. Pass a directory of "</span>
+            <span class="s2">"per-trait NetCDF files or a prepared per-cell CSV."</span>
+        <span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">supervision_data</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">_from_netcdf_dir</span><span class="p">(</span><span class="n">supervision_data</span><span class="p">,</span> <span class="n">registry</span><span class="p">,</span> <span class="n">traits</span><span class="p">,</span> <span class="n">include_dominant_type</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">supervision_data</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">".csv"</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">_from_csv</span><span class="p">(</span><span class="n">supervision_data</span><span class="p">,</span> <span class="n">registry</span><span class="p">,</span> <span class="n">traits</span><span class="p">,</span> <span class="n">include_dominant_type</span><span class="p">)</span>
+
+    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+        <span class="sa">f</span><span class="s2">"Cannot interpret supervision_data </span><span class="si">{</span><span class="n">supervision_data</span><span class="si">!r}</span><span class="s2">: expected a directory of trait "</span>
+        <span class="s2">"NetCDFs or a .csv per-cell table."</span>
+    <span class="p">)</span></div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, Jamir Priesner.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

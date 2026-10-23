@@ -1,0 +1,93 @@
+Grid building & reconstruction
+==============================
+
+.. py:module:: climclusterpy.grid
+
+Write per-cluster output to NetCDF on the reduced (artificial) grid, and project it
+back onto the full original grid. :func:`~climclusterpy.reconstruct_original_grid`
+dispatches over the two reconstruction functions below; see
+:doc:`../howto/reconstruct` for which mapping files each needs.
+
+:func:`~climclusterpy.create_clusters` and :func:`~climclusterpy.create_regions` call
+these for you. You need them directly only when you build the per-cluster timeseries
+yourself, or want to check where the cells landed.
+
+Where each reduced cell is placed
+---------------------------------
+
+Every reduced-grid cell carries the climate of one real cell. These functions decide the
+*coordinates* it is written at. The coordinates matter to the model because latitude sets
+day length.
+
+.. list-table::
+   :header-rows: 1
+   :widths: 30 70
+
+   * - Function
+     - What it does
+   * - :func:`build_reduced_grid`
+     - **Recommended.** Places each cell at the coordinates of the cell whose climate it
+       carries, on the source grid's own latitude spacing, writes the NetCDFs and mapping
+       CSVs, then re-opens what it wrote and fails if the axes are not uniform or a cell
+       was displaced.
+   * - :func:`create_native_grid_from_dataset`
+     - The placement step of :func:`build_reduced_grid` on its own: returns the
+       coordinates, writes nothing but the placement records.
+   * - :func:`create_regular_grid_from_dataset`
+     - The older layout: places each cell at its cluster's *centre* latitude (the member
+       nearest the cluster's median absolute latitude) on a lattice found by
+       :func:`calculate_grid_parameters`. That is generally not the latitude of the cell
+       whose climate it carries, and on real global cluster sets the two differ by up to
+       107°. Use it only when the latitudes genuinely do not lie on a regular lattice.
+
+.. note::
+
+   In this version :func:`~climclusterpy.create_clusters` uses :func:`build_reduced_grid`
+   for ``representative="random"``, writes ``"distributed"`` cells at their own positions
+   with :func:`write_distributed_grid`, but still uses the centre-latitude layout of
+   :func:`create_regular_grid_from_dataset` for ``"medoid"`` and ``"centroid"``. For those
+   two, ``latitude_adjustments_<K>.csv`` in the output folder records each cluster's centre
+   latitude and the latitude it was written at — not the representative cell's own
+   latitude, which is in ``selected_cells_<K>.csv``. Compare the two files to see how far
+   a cell was moved.
+
+.. autofunction:: climclusterpy.grid.build_reduced_grid
+
+.. autofunction:: climclusterpy.grid.create_native_grid_from_dataset
+
+.. autoclass:: climclusterpy.grid.NativePlacement
+   :no-members:
+
+.. autofunction:: climclusterpy.grid.create_regular_grid_from_dataset
+
+.. autofunction:: climclusterpy.grid.calculate_grid_parameters
+
+Writing the reduced grid
+------------------------
+
+.. autofunction:: climclusterpy.grid.verify_written_grid
+
+.. autofunction:: climclusterpy.grid.write_distributed_grid
+
+Reconstruction
+--------------
+
+.. autofunction:: climclusterpy.grid.reconstruct_output_netcdf
+
+.. autofunction:: climclusterpy.grid.reconstruct_from_distributed
+
+.. autofunction:: climclusterpy.grid.validate_reconstruction_grid
+
+LPJmL CLM conversion
+--------------------
+
+.. py:currentmodule:: climclusterpy.io
+
+:func:`convert_netcdf_to_clm` turns the reduced-grid NetCDFs into the ``.clm`` binaries
+LPJmL reads. It calls LPJmL's own ``cdf2clm`` / ``cdf2soil`` tools, which must be
+installed. Those tools read each axis's step from its first and last coordinate only, so
+every input is first checked with :func:`assert_uniform_axes`.
+
+.. autofunction:: climclusterpy.io.convert_netcdf_to_clm
+
+.. autofunction:: climclusterpy.io.assert_uniform_axes

@@ -1,0 +1,1144 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Scientific Methods &mdash; climclusterpy 0.5</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=f2cc2102" />
+
+  
+    <link rel="shortcut icon" href="../_static/logo.svg"/>
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=1dd76d02"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "displayMath": [["$$", "$$"], ["\\[", "\\]"]]}}</script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="Overview" href="overview.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            climclusterpy
+              <img src="../_static/logo.svg" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">Tutorials</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/one_call_roundtrip.html">Tutorial 0 — the whole workflow in two calls</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/one_call_roundtrip.html#the-idea">The idea</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/one_call_roundtrip.html#call-1-build-the-reduced-grid">Call 1 — build the reduced grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/one_call_roundtrip.html#call-2-rebuild-the-original-grid">Call 2 — rebuild the original grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/one_call_roundtrip.html#the-complete-script">The complete script</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/one_call_roundtrip.html#run-it">Run it</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/one_call_roundtrip.html#next-steps">Next steps</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/euclidean_clustering.html">Tutorial 1 — Euclidean clustering</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/euclidean_clustering.html#load-data-and-build-a-feature-matrix">Load data and build a feature matrix</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/euclidean_clustering.html#cluster">Cluster</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/euclidean_clustering.html#the-complete-script">The complete script</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/euclidean_clustering.html#run-it">Run it</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/euclidean_clustering.html#next-steps">Next steps</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/lmnn_clustering.html">Tutorial 2 — LMNN metric-learning clustering</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/lmnn_clustering.html#provide-a-supervision-signal">Provide a supervision signal</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/lmnn_clustering.html#learn-a-metric-and-cluster">Learn a metric and cluster</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/lmnn_clustering.html#the-complete-script">The complete script</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/lmnn_clustering.html#run-it">Run it</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/lmnn_clustering.html#next-steps">Next steps</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/supervision.html">Tutorial 3 — Supervision signals</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/supervision.html#koppengeiger-from-monthly-climatology">Köppen–Geiger from monthly climatology</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/supervision.html#model-output-trait-clustering">Model-output (trait) clustering</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/supervision.html#the-complete-script">The complete script</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/supervision.html#run-it">Run it</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/supervision.html#ecoregion-supervision">Ecoregion supervision</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/reconstruction.html">Tutorial 4 — Reconstruct the original grid</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/reconstruction.html#the-round-trip">The round trip</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/reconstruction.html#verify">Verify</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/reconstruction.html#the-complete-script">The complete script</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/reconstruction.html#run-it">Run it</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/reconstruction.html#next-steps">Next steps</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/index.html#a-note-on-the-synthetic-data">A note on the synthetic data</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">How-to guides</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../howto/index.html">How-to guides</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../howto/install.html">Install climclusterpy</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../howto/install.html#base-install">Base install</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/install.html#optional-extras">Optional extras</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/install.html#installing-the-geospatial-extras-with-conda">Installing the geospatial extras with conda</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/install.html#pytorch-cpu-vs-gpu">PyTorch (CPU vs. GPU)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/install.html#environment-variables">Environment variables</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/install.html#building-the-documentation">Building the documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../howto/inputs.html">Prepare the input files</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../howto/inputs.html#check-your-input-first">Check your input first</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/inputs.html#the-files">The files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/inputs.html#grid-and-coordinates">Grid and coordinates</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/inputs.html#which-cells-exist-the-soil-code">Which cells exist: the soil code</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/inputs.html#the-time-axis">The time axis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/inputs.html#missing-values">Missing values</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/inputs.html#another-vegetation-model-s-input">Another vegetation model’s input</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/inputs.html#output-files">Output files</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../howto/clustering.html">Cluster a feature matrix (choose a mode)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../howto/clustering.html#euclidean-mode-no-supervision">Euclidean mode (no supervision)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/clustering.html#lmnn-mode-supervised-metric-learning">LMNN mode (supervised metric learning)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/clustering.html#lower-level-control">Lower-level control</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../howto/supervision.html">Build an LMNN supervision signal</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../howto/supervision.html#from-climate-koppengeiger">From climate — Köppen–Geiger</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/supervision.html#from-model-output-traits">From model output — traits</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/supervision.html#from-a-shapefile-ecoregions2017">From a shapefile — Ecoregions2017</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/supervision.html#using-the-signal">Using the signal</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/supervision.html#in-one-call">In one call</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/supervision.html#saved-results-are-reused-only-for-the-same-inputs">Saved results are reused only for the same inputs</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../howto/cell_selection.html">Choosing the cells a cluster is simulated on</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../howto/cell_selection.html#the-patch-budget">The patch budget</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/cell_selection.html#what-the-drawn-cells-carry">What the drawn cells carry</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/cell_selection.html#reproducibility">Reproducibility</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/cell_selection.html#looking-at-a-draw-without-building-a-grid">Looking at a draw without building a grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/cell_selection.html#back-to-the-full-grid">Back to the full grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/cell_selection.html#a-model-that-reads-its-own-inputs-the-grid-only-then-cut-the-rest">A model that reads its own inputs: the grid only, then cut the rest</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../howto/reconstruct.html">Reconstruct the original grid</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../howto/reconstruct.html#the-usual-call">The usual call</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/reconstruct.html#picking-up-where-you-left-off">Picking up where you left off</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/reconstruct.html#without-a-result-or-run-folder">Without a result or run folder</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/reconstruct.html#required-mapping-files">Required mapping files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/reconstruct.html#reconstruction-paths-kind">Reconstruction paths (<code class="docutils literal notranslate"><span class="pre">kind</span></code>)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/reconstruct.html#verifying-the-result">Verifying the result</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../reference/index.html">Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../reference/api.html">Public API — <code class="xref py py-mod docutils literal notranslate"><span class="pre">climclusterpy</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../reference/api.html#the-two-headline-functions">The two headline functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/api.html#before-and-after-the-model-run">Before and after the model run</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/api.html#input-for-a-model-other-than-lpjml">Input for a model other than LPJmL</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/api.html#other-ways-to-build-the-reduced-grid">Other ways to build the reduced grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/api.html#reusing-a-trained-metric">Reusing a trained metric</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/api.html#the-model-s-other-inputs">The model’s other inputs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/api.html#writing-the-reduced-grid-yourself">Writing the reduced grid yourself</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/api.html#building-blocks">Building blocks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/api.html#result-objects">Result objects</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/toplevel.html">Data, timeseries, I/O &amp; plotting</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../reference/toplevel.html#module-climclusterpy.data">Data loading &amp; the grid registry</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/toplevel.html#how-much-the-package-reports">How much the package reports</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/toplevel.html#coordinates">Coordinates</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/toplevel.html#module-climclusterpy.timeseries">Per-cluster timeseries</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/toplevel.html#module-climclusterpy.io">File input/output</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/toplevel.html#module-climclusterpy.preprocessing">Preprocessing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/toplevel.html#module-climclusterpy.viz">Plotting</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/features.html">Feature engineering</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../reference/features.html#ecological-summaries">Ecological summaries</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/features.html#vegetation-model-traits">Vegetation-model traits</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/features.html#standardization-filtering">Standardization &amp; filtering</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/clustering.html">Clustering &amp; metric learning</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../reference/clustering.html#hierarchical-clustering">Hierarchical clustering</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/clustering.html#module-climclusterpy.clustering.lmnn">LMNN metric learning</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/supervision.html">Supervision labels</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../reference/supervision.html#koppengeiger-climate-zones">Köppen–Geiger climate zones</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/supervision.html#vegetation-model-output-traits">Vegetation-model output traits</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/supervision.html#ecoregion-polygons">Ecoregion polygons</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/supervision.html#daily-input-helpers">Daily-input helpers</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/grid.html">Grid building &amp; reconstruction</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../reference/grid.html#where-each-reduced-cell-is-placed">Where each reduced cell is placed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/grid.html#writing-the-reduced-grid">Writing the reduced grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/grid.html#reconstruction">Reconstruction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/grid.html#lpjml-clm-conversion">LPJmL CLM conversion</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/cli.html">Command-line interface (<code class="docutils literal notranslate"><span class="pre">climclu</span></code>)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../reference/cli.html#the-two-headline-commands">The two headline commands</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/cli.html#building-blocks">Building blocks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/cli.html#options-shared-by-every-action-command">Options shared by every action command</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/cli.html#errors-and-exit-codes">Errors and exit codes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/index.html#which-function-do-i-need">Which function do I need?</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Explanation</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Explanation</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="overview.html">Overview</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="overview.html#design-philosophy">Design Philosophy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="overview.html#workflow-summary">Workflow Summary</a></li>
+<li class="toctree-l3"><a class="reference internal" href="overview.html#key-innovations">Key Innovations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="overview.html#use-cases">Use Cases</a></li>
+<li class="toctree-l3"><a class="reference internal" href="overview.html#limitations">Limitations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="overview.html#future-directions">Future Directions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="overview.html#references">References</a></li>
+</ul>
+</li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Scientific Methods</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#data-acquisition-and-preprocessing">Data Acquisition and Preprocessing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ecoregion-assignment">Ecoregion Assignment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ecological-feature-summarization">Ecological Feature Summarization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#feature-standardization-and-filtering">Feature Standardization and Filtering</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#large-margin-nearest-neighbor-lmnn-metric-learning">Large Margin Nearest Neighbor (LMNN) Metric Learning</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#hierarchical-clustering">Hierarchical Clustering</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#representative-cell-selection">Representative Cell Selection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#evaluation-metrics">Evaluation Metrics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#netcdf-processing">NetCDF Processing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#computational-implementation">Computational Implementation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#reconstruction-correctness">Reconstruction correctness</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">climclusterpy</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Explanation</a></li>
+      <li class="breadcrumb-item active">Scientific Methods</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://gitlab.pik-potsdam.de/lpjmlfit_analysis/climclusterpy/blob/main/docs/src/explanation/methods.rst" class="fa fa-gitlab"> Edit on GitLab</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="scientific-methods">
+<h1>Scientific Methods<a class="headerlink" href="#scientific-methods" title="Link to this heading"></a></h1>
+<p>This section provides a detailed scientific description of the algorithms, data transformations, and computational methods implemented in the climclusterpy package.</p>
+<section id="data-acquisition-and-preprocessing">
+<h2>Data Acquisition and Preprocessing<a class="headerlink" href="#data-acquisition-and-preprocessing" title="Link to this heading"></a></h2>
+<section id="climate-and-soil-data-loading">
+<h3>Climate and Soil Data Loading<a class="headerlink" href="#climate-and-soil-data-loading" title="Link to this heading"></a></h3>
+<p>The <code class="xref py py-mod docutils literal notranslate"><span class="pre">climclusterpy.data.loader</span></code> module implements robust NetCDF data loading with the following characteristics:</p>
+<p><strong>Chunked Processing</strong></p>
+<p>Climate datasets are loaded using Dask with configurable chunk sizes (default 500 time steps):</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ds</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">open_dataset</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">chunks</span><span class="o">=</span><span class="p">{</span><span class="s2">"time"</span><span class="p">:</span> <span class="mi">500</span><span class="p">})</span>
+</pre></div>
+</div>
+<p>This enables:</p>
+<ul class="simple">
+<li><p>Parallel computation across chunks</p></li>
+<li><p>Memory-efficient processing of large datasets (&gt;10 GB)</p></li>
+<li><p>Lazy evaluation of array operations</p></li>
+</ul>
+<p><strong>Memory Optimization</strong></p>
+<p>All float64 data variables are automatically converted to float32:</p>
+<div class="math notranslate nohighlight">
+\[\text{Memory}_{\text{optimized}} = 0.5 \times \text{Memory}_{\text{original}}\]</div>
+<p>This transformation preserves sufficient numerical precision (7 significant digits) for climate data while halving memory consumption.</p>
+<p><strong>Coordinate Standardization</strong></p>
+<p>Latitude and longitude coordinates are:</p>
+<ol class="arabic simple">
+<li><p>Canonicalized to standard names (<code class="docutils literal notranslate"><span class="pre">latitude</span></code>, <code class="docutils literal notranslate"><span class="pre">longitude</span></code>)</p></li>
+<li><p>Rounded to 5 decimal places (<span class="math notranslate nohighlight">\(10^{-5}\)</span> degrees ≈ 1.1 m spatial resolution)</p></li>
+<li><p>Validated for grid compatibility across datasets</p></li>
+</ol>
+<p>Variable names are resolved through these synonyms (a file with a single data variable is
+used whatever the variable is called):</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>precipitation: tpr, pr, precip, precipitation_flux, tp
+temperature: TMean, tmean, tas, t2m, temp
+radiation: SWR, rsds, SWdown, swdown, LWR, rlds, LWdown
+humidity: hurs, humid, rh, relative_humidity
+</pre></div>
+</div>
+<p><strong>Grid Compatibility Validation</strong></p>
+<p>The <code class="docutils literal notranslate"><span class="pre">climclusterpy.data.coords.check_grid_compatibility()</span></code> function ensures spatial alignment:</p>
+<div class="math notranslate nohighlight">
+\[\forall i,j: |\text{lat}^A_i - \text{lat}^B_i| &lt; \epsilon \land |\text{lon}^A_j - \text{lon}^B_j| &lt; \epsilon\]</div>
+<p>where <span class="math notranslate nohighlight">\(\epsilon = 10^{-5}\)</span> degrees, i.e. the coordinates must be identical after rounding
+to 5 decimals. A climate input that is not on the soil-code grid is an error, not regridded:
+regrid it before loading. Only the soil-depth input is mapped onto the soil-code grid, by
+nearest neighbour.</p>
+</section>
+<section id="data-registry">
+<h3>Data Registry<a class="headerlink" href="#data-registry" title="Link to this heading"></a></h3>
+<p>The <a class="reference internal" href="../reference/toplevel.html#climclusterpy.data.DataRegistry" title="climclusterpy.data.DataRegistry"><code class="xref py py-class docutils literal notranslate"><span class="pre">climclusterpy.data.DataRegistry</span></code></a> manages spatial grids and valid cell identification.</p>
+<p><strong>Valid Cell Identification</strong></p>
+<p>A boolean mask <span class="math notranslate nohighlight">\(\mathbf{M} \in \{0,1\}^{n_{\text{lat}} \times n_{\text{lon}}}\)</span> identifies valid cells:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}M_{ij} = \begin{cases}
+1 &amp; \text{if soil\_code}_{ij} \neq \text{sentinel} \land \neg \text{isnan}(\text{soil\_code}_{ij}) \\
+0 &amp; \text{otherwise}
+\end{cases}\end{split}\]</div>
+<p>Sentinel values are detected hierarchically:</p>
+<ol class="arabic simple">
+<li><p>NetCDF encoding attributes (<code class="docutils literal notranslate"><span class="pre">_FillValue</span></code>, <code class="docutils literal notranslate"><span class="pre">missing_value</span></code>)</p></li>
+<li><p>Common integer sentinels, when neither attribute is set: <span class="math notranslate nohighlight">\(-9999, -999, 9999, -32768, -10^6\)</span></p></li>
+<li><p>NaN values in floating-point arrays</p></li>
+</ol>
+<p><strong>Flattening Operation</strong></p>
+<p>The <a class="reference internal" href="../reference/toplevel.html#climclusterpy.data.DataRegistry.flatten_on_valid" title="climclusterpy.data.DataRegistry.flatten_on_valid"><code class="xref py py-meth docutils literal notranslate"><span class="pre">climclusterpy.data.DataRegistry.flatten_on_valid()</span></code></a> method projects multi-dimensional arrays onto the 1D valid cell space:</p>
+<div class="math notranslate nohighlight">
+\[\mathbf{X}_{\text{flat}} = \text{extract}(\mathbf{X}_{\text{grid}}, \mathbf{M}) \in \mathbb{R}^{n_{\text{valid}} \times n_{\text{time}}}\]</div>
+<p>where <span class="math notranslate nohighlight">\(n_{\text{valid}} = \sum_{i,j} M_{ij}\)</span>.</p>
+<p>This operation:</p>
+<ul class="simple">
+<li><p>Reduces memory by eliminating invalid cells (ocean, missing data)</p></li>
+<li><p>Accelerates computation by operating on contiguous arrays</p></li>
+<li><p>Maintains spatial correspondence through the registry’s ID mapping</p></li>
+</ul>
+</section>
+</section>
+<section id="ecoregion-assignment">
+<h2>Ecoregion Assignment<a class="headerlink" href="#ecoregion-assignment" title="Link to this heading"></a></h2>
+<p>The <code class="xref py py-mod docutils literal notranslate"><span class="pre">climclusterpy.supervision.ecoregions</span></code> module assigns grid cells to ecological regions through spatial intersection.</p>
+<p><strong>Spatial Join Algorithm</strong></p>
+<p>Given:</p>
+<ul class="simple">
+<li><p>Ecoregion polygons <span class="math notranslate nohighlight">\(\{P_1, P_2, \ldots, P_K\}\)</span> with identifiers <span class="math notranslate nohighlight">\(\{e_1, e_2, \ldots, e_K\}\)</span></p></li>
+<li><p>Grid cell points <span class="math notranslate nohighlight">\(\{\mathbf{p}_1, \mathbf{p}_2, \ldots, \mathbf{p}_n\}\)</span> where <span class="math notranslate nohighlight">\(\mathbf{p}_i = (\text{lat}_i, \text{lon}_i)\)</span></p></li>
+</ul>
+<p>The assignment function is:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\text{ecoregion}(\mathbf{p}_i) = \begin{cases}
+e_k &amp; \text{if } \mathbf{p}_i \cap P_k \neq \emptyset \\
+\text{null} &amp; \text{otherwise}
+\end{cases}\end{split}\]</div>
+<p><strong>Coordinate Normalization</strong></p>
+<p>Longitude coordinates are normalized to <span class="math notranslate nohighlight">\([-180, 180)\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[\text{lon}_{\text{norm}} = ((\text{lon} + 180) \mod 360) - 180\]</div>
+<p>This ensures consistency with standard ecoregion shapefiles (e.g., Ecoregions2017 from Dinerstein et al., 2017).</p>
+<p><strong>Implementation</strong></p>
+<p>The <a class="reference internal" href="../reference/supervision.html#climclusterpy.supervision.assign_cells_to_ecoregions" title="climclusterpy.supervision.assign_cells_to_ecoregions"><code class="xref py py-func docutils literal notranslate"><span class="pre">climclusterpy.supervision.assign_cells_to_ecoregions()</span></code></a> function uses GeoPandas vectorized spatial join:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">matched</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">sjoin</span><span class="p">(</span>
+    <span class="n">points_gdf</span><span class="p">,</span>
+    <span class="n">ecoregions_gdf</span><span class="p">,</span>
+    <span class="n">how</span><span class="o">=</span><span class="s1">'left'</span><span class="p">,</span>
+    <span class="n">predicate</span><span class="o">=</span><span class="s1">'intersects'</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">intersects</span></code> predicate (rather than <code class="docutils literal notranslate"><span class="pre">within</span></code>) includes cells lying precisely on polygon boundaries, maximizing spatial coverage.</p>
+</section>
+<section id="ecological-feature-summarization">
+<h2>Ecological Feature Summarization<a class="headerlink" href="#ecological-feature-summarization" title="Link to this heading"></a></h2>
+<p>Time series climate data are transformed into interpretable ecological summary statistics by the <a class="reference internal" href="../reference/features.html#module-climclusterpy.features" title="climclusterpy.features"><code class="xref py py-mod docutils literal notranslate"><span class="pre">climclusterpy.features</span></code></a> module.</p>
+<section id="temperature-features">
+<h3>Temperature Features<a class="headerlink" href="#temperature-features" title="Link to this heading"></a></h3>
+<p>For temperature time series <span class="math notranslate nohighlight">\(\{T_1, T_2, \ldots, T_{n_t}\}\)</span>, the following statistics are computed by <code class="docutils literal notranslate"><span class="pre">climclusterpy.features.climate._summarize_temperature()</span></code>:</p>
+<p><strong>Annual Mean</strong></p>
+<div class="math notranslate nohighlight">
+\[\mu_T = \frac{1}{n_t} \sum_{t=1}^{n_t} T_t\]</div>
+<p><strong>Annual Standard Deviation</strong></p>
+<div class="math notranslate nohighlight">
+\[\sigma_T = \sqrt{\frac{1}{n_t} \sum_{t=1}^{n_t} (T_t - \mu_T)^2}\]</div>
+<p><strong>Annual Range</strong></p>
+<div class="math notranslate nohighlight">
+\[R_T = \max_t(T_t) - \min_t(T_t)\]</div>
+<p><strong>Seasonality</strong></p>
+<p>Monthly climatology is computed by averaging each calendar month across all years:</p>
+<div class="math notranslate nohighlight">
+\[\bar{T}_m = \frac{1}{n_y} \sum_{y=1}^{n_y} T_{y,m} \quad \text{for } m \in \{1, 2, \ldots, 12\}\]</div>
+<p>Seasonality is then defined as the standard deviation of monthly means:</p>
+<div class="math notranslate nohighlight">
+\[S_T = \sqrt{\frac{1}{12} \sum_{m=1}^{12} (\bar{T}_m - \mu_T)^2}\]</div>
+<p>This captures the amplitude of seasonal temperature variation.</p>
+</section>
+<section id="precipitation-features">
+<h3>Precipitation Features<a class="headerlink" href="#precipitation-features" title="Link to this heading"></a></h3>
+<p>For precipitation time series <span class="math notranslate nohighlight">\(\{P_1, P_2, \ldots, P_{n_t}\}\)</span>, <code class="docutils literal notranslate"><span class="pre">climclusterpy.features.climate._summarize_precipitation()</span></code> computes:</p>
+<p><strong>Annual Mean</strong></p>
+<div class="math notranslate nohighlight">
+\[\mu_P = \frac{1}{n_t} \sum_{t=1}^{n_t} P_t\]</div>
+<p><strong>Coefficient of Variation</strong></p>
+<div class="math notranslate nohighlight">
+\[\text{CV}_P = \frac{\sigma_P}{\mu_P}\]</div>
+<p>where <span class="math notranslate nohighlight">\(\sigma_P\)</span> is the temporal standard deviation. CV quantifies relative precipitation variability.</p>
+<p><strong>Wet-Day Frequency</strong></p>
+<div class="math notranslate nohighlight">
+\[f_{\text{wet}} = \frac{1}{n_t} \sum_{t=1}^{n_t} \mathbb{1}(P_t &gt; \theta)\]</div>
+<p>where <span class="math notranslate nohighlight">\(\theta = 1\)</span> mm is the wet-day threshold and <span class="math notranslate nohighlight">\(\mathbb{1}(\cdot)\)</span> is the indicator function.</p>
+<p><strong>Maximum Monthly Precipitation</strong></p>
+<div class="math notranslate nohighlight">
+\[P_{\max} = \max_{t \in \{1, \ldots, n_t\}} P_t\]</div>
+<p>This captures extreme precipitation events.</p>
+</section>
+<section id="radiation-features">
+<h3>Radiation Features<a class="headerlink" href="#radiation-features" title="Link to this heading"></a></h3>
+<p>For shortwave (<span class="math notranslate nohighlight">\(R_s\)</span>) and longwave (<span class="math notranslate nohighlight">\(R_l\)</span>) radiation, <code class="docutils literal notranslate"><span class="pre">climclusterpy.features.climate._summarize_radiation()</span></code> computes:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{align}
+\mu_R &amp;= \frac{1}{n_t} \sum_{t=1}^{n_t} R_t \quad \text{(annual mean)} \\
+\sigma_R &amp;= \sqrt{\frac{1}{n_t} \sum_{t=1}^{n_t} (R_t - \mu_R)^2} \quad \text{(annual std)} \\
+A_R &amp;= \max_t(R_t) - \min_t(R_t) \quad \text{(seasonal amplitude)}
+\end{align}\end{split}\]</div>
+</section>
+<section id="humidity-features">
+<h3>Humidity Features<a class="headerlink" href="#humidity-features" title="Link to this heading"></a></h3>
+<p>For relative humidity <span class="math notranslate nohighlight">\(\{H_1, H_2, \ldots, H_{n_t}\}\)</span>, <code class="docutils literal notranslate"><span class="pre">climclusterpy.features.climate._summarize_humidity()</span></code> computes:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{align}
+\mu_H &amp;= \frac{1}{n_t} \sum_{t=1}^{n_t} H_t \quad \text{(annual mean)} \\
+\sigma_H &amp;= \sqrt{\frac{1}{n_t} \sum_{t=1}^{n_t} (H_t - \mu_H)^2} \quad \text{(annual std)} \\
+H_{\min} &amp;= \min_t(H_t) \quad \text{(dry-season minimum)}
+\end{align}\end{split}\]</div>
+</section>
+<section id="soil-features">
+<h3>Soil Features<a class="headerlink" href="#soil-features" title="Link to this heading"></a></h3>
+<p><a class="reference internal" href="../reference/features.html#climclusterpy.features.summarize_soil_features" title="climclusterpy.features.summarize_soil_features"><code class="xref py py-func docutils literal notranslate"><span class="pre">climclusterpy.features.summarize_soil_features()</span></code></a> extracts:</p>
+<ul class="simple">
+<li><p><strong>Soil depth</strong>: Continuous variable (cm or m)</p></li>
+<li><p><strong>Soil code</strong>: Integer-valued categorical texture classification</p></li>
+</ul>
+<p>For temporally varying soil datasets, the first time step is extracted under the assumption of temporal invariance.</p>
+</section>
+<section id="koppengeiger-diagnostic-scalar-features">
+<h3>Köppen–Geiger Diagnostic Scalar Features<a class="headerlink" href="#koppengeiger-diagnostic-scalar-features" title="Link to this heading"></a></h3>
+<p>Eight continuous KG-diagnostic scalar features are computed directly from the monthly climatologies and latitude by <a class="reference internal" href="../reference/features.html#climclusterpy.features.compute_kg_diagnostic_features" title="climclusterpy.features.compute_kg_diagnostic_features"><code class="xref py py-func docutils literal notranslate"><span class="pre">climclusterpy.features.compute_kg_diagnostic_features()</span></code></a>, capturing the core rule quantities used by Köppen–Geiger classification:</p>
+<ul class="simple">
+<li><p><strong>kg_diag_T_cold</strong>, <strong>kg_diag_T_warm</strong>: Coldest and warmest month temperature</p></li>
+<li><p><strong>kg_diag_P_dry_min</strong>, <strong>kg_diag_P_wet_max</strong>: Driest and wettest month precipitation</p></li>
+<li><p><strong>kg_diag_P_dry_summer</strong>, <strong>kg_diag_P_dry_winter</strong>: Hemisphere-aware dry-season precipitation minima</p></li>
+<li><p><strong>kg_diag_P_seasonality_ratio</strong>: Wettest-to-driest precipitation ratio, clipped to <span class="math notranslate nohighlight">\([1, 100]\)</span></p></li>
+<li><p><strong>kg_diag_aridity_index</strong>: Aridity index offset from the KG threshold <span class="math notranslate nohighlight">\(P_{\text{ann}} - (2 T_{\text{ann}} + 28)\)</span></p></li>
+</ul>
+<p>These <code class="docutils literal notranslate"><span class="pre">kg_diag_</span></code> features are protected from removal in the filtering stages.</p>
+</section>
+<section id="ecology-diagnostic-features">
+<h3>Ecology Diagnostic Features<a class="headerlink" href="#ecology-diagnostic-features" title="Link to this heading"></a></h3>
+<p>Thirteen ecophysiological features are computed from the monthly climatologies by <a class="reference internal" href="../reference/features.html#climclusterpy.features.compute_all_ecology_diagnostic_features" title="climclusterpy.features.compute_all_ecology_diagnostic_features"><code class="xref py py-func docutils literal notranslate"><span class="pre">climclusterpy.features.compute_all_ecology_diagnostic_features()</span></code></a>, capturing water-balance characteristics and thermal thresholds relevant to vegetation dynamics. These <code class="docutils literal notranslate"><span class="pre">eco_diag_</span></code> features are protected from removal during correlation and PCA filtering stages.</p>
+<p><strong>Vapour Pressure Deficit (VPD)</strong></p>
+<p>Monthly VPD is computed from monthly temperature <span class="math notranslate nohighlight">\(\bar{T}_m\)</span> and relative humidity <span class="math notranslate nohighlight">\(\bar{H}_m\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[\mathrm{VPD}_m = e_s(\bar{T}_m)\,(1 - \bar{H}_m / 100), \qquad e_s(T) = 0.6108 \exp\!\left(\frac{17.27\,T}{T + 237.3}\right)\ \text{[kPa]}\]</div>
+<p>Three features are derived:</p>
+<ul class="simple">
+<li><p><strong>eco_diag_vpd_mean</strong>: Annual mean <span class="math notranslate nohighlight">\(\overline{\mathrm{VPD}} = \tfrac{1}{12}\sum_m \mathrm{VPD}_m\)</span></p></li>
+<li><p><strong>eco_diag_vpd_max_monthly</strong>: Maximum monthly value <span class="math notranslate nohighlight">\(\max_m \mathrm{VPD}_m\)</span></p></li>
+<li><p><strong>eco_diag_vpd_stress_months</strong>: Count of months with <span class="math notranslate nohighlight">\(\mathrm{VPD}_m &gt; 1.5\)</span> kPa</p></li>
+</ul>
+<p><strong>Growing Degree Days (GDD)</strong></p>
+<p>Thermal accumulation indices computed from monthly temperature:</p>
+<div class="math notranslate nohighlight">
+\[\mathrm{GDD}_b = \sum_{m=1}^{12} \max(0,\;\bar{T}_m - b)\,\cdot\, n_{\mathrm{days},m}\]</div>
+<ul class="simple">
+<li><p><strong>eco_diag_gdd_5</strong>: Base <span class="math notranslate nohighlight">\(b = 5\,°\text{C}\)</span> (cool-season crops, boreal vegetation)</p></li>
+<li><p><strong>eco_diag_gdd_10</strong>: Base <span class="math notranslate nohighlight">\(b = 10\,°\text{C}\)</span> (warm-season crops, temperate vegetation)</p></li>
+</ul>
+<p><strong>Frost-Free Days</strong></p>
+<div class="math notranslate nohighlight">
+\[F = \sum_{m=1}^{12} \mathbb{1}(\bar{T}_m &gt; 0)\,\cdot\, n_{\mathrm{days},m}\]</div>
+<ul class="simple">
+<li><p><strong>eco_diag_frost_free_days</strong>: Distinguishes transitional climates where frost occurrence is intermittent.</p></li>
+</ul>
+<p><strong>Potential Evapotranspiration and Moisture Balance</strong></p>
+<p>Monthly PET is estimated via the Priestley–Taylor method (where radiation data are available) or Thornthwaite approximation:</p>
+<ul class="simple">
+<li><p><strong>eco_diag_pet_mean</strong>: Annual mean PET (mm day<sup>-1</sup>)</p></li>
+<li><p><strong>eco_diag_p_pet_ratio</strong>: Annual precipitation-to-PET ratio <span class="math notranslate nohighlight">\(\overline{P}/\overline{\mathrm{PET}}\)</span> (moisture index)</p></li>
+<li><p><strong>eco_diag_water_deficit_months</strong>: Count of months where <span class="math notranslate nohighlight">\(\bar{P}_m &lt; \mathrm{PET}_m\)</span></p></li>
+</ul>
+<p><strong>Dry Spells</strong></p>
+<p>Consecutive runs of months with <span class="math notranslate nohighlight">\(\bar{P}_m &lt; 30\)</span> mm are identified:</p>
+<ul class="simple">
+<li><p><strong>eco_diag_dry_spell_max</strong>: Maximum spell length across the annual cycle</p></li>
+<li><p><strong>eco_diag_dry_spell_mean</strong>: Mean spell length</p></li>
+</ul>
+<p>These capture the persistence of dry seasons beyond their total duration.</p>
+<p><strong>Precipitation Intensity and Seasonality</strong></p>
+<ul class="simple">
+<li><p><strong>eco_diag_precip_intensity_wet_days</strong>: Mean precipitation per wet month <span class="math notranslate nohighlight">\(\bar{P}_{\mathrm{wet}} = \sum_m \bar{P}_m \mathbb{1}(\bar{P}_m &gt; 30) / \sum_m \mathbb{1}(\bar{P}_m &gt; 30)\)</span></p></li>
+<li><p><strong>eco_diag_precip_wettest_quarter_frac</strong>: Fraction of annual precipitation falling in the wettest quarter <span class="math notranslate nohighlight">\(f_{\mathrm{wq}} = P_{\mathrm{wq}} / P_{\mathrm{ann}}\)</span></p></li>
+</ul>
+</section>
+<section id="feature-combination">
+<h3>Feature Combination<a class="headerlink" href="#feature-combination" title="Link to this heading"></a></h3>
+<p><a class="reference internal" href="../reference/features.html#climclusterpy.features.combine_features" title="climclusterpy.features.combine_features"><code class="xref py py-func docutils literal notranslate"><span class="pre">climclusterpy.features.combine_features()</span></code></a> merges climate and soil DataFrames through an inner join on <code class="docutils literal notranslate"><span class="pre">cell_id</span></code>, <code class="docutils literal notranslate"><span class="pre">latitude</span></code>, and <code class="docutils literal notranslate"><span class="pre">longitude</span></code>, producing the raw feature matrix:</p>
+<div class="math notranslate nohighlight">
+\[\mathbf{X}_{\text{raw}} \in \mathbb{R}^{n \times p}\]</div>
+<p>where <span class="math notranslate nohighlight">\(n\)</span> is the number of cells and <span class="math notranslate nohighlight">\(p\)</span> is the total feature count (typically <span class="math notranslate nohighlight">\(p \approx 20\)</span>–50 before filtering).</p>
+</section>
+</section>
+<section id="feature-standardization-and-filtering">
+<h2>Feature Standardization and Filtering<a class="headerlink" href="#feature-standardization-and-filtering" title="Link to this heading"></a></h2>
+<section id="z-score-standardization">
+<h3>Z-Score Standardization<a class="headerlink" href="#z-score-standardization" title="Link to this heading"></a></h3>
+<p><a class="reference internal" href="../reference/features.html#climclusterpy.features.standardize_features" title="climclusterpy.features.standardize_features"><code class="xref py py-func docutils literal notranslate"><span class="pre">climclusterpy.features.standardize_features()</span></code></a> applies z-score transformation:</p>
+<div class="math notranslate nohighlight">
+\[\mathbf{X}_{ij}^{\text{std}} = \frac{\mathbf{X}_{ij}^{\text{raw}} - \mu_j}{\sigma_j}\]</div>
+<p>where:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{align}
+\mu_j &amp;= \frac{1}{n} \sum_{i=1}^n \mathbf{X}_{ij}^{\text{raw}} \\
+\sigma_j &amp;= \sqrt{\frac{1}{n} \sum_{i=1}^n (\mathbf{X}_{ij}^{\text{raw}} - \mu_j)^2}
+\end{align}\end{split}\]</div>
+<p>This ensures:</p>
+<ul class="simple">
+<li><p>Zero mean: <span class="math notranslate nohighlight">\(\mathbb{E}[\mathbf{X}_{:j}^{\text{std}}] = 0\)</span></p></li>
+<li><p>Unit variance: <span class="math notranslate nohighlight">\(\text{Var}(\mathbf{X}_{:j}^{\text{std}}) = 1\)</span></p></li>
+<li><p>Comparability across features with disparate units</p></li>
+</ul>
+</section>
+<section id="correlation-based-feature-removal">
+<h3>Correlation-Based Feature Removal<a class="headerlink" href="#correlation-based-feature-removal" title="Link to this heading"></a></h3>
+<p><a class="reference internal" href="../reference/features.html#climclusterpy.features.remove_correlated_features" title="climclusterpy.features.remove_correlated_features"><code class="xref py py-func docutils literal notranslate"><span class="pre">climclusterpy.features.remove_correlated_features()</span></code></a> eliminates highly correlated features to mitigate multicollinearity.</p>
+<p><strong>Correlation Computation</strong></p>
+<p>Spearman rank correlation coefficients are computed for all feature pairs:</p>
+<div class="math notranslate nohighlight">
+\[\rho_{jk} = \text{corr}_{\text{Spearman}}(\mathbf{X}_{:j}^{\text{std}}, \mathbf{X}_{:k}^{\text{std}})\]</div>
+<p>Spearman correlation is preferred over Pearson as it captures monotonic (not just linear) relationships and is robust to outliers.</p>
+<p><strong>Iterative Removal</strong></p>
+<p>For each pair <span class="math notranslate nohighlight">\((j, k)\)</span> satisfying <span class="math notranslate nohighlight">\(|\rho_{jk}| &gt; \theta_{\text{corr}}\)</span> (default <span class="math notranslate nohighlight">\(\theta_{\text{corr}} = 0.9\)</span>):</p>
+<ol class="arabic">
+<li><p>Compute mean absolute correlation for each feature:</p>
+<div class="math notranslate nohighlight">
+\[\bar{\rho}_j = \frac{1}{p-1} \sum_{k \neq j} |\rho_{jk}|\]</div>
+</li>
+<li><p>Remove the feature with higher <span class="math notranslate nohighlight">\(\bar{\rho}\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[\text{remove}(j) \text{ if } \bar{\rho}_j &gt; \bar{\rho}_k\]</div>
+</li>
+</ol>
+<p>This greedy strategy preserves features with lower overall correlation.</p>
+<p>Soil features are excluded from correlation analysis as they represent static, discrete properties.</p>
+</section>
+<section id="block-pca-compression-of-monthly-profiles">
+<h3>Block PCA Compression of Monthly Profiles<a class="headerlink" href="#block-pca-compression-of-monthly-profiles" title="Link to this heading"></a></h3>
+<p><a class="reference internal" href="../reference/features.html#climclusterpy.features.apply_block_pca_compression" title="climclusterpy.features.apply_block_pca_compression"><code class="xref py py-func docutils literal notranslate"><span class="pre">climclusterpy.features.apply_block_pca_compression()</span></code></a> reduces redundancy in the 12-dimensional monthly climatology profiles while preserving seasonal structure.</p>
+<p>A separate PCA is fit to the temperature-monthly block (<code class="docutils literal notranslate"><span class="pre">tas_month_01..12</span></code>) and the precipitation-monthly block (<code class="docutils literal notranslate"><span class="pre">pr_month_01..12</span></code>). For each block, the minimum number of components explaining at least 99% of within-block variance is retained. Raw monthly columns are dropped and replaced by <strong>whitened</strong> PC scores:</p>
+<div class="math notranslate nohighlight">
+\[\tilde{z}_{ik} = \frac{z_{ik}}{\sqrt{\lambda_k^{\text{block}}}}\]</div>
+<p>where <span class="math notranslate nohighlight">\(z_{ik}\)</span> is the raw PCA score of cell <span class="math notranslate nohighlight">\(i\)</span> on block-PC <span class="math notranslate nohighlight">\(k\)</span> and <span class="math notranslate nohighlight">\(\lambda_k^{\text{block}}\)</span> is the corresponding eigenvalue (explained variance). Whitening ensures that all PC scores have unit variance, consistent with the z-scored summary features, and prevents high-variance leading PCs from dominating the downstream LMNN metric.</p>
+<p>The resulting features are named <code class="docutils literal notranslate"><span class="pre">tas_month_PC1..N_T</span></code> and <code class="docutils literal notranslate"><span class="pre">pr_month_PC1..N_P</span></code>. Fitted PCA objects are cached to disk (<code class="docutils literal notranslate"><span class="pre">block_pca_tas.pkl</span></code>, <code class="docutils literal notranslate"><span class="pre">block_pca_pr.pkl</span></code>) to ensure consistent reuse across runs.</p>
+</section>
+<section id="pca-based-diagnostic-filtering">
+<h3>PCA-Based Diagnostic Filtering<a class="headerlink" href="#pca-based-diagnostic-filtering" title="Link to this heading"></a></h3>
+<p><a class="reference internal" href="../reference/features.html#climclusterpy.features.diagnostic_pca_filter" title="climclusterpy.features.diagnostic_pca_filter"><code class="xref py py-func docutils literal notranslate"><span class="pre">climclusterpy.features.diagnostic_pca_filter()</span></code></a> uses PCA to identify low-contribution features without dimensionality reduction.</p>
+<p><strong>Algorithm</strong></p>
+<ol class="arabic">
+<li><p>Compute full PCA decomposition of <span class="math notranslate nohighlight">\(\mathbf{X}^{\text{decorr}}\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[\mathbf{X}^{\text{decorr}} = \sum_{i=1}^p \lambda_i \mathbf{u}_i \mathbf{v}_i^\top\]</div>
+<p>where <span class="math notranslate nohighlight">\(\lambda_i\)</span> are eigenvalues (explained variances) and <span class="math notranslate nohighlight">\(\mathbf{v}_i\)</span> are principal component loadings.</p>
+</li>
+<li><p>Determine minimum <span class="math notranslate nohighlight">\(m\)</span> satisfying variance threshold <span class="math notranslate nohighlight">\(\theta_{\text{var}} = 0.95\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[m = \min \left\{ k : \sum_{i=1}^k \lambda_i \geq \theta_{\text{var}} \sum_{i=1}^p \lambda_i \right\}\]</div>
+</li>
+<li><p>For each original feature <span class="math notranslate nohighlight">\(j\)</span>, compute total absolute contribution across the first <span class="math notranslate nohighlight">\(m\)</span> components:</p>
+<div class="math notranslate nohighlight">
+\[C_j = \frac{1}{m} \sum_{i=1}^m |v_{ij}|\]</div>
+</li>
+<li><p>Normalize contributions:</p>
+<div class="math notranslate nohighlight">
+\[C_j^{\text{norm}} = \frac{C_j}{\sum_{k=1}^p C_k}\]</div>
+</li>
+<li><p>Remove features with <span class="math notranslate nohighlight">\(C_j^{\text{norm}} &lt; \theta_{\text{contrib}}\)</span> (default <span class="math notranslate nohighlight">\(\theta_{\text{contrib}} = 0.01\)</span>).</p></li>
+</ol>
+<p>This retains features substantially contributing to the dominant variance modes while eliminating redundant or low-information variables.</p>
+<p><strong>Output</strong></p>
+<p>The final feature set <span class="math notranslate nohighlight">\(\mathbf{X} \in \mathbb{R}^{n \times d}\)</span> (where <span class="math notranslate nohighlight">\(d \ll p\)</span>) combines:</p>
+<ul class="simple">
+<li><p>Filtered climate features (correlation + PCA filtered)</p></li>
+<li><p>Unfiltered soil features (preserved as static environmental descriptors)</p></li>
+</ul>
+</section>
+</section>
+<section id="large-margin-nearest-neighbor-lmnn-metric-learning">
+<h2>Large Margin Nearest Neighbor (LMNN) Metric Learning<a class="headerlink" href="#large-margin-nearest-neighbor-lmnn-metric-learning" title="Link to this heading"></a></h2>
+<p>The <a class="reference internal" href="../reference/clustering.html#module-climclusterpy.clustering" title="climclusterpy.clustering"><code class="xref py py-mod docutils literal notranslate"><span class="pre">climclusterpy.clustering</span></code></a> module implements three LMNN variants for learning ecoregion-informed distance metrics.</p>
+<section id="global-lmnn">
+<h3>Global LMNN<a class="headerlink" href="#global-lmnn" title="Link to this heading"></a></h3>
+<p><a class="reference internal" href="../reference/clustering.html#module-climclusterpy.clustering.lmnn" title="climclusterpy.clustering.lmnn"><code class="xref py py-mod docutils literal notranslate"><span class="pre">climclusterpy.clustering.lmnn</span></code></a> implements classic LMNN (Weinberger &amp; Saul, 2009) with a single global Mahalanobis distance.</p>
+<p><strong>Mahalanobis Distance</strong></p>
+<p>The learned metric is defined by transformation matrix <span class="math notranslate nohighlight">\(\mathbf{L} \in \mathbb{R}^{d' \times d}\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[D_M(\mathbf{x}_i, \mathbf{x}_j) = \sqrt{(\mathbf{x}_i - \mathbf{x}_j)^\top \mathbf{M} (\mathbf{x}_i - \mathbf{x}_j)}\]</div>
+<p>where:</p>
+<div class="math notranslate nohighlight">
+\[\mathbf{M} = \mathbf{L}^\top \mathbf{L} \in \mathbb{R}^{d \times d}\]</div>
+<p>is the learned Mahalanobis matrix.</p>
+<p><strong>Optimization Objective</strong></p>
+<p>LMNN minimizes:</p>
+<div class="math notranslate nohighlight">
+\[\mathcal{L}_{\text{LMNN}} = (1-\mu) \mathcal{L}_{\text{pull}} + \mu \mathcal{L}_{\text{margin}}\]</div>
+<p>where:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{align}
+\mathcal{L}_{\text{pull}} &amp;= \sum_{i=1}^n \sum_{j \in \mathcal{T}_i} D_M^2(\mathbf{x}_i, \mathbf{x}_j) \\
+\mathcal{L}_{\text{margin}} &amp;= \sum_{i=1}^n \sum_{j \in \mathcal{T}_i} \sum_{l \notin \mathcal{T}_i} \xi_{ijl}
+\end{align}\end{split}\]</div>
+<p>subject to:</p>
+<div class="math notranslate nohighlight">
+\[D_M^2(\mathbf{x}_i, \mathbf{x}_l) - D_M^2(\mathbf{x}_i, \mathbf{x}_j) \geq 1 - \xi_{ijl}, \quad \xi_{ijl} \geq 0\]</div>
+<p>Here:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\mathcal{T}_i\)</span> = set of <span class="math notranslate nohighlight">\(k\)</span> nearest same-ecoregion neighbors (target neighbors)</p></li>
+<li><p><span class="math notranslate nohighlight">\(l\)</span> indexes different-ecoregion cells (impostors)</p></li>
+<li><p><span class="math notranslate nohighlight">\(\mu \in [0,1]\)</span> balances pull vs. margin terms</p></li>
+<li><p><span class="math notranslate nohighlight">\(\xi_{ijl}\)</span> are slack variables for soft constraints</p></li>
+</ul>
+<p><strong>Interpretation</strong></p>
+<ul class="simple">
+<li><p><strong>Pull term</strong>: Minimizes distances to same-ecoregion neighbors</p></li>
+<li><p><strong>Margin term</strong>: Enforces separation from different-ecoregion cells with margin = 1</p></li>
+</ul>
+<p><strong>Feature Importance</strong></p>
+<p>Feature importance is extracted from the diagonal of <span class="math notranslate nohighlight">\(\mathbf{M}\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[I_j = M_{jj}\]</div>
+<p>with normalization:</p>
+<div class="math notranslate nohighlight">
+\[I_j^{\text{norm}} = \frac{I_j}{\sum_{k=1}^d I_k}\]</div>
+<p>Large values indicate features strongly influencing the learned metric.</p>
+<p><strong>Feature Transformation</strong></p>
+<p><a class="reference internal" href="../reference/clustering.html#climclusterpy.clustering.lmnn.transform_features" title="climclusterpy.clustering.lmnn.transform_features"><code class="xref py py-func docutils literal notranslate"><span class="pre">climclusterpy.clustering.lmnn.transform_features()</span></code></a> projects data into the learned metric space:</p>
+<div class="math notranslate nohighlight">
+\[\mathbf{X}^{\text{LMNN}} = \mathbf{X} \mathbf{L}^\top\]</div>
+<p>In this space, Euclidean distance equals the original Mahalanobis distance:</p>
+<div class="math notranslate nohighlight">
+\[\|\mathbf{x}_i^{\text{LMNN}} - \mathbf{x}_j^{\text{LMNN}}\|_2 = D_M(\mathbf{x}_i, \mathbf{x}_j)\]</div>
+</section>
+<section id="local-lmnn">
+<h3>Local LMNN<a class="headerlink" href="#local-lmnn" title="Link to this heading"></a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">climclusterpy.clustering.lmnn.local</span></code> implements feature-conditioned LMNN where feature weights vary spatially.</p>
+<p><strong>Neural Network Architecture</strong></p>
+<p>A multilayer perceptron <span class="math notranslate nohighlight">\(f_\theta: \mathbb{R}^d \to \mathbb{R}^d\)</span> predicts cell-specific weight vectors:</p>
+<div class="math notranslate nohighlight">
+\[\mathbf{w}_i = f_\theta(\mathbf{x}_i)\]</div>
+<p>The network architecture (<code class="docutils literal notranslate"><span class="pre">climclusterpy.clustering.lmnn.local.LocalWeightNetwork</span></code>) is:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{align}
+\mathbf{h}_1 &amp;= \text{ReLU}(\mathbf{W}_1 \mathbf{x}_i + \mathbf{b}_1) \\
+\mathbf{h}_2 &amp;= \text{Dropout}(\mathbf{h}_1, p=0.1) \\
+\mathbf{h}_3 &amp;= \text{ReLU}(\mathbf{W}_2 \mathbf{h}_2 + \mathbf{b}_2) \\
+\mathbf{h}_4 &amp;= \text{Dropout}(\mathbf{h}_3, p=0.1) \\
+\mathbf{w}_i^{\text{raw}} &amp;= \mathbf{W}_3 \mathbf{h}_4 + \mathbf{b}_3 \\
+\mathbf{w}_i &amp;= \frac{\text{Softplus}(\mathbf{w}_i^{\text{raw}})}{\|\text{Softplus}(\mathbf{w}_i^{\text{raw}})\|_1}
+\end{align}\end{split}\]</div>
+<p>where:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\text{Softplus}(x) = \log(1 + \exp(x))\)</span> ensures positivity</p></li>
+<li><p>L1 normalization guarantees <span class="math notranslate nohighlight">\(\sum_{j=1}^d w_{ij} = 1\)</span></p></li>
+<li><p>Default hidden dimensions: [64, 32]</p></li>
+</ul>
+<p><strong>Symmetrized Local Distance</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">climclusterpy.clustering.lmnn.local.compute_local_distance()</span></code> computes:</p>
+<div class="math notranslate nohighlight">
+\[D_{\text{local}}(\mathbf{x}_i, \mathbf{x}_j) = \sqrt{\sum_{k=1}^d \frac{w_{ik} + w_{jk}}{2} (x_{ik} - x_{jk})^2}\]</div>
+<p>The weight averaging ensures:</p>
+<div class="math notranslate nohighlight">
+\[D_{\text{local}}(\mathbf{x}_i, \mathbf{x}_j) = D_{\text{local}}(\mathbf{x}_j, \mathbf{x}_i)\]</div>
+<p>maintaining the metric property.</p>
+<p><strong>Loss Function</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">climclusterpy.clustering.lmnn.local.LocalLMNNLoss</span></code> minimizes:</p>
+<div class="math notranslate nohighlight">
+\[\mathcal{L}_{\text{local}} = (1-\alpha) \mathcal{L}_{\text{pull}} + \alpha \mathcal{L}_{\text{margin}}\]</div>
+<p>where:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{align}
+\mathcal{L}_{\text{pull}} &amp;= \frac{1}{nk} \sum_{i=1}^n \sum_{j \in \mathcal{N}_k^+(i)} D_{\text{local}}^2(\mathbf{x}_i, \mathbf{x}_j) \\
+\mathcal{L}_{\text{margin}} &amp;= \frac{1}{n|\mathcal{I}|} \sum_{i=1}^n \sum_{l \in \mathcal{I}_i} \sum_{j \in \mathcal{N}_k^+(i)} \max(0, D_{\text{local}}^2(\mathbf{x}_i, \mathbf{x}_j) - D_{\text{local}}^2(\mathbf{x}_i, \mathbf{x}_l) + \Delta)^2
+\end{align}\end{split}\]</div>
+<p>Here:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\mathcal{N}_k^+(i)\)</span> = <span class="math notranslate nohighlight">\(k\)</span> nearest same-ecoregion neighbors</p></li>
+<li><p><span class="math notranslate nohighlight">\(\mathcal{I}_i\)</span> = different-ecoregion cells (impostors)</p></li>
+<li><p><span class="math notranslate nohighlight">\(\Delta\)</span> = margin hyperparameter (default 1.0)</p></li>
+<li><p><span class="math notranslate nohighlight">\(\alpha\)</span> = loss balance weight (default 0.5)</p></li>
+</ul>
+<p><strong>Training</strong></p>
+<p><code class="xref py py-func docutils literal notranslate"><span class="pre">climclusterpy.clustering.lmnn.train_local_lmnn()</span></code> uses:</p>
+<ul class="simple">
+<li><p><strong>Optimizer</strong>: Adam with learning rate <span class="math notranslate nohighlight">\(\eta = 10^{-3}\)</span></p></li>
+<li><p><strong>Regularization</strong>: Weight decay <span class="math notranslate nohighlight">\(\lambda = 10^{-4}\)</span>, dropout <span class="math notranslate nohighlight">\(p = 0.1\)</span></p></li>
+<li><p><strong>Batch size</strong>: 128</p></li>
+<li><p><strong>Early stopping</strong>: Patience 10 epochs on validation loss</p></li>
+</ul>
+</section>
+<section id="enhanced-lmnn">
+<h3>Enhanced LMNN<a class="headerlink" href="#enhanced-lmnn" title="Link to this heading"></a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">climclusterpy.clustering.lmnn.enhanced</span></code> extends local LMNN for datasets with variable-sized ecoregions.</p>
+<p><strong>Proportional Adaptive Neighbor Count</strong></p>
+<p>For each anchor cell <span class="math notranslate nohighlight">\(i\)</span> in ecoregion <span class="math notranslate nohighlight">\(c\)</span> with size <span class="math notranslate nohighlight">\(n_c\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[k_i = \min\!\left(n_c - 1,\; k_{\text{max}},\; \max\!\left(k_{\text{min}},\; \lfloor \beta \cdot n_c \rfloor\right)\right)\]</div>
+<p>where:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(k_{\text{min}}\)</span> (default: 3) sets the minimum neighborhood size</p></li>
+<li><p><span class="math notranslate nohighlight">\(k_{\text{max}}\)</span> (default: 15) prevents excessive computation</p></li>
+<li><p><span class="math notranslate nohighlight">\(\beta\)</span> (default: 0.005) is the proportionality factor</p></li>
+<li><p>The leading <span class="math notranslate nohighlight">\(n_c - 1\)</span> cap ensures feasibility</p></li>
+</ul>
+<p>The function-level defaults in <code class="docutils literal notranslate"><span class="pre">train_enhanced_local_lmnn</span></code> are <span class="math notranslate nohighlight">\(k_{\min}=3\)</span>, <span class="math notranslate nohighlight">\(k_{\max}=15\)</span>, <span class="math notranslate nohighlight">\(\beta=0.05\)</span>, but the production pipelines override <span class="math notranslate nohighlight">\(\beta\)</span> to 0.005 for more conservative scaling.</p>
+<p><strong>Example scaling</strong> with <span class="math notranslate nohighlight">\(\beta = 0.005\)</span> (production default):</p>
+<ul class="simple">
+<li><p>Small class (10 samples): <span class="math notranslate nohighlight">\(k_i = \max(3, \lfloor 0.005 \times 10 \rfloor) = 3\)</span></p></li>
+<li><p>Medium class (200 samples): <span class="math notranslate nohighlight">\(k_i = \lfloor 0.005 \times 200 \rfloor = 1 \to 3\)</span> (clamped to <span class="math notranslate nohighlight">\(k_{\min}\)</span>)</p></li>
+<li><p>Large class (1000 samples): <span class="math notranslate nohighlight">\(k_i = \min(15, \lfloor 0.005 \times 1000 \rfloor) = 5\)</span></p></li>
+</ul>
+<p>Proportional adaptive-k allows:</p>
+<ul class="simple">
+<li><p>Small classes: avoid overfitting through conservative <span class="math notranslate nohighlight">\(k_{\min}\)</span></p></li>
+<li><p>Large classes: maintain internal cohesion through scaled neighborhoods</p></li>
+</ul>
+<p><strong>Prototype-Based Pull Loss</strong></p>
+<p>For tiny ecoregions (<span class="math notranslate nohighlight">\(n_c &lt; 5\)</span>), a class prototype is computed:</p>
+<div class="math notranslate nohighlight">
+\[\boldsymbol{\mu}_c = \frac{1}{n_c} \sum_{i: y_i = c} \mathbf{x}_i\]</div>
+<p>The pull loss becomes:</p>
+<div class="math notranslate nohighlight">
+\[\mathcal{L}_{\text{pull}}^{(i)} = D_{\text{local}}^2(\mathbf{x}_i, \boldsymbol{\mu}_{y_i})\]</div>
+<p>replacing k-NN targets with the prototype (<code class="docutils literal notranslate"><span class="pre">climclusterpy.clustering.lmnn.enhanced.ClassPrototypeManager</span></code>).</p>
+<p><strong>Oversampling with Ecological Jittering</strong></p>
+<p>Small ecoregions (<span class="math notranslate nohighlight">\(n_c &lt; 20\)</span>) are oversampled by factor:</p>
+<div class="math notranslate nohighlight">
+\[\beta_{\text{oversample}} = \min\left(10, 3 + 7\left(1 - \frac{n_c}{20}\right)\right)\]</div>
+<p>Synthetic samples are generated via <code class="docutils literal notranslate"><span class="pre">climclusterpy.clustering.lmnn.enhanced.OversamplingDataset</span></code>:</p>
+<div class="math notranslate nohighlight">
+\[x_{ij}^{\text{jitter}} = x_{ij} + \epsilon_{ij}\]</div>
+<p>where <span class="math notranslate nohighlight">\(\epsilon_{ij}\)</span> is feature-type dependent:</p>
+<ul class="simple">
+<li><p><strong>Temperature</strong>: <span class="math notranslate nohighlight">\(\epsilon \sim \mathcal{N}(0, 0.25^2)\)</span> (≈ ±0.5°C in standardized space)</p></li>
+<li><p><strong>Precipitation</strong>: Multiplicative <span class="math notranslate nohighlight">\(\epsilon \sim \mathcal{N}(1, 0.025^2)\)</span> (±5%)</p></li>
+<li><p><strong>Radiation</strong>: Multiplicative <span class="math notranslate nohighlight">\(\epsilon \sim \mathcal{N}(1, 0.01^2)\)</span> (±2%)</p></li>
+<li><p><strong>Other</strong>: <span class="math notranslate nohighlight">\(\epsilon \sim \mathcal{N}(0, (0.015|\bar{x}_j|)^2)\)</span> (±3% of mean)</p></li>
+</ul>
+<p>Jittered values are clipped to <span class="math notranslate nohighlight">\([-5, 5]\)</span> in standardized space.</p>
+<p><strong>k_i Statistics Tracking</strong></p>
+<p>During training, the module computes and logs k_i statistics:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(k_{i,\min}\)</span> = minimum neighborhood size across all anchors</p></li>
+<li><p><span class="math notranslate nohighlight">\(k_{i,\max}\)</span> = maximum neighborhood size</p></li>
+<li><p><span class="math notranslate nohighlight">\(k_{i,\text{mean}}\)</span> = average neighborhood size</p></li>
+<li><p><span class="math notranslate nohighlight">\(k_{i,\text{median}}\)</span> = median neighborhood size</p></li>
+<li><p>Per-class averages: <span class="math notranslate nohighlight">\(\overline{k_i}_c = \frac{1}{n_c} \sum_{i: y_i=c} k_i\)</span></p></li>
+</ul>
+<p>This enables diagnostic monitoring of whether proportional scaling is working as intended.</p>
+</section>
+<section id="local-mahalanobis-lmnn">
+<h3>Local Mahalanobis LMNN<a class="headerlink" href="#local-mahalanobis-lmnn" title="Link to this heading"></a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">climclusterpy.clustering.lmnn.local.LocalMahalanobisMLP</span></code> and <code class="docutils literal notranslate"><span class="pre">climclusterpy.clustering.lmnn.local.LocalMahalanobisLMNNLoss</span></code> implement a low-rank local Mahalanobis variant that captures <strong>cross-feature interactions</strong> unlike the diagonal weighted Euclidean metric.</p>
+<p><strong>Motivation</strong></p>
+<p>The diagonal local metric weights each feature independently, which implicitly assumes that the ecological signal decomposes along the original feature axes. In reality, features interact—temperature seasonality and precipitation timing jointly determine dry-season stress, for example. A purely diagonal metric cannot capture such cross-feature dependencies. Local Mahalanobis LMNN extends the framework by replacing the diagonal weight vector <span class="math notranslate nohighlight">\(\mathbf{w}_i \in \mathbb{R}^d\)</span> with a full positive semi-definite (PSD) metric matrix <span class="math notranslate nohighlight">\(\mathbf{M}_i \in \mathbb{R}^{d \times d}\)</span>.</p>
+<p><strong>Low-Rank Parameterisation</strong></p>
+<p>Direct prediction of a <span class="math notranslate nohighlight">\(d \times d\)</span> PSD matrix would require <span class="math notranslate nohighlight">\(d(d+1)/2\)</span> outputs per cell and an explicit PSD projection. Instead, the MLP <span class="math notranslate nohighlight">\(g_\phi: \mathbb{R}^d \to \mathbb{R}^{d \times r}\)</span> predicts a low-rank factor <span class="math notranslate nohighlight">\(\mathbf{L}_i\)</span> of rank <span class="math notranslate nohighlight">\(r \ll d\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[\mathbf{M}_i = \mathbf{L}_i \mathbf{L}_i^\top\]</div>
+<p>Because <span class="math notranslate nohighlight">\(\mathbf{M}_i\)</span> is constructed as a Gram product, it is guaranteed PSD by construction—no eigenvalue clipping or Cholesky correction is needed.</p>
+<p>The rank <span class="math notranslate nohighlight">\(r\)</span> controls the trade-off between expressiveness and cost:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(r = 1\)</span>: Rank-1 outer product, capturing a single direction of interaction</p></li>
+<li><p><span class="math notranslate nohighlight">\(r = d\)</span>: Full-rank local Mahalanobis (most expensive)</p></li>
+<li><p><span class="math notranslate nohighlight">\(r = 8\)</span> (default for <span class="math notranslate nohighlight">\(d = 51\)</span>): Captures dominant cross-feature interactions; MLP outputs <span class="math notranslate nohighlight">\(d \cdot r = 408\)</span> values vs. <span class="math notranslate nohighlight">\(d = 51\)</span> for diagonal</p></li>
+</ul>
+<p><strong>MLP Architecture</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">climclusterpy.clustering.lmnn.local.LocalMahalanobisMLP</span></code> has the same hidden-layer structure as the diagonal <code class="docutils literal notranslate"><span class="pre">LocalWeightNetwork</span></code>:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{align}
+\mathbf{h}_1 &amp;= \text{ReLU}(\mathbf{W}_1 \mathbf{x}_i + \mathbf{b}_1) \\
+\mathbf{h}_2 &amp;= \text{Dropout}(\mathbf{h}_1, p) \\
+\mathbf{h}_3 &amp;= \text{ReLU}(\mathbf{W}_2 \mathbf{h}_2 + \mathbf{b}_2) \\
+\mathbf{h}_4 &amp;= \text{Dropout}(\mathbf{h}_3, p) \\
+\text{vec}(\mathbf{L}_i) &amp;= \mathbf{W}_3 \mathbf{h}_4 + \mathbf{b}_3
+\end{align}\end{split}\]</div>
+<p>The output layer has <span class="math notranslate nohighlight">\(d \cdot r\)</span> units, reshaped to <span class="math notranslate nohighlight">\(\mathbf{L}_i \in \mathbb{R}^{d \times r}\)</span>. Unlike the diagonal variant, <strong>no Softplus or L1-normalisation</strong> is applied—PSD-ness is guaranteed by the Gram construction. Output layer weights are initialised with <span class="math notranslate nohighlight">\(\mathcal{N}(0, 0.01^2)\)</span> and zero bias so that <span class="math notranslate nohighlight">\(\mathbf{M}_i \approx \mathbf{0}\)</span> initially.</p>
+<p>Constructor parameters:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">LocalMahalanobisMLP</span><span class="p">(</span>
+    <span class="n">d</span><span class="o">=</span><span class="mi">51</span><span class="p">,</span>                    <span class="c1"># input feature dimension</span>
+    <span class="n">r</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span>                     <span class="c1"># low-rank factor dimension</span>
+    <span class="n">hidden_width_factor</span><span class="o">=</span><span class="mf">2.0</span><span class="p">,</span> <span class="c1"># hidden = int(d * factor)</span>
+    <span class="n">dropout_rate</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>Convenience method <code class="docutils literal notranslate"><span class="pre">compute_M()</span></code> returns <span class="math notranslate nohighlight">\(\mathbf{M}_i = \mathbf{L}_i \mathbf{L}_i^\top\)</span> directly:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">LocalMahalanobisMLP</span><span class="p">(</span><span class="n">d</span><span class="o">=</span><span class="mi">51</span><span class="p">,</span> <span class="n">r</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
+<span class="n">L</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>          <span class="c1"># (batch, 51, 8) low-rank factors</span>
+<span class="n">M</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">compute_M</span><span class="p">(</span><span class="n">X</span><span class="p">)</span> <span class="c1"># (batch, 51, 51) PSD metric matrices</span>
+</pre></div>
+</div>
+<p><strong>Symmetrised Local Mahalanobis Distance</strong></p>
+<p>The distance between cells <span class="math notranslate nohighlight">\(i\)</span> and <span class="math notranslate nohighlight">\(j\)</span> uses the symmetrised average of their local metric matrices:</p>
+<div class="math notranslate nohighlight">
+\[D_{\text{maha}}(\mathbf{x}_i, \mathbf{x}_j) = \sqrt{(\mathbf{x}_i - \mathbf{x}_j)^\top \frac{\mathbf{M}_i + \mathbf{M}_j}{2} (\mathbf{x}_i - \mathbf{x}_j)}\]</div>
+<p>Symmetrisation ensures <span class="math notranslate nohighlight">\(D_{\text{maha}}(\mathbf{x}_i, \mathbf{x}_j) = D_{\text{maha}}(\mathbf{x}_j, \mathbf{x}_i)\)</span>.</p>
+<p>Special cases:</p>
+<ul class="simple">
+<li><p>When <span class="math notranslate nohighlight">\(r = d\)</span> and all <span class="math notranslate nohighlight">\(\mathbf{M}_i\)</span> are equal → standard global Mahalanobis distance</p></li>
+<li><p>When <span class="math notranslate nohighlight">\(\mathbf{M}_i = \text{diag}(\mathbf{w}_i)\)</span> → diagonal local distance (existing <code class="docutils literal notranslate"><span class="pre">compute_local_distance</span></code>)</p></li>
+</ul>
+<p><strong>Loss Function</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">climclusterpy.clustering.lmnn.local.LocalMahalanobisLMNNLoss</span></code> retains the pull-plus-margin structure and adds mandatory Frobenius regularisation:</p>
+<div class="math notranslate nohighlight">
+\[\mathcal{L}_{\text{maha}} = (1 - \alpha)\, \mathcal{L}_{\text{pull}} + \alpha\, \mathcal{L}_{\text{margin}} + \lambda_{\text{reg}}\, \mathcal{L}_{\text{reg}}\]</div>
+<p>where:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{align}
+\mathcal{L}_{\text{pull}} &amp;= \frac{1}{k} \sum_{j \in \mathcal{T}_i} D_{\text{maha}}^2(\mathbf{x}_i, \mathbf{x}_j) \\
+\mathcal{L}_{\text{margin}} &amp;= \frac{1}{k \cdot |\mathcal{I}_i|} \sum_{j \in \mathcal{T}_i} \sum_{l \in \mathcal{I}_i} \max\!\left(0,\, D_{\text{maha}}^2(\mathbf{x}_i, \mathbf{x}_j) - D_{\text{maha}}^2(\mathbf{x}_i, \mathbf{x}_l) + \Delta\right)^2 \\
+\mathcal{L}_{\text{reg}} &amp;= \frac{1}{n} \sum_{i=1}^n \|\mathbf{M}_i - \mathbf{I}_d\|_F^2
+\end{align}\end{split}\]</div>
+<p>The regularisation term prevents:</p>
+<ul class="simple">
+<li><p><strong>Metric collapse</strong> (<span class="math notranslate nohighlight">\(\mathbf{M}_i \to \mathbf{0}\)</span>): All distances become zero</p></li>
+<li><p><strong>Metric explosion</strong>: Unbounded eigenvalues destabilise training</p></li>
+</ul>
+<p>Constructor parameters:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">LocalMahalanobisLMNNLoss</span><span class="p">(</span>
+    <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span>           <span class="c1"># pull/margin trade-off</span>
+    <span class="n">delta</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>           <span class="c1"># margin hyperparameter</span>
+    <span class="n">lambda_reg</span><span class="o">=</span><span class="mf">1e-3</span><span class="p">,</span>     <span class="c1"># regularisation coefficient (mandatory)</span>
+    <span class="n">max_impostors</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span>    <span class="c1"># cap per anchor</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">forward</span></code> method accepts pre-computed <span class="math notranslate nohighlight">\(\mathbf{M}\)</span> matrices for anchors, targets, and impostors:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">total</span><span class="p">,</span> <span class="n">pull</span><span class="p">,</span> <span class="n">margin</span><span class="p">,</span> <span class="n">reg</span> <span class="o">=</span> <span class="n">loss</span><span class="p">(</span>
+    <span class="n">x_anchor</span><span class="p">,</span> <span class="n">x_targets</span><span class="p">,</span> <span class="n">x_impostors</span><span class="p">,</span>
+    <span class="n">M_anchor</span><span class="p">,</span> <span class="n">M_targets</span><span class="p">,</span> <span class="n">M_impostors</span><span class="p">,</span>
+    <span class="n">labels_anchor</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Distance Matrix Computation</strong></p>
+<p><code class="xref py py-func docutils literal notranslate"><span class="pre">climclusterpy.clustering.lmnn.compute_local_mahalanobis_distance_matrix()</span></code> computes the full <span class="math notranslate nohighlight">\(n \times n\)</span> pairwise distance matrix using a <strong>double inner-loop</strong> strategy for GPU memory management:</p>
+<ol class="arabic simple">
+<li><p><strong>Phase 1 — Precompute M</strong>: All <span class="math notranslate nohighlight">\(\{\mathbf{M}_i\}_{i=1}^n\)</span> are computed in batches and stored on CPU. Memory: <span class="math notranslate nohighlight">\(n \times d \times d \times 4\)</span> bytes (e.g., <span class="math notranslate nohighlight">\(n \times 10\,\text{KB}\)</span> for <span class="math notranslate nohighlight">\(d = 51\)</span>).</p></li>
+<li><p><strong>Phase 2 — Pairwise distances</strong>: For each row-batch <span class="math notranslate nohighlight">\(i \in [i_0, i_0+b)\)</span>, an inner loop over column-batches <span class="math notranslate nohighlight">\(j \in [j_0, j_0+b')\)</span> loads the corresponding <span class="math notranslate nohighlight">\(\mathbf{M}_i, \mathbf{M}_j\)</span> to GPU and computes the <span class="math notranslate nohighlight">\(b \times b'\)</span> distance submatrix via batched matrix multiplication. Peak GPU memory: <span class="math notranslate nohighlight">\(O(b \cdot b' \cdot d^2)\)</span>.</p></li>
+<li><p><strong>Symmetrisation</strong>: <span class="math notranslate nohighlight">\(\mathbf{D} \leftarrow (\mathbf{D} + \mathbf{D}^\top) / 2\)</span> for numerical precision.</p></li>
+</ol>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">D</span> <span class="o">=</span> <span class="n">compute_local_mahalanobis_distance_matrix</span><span class="p">(</span>
+    <span class="n">X</span><span class="p">,</span>                    <span class="c1"># (n, d) feature matrix</span>
+    <span class="n">model</span><span class="p">,</span>                <span class="c1"># trained LocalMahalanobisMLP</span>
+    <span class="n">device</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="s1">'cuda'</span><span class="p">),</span>
+    <span class="n">batch_size</span><span class="o">=</span><span class="mi">512</span><span class="p">,</span>       <span class="c1"># anchor rows per GPU batch</span>
+<span class="p">)</span>
+<span class="c1"># Returns: (n, n) symmetric float32 distance matrix</span>
+</pre></div>
+</div>
+<p><strong>Feature Importance</strong></p>
+<p>Feature importance under the Mahalanobis metric is extracted from the diagonal of the cell-averaged metric matrix:</p>
+<div class="math notranslate nohighlight">
+\[I_j = \left[\frac{1}{n} \sum_{i=1}^n \mathbf{M}_i\right]_{jj}\]</div>
+<p>with normalised importances <span class="math notranslate nohighlight">\(I_j^{\text{norm}} = I_j / \sum_{k=1}^d I_k\)</span>. Off-diagonal elements of <span class="math notranslate nohighlight">\(\bar{\mathbf{M}}\)</span> additionally reveal which feature pairs interact most strongly.</p>
+<p><strong>Pipeline Integration</strong></p>
+<p>The <code class="docutils literal notranslate"><span class="pre">local_mahalanobis</span></code> mode is activated by setting <code class="docutils literal notranslate"><span class="pre">LMNN_MODE</span> <span class="pre">=</span> <span class="pre">&quot;local_mahalanobis&quot;</span></code> in the GPU pipeline. Configuration parameters:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">LMNN_MODE</span> <span class="o">=</span> <span class="s2">"local_mahalanobis"</span>
+<span class="n">MAHALANOBIS_RANK</span> <span class="o">=</span> <span class="mi">8</span>        <span class="c1"># r: low-rank factor dimension</span>
+<span class="n">MAHALANOBIS_LAMBDA_REG</span> <span class="o">=</span> <span class="mf">1e-3</span>  <span class="c1"># λ_reg: regularisation weight</span>
+</pre></div>
+</div>
+<p>Cache filenames include <code class="docutils literal notranslate"><span class="pre">_mahalanobis_r{r}</span></code> to prevent collision with diagonal-mode artefacts.</p>
+<p><strong>Relationship to Diagonal Variant</strong></p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 30.0%" />
+<col style="width: 35.0%" />
+<col style="width: 35.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Property</p></th>
+<th class="head"><p>Diagonal (<code class="docutils literal notranslate"><span class="pre">LocalWeightNetwork</span></code>)</p></th>
+<th class="head"><p>Mahalanobis (<code class="docutils literal notranslate"><span class="pre">LocalMahalanobisMLP</span></code>)</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Output per cell</p></td>
+<td><p><span class="math notranslate nohighlight">\(\mathbf{w}_i \in \mathbb{R}^d\)</span> (weights)</p></td>
+<td><p><span class="math notranslate nohighlight">\(\mathbf{L}_i \in \mathbb{R}^{d \times r}\)</span> (low-rank factor)</p></td>
+</tr>
+<tr class="row-odd"><td><p>Metric matrix</p></td>
+<td><p><span class="math notranslate nohighlight">\(\text{diag}(\mathbf{w}_i)\)</span> (diagonal)</p></td>
+<td><p><span class="math notranslate nohighlight">\(\mathbf{L}_i \mathbf{L}_i^\top\)</span> (full PSD)</p></td>
+</tr>
+<tr class="row-even"><td><p>Cross-feature interactions</p></td>
+<td><p>None</p></td>
+<td><p>Captured via off-diagonal entries</p></td>
+</tr>
+<tr class="row-odd"><td><p>MLP outputs</p></td>
+<td><p><span class="math notranslate nohighlight">\(d\)</span> (e.g. 51)</p></td>
+<td><p><span class="math notranslate nohighlight">\(d \times r\)</span> (e.g. 408)</p></td>
+</tr>
+<tr class="row-even"><td><p>Distance computation</p></td>
+<td><p>Element-wise weighted sum</p></td>
+<td><p>Matrix-vector product</p></td>
+</tr>
+<tr class="row-odd"><td><p>Regularisation</p></td>
+<td><p>L1 normalisation + weight decay</p></td>
+<td><p><span class="math notranslate nohighlight">\(\lambda_{\text{reg}} \|\mathbf{M}_i - \mathbf{I}\|_F^2\)</span></p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="hierarchical-clustering">
+<h2>Hierarchical Clustering<a class="headerlink" href="#hierarchical-clustering" title="Link to this heading"></a></h2>
+<p><code class="xref py py-mod docutils literal notranslate"><span class="pre">climclusterpy.clustering.hierarchical</span></code> implements agglomerative hierarchical clustering. The linkage method is a configurable pipeline parameter; available options include Ward, complete, average, and single linkage.</p>
+<section id="linkage-methods">
+<h3>Linkage Methods<a class="headerlink" href="#linkage-methods" title="Link to this heading"></a></h3>
+<p><a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.cluster.hierarchy.linkage.html#scipy.cluster.hierarchy.linkage" title="(in SciPy v1.18.0)"><code class="xref py py-func docutils literal notranslate"><span class="pre">scipy.cluster.hierarchy.linkage()</span></code></a> (called via <a class="reference internal" href="../reference/clustering.html#climclusterpy.clustering.compute_dendrogram" title="climclusterpy.clustering.compute_dendrogram"><code class="xref py py-func docutils literal notranslate"><span class="pre">climclusterpy.clustering.compute_dendrogram()</span></code></a>) computes pairwise cluster distances. The choice of linkage defines the inter-cluster distance function:</p>
+<p><strong>Ward’s linkage</strong> minimizes within-cluster variance at each merge:</p>
+<div class="math notranslate nohighlight">
+\[d_{\text{Ward}}(C_1, C_2) = \sqrt{\frac{2 n_1 n_2}{n_1 + n_2}} \|\mathbf{c}_1 - \mathbf{c}_2\|_2\]</div>
+<p>where <span class="math notranslate nohighlight">\(\mathbf{c}_k\)</span> is the centroid and <span class="math notranslate nohighlight">\(n_k = |C_k|\)</span> the size of cluster <span class="math notranslate nohighlight">\(C_k\)</span>.</p>
+<p><strong>Complete linkage</strong> merges based on the maximum inter-cluster distance, producing compact, well-separated clusters:</p>
+<div class="math notranslate nohighlight">
+\[d_{\text{complete}}(C_1, C_2) = \max_{\mathbf{x} \in C_1,\, \mathbf{y} \in C_2} d(\mathbf{x}, \mathbf{y})\]</div>
+<p><strong>Average linkage</strong> uses the mean of all pairwise inter-cluster distances:</p>
+<div class="math notranslate nohighlight">
+\[d_{\text{average}}(C_1, C_2) = \frac{1}{n_1 n_2} \sum_{\mathbf{x} \in C_1} \sum_{\mathbf{y} \in C_2} d(\mathbf{x}, \mathbf{y})\]</div>
+<p>For local and enhanced LMNN modes, the precomputed symmetrized distance matrix <span class="math notranslate nohighlight">\(\mathbf{D}_{\text{local}}\)</span> is passed directly to the linkage function.</p>
+<p><strong>Dendrogram Representation</strong></p>
+<p>The linkage matrix <span class="math notranslate nohighlight">\(\mathbf{Z} \in \mathbb{R}^{(n-1) \times 4}\)</span> encodes:</p>
+<ul class="simple">
+<li><p>Column 0, 1: Indices of merged clusters</p></li>
+<li><p>Column 2: Merge distance</p></li>
+<li><p>Column 3: Number of samples in resulting cluster</p></li>
+</ul>
+<p><strong>Cluster Assignment</strong></p>
+<p><a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.cluster.hierarchy.fcluster.html#scipy.cluster.hierarchy.fcluster" title="(in SciPy v1.18.0)"><code class="xref py py-func docutils literal notranslate"><span class="pre">scipy.cluster.hierarchy.fcluster()</span></code></a> cuts the dendrogram to produce <span class="math notranslate nohighlight">\(K\)</span> clusters:</p>
+<div class="math notranslate nohighlight">
+\[\mathbf{y}^{\text{cluster}} = \text{fcluster}(\mathbf{Z}, K, \text{criterion='maxclust'})\]</div>
+<p>yielding labels <span class="math notranslate nohighlight">\(\mathbf{y}^{\text{cluster}} \in \{1, 2, \ldots, K\}^n\)</span>.</p>
+</section>
+</section>
+<section id="representative-cell-selection">
+<h2>Representative Cell Selection<a class="headerlink" href="#representative-cell-selection" title="Link to this heading"></a></h2>
+<p><a class="reference internal" href="../reference/toplevel.html#module-climclusterpy.timeseries" title="climclusterpy.timeseries"><code class="xref py py-mod docutils literal notranslate"><span class="pre">climclusterpy.timeseries</span></code></a> selects cells that best represent cluster climate.</p>
+<section id="selection-methods">
+<h3>Selection Methods<a class="headerlink" href="#selection-methods" title="Link to this heading"></a></h3>
+<p><a class="reference internal" href="../reference/toplevel.html#climclusterpy.timeseries.extract_representative_cells" title="climclusterpy.timeseries.extract_representative_cells"><code class="xref py py-func docutils literal notranslate"><span class="pre">climclusterpy.timeseries.extract_representative_cells()</span></code></a> supports three strategies:</p>
+<p><strong>1. Mean-Based Selection</strong></p>
+<p>Select cell <span class="math notranslate nohighlight">\(i^*\)</span> minimizing Euclidean distance to cluster centroid <span class="math notranslate nohighlight">\(\boldsymbol{\mu}_k\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[i^* = \arg\min_{i \in C_k} \|\mathbf{x}_i - \boldsymbol{\mu}_k\|_2\]</div>
+<p><strong>2. Median-Based Selection</strong></p>
+<p>Select cell minimizing distance to cluster median <span class="math notranslate nohighlight">\(\text{median}(C_k)\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[i^* = \arg\min_{i \in C_k} \|\mathbf{x}_i - \text{median}(C_k)\|_2\]</div>
+<p><strong>3. Random Sampling</strong></p>
+<p>Uniform random selection:</p>
+<div class="math notranslate nohighlight">
+\[i^* \sim \text{Uniform}(C_k)\]</div>
+<p>Optionally feature-weighted:</p>
+<div class="math notranslate nohighlight">
+\[P(i) \propto \exp(-\|\mathbf{x}_i - \boldsymbol{\mu}_k\|_2^2 / \tau)\]</div>
+<p>where <span class="math notranslate nohighlight">\(\tau\)</span> is a temperature parameter.</p>
+</section>
+<section id="parallel-processing-and-memory">
+<h3>Parallel Processing and Memory<a class="headerlink" href="#parallel-processing-and-memory" title="Link to this heading"></a></h3>
+<p>The number of parallel workers is the <code class="docutils literal notranslate"><span class="pre">n_jobs</span></code> argument of
+<a class="reference internal" href="../reference/api.html#climclusterpy.create_clusters" title="climclusterpy.create_clusters"><code class="xref py py-func docutils literal notranslate"><span class="pre">create_clusters()</span></code></a> (<code class="docutils literal notranslate"><span class="pre">-1</span></code> = all cores), and whether the climate is held
+in memory during extraction is its <code class="docutils literal notranslate"><span class="pre">preload_climate</span></code> argument. A few environment variables
+tune how much is read at once (chunk lengths, the size at which repeated distributed cells
+are held once); none of them changes what is computed. They are listed in
+<a class="reference internal" href="../howto/install.html#environment-variables"><span class="std std-ref">Environment variables</span></a>.</p>
+</section>
+</section>
+<section id="evaluation-metrics">
+<h2>Evaluation Metrics<a class="headerlink" href="#evaluation-metrics" title="Link to this heading"></a></h2>
+<p>The metrics below are the ones used to evaluate clusterings produced with this method. The
+package does not implement them — it is kept to clustering and grid building, and the
+evaluation code lives in the separate <code class="docutils literal notranslate"><span class="pre">climclusterpy-research</span></code> repository — but the
+formulas are documented here because they define what a “good” clustering means.</p>
+<section id="adjusted-rand-index">
+<h3>Adjusted Rand Index<a class="headerlink" href="#adjusted-rand-index" title="Link to this heading"></a></h3>
+<p><a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.metrics.adjusted_rand_score.html#sklearn.metrics.adjusted_rand_score" title="(in scikit-learn v1.9)"><code class="xref py py-func docutils literal notranslate"><span class="pre">sklearn.metrics.adjusted_rand_score()</span></code></a> computes:</p>
+<div class="math notranslate nohighlight">
+\[\text{ARI} = \frac{\sum_{ij} \binom{n_{ij}}{2} - \left[\sum_i \binom{a_i}{2} \sum_j \binom{b_j}{2}\right] / \binom{n}{2}}{\frac{1}{2}\left[\sum_i \binom{a_i}{2} + \sum_j \binom{b_j}{2}\right] - \left[\sum_i \binom{a_i}{2} \sum_j \binom{b_j}{2}\right] / \binom{n}{2}}\]</div>
+<p>where:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(n_{ij}\)</span> = number of cells in cluster <span class="math notranslate nohighlight">\(i\)</span> and ecoregion <span class="math notranslate nohighlight">\(j\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(a_i = \sum_j n_{ij}\)</span> (cluster <span class="math notranslate nohighlight">\(i\)</span> size)</p></li>
+<li><p><span class="math notranslate nohighlight">\(b_j = \sum_i n_{ij}\)</span> (ecoregion <span class="math notranslate nohighlight">\(j\)</span> size)</p></li>
+</ul>
+<p><strong>Range</strong>: <span class="math notranslate nohighlight">\([-1, 1]\)</span></p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(+1\)</span>: Perfect agreement</p></li>
+<li><p><span class="math notranslate nohighlight">\(0\)</span>: Random clustering</p></li>
+<li><p><span class="math notranslate nohighlight">\(-1\)</span>: Worse than random</p></li>
+</ul>
+</section>
+<section id="normalized-mutual-information">
+<h3>Normalized Mutual Information<a class="headerlink" href="#normalized-mutual-information" title="Link to this heading"></a></h3>
+<p><a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.metrics.normalized_mutual_info_score.html#sklearn.metrics.normalized_mutual_info_score" title="(in scikit-learn v1.9)"><code class="xref py py-func docutils literal notranslate"><span class="pre">sklearn.metrics.normalized_mutual_info_score()</span></code></a> computes:</p>
+<div class="math notranslate nohighlight">
+\[\text{NMI} = \frac{2 \cdot I(Y^{\text{cluster}}, Y^{\text{eco}})}{H(Y^{\text{cluster}}) + H(Y^{\text{eco}})}\]</div>
+<p>where:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{align}
+I(Y^{\text{cluster}}, Y^{\text{eco}}) &amp;= \sum_{i,j} P(i,j) \log \frac{P(i,j)}{P(i)P(j)} \quad \text{(mutual information)} \\
+H(Y) &amp;= -\sum_k P(k) \log P(k) \quad \text{(entropy)}
+\end{align}\end{split}\]</div>
+<p><strong>Range</strong>: <span class="math notranslate nohighlight">\([0, 1]\)</span></p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(1\)</span>: Perfect correspondence</p></li>
+<li><p><span class="math notranslate nohighlight">\(0\)</span>: Independent partitions</p></li>
+</ul>
+</section>
+</section>
+<section id="netcdf-processing">
+<h2>NetCDF Processing<a class="headerlink" href="#netcdf-processing" title="Link to this heading"></a></h2>
+<section id="cluster-netcdf-creation">
+<h3>Cluster NetCDF Creation<a class="headerlink" href="#cluster-netcdf-creation" title="Link to this heading"></a></h3>
+<p><a class="reference internal" href="../reference/grid.html#climclusterpy.grid.build_reduced_grid" title="climclusterpy.grid.build_reduced_grid"><code class="xref py py-func docutils literal notranslate"><span class="pre">climclusterpy.grid.build_reduced_grid()</span></code></a> exports cluster representative timeseries to
+NetCDF format. Its per-cluster input dataset carries:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">cluster_label</span></code>: Cluster ID (<span class="math notranslate nohighlight">\(\in \{1, \ldots, K\}\)</span>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">center_lat</span></code>, <code class="docutils literal notranslate"><span class="pre">center_lon</span></code>: Representative cell coordinates</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">n_cells</span></code>: Number of cells in cluster</p></li>
+<li><p>Climate variables: <code class="docutils literal notranslate"><span class="pre">precipitation</span></code>, <code class="docutils literal notranslate"><span class="pre">temperature</span></code>, <code class="docutils literal notranslate"><span class="pre">radiation</span></code>, <code class="docutils literal notranslate"><span class="pre">humidity</span></code></p></li>
+</ul>
+<p><strong>Dimensions</strong></p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>cluster: K (number of clusters)
+time: n_t (number of timesteps)
+</pre></div>
+</div>
+</section>
+<section id="reconstruction">
+<h3>Reconstruction<a class="headerlink" href="#reconstruction" title="Link to this heading"></a></h3>
+<p><a class="reference internal" href="../reference/api.html#climclusterpy.reconstruct_original_grid" title="climclusterpy.reconstruct_original_grid"><code class="xref py py-func docutils literal notranslate"><span class="pre">climclusterpy.reconstruct_original_grid()</span></code></a> maps cluster results back to the original
+grid (one simulated cell per cluster: <a class="reference internal" href="../reference/grid.html#climclusterpy.grid.reconstruct_output_netcdf" title="climclusterpy.grid.reconstruct_output_netcdf"><code class="xref py py-func docutils literal notranslate"><span class="pre">climclusterpy.grid.reconstruct_output_netcdf()</span></code></a>):</p>
+<ol class="arabic">
+<li><p>Loads the mapping files and the output on the reduced grid</p></li>
+<li><p>For each original cell <span class="math notranslate nohighlight">\(i\)</span> in cluster <span class="math notranslate nohighlight">\(k\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[\text{value}_i(t) = \text{representative}_k(t) \quad \forall t\]</div>
+</li>
+<li><p>Writes reconstructed NetCDF with original spatial dimensions</p></li>
+</ol>
+</section>
+<section id="clm-conversion">
+<h3>CLM Conversion<a class="headerlink" href="#clm-conversion" title="Link to this heading"></a></h3>
+<p><a class="reference internal" href="../reference/grid.html#climclusterpy.io.convert_netcdf_to_clm" title="climclusterpy.io.convert_netcdf_to_clm"><code class="xref py py-func docutils literal notranslate"><span class="pre">climclusterpy.io.convert_netcdf_to_clm()</span></code></a> provides shell interfaces to LPJ-ML binary converters:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">cdf2soil</span></code>: Convert NetCDF soil data to LPJ-ML binary format</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">cdf2clm</span></code>: Convert NetCDF climate data to LPJ-ML binary format</p></li>
+</ul>
+<p>The converters are looked up, in order, from explicit <code class="docutils literal notranslate"><span class="pre">cdf2clm_path</span></code> / <code class="docutils literal notranslate"><span class="pre">cdf2soil_path</span></code>
+arguments, a <code class="docutils literal notranslate"><span class="pre">tools_dir</span></code>, <code class="docutils literal notranslate"><span class="pre">$LPJROOT/bin</span></code>, and finally <code class="docutils literal notranslate"><span class="pre">PATH</span></code>.</p>
+</section>
+</section>
+<section id="computational-implementation">
+<h2>Computational Implementation<a class="headerlink" href="#computational-implementation" title="Link to this heading"></a></h2>
+<p><strong>Languages and Libraries</strong></p>
+<ul class="simple">
+<li><p>Python 3.11</p></li>
+<li><p>Core: NumPy, pandas, xarray</p></li>
+<li><p>ML: scikit-learn, PyTorch</p></li>
+<li><p>Geospatial: GeoPandas, Shapely</p></li>
+<li><p>Parallel: Dask, Joblib</p></li>
+</ul>
+<p><strong>Memory Optimizations</strong></p>
+<ul class="simple">
+<li><p>Dask chunking (500 timesteps default)</p></li>
+<li><p>Float32 conversion (-50% memory)</p></li>
+<li><p>Valid-cell masking (eliminates ocean/missing)</p></li>
+<li><p>Lazy evaluation (avoid loading unnecessary data)</p></li>
+</ul>
+<p><strong>Caching Strategy</strong></p>
+<p>Intermediate results cached at:</p>
+<ol class="arabic simple">
+<li><p>Raw features (pre-standardization)</p></li>
+<li><p>Standardized features</p></li>
+<li><p>Correlation-filtered features</p></li>
+<li><p>PCA-filtered features</p></li>
+<li><p>LMNN-transformed features (global mode)</p></li>
+<li><p>LMNN distance matrix (local/enhanced modes)</p></li>
+<li><p>Cluster labels and dendrograms</p></li>
+</ol>
+<p>This enables rapid iteration without expensive recomputation.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="overview.html" class="btn btn-neutral float-left" title="Overview" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, Jamir Priesner.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

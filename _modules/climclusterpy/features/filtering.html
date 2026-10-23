@@ -1,0 +1,763 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>climclusterpy.features.filtering &mdash; climclusterpy 0.5</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/custom.css?v=f2cc2102" />
+
+  
+    <link rel="shortcut icon" href="../../../_static/logo.svg"/>
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=1dd76d02"></script>
+      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            climclusterpy
+              <img src="../../../_static/logo.svg" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorials/index.html">Tutorials</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../tutorials/one_call_roundtrip.html">Tutorial 0 — the whole workflow in two calls</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/one_call_roundtrip.html#the-idea">The idea</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/one_call_roundtrip.html#call-1-build-the-reduced-grid">Call 1 — build the reduced grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/one_call_roundtrip.html#call-2-rebuild-the-original-grid">Call 2 — rebuild the original grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/one_call_roundtrip.html#the-complete-script">The complete script</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/one_call_roundtrip.html#run-it">Run it</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/one_call_roundtrip.html#next-steps">Next steps</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../tutorials/euclidean_clustering.html">Tutorial 1 — Euclidean clustering</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/euclidean_clustering.html#load-data-and-build-a-feature-matrix">Load data and build a feature matrix</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/euclidean_clustering.html#cluster">Cluster</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/euclidean_clustering.html#the-complete-script">The complete script</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/euclidean_clustering.html#run-it">Run it</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/euclidean_clustering.html#next-steps">Next steps</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../tutorials/lmnn_clustering.html">Tutorial 2 — LMNN metric-learning clustering</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/lmnn_clustering.html#provide-a-supervision-signal">Provide a supervision signal</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/lmnn_clustering.html#learn-a-metric-and-cluster">Learn a metric and cluster</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/lmnn_clustering.html#the-complete-script">The complete script</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/lmnn_clustering.html#run-it">Run it</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/lmnn_clustering.html#next-steps">Next steps</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../tutorials/supervision.html">Tutorial 3 — Supervision signals</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/supervision.html#koppengeiger-from-monthly-climatology">Köppen–Geiger from monthly climatology</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/supervision.html#model-output-trait-clustering">Model-output (trait) clustering</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/supervision.html#the-complete-script">The complete script</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/supervision.html#run-it">Run it</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/supervision.html#ecoregion-supervision">Ecoregion supervision</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../tutorials/reconstruction.html">Tutorial 4 — Reconstruct the original grid</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/reconstruction.html#the-round-trip">The round trip</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/reconstruction.html#verify">Verify</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/reconstruction.html#the-complete-script">The complete script</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/reconstruction.html#run-it">Run it</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/reconstruction.html#next-steps">Next steps</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../tutorials/index.html#a-note-on-the-synthetic-data">A note on the synthetic data</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">How-to guides</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../howto/index.html">How-to guides</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../howto/install.html">Install climclusterpy</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/install.html#base-install">Base install</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/install.html#optional-extras">Optional extras</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/install.html#installing-the-geospatial-extras-with-conda">Installing the geospatial extras with conda</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/install.html#pytorch-cpu-vs-gpu">PyTorch (CPU vs. GPU)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/install.html#environment-variables">Environment variables</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/install.html#building-the-documentation">Building the documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../howto/inputs.html">Prepare the input files</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/inputs.html#check-your-input-first">Check your input first</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/inputs.html#the-files">The files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/inputs.html#grid-and-coordinates">Grid and coordinates</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/inputs.html#which-cells-exist-the-soil-code">Which cells exist: the soil code</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/inputs.html#the-time-axis">The time axis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/inputs.html#missing-values">Missing values</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/inputs.html#another-vegetation-model-s-input">Another vegetation model’s input</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/inputs.html#output-files">Output files</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../howto/clustering.html">Cluster a feature matrix (choose a mode)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/clustering.html#euclidean-mode-no-supervision">Euclidean mode (no supervision)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/clustering.html#lmnn-mode-supervised-metric-learning">LMNN mode (supervised metric learning)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/clustering.html#lower-level-control">Lower-level control</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../howto/supervision.html">Build an LMNN supervision signal</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/supervision.html#from-climate-koppengeiger">From climate — Köppen–Geiger</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/supervision.html#from-model-output-traits">From model output — traits</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/supervision.html#from-a-shapefile-ecoregions2017">From a shapefile — Ecoregions2017</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/supervision.html#using-the-signal">Using the signal</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/supervision.html#in-one-call">In one call</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/supervision.html#saved-results-are-reused-only-for-the-same-inputs">Saved results are reused only for the same inputs</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../howto/cell_selection.html">Choosing the cells a cluster is simulated on</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/cell_selection.html#the-patch-budget">The patch budget</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/cell_selection.html#what-the-drawn-cells-carry">What the drawn cells carry</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/cell_selection.html#reproducibility">Reproducibility</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/cell_selection.html#looking-at-a-draw-without-building-a-grid">Looking at a draw without building a grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/cell_selection.html#back-to-the-full-grid">Back to the full grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/cell_selection.html#a-model-that-reads-its-own-inputs-the-grid-only-then-cut-the-rest">A model that reads its own inputs: the grid only, then cut the rest</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../howto/reconstruct.html">Reconstruct the original grid</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/reconstruct.html#the-usual-call">The usual call</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/reconstruct.html#picking-up-where-you-left-off">Picking up where you left off</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/reconstruct.html#without-a-result-or-run-folder">Without a result or run folder</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/reconstruct.html#required-mapping-files">Required mapping files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/reconstruct.html#reconstruction-paths-kind">Reconstruction paths (<code class="docutils literal notranslate"><span class="pre">kind</span></code>)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/reconstruct.html#verifying-the-result">Verifying the result</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../reference/index.html">Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../reference/api.html">Public API — <code class="xref py py-mod docutils literal notranslate"><span class="pre">climclusterpy</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/api.html#the-two-headline-functions">The two headline functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/api.html#before-and-after-the-model-run">Before and after the model run</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/api.html#input-for-a-model-other-than-lpjml">Input for a model other than LPJmL</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/api.html#other-ways-to-build-the-reduced-grid">Other ways to build the reduced grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/api.html#reusing-a-trained-metric">Reusing a trained metric</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/api.html#the-model-s-other-inputs">The model’s other inputs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/api.html#writing-the-reduced-grid-yourself">Writing the reduced grid yourself</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/api.html#building-blocks">Building blocks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/api.html#result-objects">Result objects</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../reference/toplevel.html">Data, timeseries, I/O &amp; plotting</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/toplevel.html#module-climclusterpy.data">Data loading &amp; the grid registry</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/toplevel.html#how-much-the-package-reports">How much the package reports</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/toplevel.html#coordinates">Coordinates</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/toplevel.html#module-climclusterpy.timeseries">Per-cluster timeseries</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/toplevel.html#module-climclusterpy.io">File input/output</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/toplevel.html#module-climclusterpy.preprocessing">Preprocessing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/toplevel.html#module-climclusterpy.viz">Plotting</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../reference/features.html">Feature engineering</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/features.html#ecological-summaries">Ecological summaries</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/features.html#vegetation-model-traits">Vegetation-model traits</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/features.html#standardization-filtering">Standardization &amp; filtering</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../reference/clustering.html">Clustering &amp; metric learning</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/clustering.html#hierarchical-clustering">Hierarchical clustering</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/clustering.html#module-climclusterpy.clustering.lmnn">LMNN metric learning</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../reference/supervision.html">Supervision labels</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/supervision.html#koppengeiger-climate-zones">Köppen–Geiger climate zones</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/supervision.html#vegetation-model-output-traits">Vegetation-model output traits</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/supervision.html#ecoregion-polygons">Ecoregion polygons</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/supervision.html#daily-input-helpers">Daily-input helpers</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../reference/grid.html">Grid building &amp; reconstruction</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/grid.html#where-each-reduced-cell-is-placed">Where each reduced cell is placed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/grid.html#writing-the-reduced-grid">Writing the reduced grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/grid.html#reconstruction">Reconstruction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/grid.html#lpjml-clm-conversion">LPJmL CLM conversion</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../reference/cli.html">Command-line interface (<code class="docutils literal notranslate"><span class="pre">climclu</span></code>)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/cli.html#the-two-headline-commands">The two headline commands</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/cli.html#building-blocks">Building blocks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/cli.html#options-shared-by-every-action-command">Options shared by every action command</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/cli.html#errors-and-exit-codes">Errors and exit codes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../reference/index.html#which-function-do-i-need">Which function do I need?</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Explanation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../explanation/index.html">Explanation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../explanation/overview.html">Overview</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/overview.html#design-philosophy">Design Philosophy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/overview.html#workflow-summary">Workflow Summary</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/overview.html#key-innovations">Key Innovations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/overview.html#use-cases">Use Cases</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/overview.html#limitations">Limitations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/overview.html#future-directions">Future Directions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/overview.html#references">References</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../explanation/methods.html">Scientific Methods</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/methods.html#data-acquisition-and-preprocessing">Data Acquisition and Preprocessing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/methods.html#ecoregion-assignment">Ecoregion Assignment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/methods.html#ecological-feature-summarization">Ecological Feature Summarization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/methods.html#feature-standardization-and-filtering">Feature Standardization and Filtering</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/methods.html#large-margin-nearest-neighbor-lmnn-metric-learning">Large Margin Nearest Neighbor (LMNN) Metric Learning</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/methods.html#hierarchical-clustering">Hierarchical Clustering</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/methods.html#representative-cell-selection">Representative Cell Selection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/methods.html#evaluation-metrics">Evaluation Metrics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/methods.html#netcdf-processing">NetCDF Processing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/methods.html#computational-implementation">Computational Implementation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../explanation/index.html#reconstruction-correctness">Reconstruction correctness</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">climclusterpy</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">climclusterpy.features.filtering</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for climclusterpy.features.filtering</h1><div class="highlight"><pre>
+<span></span><span class="sd">"""</span>
+<span class="sd">Feature filtering and standardization for ecological clustering.</span>
+
+<span class="sd">Provides:</span>
+<span class="sd">- Standardization (zero mean, unit variance)</span>
+<span class="sd">- Correlation-based feature removal</span>
+<span class="sd">- PCA-based diagnostic filtering</span>
+<span class="sd">"""</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pickle</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy.stats</span><span class="w"> </span><span class="kn">import</span> <span class="n">spearmanr</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.decomposition</span><span class="w"> </span><span class="kn">import</span> <span class="n">PCA</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.preprocessing</span><span class="w"> </span><span class="kn">import</span> <span class="n">StandardScaler</span>
+
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+
+<span class="c1"># Column-name prefixes that are protected from correlation/PCA filtering by default.</span>
+<span class="c1"># Any column whose name starts with one of these prefixes will be passed through</span>
+<span class="c1"># unchanged when protected_cols is not explicitly provided.</span>
+<span class="c1"># eco_diag_: ecology_diagnostic features — physically non-redundant ecological</span>
+<span class="c1">#   indices (VPD, GDD, PET, P/PET, dry spells) that encode threshold-nonlinear</span>
+<span class="c1">#   or ratio transformations with independent ecological meaning.</span>
+<span class="n">_AUTO_PROTECTED_PREFIXES</span> <span class="o">=</span> <span class="p">(</span><span class="s2">"tas_month_"</span><span class="p">,</span> <span class="s2">"pr_month_"</span><span class="p">,</span> <span class="s2">"kg_diag_"</span><span class="p">,</span> <span class="s2">"soil_"</span><span class="p">,</span> <span class="s2">"eco_diag_"</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="standardize_features">
+<a class="viewcode-back" href="../../../reference/features.html#climclusterpy.features.standardize_features">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">standardize_features</span><span class="p">(</span>
+    <span class="n">df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span>
+    <span class="n">feature_cols</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">StandardScaler</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">"""</span>
+<span class="sd">    Standardize features to zero mean, unit variance.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        df: DataFrame with features</span>
+<span class="sd">        feature_cols: List of column names to standardize</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">        df_scaled: DataFrame with standardized features (replaces original columns)</span>
+<span class="sd">        scaler: Fitted StandardScaler for inverse transform</span>
+<span class="sd">    """</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"[FeatureFilter] Standardizing </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">feature_cols</span><span class="p">)</span><span class="si">}</span><span class="s2"> features"</span><span class="p">)</span>
+
+    <span class="c1"># Copy dataframe</span>
+    <span class="n">df_scaled</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+    <span class="c1"># Extract feature matrix</span>
+    <span class="n">X</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">feature_cols</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+
+    <span class="c1"># Fit scaler</span>
+    <span class="n">scaler</span> <span class="o">=</span> <span class="n">StandardScaler</span><span class="p">()</span>
+    <span class="n">X_scaled</span> <span class="o">=</span> <span class="n">scaler</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+
+    <span class="c1"># Replace columns</span>
+    <span class="n">df_scaled</span><span class="p">[</span><span class="n">feature_cols</span><span class="p">]</span> <span class="o">=</span> <span class="n">X_scaled</span>
+
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"[FeatureFilter] Standardization complete"</span><span class="p">)</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"  Mean (should be ~0): </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">X_scaled</span><span class="p">,</span><span class="w"> </span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)[:</span><span class="mi">5</span><span class="p">]</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"  Std (should be ~1): </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">X_scaled</span><span class="p">,</span><span class="w"> </span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)[:</span><span class="mi">5</span><span class="p">]</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">df_scaled</span><span class="p">,</span> <span class="n">scaler</span></div>
+
+
+
+<div class="viewcode-block" id="remove_correlated_features">
+<a class="viewcode-back" href="../../../reference/features.html#climclusterpy.features.remove_correlated_features">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">remove_correlated_features</span><span class="p">(</span>
+    <span class="n">df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span>
+    <span class="n">feature_cols</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
+    <span class="n">threshold</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.9</span><span class="p">,</span>
+    <span class="n">method</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"spearman"</span><span class="p">,</span>
+    <span class="n">protected_cols</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">"""Remove highly correlated features whose ``|rho|`` exceeds ``threshold``.</span>
+
+<span class="sd">    When two features are correlated above threshold, keeps the one with</span>
+<span class="sd">    lower mean absolute correlation to all other features.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        df: DataFrame with features</span>
+<span class="sd">        feature_cols: List of column names to analyze</span>
+<span class="sd">        threshold: Correlation threshold (default 0.9)</span>
+<span class="sd">        method: 'spearman' or 'pearson'</span>
+<span class="sd">        protected_cols: Columns to pass through without analysis.  When</span>
+<span class="sd">            ``None`` (default), any column in *feature_cols* whose name starts</span>
+<span class="sd">            with one of the :data:`_AUTO_PROTECTED_PREFIXES` (``tas_month_*``,</span>
+<span class="sd">            ``pr_month_*``, ``kg_diag_*``, ``soil_*``) is automatically</span>
+<span class="sd">            protected.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">        df_filtered: DataFrame with redundant features removed</span>
+<span class="sd">        removed_features: List of feature names that were dropped</span>
+<span class="sd">        corr_matrix: Correlation matrix (before filtering, on analysed cols)</span>
+<span class="sd">    """</span>
+    <span class="c1"># Resolve protected cols</span>
+    <span class="k">if</span> <span class="n">protected_cols</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">protected_cols</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">c</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">feature_cols</span> <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="n">p</span><span class="p">)</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">_AUTO_PROTECTED_PREFIXES</span><span class="p">)</span>
+        <span class="p">]</span>
+    <span class="n">protected_set</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">protected_cols</span><span class="p">)</span>
+    <span class="n">analysed_cols</span> <span class="o">=</span> <span class="p">[</span><span class="n">c</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">feature_cols</span> <span class="k">if</span> <span class="n">c</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">protected_set</span><span class="p">]</span>
+
+    <span class="k">if</span> <span class="n">protected_cols</span><span class="p">:</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">"[FeatureFilter] remove_correlated_features: protecting "</span>
+            <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">protected_cols</span><span class="p">)</span><span class="si">}</span><span class="s2"> cols from removal "</span>
+            <span class="sa">f</span><span class="s2">"(</span><span class="si">{</span><span class="n">protected_cols</span><span class="p">[:</span><span class="mi">5</span><span class="p">]</span><span class="si">}{</span><span class="s1">'...'</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="nb">len</span><span class="p">(</span><span class="n">protected_cols</span><span class="p">)</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">5</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="s1">''</span><span class="si">}</span><span class="s2">)"</span>
+        <span class="p">)</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">analysed_cols</span><span class="p">:</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"[FeatureFilter] No analysable columns — skipping correlation filter"</span><span class="p">)</span>
+        <span class="n">identity_corr</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">feature_cols</span><span class="p">)),</span> <span class="n">index</span><span class="o">=</span><span class="n">feature_cols</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="n">feature_cols</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="n">df</span><span class="o">.</span><span class="n">copy</span><span class="p">(),</span> <span class="p">[],</span> <span class="n">identity_corr</span>
+
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+        <span class="sa">f</span><span class="s2">"[FeatureFilter] Removing correlated features (|ρ| &gt; </span><span class="si">{</span><span class="n">threshold</span><span class="si">}</span><span class="s2">) from </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">analysed_cols</span><span class="p">)</span><span class="si">}</span><span class="s2"> cols"</span>
+    <span class="p">)</span>
+
+    <span class="c1"># Extract feature matrix (analysed cols only)</span>
+    <span class="n">X</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">analysed_cols</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+
+    <span class="c1"># Compute correlation matrix (on analysed cols only)</span>
+    <span class="k">if</span> <span class="n">method</span> <span class="o">==</span> <span class="s2">"spearman"</span><span class="p">:</span>
+        <span class="c1"># A column that is the same in every cell (e.g. a uniform soil depth) has no defined</span>
+        <span class="c1"># correlation; numpy/scipy say so with a RuntimeWarning on every run. It is handled</span>
+        <span class="c1"># below (its entries stay NaN and it is never chosen for removal), so the warning only</span>
+        <span class="c1"># tells the user about something that is not wrong.</span>
+        <span class="k">with</span> <span class="n">warnings</span><span class="o">.</span><span class="n">catch_warnings</span><span class="p">(),</span> <span class="n">np</span><span class="o">.</span><span class="n">errstate</span><span class="p">(</span><span class="n">divide</span><span class="o">=</span><span class="s2">"ignore"</span><span class="p">,</span> <span class="n">invalid</span><span class="o">=</span><span class="s2">"ignore"</span><span class="p">):</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">simplefilter</span><span class="p">(</span><span class="s2">"ignore"</span><span class="p">,</span> <span class="ne">RuntimeWarning</span><span class="p">)</span>
+            <span class="n">corr_matrix</span> <span class="o">=</span> <span class="n">spearmanr</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">nan_policy</span><span class="o">=</span><span class="s2">"omit"</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="c1"># Handle single feature case</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">analysed_cols</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">corr_matrix</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">1.0</span><span class="p">]])</span>
+        <span class="k">elif</span> <span class="n">np</span><span class="o">.</span><span class="n">ndim</span><span class="p">(</span><span class="n">corr_matrix</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="c1"># scipy returns one bare NaN instead of a matrix when a column is constant (e.g.</span>
+            <span class="c1"># an input with the same value everywhere). The same rank correlation, column by</span>
+            <span class="c1"># column, leaves only that column's entries undefined.</span>
+            <span class="n">corr_matrix</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">X</span><span class="p">)</span><span class="o">.</span><span class="n">corr</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s2">"spearman"</span><span class="p">)</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">corr_matrix</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">corrcoef</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+
+    <span class="c1"># Convert to DataFrame for easier handling</span>
+    <span class="n">corr_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">corr_matrix</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">analysed_cols</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="n">analysed_cols</span><span class="p">)</span>
+
+    <span class="c1"># Find highly correlated pairs</span>
+    <span class="n">removed_features</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">keep_features</span> <span class="o">=</span> <span class="n">analysed_cols</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">feat_i</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">analysed_cols</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">feat_i</span> <span class="ow">in</span> <span class="n">removed_features</span><span class="p">:</span>
+            <span class="k">continue</span>
+
+        <span class="k">for</span> <span class="n">j</span><span class="p">,</span> <span class="n">feat_j</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">analysed_cols</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span> <span class="p">:],</span> <span class="n">start</span><span class="o">=</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">feat_j</span> <span class="ow">in</span> <span class="n">removed_features</span><span class="p">:</span>
+                <span class="k">continue</span>
+
+            <span class="n">corr_val</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">corr_matrix</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">])</span>
+
+            <span class="k">if</span> <span class="n">corr_val</span> <span class="o">&gt;</span> <span class="n">threshold</span><span class="p">:</span>
+                <span class="n">mean_corr_i</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">corr_matrix</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="p">:]))</span>
+                <span class="n">mean_corr_j</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">corr_matrix</span><span class="p">[</span><span class="n">j</span><span class="p">,</span> <span class="p">:]))</span>
+
+                <span class="n">to_remove</span> <span class="o">=</span> <span class="n">feat_i</span> <span class="k">if</span> <span class="n">mean_corr_i</span> <span class="o">&gt;</span> <span class="n">mean_corr_j</span> <span class="k">else</span> <span class="n">feat_j</span>
+
+                <span class="k">if</span> <span class="n">to_remove</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">removed_features</span><span class="p">:</span>
+                    <span class="n">removed_features</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">to_remove</span><span class="p">)</span>
+                    <span class="n">keep_features</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">to_remove</span><span class="p">)</span>
+                    <span class="n">other</span> <span class="o">=</span> <span class="n">feat_j</span> <span class="k">if</span> <span class="n">to_remove</span> <span class="o">==</span> <span class="n">feat_i</span> <span class="k">else</span> <span class="n">feat_i</span>
+                    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"  Removing '</span><span class="si">{</span><span class="n">to_remove</span><span class="si">}</span><span class="s2">' (|ρ| = </span><span class="si">{</span><span class="n">corr_val</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2"> with '</span><span class="si">{</span><span class="n">other</span><span class="si">}</span><span class="s2">')"</span><span class="p">)</span>
+
+    <span class="c1"># Filter dataframe</span>
+    <span class="n">df_filtered</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="n">removed_features</span><span class="p">)</span>
+
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"[FeatureFilter] Removed </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">removed_features</span><span class="p">)</span><span class="si">}</span><span class="s2"> correlated features"</span><span class="p">)</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"[FeatureFilter] Remaining features: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">keep_features</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nb">len</span><span class="p">(</span><span class="n">protected_cols</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">df_filtered</span><span class="p">,</span> <span class="n">removed_features</span><span class="p">,</span> <span class="n">corr_df</span></div>
+
+
+
+<div class="viewcode-block" id="diagnostic_pca_filter">
+<a class="viewcode-back" href="../../../reference/features.html#climclusterpy.features.diagnostic_pca_filter">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">diagnostic_pca_filter</span><span class="p">(</span>
+    <span class="n">df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span>
+    <span class="n">feature_cols</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
+    <span class="n">variance_threshold</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.95</span><span class="p">,</span>
+    <span class="n">contrib_threshold</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.01</span><span class="p">,</span>
+    <span class="n">protected_cols</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="nb">dict</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">"""Use PCA to identify and remove low-contribution features.</span>
+
+<span class="sd">    Does NOT project data — only uses PCA for feature selection.</span>
+
+<span class="sd">    Process:</span>
+
+<span class="sd">    1. Compute PCA on analysable features (not protected).</span>
+<span class="sd">    2. Find the minimum ``N`` components explaining at least</span>
+<span class="sd">       ``variance_threshold`` (e.g. 95%).</span>
+<span class="sd">    3. For each feature, compute its total absolute contribution across the</span>
+<span class="sd">       first ``N`` components.</span>
+<span class="sd">    4. Remove features with contribution below ``contrib_threshold`` (e.g. 1%).</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        df: DataFrame with features</span>
+<span class="sd">        feature_cols: List of column names to analyze</span>
+<span class="sd">        variance_threshold: Cumulative variance to retain (default 0.95)</span>
+<span class="sd">        contrib_threshold: Minimum feature contribution to keep (default 0.01)</span>
+<span class="sd">        protected_cols: Columns to pass through without analysis.  When</span>
+<span class="sd">            ``None`` (default), any column in *feature_cols* whose name starts</span>
+<span class="sd">            with one of the :data:`_AUTO_PROTECTED_PREFIXES` (``tas_month_*``,</span>
+<span class="sd">            ``pr_month_*``, ``kg_diag_*``, ``soil_*``) is automatically</span>
+<span class="sd">            protected.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">        df_filtered: DataFrame with low-contribution features removed.</span>
+<span class="sd">        diagnostics: Dict with the PCA object, component info, contributions, and removed/kept feature lists.</span>
+<span class="sd">    """</span>
+    <span class="c1"># Resolve protected cols</span>
+    <span class="k">if</span> <span class="n">protected_cols</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">protected_cols</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">c</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">feature_cols</span> <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="n">p</span><span class="p">)</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">_AUTO_PROTECTED_PREFIXES</span><span class="p">)</span>
+        <span class="p">]</span>
+    <span class="n">protected_set</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">protected_cols</span><span class="p">)</span>
+    <span class="n">analysed_cols</span> <span class="o">=</span> <span class="p">[</span><span class="n">c</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">feature_cols</span> <span class="k">if</span> <span class="n">c</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">protected_set</span><span class="p">]</span>
+
+    <span class="k">if</span> <span class="n">protected_cols</span><span class="p">:</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">"[FeatureFilter] diagnostic_pca_filter: protecting "</span>
+            <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">protected_cols</span><span class="p">)</span><span class="si">}</span><span class="s2"> cols from removal "</span>
+            <span class="sa">f</span><span class="s2">"(</span><span class="si">{</span><span class="n">protected_cols</span><span class="p">[:</span><span class="mi">5</span><span class="p">]</span><span class="si">}{</span><span class="s1">'...'</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="nb">len</span><span class="p">(</span><span class="n">protected_cols</span><span class="p">)</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">5</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="s1">''</span><span class="si">}</span><span class="s2">)"</span>
+        <span class="p">)</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">analysed_cols</span><span class="p">:</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"[FeatureFilter] No analysable columns — skipping PCA filter"</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">df</span><span class="o">.</span><span class="n">copy</span><span class="p">(),</span> <span class="p">{</span>
+            <span class="s2">"pca"</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="s2">"n_components"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="s2">"variance_explained"</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([]),</span>
+            <span class="s2">"cumulative_variance"</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([]),</span>
+            <span class="s2">"feature_contributions"</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(),</span>
+            <span class="s2">"removed_features"</span><span class="p">:</span> <span class="p">[],</span>
+            <span class="s2">"kept_features"</span><span class="p">:</span> <span class="n">feature_cols</span><span class="p">,</span>
+        <span class="p">}</span>
+
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+        <span class="sa">f</span><span class="s2">"[FeatureFilter] Running diagnostic PCA (variance threshold = </span><span class="si">{</span><span class="n">variance_threshold</span><span class="si">}</span><span class="s2">) on </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">analysed_cols</span><span class="p">)</span><span class="si">}</span><span class="s2"> cols"</span>
+    <span class="p">)</span>
+
+    <span class="c1"># Extract feature matrix (analysed cols only)</span>
+    <span class="n">X</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">analysed_cols</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+
+    <span class="c1"># Fit PCA with all components</span>
+    <span class="n">pca</span> <span class="o">=</span> <span class="n">PCA</span><span class="p">(</span><span class="n">n_components</span><span class="o">=</span><span class="nb">min</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
+    <span class="n">pca</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+
+    <span class="c1"># Find number of components for variance threshold</span>
+    <span class="n">cumsum_var</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cumsum</span><span class="p">(</span><span class="n">pca</span><span class="o">.</span><span class="n">explained_variance_ratio_</span><span class="p">)</span>
+    <span class="n">n_components</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">cumsum_var</span> <span class="o">&gt;=</span> <span class="n">variance_threshold</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
+
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+        <span class="sa">f</span><span class="s2">"[FeatureFilter] </span><span class="si">{</span><span class="n">n_components</span><span class="si">}</span><span class="s2"> components explain </span><span class="si">{</span><span class="n">cumsum_var</span><span class="p">[</span><span class="n">n_components</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">]</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2"> of variance"</span>
+    <span class="p">)</span>
+
+    <span class="c1"># Compute feature contributions to first N components</span>
+    <span class="n">loadings</span> <span class="o">=</span> <span class="n">pca</span><span class="o">.</span><span class="n">components_</span><span class="p">[:</span><span class="n">n_components</span><span class="p">,</span> <span class="p">:]</span>  <span class="c1"># (n_components, n_features)</span>
+    <span class="n">feature_contrib</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">loadings</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="o">/</span> <span class="n">n_components</span>
+
+    <span class="c1"># Normalise contributions to sum to 1</span>
+    <span class="n">feature_contrib_norm</span> <span class="o">=</span> <span class="n">feature_contrib</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">feature_contrib</span><span class="p">)</span>
+
+    <span class="n">contrib_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+        <span class="p">{</span>
+            <span class="s2">"feature"</span><span class="p">:</span> <span class="n">analysed_cols</span><span class="p">,</span>
+            <span class="s2">"contribution"</span><span class="p">:</span> <span class="n">feature_contrib_norm</span><span class="p">,</span>
+        <span class="p">}</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s2">"contribution"</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+    <span class="n">removed_features</span> <span class="o">=</span> <span class="n">contrib_df</span><span class="p">[</span><span class="n">contrib_df</span><span class="p">[</span><span class="s2">"contribution"</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">contrib_threshold</span><span class="p">][</span>
+        <span class="s2">"feature"</span>
+    <span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+    <span class="n">keep_features</span> <span class="o">=</span> <span class="n">contrib_df</span><span class="p">[</span><span class="n">contrib_df</span><span class="p">[</span><span class="s2">"contribution"</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">contrib_threshold</span><span class="p">][</span><span class="s2">"feature"</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+        <span class="sa">f</span><span class="s2">"[FeatureFilter] Removing </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">removed_features</span><span class="p">)</span><span class="si">}</span><span class="s2"> features with contribution &lt; </span><span class="si">{</span><span class="n">contrib_threshold</span><span class="si">}</span><span class="s2">"</span>
+    <span class="p">)</span>
+    <span class="k">for</span> <span class="n">feat</span> <span class="ow">in</span> <span class="n">removed_features</span><span class="p">:</span>
+        <span class="n">contrib_val</span> <span class="o">=</span> <span class="n">contrib_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">contrib_df</span><span class="p">[</span><span class="s2">"feature"</span><span class="p">]</span> <span class="o">==</span> <span class="n">feat</span><span class="p">,</span> <span class="s2">"contribution"</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"  Removing '</span><span class="si">{</span><span class="n">feat</span><span class="si">}</span><span class="s2">' (contribution = </span><span class="si">{</span><span class="n">contrib_val</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">)"</span><span class="p">)</span>
+
+    <span class="n">df_filtered</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="n">removed_features</span><span class="p">)</span>
+
+    <span class="n">diagnostics</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">"pca"</span><span class="p">:</span> <span class="n">pca</span><span class="p">,</span>
+        <span class="s2">"n_components"</span><span class="p">:</span> <span class="n">n_components</span><span class="p">,</span>
+        <span class="s2">"variance_explained"</span><span class="p">:</span> <span class="n">pca</span><span class="o">.</span><span class="n">explained_variance_ratio_</span><span class="p">,</span>
+        <span class="s2">"cumulative_variance"</span><span class="p">:</span> <span class="n">cumsum_var</span><span class="p">,</span>
+        <span class="s2">"feature_contributions"</span><span class="p">:</span> <span class="n">contrib_df</span><span class="p">,</span>
+        <span class="s2">"removed_features"</span><span class="p">:</span> <span class="n">removed_features</span><span class="p">,</span>
+        <span class="s2">"kept_features"</span><span class="p">:</span> <span class="n">keep_features</span> <span class="o">+</span> <span class="n">protected_cols</span><span class="p">,</span>
+    <span class="p">}</span>
+
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"[FeatureFilter] Remaining features: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">keep_features</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nb">len</span><span class="p">(</span><span class="n">protected_cols</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">df_filtered</span><span class="p">,</span> <span class="n">diagnostics</span></div>
+
+
+
+<div class="viewcode-block" id="apply_block_pca_compression">
+<a class="viewcode-back" href="../../../reference/features.html#climclusterpy.features.apply_block_pca_compression">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">apply_block_pca_compression</span><span class="p">(</span>
+    <span class="n">df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span>
+    <span class="n">tas_monthly_cols</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
+    <span class="n">pr_monthly_cols</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
+    <span class="n">cache_dir</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">variance_threshold</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.99</span><span class="p">,</span>
+    <span class="n">force_recompute</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="nb">dict</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">"""Replace raw monthly T/P columns with PCA scores (block PCA).</span>
+
+<span class="sd">    Fits (or loads from cache) one :class:`sklearn.decomposition.PCA` per</span>
+<span class="sd">    block – one for the 12 temperature monthly columns, one for the 12</span>
+<span class="sd">    precipitation monthly columns – retaining enough components to explain</span>
+<span class="sd">    *variance_threshold* (default 99 %) of within-block variance.</span>
+
+<span class="sd">    The raw monthly columns are dropped from the returned DataFrame and</span>
+<span class="sd">    replaced by ``tas_month_PC1 … tas_month_PCN`` and</span>
+<span class="sd">    ``pr_month_PC1 … pr_month_PCM``.</span>
+
+<span class="sd">    PCA objects are serialised to</span>
+<span class="sd">    ``{cache_dir}/block_pca_tas.pkl`` and</span>
+<span class="sd">    ``{cache_dir}/block_pca_pr.pkl``.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        df: DataFrame containing (at least) the monthly columns.</span>
+<span class="sd">        tas_monthly_cols: Ordered list of the 12 temperature monthly column</span>
+<span class="sd">            names (e.g. ``['tas_month_01', …, 'tas_month_12']``).</span>
+<span class="sd">        pr_monthly_cols: Same for precipitation.</span>
+<span class="sd">        cache_dir: Directory where PCA cache files are stored/read.</span>
+<span class="sd">        variance_threshold: Fraction of variance to retain per block</span>
+<span class="sd">            (default 0.99).</span>
+<span class="sd">        force_recompute: If ``True``, ignore cached PCA objects and refit.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">        df_compressed: DataFrame with raw monthly cols replaced by PC cols.</span>
+<span class="sd">        info: Dict with the fitted PCA objects (pca_tas, pca_pr), the per-block PC counts (n_tas_pcs, n_pr_pcs), and the new PC column-name lists (tas_pc_cols, pr_pc_cols).</span>
+<span class="sd">    """</span>
+    <span class="n">cache_path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">cache_dir</span><span class="p">)</span>
+    <span class="n">cache_path</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="n">tas_cache</span> <span class="o">=</span> <span class="n">cache_path</span> <span class="o">/</span> <span class="s2">"block_pca_tas.pkl"</span>
+    <span class="n">pr_cache</span> <span class="o">=</span> <span class="n">cache_path</span> <span class="o">/</span> <span class="s2">"block_pca_pr.pkl"</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_fit_or_load</span><span class="p">(</span><span class="n">cols</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">cache_file</span><span class="p">:</span> <span class="n">Path</span><span class="p">,</span> <span class="n">label</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">PCA</span><span class="p">,</span> <span class="nb">int</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">"""Return (fitted_pca, n_components_retained)."""</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">force_recompute</span> <span class="ow">and</span> <span class="n">cache_file</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">cache_file</span><span class="p">,</span> <span class="s2">"rb"</span><span class="p">)</span> <span class="k">as</span> <span class="n">fh</span><span class="p">:</span>
+                <span class="n">pca_obj</span> <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">fh</span><span class="p">)</span>
+            <span class="c1"># Determine how many components cover variance_threshold</span>
+            <span class="n">cumvar</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cumsum</span><span class="p">(</span><span class="n">pca_obj</span><span class="o">.</span><span class="n">explained_variance_ratio_</span><span class="p">)</span>
+            <span class="n">n_keep</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">cumvar</span> <span class="o">&gt;=</span> <span class="n">variance_threshold</span><span class="p">))</span> <span class="o">+</span> <span class="mi">1</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">"[BlockPCA] Loaded cached PCA for </span><span class="si">{</span><span class="n">label</span><span class="si">}</span><span class="s2"> from </span><span class="si">{</span><span class="n">cache_file</span><span class="si">}</span><span class="s2">  "</span>
+                <span class="sa">f</span><span class="s2">"(</span><span class="si">{</span><span class="n">n_keep</span><span class="si">}</span><span class="s2"> PCs @ </span><span class="si">{</span><span class="n">variance_threshold</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">100</span><span class="si">:</span><span class="s2">.0f</span><span class="si">}</span><span class="s2">% var)"</span>
+            <span class="p">)</span>
+            <span class="k">return</span> <span class="n">pca_obj</span><span class="p">,</span> <span class="n">n_keep</span>
+
+        <span class="n">X</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">cols</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+        <span class="n">pca_obj</span> <span class="o">=</span> <span class="n">PCA</span><span class="p">(</span><span class="n">n_components</span><span class="o">=</span><span class="nb">min</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
+        <span class="n">pca_obj</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+        <span class="n">cumvar</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cumsum</span><span class="p">(</span><span class="n">pca_obj</span><span class="o">.</span><span class="n">explained_variance_ratio_</span><span class="p">)</span>
+        <span class="n">n_keep</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">cumvar</span> <span class="o">&gt;=</span> <span class="n">variance_threshold</span><span class="p">))</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">"[BlockPCA] Fitted PCA for </span><span class="si">{</span><span class="n">label</span><span class="si">}</span><span class="s2">: "</span>
+            <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">n_keep</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">cols</span><span class="p">)</span><span class="si">}</span><span class="s2"> PCs explain "</span>
+            <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">cumvar</span><span class="p">[</span><span class="n">n_keep</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">100</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">% variance"</span>
+        <span class="p">)</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">cache_file</span><span class="p">,</span> <span class="s2">"wb"</span><span class="p">)</span> <span class="k">as</span> <span class="n">fh</span><span class="p">:</span>
+            <span class="n">pickle</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">pca_obj</span><span class="p">,</span> <span class="n">fh</span><span class="p">,</span> <span class="n">protocol</span><span class="o">=</span><span class="n">pickle</span><span class="o">.</span><span class="n">HIGHEST_PROTOCOL</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"[BlockPCA] Saved PCA cache → </span><span class="si">{</span><span class="n">cache_file</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">pca_obj</span><span class="p">,</span> <span class="n">n_keep</span>
+
+    <span class="c1"># -----------------------------------------------------------------</span>
+    <span class="c1"># Temperature block</span>
+    <span class="c1"># -----------------------------------------------------------------</span>
+    <span class="k">if</span> <span class="n">tas_monthly_cols</span> <span class="ow">and</span> <span class="nb">all</span><span class="p">(</span><span class="n">c</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">tas_monthly_cols</span><span class="p">):</span>
+        <span class="n">pca_tas</span><span class="p">,</span> <span class="n">n_tas</span> <span class="o">=</span> <span class="n">_fit_or_load</span><span class="p">(</span><span class="n">tas_monthly_cols</span><span class="p">,</span> <span class="n">tas_cache</span><span class="p">,</span> <span class="s2">"tas"</span><span class="p">)</span>
+        <span class="n">X_tas</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">tas_monthly_cols</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+        <span class="n">scores_tas</span> <span class="o">=</span> <span class="n">pca_tas</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X_tas</span><span class="p">)[:,</span> <span class="p">:</span><span class="n">n_tas</span><span class="p">]</span>  <span class="c1"># (n_cells, n_tas)</span>
+        <span class="c1"># Whiten: divide by sqrt(eigenvalue) so each PC has unit variance (std=1)</span>
+        <span class="n">std_tas</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">pca_tas</span><span class="o">.</span><span class="n">explained_variance_</span><span class="p">[:</span><span class="n">n_tas</span><span class="p">])</span>
+        <span class="n">scores_tas</span> <span class="o">=</span> <span class="n">scores_tas</span> <span class="o">/</span> <span class="n">std_tas</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">,</span> <span class="p">:]</span>
+        <span class="n">tas_pc_cols</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s2">"tas_month_PC</span><span class="si">{</span><span class="n">i</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="si">}</span><span class="s2">"</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_tas</span><span class="p">)]</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">"[BlockPCA] Whitened T scores: std range "</span>
+            <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">scores_tas</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">min</span><span class="p">()</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">–</span><span class="si">{</span><span class="n">scores_tas</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">"</span>
+        <span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">"[BlockPCA] WARNING: tas monthly cols missing — skipping T block PCA"</span><span class="p">)</span>
+        <span class="n">pca_tas</span><span class="p">,</span> <span class="n">n_tas</span><span class="p">,</span> <span class="n">tas_pc_cols</span><span class="p">,</span> <span class="n">scores_tas</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="p">[],</span> <span class="kc">None</span>
+
+    <span class="c1"># -----------------------------------------------------------------</span>
+    <span class="c1"># Precipitation block</span>
+    <span class="c1"># -----------------------------------------------------------------</span>
+    <span class="k">if</span> <span class="n">pr_monthly_cols</span> <span class="ow">and</span> <span class="nb">all</span><span class="p">(</span><span class="n">c</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">pr_monthly_cols</span><span class="p">):</span>
+        <span class="n">pca_pr</span><span class="p">,</span> <span class="n">n_pr</span> <span class="o">=</span> <span class="n">_fit_or_load</span><span class="p">(</span><span class="n">pr_monthly_cols</span><span class="p">,</span> <span class="n">pr_cache</span><span class="p">,</span> <span class="s2">"pr"</span><span class="p">)</span>
+        <span class="n">X_pr</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">pr_monthly_cols</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+        <span class="n">scores_pr</span> <span class="o">=</span> <span class="n">pca_pr</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X_pr</span><span class="p">)[:,</span> <span class="p">:</span><span class="n">n_pr</span><span class="p">]</span>  <span class="c1"># (n_cells, n_pr)</span>
+        <span class="c1"># Whiten: divide by sqrt(eigenvalue) so each PC has unit variance (std=1)</span>
+        <span class="n">std_pr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">pca_pr</span><span class="o">.</span><span class="n">explained_variance_</span><span class="p">[:</span><span class="n">n_pr</span><span class="p">])</span>
+        <span class="n">scores_pr</span> <span class="o">=</span> <span class="n">scores_pr</span> <span class="o">/</span> <span class="n">std_pr</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">,</span> <span class="p">:]</span>
+        <span class="n">pr_pc_cols</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s2">"pr_month_PC</span><span class="si">{</span><span class="n">i</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="si">}</span><span class="s2">"</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_pr</span><span class="p">)]</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">"[BlockPCA] Whitened P scores: std range "</span>
+            <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">scores_pr</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">min</span><span class="p">()</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">–</span><span class="si">{</span><span class="n">scores_pr</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">"</span>
+        <span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">"[BlockPCA] WARNING: pr monthly cols missing — skipping P block PCA"</span><span class="p">)</span>
+        <span class="n">pca_pr</span><span class="p">,</span> <span class="n">n_pr</span><span class="p">,</span> <span class="n">pr_pc_cols</span><span class="p">,</span> <span class="n">scores_pr</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="p">[],</span> <span class="kc">None</span>
+
+    <span class="c1"># -----------------------------------------------------------------</span>
+    <span class="c1"># Build output DataFrame</span>
+    <span class="c1"># -----------------------------------------------------------------</span>
+    <span class="n">drop_cols</span> <span class="o">=</span> <span class="p">[</span><span class="n">c</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">tas_monthly_cols</span> <span class="k">if</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">]</span> <span class="o">+</span> <span class="p">[</span>
+        <span class="n">c</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">pr_monthly_cols</span> <span class="k">if</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span>
+    <span class="p">]</span>
+    <span class="n">df_out</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="n">drop_cols</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">scores_tas</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">col</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">tas_pc_cols</span><span class="p">):</span>
+            <span class="n">df_out</span><span class="p">[</span><span class="n">col</span><span class="p">]</span> <span class="o">=</span> <span class="n">scores_tas</span><span class="p">[:,</span> <span class="n">k</span><span class="p">]</span>
+
+    <span class="k">if</span> <span class="n">scores_pr</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">col</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">pr_pc_cols</span><span class="p">):</span>
+            <span class="n">df_out</span><span class="p">[</span><span class="n">col</span><span class="p">]</span> <span class="o">=</span> <span class="n">scores_pr</span><span class="p">[:,</span> <span class="n">k</span><span class="p">]</span>
+
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+        <span class="sa">f</span><span class="s2">"[BlockPCA] Replaced </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">drop_cols</span><span class="p">)</span><span class="si">}</span><span class="s2"> raw monthly cols with "</span>
+        <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">tas_pc_cols</span><span class="p">)</span><span class="si">}</span><span class="s2"> T-PCs + </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">pr_pc_cols</span><span class="p">)</span><span class="si">}</span><span class="s2"> P-PCs"</span>
+    <span class="p">)</span>
+
+    <span class="n">info</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">"pca_tas"</span><span class="p">:</span> <span class="n">pca_tas</span><span class="p">,</span>
+        <span class="s2">"pca_pr"</span><span class="p">:</span> <span class="n">pca_pr</span><span class="p">,</span>
+        <span class="s2">"n_tas_pcs"</span><span class="p">:</span> <span class="n">n_tas</span><span class="p">,</span>
+        <span class="s2">"n_pr_pcs"</span><span class="p">:</span> <span class="n">n_pr</span><span class="p">,</span>
+        <span class="s2">"tas_pc_cols"</span><span class="p">:</span> <span class="n">tas_pc_cols</span><span class="p">,</span>
+        <span class="s2">"pr_pc_cols"</span><span class="p">:</span> <span class="n">pr_pc_cols</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">df_out</span><span class="p">,</span> <span class="n">info</span></div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, Jamir Priesner.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

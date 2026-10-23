@@ -1,0 +1,413 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Reconstruct the original grid &mdash; climclusterpy 0.5</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=f2cc2102" />
+
+  
+    <link rel="shortcut icon" href="../_static/logo.svg"/>
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=1dd76d02"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Reference" href="../reference/index.html" />
+    <link rel="prev" title="Choosing the cells a cluster is simulated on" href="cell_selection.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            climclusterpy
+              <img src="../_static/logo.svg" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">Tutorials</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/one_call_roundtrip.html">Tutorial 0 — the whole workflow in two calls</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/one_call_roundtrip.html#the-idea">The idea</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/one_call_roundtrip.html#call-1-build-the-reduced-grid">Call 1 — build the reduced grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/one_call_roundtrip.html#call-2-rebuild-the-original-grid">Call 2 — rebuild the original grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/one_call_roundtrip.html#the-complete-script">The complete script</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/one_call_roundtrip.html#run-it">Run it</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/one_call_roundtrip.html#next-steps">Next steps</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/euclidean_clustering.html">Tutorial 1 — Euclidean clustering</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/euclidean_clustering.html#load-data-and-build-a-feature-matrix">Load data and build a feature matrix</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/euclidean_clustering.html#cluster">Cluster</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/euclidean_clustering.html#the-complete-script">The complete script</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/euclidean_clustering.html#run-it">Run it</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/euclidean_clustering.html#next-steps">Next steps</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/lmnn_clustering.html">Tutorial 2 — LMNN metric-learning clustering</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/lmnn_clustering.html#provide-a-supervision-signal">Provide a supervision signal</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/lmnn_clustering.html#learn-a-metric-and-cluster">Learn a metric and cluster</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/lmnn_clustering.html#the-complete-script">The complete script</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/lmnn_clustering.html#run-it">Run it</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/lmnn_clustering.html#next-steps">Next steps</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/supervision.html">Tutorial 3 — Supervision signals</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/supervision.html#koppengeiger-from-monthly-climatology">Köppen–Geiger from monthly climatology</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/supervision.html#model-output-trait-clustering">Model-output (trait) clustering</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/supervision.html#the-complete-script">The complete script</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/supervision.html#run-it">Run it</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/supervision.html#ecoregion-supervision">Ecoregion supervision</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/reconstruction.html">Tutorial 4 — Reconstruct the original grid</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/reconstruction.html#the-round-trip">The round trip</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/reconstruction.html#verify">Verify</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/reconstruction.html#the-complete-script">The complete script</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/reconstruction.html#run-it">Run it</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/reconstruction.html#next-steps">Next steps</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/index.html#a-note-on-the-synthetic-data">A note on the synthetic data</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">How-to guides</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">How-to guides</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="install.html">Install climclusterpy</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="install.html#base-install">Base install</a></li>
+<li class="toctree-l3"><a class="reference internal" href="install.html#optional-extras">Optional extras</a></li>
+<li class="toctree-l3"><a class="reference internal" href="install.html#installing-the-geospatial-extras-with-conda">Installing the geospatial extras with conda</a></li>
+<li class="toctree-l3"><a class="reference internal" href="install.html#pytorch-cpu-vs-gpu">PyTorch (CPU vs. GPU)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="install.html#environment-variables">Environment variables</a></li>
+<li class="toctree-l3"><a class="reference internal" href="install.html#building-the-documentation">Building the documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="inputs.html">Prepare the input files</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="inputs.html#check-your-input-first">Check your input first</a></li>
+<li class="toctree-l3"><a class="reference internal" href="inputs.html#the-files">The files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="inputs.html#grid-and-coordinates">Grid and coordinates</a></li>
+<li class="toctree-l3"><a class="reference internal" href="inputs.html#which-cells-exist-the-soil-code">Which cells exist: the soil code</a></li>
+<li class="toctree-l3"><a class="reference internal" href="inputs.html#the-time-axis">The time axis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="inputs.html#missing-values">Missing values</a></li>
+<li class="toctree-l3"><a class="reference internal" href="inputs.html#another-vegetation-model-s-input">Another vegetation model’s input</a></li>
+<li class="toctree-l3"><a class="reference internal" href="inputs.html#output-files">Output files</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="clustering.html">Cluster a feature matrix (choose a mode)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="clustering.html#euclidean-mode-no-supervision">Euclidean mode (no supervision)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="clustering.html#lmnn-mode-supervised-metric-learning">LMNN mode (supervised metric learning)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="clustering.html#lower-level-control">Lower-level control</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="supervision.html">Build an LMNN supervision signal</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="supervision.html#from-climate-koppengeiger">From climate — Köppen–Geiger</a></li>
+<li class="toctree-l3"><a class="reference internal" href="supervision.html#from-model-output-traits">From model output — traits</a></li>
+<li class="toctree-l3"><a class="reference internal" href="supervision.html#from-a-shapefile-ecoregions2017">From a shapefile — Ecoregions2017</a></li>
+<li class="toctree-l3"><a class="reference internal" href="supervision.html#using-the-signal">Using the signal</a></li>
+<li class="toctree-l3"><a class="reference internal" href="supervision.html#in-one-call">In one call</a></li>
+<li class="toctree-l3"><a class="reference internal" href="supervision.html#saved-results-are-reused-only-for-the-same-inputs">Saved results are reused only for the same inputs</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="cell_selection.html">Choosing the cells a cluster is simulated on</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cell_selection.html#the-patch-budget">The patch budget</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cell_selection.html#what-the-drawn-cells-carry">What the drawn cells carry</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cell_selection.html#reproducibility">Reproducibility</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cell_selection.html#looking-at-a-draw-without-building-a-grid">Looking at a draw without building a grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cell_selection.html#back-to-the-full-grid">Back to the full grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cell_selection.html#a-model-that-reads-its-own-inputs-the-grid-only-then-cut-the-rest">A model that reads its own inputs: the grid only, then cut the rest</a></li>
+</ul>
+</li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Reconstruct the original grid</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#the-usual-call">The usual call</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#picking-up-where-you-left-off">Picking up where you left off</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#without-a-result-or-run-folder">Without a result or run folder</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#required-mapping-files">Required mapping files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#reconstruction-paths-kind">Reconstruction paths (<code class="docutils literal notranslate"><span class="pre">kind</span></code>)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#verifying-the-result">Verifying the result</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../reference/index.html">Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../reference/api.html">Public API — <code class="xref py py-mod docutils literal notranslate"><span class="pre">climclusterpy</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../reference/api.html#the-two-headline-functions">The two headline functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/api.html#before-and-after-the-model-run">Before and after the model run</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/api.html#input-for-a-model-other-than-lpjml">Input for a model other than LPJmL</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/api.html#other-ways-to-build-the-reduced-grid">Other ways to build the reduced grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/api.html#reusing-a-trained-metric">Reusing a trained metric</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/api.html#the-model-s-other-inputs">The model’s other inputs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/api.html#writing-the-reduced-grid-yourself">Writing the reduced grid yourself</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/api.html#building-blocks">Building blocks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/api.html#result-objects">Result objects</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/toplevel.html">Data, timeseries, I/O &amp; plotting</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../reference/toplevel.html#module-climclusterpy.data">Data loading &amp; the grid registry</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/toplevel.html#how-much-the-package-reports">How much the package reports</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/toplevel.html#coordinates">Coordinates</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/toplevel.html#module-climclusterpy.timeseries">Per-cluster timeseries</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/toplevel.html#module-climclusterpy.io">File input/output</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/toplevel.html#module-climclusterpy.preprocessing">Preprocessing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/toplevel.html#module-climclusterpy.viz">Plotting</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/features.html">Feature engineering</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../reference/features.html#ecological-summaries">Ecological summaries</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/features.html#vegetation-model-traits">Vegetation-model traits</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/features.html#standardization-filtering">Standardization &amp; filtering</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/clustering.html">Clustering &amp; metric learning</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../reference/clustering.html#hierarchical-clustering">Hierarchical clustering</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/clustering.html#module-climclusterpy.clustering.lmnn">LMNN metric learning</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/supervision.html">Supervision labels</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../reference/supervision.html#koppengeiger-climate-zones">Köppen–Geiger climate zones</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/supervision.html#vegetation-model-output-traits">Vegetation-model output traits</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/supervision.html#ecoregion-polygons">Ecoregion polygons</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/supervision.html#daily-input-helpers">Daily-input helpers</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/grid.html">Grid building &amp; reconstruction</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../reference/grid.html#where-each-reduced-cell-is-placed">Where each reduced cell is placed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/grid.html#writing-the-reduced-grid">Writing the reduced grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/grid.html#reconstruction">Reconstruction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/grid.html#lpjml-clm-conversion">LPJmL CLM conversion</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/cli.html">Command-line interface (<code class="docutils literal notranslate"><span class="pre">climclu</span></code>)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../reference/cli.html#the-two-headline-commands">The two headline commands</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/cli.html#building-blocks">Building blocks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/cli.html#options-shared-by-every-action-command">Options shared by every action command</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/cli.html#errors-and-exit-codes">Errors and exit codes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/index.html#which-function-do-i-need">Which function do I need?</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Explanation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../explanation/index.html">Explanation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../explanation/overview.html">Overview</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../explanation/overview.html#design-philosophy">Design Philosophy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../explanation/overview.html#workflow-summary">Workflow Summary</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../explanation/overview.html#key-innovations">Key Innovations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../explanation/overview.html#use-cases">Use Cases</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../explanation/overview.html#limitations">Limitations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../explanation/overview.html#future-directions">Future Directions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../explanation/overview.html#references">References</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../explanation/methods.html">Scientific Methods</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../explanation/methods.html#data-acquisition-and-preprocessing">Data Acquisition and Preprocessing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../explanation/methods.html#ecoregion-assignment">Ecoregion Assignment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../explanation/methods.html#ecological-feature-summarization">Ecological Feature Summarization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../explanation/methods.html#feature-standardization-and-filtering">Feature Standardization and Filtering</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../explanation/methods.html#large-margin-nearest-neighbor-lmnn-metric-learning">Large Margin Nearest Neighbor (LMNN) Metric Learning</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../explanation/methods.html#hierarchical-clustering">Hierarchical Clustering</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../explanation/methods.html#representative-cell-selection">Representative Cell Selection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../explanation/methods.html#evaluation-metrics">Evaluation Metrics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../explanation/methods.html#netcdf-processing">NetCDF Processing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../explanation/methods.html#computational-implementation">Computational Implementation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../explanation/index.html#reconstruction-correctness">Reconstruction correctness</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">climclusterpy</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">How-to guides</a></li>
+      <li class="breadcrumb-item active">Reconstruct the original grid</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://gitlab.pik-potsdam.de/lpjmlfit_analysis/climclusterpy/blob/main/docs/src/howto/reconstruct.rst" class="fa fa-gitlab"> Edit on GitLab</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="reconstruct-the-original-grid">
+<h1>Reconstruct the original grid<a class="headerlink" href="#reconstruct-the-original-grid" title="Link to this heading"></a></h1>
+<p>After the vegetation model runs on the reduced cluster/artificial grid, every original
+land cell is given <strong>its cluster’s value</strong> and the result is written as a NetCDF on the
+original grid. Placement uses strict ID mapping (no coordinate matching), and it runs on
+the core install (numpy/pandas/xarray).</p>
+<section id="the-usual-call">
+<h2>The usual call<a class="headerlink" href="#the-usual-call" title="Link to this heading"></a></h2>
+<p>With the result of <a class="reference internal" href="../reference/api.html#climclusterpy.create_clusters" title="climclusterpy.create_clusters"><code class="xref py py-func docutils literal notranslate"><span class="pre">create_clusters()</span></code></a> at hand,
+<a class="reference internal" href="../reference/api.html#climclusterpy.reconstruct_original_grid" title="climclusterpy.reconstruct_original_grid"><code class="xref py py-func docutils literal notranslate"><span class="pre">reconstruct_original_grid()</span></code></a> needs nothing else:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">climclusterpy</span><span class="w"> </span><span class="kn">import</span> <span class="n">create_clusters</span><span class="p">,</span> <span class="n">reconstruct_original_grid</span>
+
+<span class="n">clusters</span> <span class="o">=</span> <span class="n">create_clusters</span><span class="p">(</span><span class="s2">"/data/climate_input"</span><span class="p">,</span> <span class="n">n_clusters</span><span class="o">=</span><span class="mi">2000</span><span class="p">,</span>
+                           <span class="n">output_dir</span><span class="o">=</span><span class="s2">"./clusters_2000"</span><span class="p">)</span>
+<span class="c1"># ... run the vegetation model on clusters.netcdf_files ...</span>
+<span class="n">full</span> <span class="o">=</span> <span class="n">reconstruct_original_grid</span><span class="p">(</span><span class="s2">"vegc.nc"</span><span class="p">,</span> <span class="n">clusters</span><span class="o">=</span><span class="n">clusters</span><span class="p">)</span>
+<span class="n">full</span><span class="o">.</span><span class="n">path</span>     <span class="c1"># the reconstructed NetCDF (full.files when several inputs were given)</span>
+</pre></div>
+</div>
+</section>
+<section id="picking-up-where-you-left-off">
+<h2>Picking up where you left off<a class="headerlink" href="#picking-up-where-you-left-off" title="Link to this heading"></a></h2>
+<p>The model run usually takes days, so the Python session that called <code class="docutils literal notranslate"><span class="pre">create_clusters</span></code>
+is long gone when its output arrives. <a class="reference internal" href="../reference/api.html#climclusterpy.load_clusters" title="climclusterpy.load_clusters"><code class="xref py py-func docutils literal notranslate"><span class="pre">load_clusters()</span></code></a> rebuilds the
+result from the output folder, which holds everything needed (the mapping files, the
+labels and <code class="docutils literal notranslate"><span class="pre">original_grid.nc</span></code>):</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">climclusterpy</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_clusters</span><span class="p">,</span> <span class="n">reconstruct_original_grid</span>
+
+<span class="n">clusters</span> <span class="o">=</span> <span class="n">load_clusters</span><span class="p">(</span><span class="s2">"./clusters_2000"</span><span class="p">)</span>
+<span class="n">full</span> <span class="o">=</span> <span class="n">reconstruct_original_grid</span><span class="p">(</span><span class="s2">"vegc.nc"</span><span class="p">,</span> <span class="n">clusters</span><span class="o">=</span><span class="n">clusters</span><span class="p">)</span>
+
+<span class="c1"># the same in one step:</span>
+<span class="n">full</span> <span class="o">=</span> <span class="n">reconstruct_original_grid</span><span class="p">(</span><span class="s2">"vegc.nc"</span><span class="p">,</span> <span class="n">clusters</span><span class="o">=</span><span class="s2">"./clusters_2000"</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The folder may be moved or copied to another machine as a whole: the paths in its run
+record are relative to it. A folder written by a version before 0.3.0 has no run record;
+for it, use the explicit call below.</p>
+</section>
+<section id="without-a-result-or-run-folder">
+<h2>Without a result or run folder<a class="headerlink" href="#without-a-result-or-run-folder" title="Link to this heading"></a></h2>
+<p>Give <a class="reference internal" href="../reference/api.html#climclusterpy.reconstruct_original_grid" title="climclusterpy.reconstruct_original_grid"><code class="xref py py-func docutils literal notranslate"><span class="pre">reconstruct_original_grid()</span></code></a> the mapping CSVs and a
+<a class="reference internal" href="../reference/toplevel.html#climclusterpy.data.DataRegistry" title="climclusterpy.data.DataRegistry"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataRegistry</span></code></a> describing the original grid instead. Get the
+registry from the saved grid file, or rebuild it from the same soil-code file the reduced
+grid was built from (which gives every cell the same <code class="docutils literal notranslate"><span class="pre">cell_id</span></code>):</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">climclusterpy</span><span class="w"> </span><span class="kn">import</span> <span class="n">DataRegistry</span><span class="p">,</span> <span class="n">reconstruct_original_grid</span>
+
+<span class="n">registry</span> <span class="o">=</span> <span class="n">DataRegistry</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">"clusters_67/original_grid.nc"</span><span class="p">)</span>
+<span class="c1"># or: registry = DataRegistry.from_soil_code("/data/climate_input/soil_code.nc")</span>
+
+<span class="n">out_path</span> <span class="o">=</span> <span class="n">reconstruct_original_grid</span><span class="p">(</span>
+    <span class="s2">"vegc_clustered.nc"</span><span class="p">,</span>             <span class="c1"># output simulated on the cluster grid</span>
+    <span class="n">registry</span><span class="o">=</span><span class="n">registry</span><span class="p">,</span>
+    <span class="n">id_mapping_csv</span><span class="o">=</span><span class="s2">"clusters_67/cluster_id_mapping_67.csv"</span><span class="p">,</span>
+    <span class="n">compact_map_csv</span><span class="o">=</span><span class="s2">"clusters_67/cluster_compact_map_67.csv"</span><span class="p">,</span>
+    <span class="n">output_dir</span><span class="o">=</span><span class="s2">"reconstructed"</span><span class="p">,</span>
+<span class="p">)</span><span class="o">.</span><span class="n">path</span>
+</pre></div>
+</div>
+</section>
+<section id="required-mapping-files">
+<h2>Required mapping files<a class="headerlink" href="#required-mapping-files" title="Link to this heading"></a></h2>
+<p>Both are written into the output folder by <a class="reference internal" href="../reference/api.html#climclusterpy.create_clusters" title="climclusterpy.create_clusters"><code class="xref py py-func docutils literal notranslate"><span class="pre">create_clusters()</span></code></a> (and by
+<a class="reference internal" href="../reference/grid.html#climclusterpy.grid.build_reduced_grid" title="climclusterpy.grid.build_reduced_grid"><code class="xref py py-func docutils literal notranslate"><span class="pre">build_reduced_grid()</span></code></a> underneath it):</p>
+<dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">id_mapping_csv</span></code> — <code class="docutils literal notranslate"><span class="pre">cluster_id_mapping_{K}.csv</span></code></dt><dd><p>One row per original (valid) cell: <code class="docutils literal notranslate"><span class="pre">original_cell_id</span></code>, <code class="docutils literal notranslate"><span class="pre">new_cell_id</span></code>,
+<code class="docutils literal notranslate"><span class="pre">cluster_index</span></code>, <code class="docutils literal notranslate"><span class="pre">cluster_label</span></code>.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">compact_map_csv</span></code> — <code class="docutils literal notranslate"><span class="pre">cluster_compact_map_{K}.csv</span></code></dt><dd><p>Maps each cluster to its position on the artificial grid: <code class="docutils literal notranslate"><span class="pre">cluster_label</span></code>,
+<code class="docutils literal notranslate"><span class="pre">lat_index</span></code>, <code class="docutils literal notranslate"><span class="pre">cluster_index_start</span></code>, <code class="docutils literal notranslate"><span class="pre">cluster_index_end</span></code>.</p>
+</dd>
+</dl>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Use the <strong>compact</strong> map (<code class="docutils literal notranslate"><span class="pre">cluster_compact_map_{K}.csv</span></code>, with
+<code class="docutils literal notranslate"><span class="pre">cluster_index_start</span></code>/<code class="docutils literal notranslate"><span class="pre">cluster_index_end</span></code>), not a legacy plain latrow map. When
+<em>K</em> approaches the number of cells, several clusters share a latitude row on the
+artificial grid; the compact map’s exact longitude span is what lets reconstruction
+read each cluster’s own value instead of averaging the whole row.</p>
+</div>
+</section>
+<section id="reconstruction-paths-kind">
+<h2>Reconstruction paths (<code class="docutils literal notranslate"><span class="pre">kind</span></code>)<a class="headerlink" href="#reconstruction-paths-kind" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">&quot;output&quot;</span></code> (default)</dt><dd><p>One simulated cell per cluster: model output (dims <code class="docutils literal notranslate"><span class="pre">lat</span></code>/<code class="docutils literal notranslate"><span class="pre">lon</span></code>, as LPJmL writes
+them) or a reduced-grid NetCDF this package wrote (dims <code class="docutils literal notranslate"><span class="pre">latitude</span></code>/<code class="docutils literal notranslate"><span class="pre">longitude</span></code>);
+all spatial variables are reconstructed.
+→ <a class="reference internal" href="../reference/grid.html#climclusterpy.grid.reconstruct_output_netcdf" title="climclusterpy.grid.reconstruct_output_netcdf"><code class="xref py py-func docutils literal notranslate"><span class="pre">reconstruct_output_netcdf()</span></code></a>.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">&quot;distributed&quot;</span></code></dt><dd><p>Output of a <code class="docutils literal notranslate"><span class="pre">representative=&quot;distributed&quot;</span></code> grid (several cells per cluster); also pass
+<code class="docutils literal notranslate"><span class="pre">distributed_mapping_csv</span></code> and <code class="docutils literal notranslate"><span class="pre">labels_csv</span></code>, and optionally <code class="docutils literal notranslate"><span class="pre">aggregate=&quot;median&quot;</span></code>.
+<a class="reference internal" href="../reference/api.html#climclusterpy.reconstruct_original_grid" title="climclusterpy.reconstruct_original_grid"><code class="xref py py-func docutils literal notranslate"><span class="pre">reconstruct_original_grid()</span></code></a> picks this path, and both files, from the
+<code class="docutils literal notranslate"><span class="pre">create_clusters</span></code> result on its own — see <a class="reference internal" href="cell_selection.html"><span class="doc">Choosing the cells a cluster is simulated on</span></a>.
+→ <a class="reference internal" href="../reference/grid.html#climclusterpy.grid.reconstruct_from_distributed" title="climclusterpy.grid.reconstruct_from_distributed"><code class="xref py py-func docutils literal notranslate"><span class="pre">reconstruct_from_distributed()</span></code></a>.</p>
+</dd>
+</dl>
+</section>
+<section id="verifying-the-result">
+<h2>Verifying the result<a class="headerlink" href="#verifying-the-result" title="Link to this heading"></a></h2>
+<p><a class="reference internal" href="../reference/grid.html#climclusterpy.grid.validate_reconstruction_grid" title="climclusterpy.grid.validate_reconstruction_grid"><code class="xref py py-func docutils literal notranslate"><span class="pre">validate_reconstruction_grid()</span></code></a> checks that the reconstructed
+grid matches the original (cells that are not land stay <code class="docutils literal notranslate"><span class="pre">NaN</span></code>). <code class="docutils literal notranslate"><span class="pre">registry</span></code> is the
+<a class="reference internal" href="../reference/toplevel.html#climclusterpy.data.DataRegistry" title="climclusterpy.data.DataRegistry"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataRegistry</span></code></a> from above, or <code class="docutils literal notranslate"><span class="pre">clusters.registry</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">climclusterpy.grid</span><span class="w"> </span><span class="kn">import</span> <span class="n">validate_reconstruction_grid</span>
+
+<span class="k">assert</span> <span class="n">validate_reconstruction_grid</span><span class="p">(</span><span class="n">out_path</span><span class="p">,</span> <span class="n">registry</span><span class="p">,</span> <span class="n">var_name</span><span class="o">=</span><span class="s2">"vegc"</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="cell_selection.html" class="btn btn-neutral float-left" title="Choosing the cells a cluster is simulated on" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../reference/index.html" class="btn btn-neutral float-right" title="Reference" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, Jamir Priesner.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

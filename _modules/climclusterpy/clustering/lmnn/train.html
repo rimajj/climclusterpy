@@ -1,0 +1,931 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>climclusterpy.clustering.lmnn.train &mdash; climclusterpy 0.5</title>
+      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/custom.css?v=f2cc2102" />
+
+  
+    <link rel="shortcut icon" href="../../../../_static/logo.svg"/>
+      <script src="../../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../../_static/documentation_options.js?v=1dd76d02"></script>
+      <script src="../../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../../index.html" class="icon icon-home">
+            climclusterpy
+              <img src="../../../../_static/logo.svg" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../tutorials/index.html">Tutorials</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../tutorials/one_call_roundtrip.html">Tutorial 0 — the whole workflow in two calls</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../tutorials/one_call_roundtrip.html#the-idea">The idea</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../tutorials/one_call_roundtrip.html#call-1-build-the-reduced-grid">Call 1 — build the reduced grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../tutorials/one_call_roundtrip.html#call-2-rebuild-the-original-grid">Call 2 — rebuild the original grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../tutorials/one_call_roundtrip.html#the-complete-script">The complete script</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../tutorials/one_call_roundtrip.html#run-it">Run it</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../tutorials/one_call_roundtrip.html#next-steps">Next steps</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../tutorials/euclidean_clustering.html">Tutorial 1 — Euclidean clustering</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../tutorials/euclidean_clustering.html#load-data-and-build-a-feature-matrix">Load data and build a feature matrix</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../tutorials/euclidean_clustering.html#cluster">Cluster</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../tutorials/euclidean_clustering.html#the-complete-script">The complete script</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../tutorials/euclidean_clustering.html#run-it">Run it</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../tutorials/euclidean_clustering.html#next-steps">Next steps</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../tutorials/lmnn_clustering.html">Tutorial 2 — LMNN metric-learning clustering</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../tutorials/lmnn_clustering.html#provide-a-supervision-signal">Provide a supervision signal</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../tutorials/lmnn_clustering.html#learn-a-metric-and-cluster">Learn a metric and cluster</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../tutorials/lmnn_clustering.html#the-complete-script">The complete script</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../tutorials/lmnn_clustering.html#run-it">Run it</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../tutorials/lmnn_clustering.html#next-steps">Next steps</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../tutorials/supervision.html">Tutorial 3 — Supervision signals</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../tutorials/supervision.html#koppengeiger-from-monthly-climatology">Köppen–Geiger from monthly climatology</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../tutorials/supervision.html#model-output-trait-clustering">Model-output (trait) clustering</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../tutorials/supervision.html#the-complete-script">The complete script</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../tutorials/supervision.html#run-it">Run it</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../tutorials/supervision.html#ecoregion-supervision">Ecoregion supervision</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../tutorials/reconstruction.html">Tutorial 4 — Reconstruct the original grid</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../tutorials/reconstruction.html#the-round-trip">The round trip</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../tutorials/reconstruction.html#verify">Verify</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../tutorials/reconstruction.html#the-complete-script">The complete script</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../tutorials/reconstruction.html#run-it">Run it</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../tutorials/reconstruction.html#next-steps">Next steps</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../tutorials/index.html#a-note-on-the-synthetic-data">A note on the synthetic data</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">How-to guides</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../howto/index.html">How-to guides</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../howto/install.html">Install climclusterpy</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../howto/install.html#base-install">Base install</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../howto/install.html#optional-extras">Optional extras</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../howto/install.html#installing-the-geospatial-extras-with-conda">Installing the geospatial extras with conda</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../howto/install.html#pytorch-cpu-vs-gpu">PyTorch (CPU vs. GPU)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../howto/install.html#environment-variables">Environment variables</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../howto/install.html#building-the-documentation">Building the documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../howto/inputs.html">Prepare the input files</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../howto/inputs.html#check-your-input-first">Check your input first</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../howto/inputs.html#the-files">The files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../howto/inputs.html#grid-and-coordinates">Grid and coordinates</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../howto/inputs.html#which-cells-exist-the-soil-code">Which cells exist: the soil code</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../howto/inputs.html#the-time-axis">The time axis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../howto/inputs.html#missing-values">Missing values</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../howto/inputs.html#another-vegetation-model-s-input">Another vegetation model’s input</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../howto/inputs.html#output-files">Output files</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../howto/clustering.html">Cluster a feature matrix (choose a mode)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../howto/clustering.html#euclidean-mode-no-supervision">Euclidean mode (no supervision)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../howto/clustering.html#lmnn-mode-supervised-metric-learning">LMNN mode (supervised metric learning)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../howto/clustering.html#lower-level-control">Lower-level control</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../howto/supervision.html">Build an LMNN supervision signal</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../howto/supervision.html#from-climate-koppengeiger">From climate — Köppen–Geiger</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../howto/supervision.html#from-model-output-traits">From model output — traits</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../howto/supervision.html#from-a-shapefile-ecoregions2017">From a shapefile — Ecoregions2017</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../howto/supervision.html#using-the-signal">Using the signal</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../howto/supervision.html#in-one-call">In one call</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../howto/supervision.html#saved-results-are-reused-only-for-the-same-inputs">Saved results are reused only for the same inputs</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../howto/cell_selection.html">Choosing the cells a cluster is simulated on</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../howto/cell_selection.html#the-patch-budget">The patch budget</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../howto/cell_selection.html#what-the-drawn-cells-carry">What the drawn cells carry</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../howto/cell_selection.html#reproducibility">Reproducibility</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../howto/cell_selection.html#looking-at-a-draw-without-building-a-grid">Looking at a draw without building a grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../howto/cell_selection.html#back-to-the-full-grid">Back to the full grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../howto/cell_selection.html#a-model-that-reads-its-own-inputs-the-grid-only-then-cut-the-rest">A model that reads its own inputs: the grid only, then cut the rest</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../howto/reconstruct.html">Reconstruct the original grid</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../howto/reconstruct.html#the-usual-call">The usual call</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../howto/reconstruct.html#picking-up-where-you-left-off">Picking up where you left off</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../howto/reconstruct.html#without-a-result-or-run-folder">Without a result or run folder</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../howto/reconstruct.html#required-mapping-files">Required mapping files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../howto/reconstruct.html#reconstruction-paths-kind">Reconstruction paths (<code class="docutils literal notranslate"><span class="pre">kind</span></code>)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../howto/reconstruct.html#verifying-the-result">Verifying the result</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../reference/index.html">Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../reference/api.html">Public API — <code class="xref py py-mod docutils literal notranslate"><span class="pre">climclusterpy</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/api.html#the-two-headline-functions">The two headline functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/api.html#before-and-after-the-model-run">Before and after the model run</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/api.html#input-for-a-model-other-than-lpjml">Input for a model other than LPJmL</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/api.html#other-ways-to-build-the-reduced-grid">Other ways to build the reduced grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/api.html#reusing-a-trained-metric">Reusing a trained metric</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/api.html#the-model-s-other-inputs">The model’s other inputs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/api.html#writing-the-reduced-grid-yourself">Writing the reduced grid yourself</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/api.html#building-blocks">Building blocks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/api.html#result-objects">Result objects</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../reference/toplevel.html">Data, timeseries, I/O &amp; plotting</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/toplevel.html#module-climclusterpy.data">Data loading &amp; the grid registry</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/toplevel.html#how-much-the-package-reports">How much the package reports</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/toplevel.html#coordinates">Coordinates</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/toplevel.html#module-climclusterpy.timeseries">Per-cluster timeseries</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/toplevel.html#module-climclusterpy.io">File input/output</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/toplevel.html#module-climclusterpy.preprocessing">Preprocessing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/toplevel.html#module-climclusterpy.viz">Plotting</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../reference/features.html">Feature engineering</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/features.html#ecological-summaries">Ecological summaries</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/features.html#vegetation-model-traits">Vegetation-model traits</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/features.html#standardization-filtering">Standardization &amp; filtering</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../reference/clustering.html">Clustering &amp; metric learning</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/clustering.html#hierarchical-clustering">Hierarchical clustering</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/clustering.html#module-climclusterpy.clustering.lmnn">LMNN metric learning</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../reference/supervision.html">Supervision labels</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/supervision.html#koppengeiger-climate-zones">Köppen–Geiger climate zones</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/supervision.html#vegetation-model-output-traits">Vegetation-model output traits</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/supervision.html#ecoregion-polygons">Ecoregion polygons</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/supervision.html#daily-input-helpers">Daily-input helpers</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../reference/grid.html">Grid building &amp; reconstruction</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/grid.html#where-each-reduced-cell-is-placed">Where each reduced cell is placed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/grid.html#writing-the-reduced-grid">Writing the reduced grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/grid.html#reconstruction">Reconstruction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/grid.html#lpjml-clm-conversion">LPJmL CLM conversion</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../reference/cli.html">Command-line interface (<code class="docutils literal notranslate"><span class="pre">climclu</span></code>)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/cli.html#the-two-headline-commands">The two headline commands</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/cli.html#building-blocks">Building blocks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/cli.html#options-shared-by-every-action-command">Options shared by every action command</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/cli.html#errors-and-exit-codes">Errors and exit codes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../reference/index.html#which-function-do-i-need">Which function do I need?</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Explanation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../explanation/index.html">Explanation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../explanation/overview.html">Overview</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../explanation/overview.html#design-philosophy">Design Philosophy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../explanation/overview.html#workflow-summary">Workflow Summary</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../explanation/overview.html#key-innovations">Key Innovations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../explanation/overview.html#use-cases">Use Cases</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../explanation/overview.html#limitations">Limitations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../explanation/overview.html#future-directions">Future Directions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../explanation/overview.html#references">References</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../explanation/methods.html">Scientific Methods</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../explanation/methods.html#data-acquisition-and-preprocessing">Data Acquisition and Preprocessing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../explanation/methods.html#ecoregion-assignment">Ecoregion Assignment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../explanation/methods.html#ecological-feature-summarization">Ecological Feature Summarization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../explanation/methods.html#feature-standardization-and-filtering">Feature Standardization and Filtering</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../explanation/methods.html#large-margin-nearest-neighbor-lmnn-metric-learning">Large Margin Nearest Neighbor (LMNN) Metric Learning</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../explanation/methods.html#hierarchical-clustering">Hierarchical Clustering</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../explanation/methods.html#representative-cell-selection">Representative Cell Selection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../explanation/methods.html#evaluation-metrics">Evaluation Metrics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../explanation/methods.html#netcdf-processing">NetCDF Processing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../explanation/methods.html#computational-implementation">Computational Implementation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../explanation/index.html#reconstruction-correctness">Reconstruction correctness</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">climclusterpy</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">climclusterpy.clustering.lmnn.train</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for climclusterpy.clustering.lmnn.train</h1><div class="highlight"><pre>
+<span></span><span class="sd">"""</span>
+<span class="sd">LMNN (Large Margin Nearest Neighbor) metric learning for ecological clustering.</span>
+
+<span class="sd">Trains a Mahalanobis distance metric that pulls same-ecoregion cells together</span>
+<span class="sd">and pushes different-ecoregion cells apart.</span>
+
+<span class="sd">Modes:</span>
+
+<span class="sd">- ``"global"``: one linear map ``L`` (Mahalanobis matrix ``M = LᵀL``) for all cells,</span>
+<span class="sd">  trained in PyTorch (:mod:`~climclusterpy.clustering.lmnn.linear`).</span>
+<span class="sd">- ``"local"``: a network predicts per-cell feature weights (a diagonal metric).</span>
+<span class="sd">- ``"enhanced"``: the local metric plus class prototypes and oversampling.</span>
+<span class="sd">- ``"lowrank"``: a network predicts a per-cell low-rank Mahalanobis metric.</span>
+
+<span class="sd">Every mode needs PyTorch, i.e. the ``[lmnn]`` extra; it is imported only when a mode is trained.</span>
+<span class="sd">"""</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pickle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">collections.abc</span><span class="w"> </span><span class="kn">import</span> <span class="n">Callable</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.discriminant_analysis</span><span class="w"> </span><span class="kn">import</span> <span class="n">LinearDiscriminantAnalysis</span>
+
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="LDAMetricLearner">
+<a class="viewcode-back" href="../../../../reference/clustering.html#climclusterpy.clustering.lmnn.LDAMetricLearner">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">LDAMetricLearner</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""</span>
+<span class="sd">    LDA-based metric learner for ecological clustering.</span>
+
+<span class="sd">    Fits scikit-learn's ``LinearDiscriminantAnalysis`` with ``solver='eigen'``</span>
+<span class="sd">    and ``shrinkage='auto'`` (Ledoit-Wolf shrinkage) on a feature matrix *X*</span>
+<span class="sd">    supervised by either Köppen-Geiger zone labels or ecoregion labels.</span>
+
+<span class="sd">    The fitted discriminant axes define a lower-dimensional space (at most</span>
+<span class="sd">    ``n_classes − 1`` dimensions) in which same-class cells cluster tightly</span>
+<span class="sd">    and different-class cells are well separated, analogous to what LMNN</span>
+<span class="sd">    achieves via a Mahalanobis matrix.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    supervision : {'kg', 'ecoregion'}</span>
+<span class="sd">        Which label set was used for supervision.  Stored as metadata and</span>
+<span class="sd">        reflected in the default cache filename.</span>
+<span class="sd">    cache_dir : str or Path, optional</span>
+<span class="sd">        Directory in which to persist the fitted model as</span>
+<span class="sd">        ``lda_&lt;supervision&gt;_&lt;fingerprint&gt;.pkl``, the fingerprint being that of the</span>
+<span class="sd">        ``X`` and ``y`` it was fitted on. When that file already exists and</span>
+<span class="sd">        ``force_recompute=False``, the stored model is loaded instead of</span>
+<span class="sd">        refitting; a model fitted on other data is never loaded.</span>
+<span class="sd">    force_recompute : bool</span>
+<span class="sd">        When *True*, ignore any existing cache and always refit.</span>
+
+<span class="sd">    Attributes</span>
+<span class="sd">    ----------</span>
+<span class="sd">    lda_ : LinearDiscriminantAnalysis</span>
+<span class="sd">        The fitted sklearn LDA estimator (set after calling :meth:`fit`).</span>
+<span class="sd">    scalings_ : np.ndarray, shape (n_features, n_components)</span>
+<span class="sd">        Discriminant axis loadings (columns = LDA components).</span>
+<span class="sd">    feature_importance_ : np.ndarray, shape (n_features,)</span>
+<span class="sd">        Absolute mean loading per original feature across all discriminant</span>
+<span class="sd">        axes, normalised to sum to 1.  Analogous to the diagonal of the</span>
+<span class="sd">        Mahalanobis matrix *M* used by global LMNN.</span>
+<span class="sd">    n_components_ : int</span>
+<span class="sd">        Number of discriminant components retained (≤ n_classes − 1).</span>
+<span class="sd">    """</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">supervision</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"kg"</span><span class="p">,</span>
+        <span class="n">cache_dir</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">force_recompute</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">supervision</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">"kg"</span><span class="p">,</span> <span class="s2">"ecoregion"</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"supervision must be 'kg' or 'ecoregion', got '</span><span class="si">{</span><span class="n">supervision</span><span class="si">}</span><span class="s2">'"</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">supervision</span> <span class="o">=</span> <span class="n">supervision</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cache_dir</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">cache_dir</span><span class="p">)</span> <span class="k">if</span> <span class="n">cache_dir</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">force_recompute</span> <span class="o">=</span> <span class="n">force_recompute</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">lda_</span><span class="p">:</span> <span class="n">LinearDiscriminantAnalysis</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">scalings_</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_feature_importance_</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">n_components_</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_input_key</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="c1"># ------------------------------------------------------------------</span>
+    <span class="c1"># Cache helpers</span>
+    <span class="c1"># ------------------------------------------------------------------</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_cache_path</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Path</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">cache_dir</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">_input_key</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">cache_dir</span> <span class="o">/</span> <span class="sa">f</span><span class="s2">"lda_</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">supervision</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_input_key</span><span class="si">}</span><span class="s2">.pkl"</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_try_load</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Try to load a cached model.  Returns True on success."""</span>
+        <span class="n">p</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cache_path</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">p</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">p</span><span class="o">.</span><span class="n">exists</span><span class="p">()</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">force_recompute</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="s2">"rb"</span><span class="p">)</span> <span class="k">as</span> <span class="n">fh</span><span class="p">:</span>
+            <span class="n">state</span> <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">fh</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lda_</span> <span class="o">=</span> <span class="n">state</span><span class="p">[</span><span class="s2">"lda"</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">scalings_</span> <span class="o">=</span> <span class="n">state</span><span class="p">[</span><span class="s2">"scalings"</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_feature_importance_</span> <span class="o">=</span> <span class="n">state</span><span class="p">[</span><span class="s2">"feature_importance"</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">n_components_</span> <span class="o">=</span> <span class="n">state</span><span class="p">[</span><span class="s2">"n_components"</span><span class="p">]</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">"[LDAMetric] Loaded cached LDA (</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">supervision</span><span class="si">}</span><span class="s2">) from </span><span class="si">{</span><span class="n">p</span><span class="si">}</span><span class="s2"> "</span>
+            <span class="sa">f</span><span class="s2">"— </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">n_components_</span><span class="si">}</span><span class="s2"> components"</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="kc">True</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_save</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">p</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cache_path</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">p</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span>
+        <span class="n">p</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">state</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">"lda"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">lda_</span><span class="p">,</span>
+            <span class="s2">"scalings"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">scalings_</span><span class="p">,</span>
+            <span class="s2">"feature_importance"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_feature_importance_</span><span class="p">,</span>
+            <span class="s2">"n_components"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_components_</span><span class="p">,</span>
+        <span class="p">}</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="s2">"wb"</span><span class="p">)</span> <span class="k">as</span> <span class="n">fh</span><span class="p">:</span>
+            <span class="n">pickle</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="n">fh</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"[LDAMetric] Saved LDA (</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">supervision</span><span class="si">}</span><span class="s2">) model to </span><span class="si">{</span><span class="n">p</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+    <span class="c1"># ------------------------------------------------------------------</span>
+    <span class="c1"># Public API</span>
+    <span class="c1"># ------------------------------------------------------------------</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">LDAMetricLearner</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""</span>
+<span class="sd">        Fit the LDA metric learner.</span>
+
+<span class="sd">        If a model fitted on this same *X* and *y* is cached (and</span>
+<span class="sd">        ``force_recompute=False``), it is loaded instead of refitting.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        X : np.ndarray, shape (n_cells, n_features)</span>
+<span class="sd">            Standardised feature matrix.</span>
+<span class="sd">        y : np.ndarray, shape (n_cells,)</span>
+<span class="sd">            Integer or string class labels.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        self</span>
+<span class="sd">        """</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">climclusterpy._cache</span><span class="w"> </span><span class="kn">import</span> <span class="n">fingerprint</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_input_key</span> <span class="o">=</span> <span class="n">fingerprint</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">y</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">))</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_try_load</span><span class="p">():</span>
+            <span class="k">return</span> <span class="bp">self</span>
+
+        <span class="n">n_classes</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">y</span><span class="p">))</span>
+        <span class="n">n_components</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">n_classes</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">"[LDAMetric] Fitting LDA (</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">supervision</span><span class="si">}</span><span class="s2">) — "</span>
+            <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2"> samples, </span><span class="si">{</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2"> features, "</span>
+            <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">n_classes</span><span class="si">}</span><span class="s2"> classes → </span><span class="si">{</span><span class="n">n_components</span><span class="si">}</span><span class="s2"> discriminant axes"</span>
+        <span class="p">)</span>
+
+        <span class="n">lda</span> <span class="o">=</span> <span class="n">LinearDiscriminantAnalysis</span><span class="p">(</span>
+            <span class="n">solver</span><span class="o">=</span><span class="s2">"eigen"</span><span class="p">,</span>
+            <span class="n">shrinkage</span><span class="o">=</span><span class="s2">"auto"</span><span class="p">,</span>
+            <span class="n">n_components</span><span class="o">=</span><span class="n">n_components</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="n">lda</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">lda_</span> <span class="o">=</span> <span class="n">lda</span>
+        <span class="c1"># scalings_ shape: (n_features, n_components)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">scalings_</span> <span class="o">=</span> <span class="n">lda</span><span class="o">.</span><span class="n">scalings_</span><span class="p">[:,</span> <span class="p">:</span><span class="n">n_components</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">n_components_</span> <span class="o">=</span> <span class="n">n_components</span>
+
+        <span class="c1"># Feature importance: absolute mean loading across all axes, normalised</span>
+        <span class="n">abs_loadings</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">scalings_</span><span class="p">)</span>  <span class="c1"># (n_features, n_components)</span>
+        <span class="n">mean_abs</span> <span class="o">=</span> <span class="n">abs_loadings</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># (n_features,)</span>
+        <span class="n">total</span> <span class="o">=</span> <span class="n">mean_abs</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_feature_importance_</span> <span class="o">=</span> <span class="n">mean_abs</span> <span class="o">/</span> <span class="n">total</span> <span class="k">if</span> <span class="n">total</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="n">mean_abs</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_save</span><span class="p">()</span>
+        <span class="k">return</span> <span class="bp">self</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""</span>
+<span class="sd">        Project *X* into the LDA discriminant space.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        X : np.ndarray, shape (n_cells, n_features)</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        X_lda : np.ndarray, shape (n_cells, n_components)</span>
+<span class="sd">        """</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">lda_</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">"Call fit() before transform()."</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">lda_</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">feature_importance_</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""</span>
+<span class="sd">        Absolute mean loading per original feature across all discriminant</span>
+<span class="sd">        axes, normalised to sum to 1.</span>
+<span class="sd">        """</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_feature_importance_</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">"Call fit() before accessing feature_importance_."</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_feature_importance_</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">feature_importance_df</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">feature_names</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""</span>
+<span class="sd">        Return a DataFrame with columns ``['feature', 'importance']`` sorted</span>
+<span class="sd">        by importance descending.  Mirrors the output of</span>
+<span class="sd">        :func:`compute_feature_importance` for easy comparison.</span>
+<span class="sd">        """</span>
+        <span class="n">imp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">feature_importance_</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">"feature"</span><span class="p">:</span> <span class="n">feature_names</span><span class="p">,</span> <span class="s2">"importance"</span><span class="p">:</span> <span class="n">imp</span><span class="p">})</span>
+        <span class="n">df</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s2">"importance"</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">df</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">df</span></div>
+
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_require_torch</span><span class="p">(</span><span class="n">mode</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Fail with the install command, not a bare ModuleNotFoundError, when torch is absent."""</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">importlib.util</span>
+
+    <span class="k">if</span> <span class="n">importlib</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">find_spec</span><span class="p">(</span><span class="s2">"torch"</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ImportError</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">"lmnn_mode=</span><span class="si">{</span><span class="n">mode</span><span class="si">!r}</span><span class="s2"> is trained with PyTorch, which is not installed. Install the "</span>
+            <span class="s2">"metric-learning extra: pip install 'climclusterpy[lmnn]'."</span>
+        <span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_reject_unconsumed_kwargs</span><span class="p">(</span><span class="n">kwargs</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">target</span><span class="p">:</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">mode</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Raise if any extra keyword is not a parameter of the trainer that will run.</span>
+
+<span class="sd">    Extra keywords used to be forwarded blindly, so a name the target trainer did</span>
+<span class="sd">    not accept was either a confusing ``TypeError`` from deep inside the call</span>
+<span class="sd">    stack or -- worse, for keywords that happened to bind to a *different*</span>
+<span class="sd">    function's parameter -- silently dropped: a caller asking for a reduced-rank</span>
+<span class="sd">    metric in a mode that cannot give one used to get a full-rank one and no</span>
+<span class="sd">    warning. Fail fast instead.</span>
+<span class="sd">    """</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">inspect</span>
+
+    <span class="n">accepted</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="n">name</span>
+        <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">inspect</span><span class="o">.</span><span class="n">signature</span><span class="p">(</span><span class="n">target</span><span class="p">)</span><span class="o">.</span><span class="n">parameters</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">kind</span> <span class="ow">in</span> <span class="p">(</span><span class="n">inspect</span><span class="o">.</span><span class="n">Parameter</span><span class="o">.</span><span class="n">POSITIONAL_OR_KEYWORD</span><span class="p">,</span> <span class="n">inspect</span><span class="o">.</span><span class="n">Parameter</span><span class="o">.</span><span class="n">KEYWORD_ONLY</span><span class="p">)</span>
+    <span class="p">}</span>
+    <span class="n">unknown</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-</span> <span class="n">accepted</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">unknown</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">"train_lmnn(mode=</span><span class="si">{</span><span class="n">mode</span><span class="si">!r}</span><span class="s2">) got unexpected keyword argument(s): "</span>
+            <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="s1">', '</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">unknown</span><span class="p">)</span><span class="si">}</span><span class="s2">. The </span><span class="si">{</span><span class="n">mode</span><span class="si">}</span><span class="s2"> trainer (</span><span class="si">{</span><span class="n">target</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">) does not "</span>
+            <span class="sa">f</span><span class="s2">"accept them, and silently ignoring them would produce a model that "</span>
+            <span class="sa">f</span><span class="s2">"does not match what you asked for. Accepted extras: "</span>
+            <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="s1">', '</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">accepted</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="p">{</span><span class="s1">'X'</span><span class="p">,</span><span class="w"> </span><span class="s1">'y'</span><span class="p">,</span><span class="w"> </span><span class="s1">'labels'</span><span class="p">}))</span><span class="si">}</span><span class="s2">."</span>
+        <span class="p">)</span>
+
+
+<div class="viewcode-block" id="train_lmnn">
+<a class="viewcode-back" href="../../../../reference/clustering.html#climclusterpy.clustering.lmnn.train_lmnn">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">train_lmnn</span><span class="p">(</span>
+    <span class="n">X</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">labels</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">mode</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"global"</span><span class="p">,</span>
+    <span class="n">k</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">max_iter</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1000</span><span class="p">,</span>
+    <span class="c1"># Options of the per-cell network modes ("local", "enhanced", "lowrank")</span>
+    <span class="n">hidden_dims</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">margin</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">,</span>
+    <span class="n">learning_rate</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">batch_size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">128</span><span class="p">,</span>
+    <span class="n">max_epochs</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span>
+    <span class="n">dropout</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.1</span><span class="p">,</span>
+    <span class="n">weight_decay</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-4</span><span class="p">,</span>
+    <span class="n">patience</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span>
+    <span class="n">rank</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">seed</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">verbose</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="nb">dict</span><span class="p">]</span> <span class="o">|</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">object</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="nb">dict</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">"""Train an LMNN metric-learning model in one of four modes.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    X : numpy.ndarray</span>
+<span class="sd">        Feature matrix ``(n_samples, n_features)``; should be standardized.</span>
+<span class="sd">    labels : numpy.ndarray</span>
+<span class="sd">        Class labels (e.g. ecoregion IDs), shape ``(n_samples,)``.</span>
+<span class="sd">    mode : str, optional</span>
+<span class="sd">        ``"global"`` learns one linear map ``L`` for all cells (classic LMNN);</span>
+<span class="sd">        ``"local"`` learns feature-conditioned **diagonal** local weights via a</span>
+<span class="sd">        neural network; ``"enhanced"`` adds prototypes and oversampling to the</span>
+<span class="sd">        diagonal metric; ``"lowrank"`` learns a per-cell **low-rank Mahalanobis**</span>
+<span class="sd">        metric that captures cross-feature interaction (the published</span>
+<span class="sd">        configuration, ``rank=16`` on 25 features). Default ``"global"``.</span>
+<span class="sd">    k : int or None, optional</span>
+<span class="sd">        Number of target neighbours (default 5). Not accepted by</span>
+<span class="sd">        ``mode="lowrank"``, which derives ``k`` per anchor from ``k_min``,</span>
+<span class="sd">        ``k_max`` and ``beta``.</span>
+<span class="sd">    max_iter : int, optional</span>
+<span class="sd">        Global mode only: maximum number of training iterations (default 1000).</span>
+<span class="sd">    hidden_dims : list of int, optional</span>
+<span class="sd">        Local/enhanced modes: hidden-layer sizes for the network (default</span>
+<span class="sd">        ``[64, 32]``).</span>
+<span class="sd">    margin : float, optional</span>
+<span class="sd">        Global, local and enhanced modes: impostor separation margin (default 1.0).</span>
+<span class="sd">    learning_rate : float or None, optional</span>
+<span class="sd">        Optimiser step size. ``None`` (default) uses the mode's own default:</span>
+<span class="sd">        1e-2 for global mode (Adam on the entries of ``L``), 1e-3 for the</span>
+<span class="sd">        network modes.</span>
+<span class="sd">    batch_size : int, optional</span>
+<span class="sd">        Network modes only: training batch size (default 128).</span>
+<span class="sd">    max_epochs : int, optional</span>
+<span class="sd">        Network modes only: maximum training epochs (default 100).</span>
+<span class="sd">    dropout : float, optional</span>
+<span class="sd">        Network modes only: dropout probability (default 0.1).</span>
+<span class="sd">    weight_decay : float, optional</span>
+<span class="sd">        Local/enhanced/lowrank only: L2 regularization strength (default 1e-4).</span>
+<span class="sd">    patience : int, optional</span>
+<span class="sd">        Network modes only: early-stopping patience (default 10).</span>
+<span class="sd">    rank : int or None, optional</span>
+<span class="sd">        Rank of the learned metric. ``mode="global"``: number of rows of ``L``</span>
+<span class="sd">        (``None`` = full rank, ``n_features``). ``mode="lowrank"``: rank of each</span>
+<span class="sd">        cell's metric factor (``None`` = 16, the published setting on 25</span>
+<span class="sd">        features). A rank above ``n_features`` is lowered to ``n_features``.</span>
+<span class="sd">        The diagonal modes (``"local"``, ``"enhanced"``) have no rank, so</span>
+<span class="sd">        passing it there raises.</span>
+<span class="sd">    seed : int or None, optional</span>
+<span class="sd">        Seed for every RNG the trainer draws from. ``None`` (default) leaves the</span>
+<span class="sd">        global RNGs untouched, so the network modes are **not reproducible**;</span>
+<span class="sd">        pass a seed for any run whose numbers you intend to cite. Global mode</span>
+<span class="sd">        has no random component and is reproducible either way.</span>
+<span class="sd">    verbose : bool, optional</span>
+<span class="sd">        Log training progress (default ``False``).</span>
+<span class="sd">    **kwargs</span>
+<span class="sd">        Further options of the trainer the mode runs:</span>
+<span class="sd">        :func:`~climclusterpy.clustering.lmnn.linear.train_global_lmnn`</span>
+<span class="sd">        (e.g. ``push_weight``, ``n_candidates``, ``refresh_every``),</span>
+<span class="sd">        :func:`~climclusterpy.clustering.lmnn.local.train_local_lmnn`,</span>
+<span class="sd">        :func:`~climclusterpy.clustering.lmnn.enhanced.train_enhanced_local_lmnn` or</span>
+<span class="sd">        :func:`~climclusterpy.clustering.lmnn.lowrank.train_local_mahalanobis_lmnn`.</span>
+<span class="sd">        A name that trainer does not accept raises ``TypeError``.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    tuple</span>
+<span class="sd">        For ``mode="global"``: ``(L, M, diagnostics)`` -- the linear map ``L`` of</span>
+<span class="sd">        shape ``(rank, n_features)``, the Mahalanobis matrix ``M = L.T @ L`` of</span>
+<span class="sd">        shape ``(n_features, n_features)``, and a diagnostics dict (loss history,</span>
+<span class="sd">        convergence info, the rank used).</span>
+<span class="sd">        For the other modes: ``(model, distance_fn, diagnostics)`` -- the trained</span>
+<span class="sd">        network, a callable computing the pairwise distance matrix</span>
+<span class="sd">        (``distance_fn(X) -&gt; D``), and a diagnostics dict.</span>
+
+<span class="sd">    Raises</span>
+<span class="sd">    ------</span>
+<span class="sd">    ImportError</span>
+<span class="sd">        If PyTorch (the ``[lmnn]`` extra) is not installed.</span>
+<span class="sd">    ValueError</span>
+<span class="sd">        For an unknown mode, or ``rank``/``k`` given to a mode that cannot honour it.</span>
+<span class="sd">    TypeError</span>
+<span class="sd">        For a keyword argument the selected trainer does not accept.</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    Global mode assumes one universal feature weighting across all cells, while</span>
+<span class="sd">    the per-cell modes let the metric vary with local environmental context</span>
+<span class="sd">    (e.g. temperature matters more in the tropics).</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    Global LMNN::</span>
+
+<span class="sd">        L, M, diag = train_lmnn(X, labels, mode="global", rank=10, seed=0)</span>
+<span class="sd">        X_transformed = transform_features(X, L)</span>
+
+<span class="sd">    Local LMNN::</span>
+
+<span class="sd">        model, distance_fn, diag = train_lmnn(X, labels, mode="local", seed=0)</span>
+<span class="sd">        D = distance_fn(X)  # pairwise distances</span>
+<span class="sd">    """</span>
+    <span class="c1"># `output_dim` was the global mode's name for what every mode now calls `rank`.</span>
+    <span class="c1"># An explicit value is refused with the new name, so an old call does not silently</span>
+    <span class="c1"># train a full-rank metric; `None` asks for nothing and is dropped.</span>
+    <span class="n">old_rank</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">"output_dim"</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">old_rank</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span>
+            <span class="s2">"output_dim was renamed to rank in climclusterpy 0.4.0 (one name for the metric's "</span>
+            <span class="sa">f</span><span class="s2">"rank in every mode). Pass rank=</span><span class="si">{</span><span class="n">old_rank</span><span class="si">!r}</span><span class="s2"> instead."</span>
+        <span class="p">)</span>
+    <span class="c1"># The diagonal modes learn one weight per feature per cell; there is no rank to</span>
+    <span class="c1"># choose, and accepting one and dropping it would hand back a different metric</span>
+    <span class="c1"># from the one asked for.</span>
+    <span class="k">if</span> <span class="n">mode</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">"local"</span><span class="p">,</span> <span class="s2">"enhanced"</span><span class="p">)</span> <span class="ow">and</span> <span class="n">rank</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">"rank applies to mode='global' and mode='lowrank' only; mode=</span><span class="si">{</span><span class="n">mode</span><span class="si">!r}</span><span class="s2"> learns a "</span>
+            <span class="s2">"diagonal metric, which has no rank."</span>
+        <span class="p">)</span>
+    <span class="c1"># `k` is a fixed target-neighbour count; lowrank picks k per anchor from the</span>
+    <span class="c1"># adaptive schedule instead, so accepting k there and dropping it would be</span>
+    <span class="c1"># the same silent-wrong-answer failure.</span>
+    <span class="k">if</span> <span class="n">mode</span> <span class="o">==</span> <span class="s2">"lowrank"</span> <span class="ow">and</span> <span class="n">k</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+            <span class="s2">"mode='lowrank' chooses target neighbours per anchor from an adaptive "</span>
+            <span class="s2">"schedule, so a fixed k does not apply. Tune it with k_min, k_max and "</span>
+            <span class="s2">"beta (defaults 3, 15, 0.005 -- the published setting)."</span>
+        <span class="p">)</span>
+    <span class="k">if</span> <span class="n">mode</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">"global"</span><span class="p">,</span> <span class="s2">"local"</span><span class="p">,</span> <span class="s2">"enhanced"</span><span class="p">,</span> <span class="s2">"lowrank"</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">"Unknown mode: '</span><span class="si">{</span><span class="n">mode</span><span class="si">}</span><span class="s2">'. Use 'global', 'local', 'enhanced', or 'lowrank'.</span><span class="se">\n</span><span class="s2">"</span>
+            <span class="s2">"  - 'global': Classic LMNN with one linear map for all cells</span><span class="se">\n</span><span class="s2">"</span>
+            <span class="s2">"  - 'local': Feature-conditioned LMNN with neural network (DIAGONAL metric)</span><span class="se">\n</span><span class="s2">"</span>
+            <span class="s2">"  - 'enhanced': Local LMNN with adaptive k, prototypes, and oversampling</span><span class="se">\n</span><span class="s2">"</span>
+            <span class="s2">"  - 'lowrank': Per-cell LOW-RANK Mahalanobis metric (captures feature</span><span class="se">\n</span><span class="s2">"</span>
+            <span class="s2">"    interactions; the published configuration, rank=16)"</span>
+        <span class="p">)</span>
+    <span class="k">if</span> <span class="n">k</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">k</span> <span class="o">=</span> <span class="mi">5</span>
+    <span class="n">_require_torch</span><span class="p">(</span><span class="n">mode</span><span class="p">)</span>
+    <span class="c1"># The network modes keep the step size they have always been run with.</span>
+    <span class="n">net_learning_rate</span> <span class="o">=</span> <span class="mf">1e-3</span> <span class="k">if</span> <span class="n">learning_rate</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">learning_rate</span>
+
+    <span class="k">if</span> <span class="n">mode</span> <span class="o">==</span> <span class="s2">"global"</span><span class="p">:</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">.linear</span><span class="w"> </span><span class="kn">import</span> <span class="n">train_global_lmnn</span>
+
+        <span class="n">_reject_unconsumed_kwargs</span><span class="p">(</span><span class="n">kwargs</span><span class="p">,</span> <span class="n">train_global_lmnn</span><span class="p">,</span> <span class="n">mode</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">learning_rate</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">kwargs</span><span class="p">[</span><span class="s2">"learning_rate"</span><span class="p">]</span> <span class="o">=</span> <span class="n">learning_rate</span>
+        <span class="k">return</span> <span class="n">train_global_lmnn</span><span class="p">(</span>
+            <span class="n">X</span><span class="p">,</span>
+            <span class="n">labels</span><span class="p">,</span>
+            <span class="n">k</span><span class="o">=</span><span class="n">k</span><span class="p">,</span>
+            <span class="n">rank</span><span class="o">=</span><span class="n">rank</span><span class="p">,</span>
+            <span class="n">margin</span><span class="o">=</span><span class="n">margin</span><span class="p">,</span>
+            <span class="n">max_iter</span><span class="o">=</span><span class="n">max_iter</span><span class="p">,</span>
+            <span class="n">seed</span><span class="o">=</span><span class="n">seed</span><span class="p">,</span>
+            <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">,</span>
+            <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+        <span class="p">)</span>
+    <span class="k">elif</span> <span class="n">mode</span> <span class="o">==</span> <span class="s2">"local"</span><span class="p">:</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">.local</span><span class="w"> </span><span class="kn">import</span> <span class="n">compute_distance_matrix_local</span><span class="p">,</span> <span class="n">train_local_lmnn</span>
+
+        <span class="n">_reject_unconsumed_kwargs</span><span class="p">(</span><span class="n">kwargs</span><span class="p">,</span> <span class="n">train_local_lmnn</span><span class="p">,</span> <span class="n">mode</span><span class="p">)</span>
+        <span class="n">model</span><span class="p">,</span> <span class="n">diagnostics</span> <span class="o">=</span> <span class="n">train_local_lmnn</span><span class="p">(</span>
+            <span class="n">X</span><span class="p">,</span>
+            <span class="n">labels</span><span class="p">,</span>
+            <span class="n">k</span><span class="o">=</span><span class="n">k</span><span class="p">,</span>
+            <span class="n">margin</span><span class="o">=</span><span class="n">margin</span><span class="p">,</span>
+            <span class="n">hidden_dims</span><span class="o">=</span><span class="n">hidden_dims</span> <span class="ow">or</span> <span class="p">[</span><span class="mi">64</span><span class="p">,</span> <span class="mi">32</span><span class="p">],</span>
+            <span class="n">dropout</span><span class="o">=</span><span class="n">dropout</span><span class="p">,</span>
+            <span class="n">learning_rate</span><span class="o">=</span><span class="n">net_learning_rate</span><span class="p">,</span>
+            <span class="n">weight_decay</span><span class="o">=</span><span class="n">weight_decay</span><span class="p">,</span>
+            <span class="n">batch_size</span><span class="o">=</span><span class="n">batch_size</span><span class="p">,</span>
+            <span class="n">max_epochs</span><span class="o">=</span><span class="n">max_epochs</span><span class="p">,</span>
+            <span class="n">patience</span><span class="o">=</span><span class="n">patience</span><span class="p">,</span>
+            <span class="n">seed</span><span class="o">=</span><span class="n">seed</span><span class="p">,</span>
+            <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">,</span>
+            <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Create distance function closure</span>
+        <span class="k">def</span><span class="w"> </span><span class="nf">distance_fn</span><span class="p">(</span><span class="n">X_new</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">compute_distance_matrix_local</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">X_new</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">model</span><span class="p">,</span> <span class="n">distance_fn</span><span class="p">,</span> <span class="n">diagnostics</span>
+    <span class="k">elif</span> <span class="n">mode</span> <span class="o">==</span> <span class="s2">"enhanced"</span><span class="p">:</span>
+        <span class="c1"># Enhanced mode: delegate directly — no parameter renaming needed here.</span>
+        <span class="c1"># Callers must use the same names as train_enhanced_local_lmnn:</span>
+        <span class="c1">#   enable_prototypes, tiny_class_threshold, enable_oversampling,</span>
+        <span class="c1">#   small_class_threshold, per_ecoregion_metrics_path, etc.</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">.enhanced</span><span class="w"> </span><span class="kn">import</span> <span class="n">train_enhanced_local_lmnn</span>
+
+        <span class="n">_reject_unconsumed_kwargs</span><span class="p">(</span><span class="n">kwargs</span><span class="p">,</span> <span class="n">train_enhanced_local_lmnn</span><span class="p">,</span> <span class="n">mode</span><span class="p">)</span>
+        <span class="n">model</span><span class="p">,</span> <span class="n">distance_fn</span><span class="p">,</span> <span class="n">diagnostics</span> <span class="o">=</span> <span class="n">train_enhanced_local_lmnn</span><span class="p">(</span>
+            <span class="n">X</span><span class="p">,</span>
+            <span class="n">labels</span><span class="p">,</span>
+            <span class="n">k</span><span class="o">=</span><span class="n">k</span><span class="p">,</span>
+            <span class="n">margin</span><span class="o">=</span><span class="n">margin</span><span class="p">,</span>
+            <span class="n">hidden_dims</span><span class="o">=</span><span class="n">hidden_dims</span> <span class="ow">or</span> <span class="p">[</span><span class="mi">64</span><span class="p">,</span> <span class="mi">32</span><span class="p">],</span>
+            <span class="n">dropout</span><span class="o">=</span><span class="n">dropout</span><span class="p">,</span>
+            <span class="n">learning_rate</span><span class="o">=</span><span class="n">net_learning_rate</span><span class="p">,</span>
+            <span class="n">weight_decay</span><span class="o">=</span><span class="n">weight_decay</span><span class="p">,</span>
+            <span class="n">batch_size</span><span class="o">=</span><span class="n">batch_size</span><span class="p">,</span>
+            <span class="n">max_epochs</span><span class="o">=</span><span class="n">max_epochs</span><span class="p">,</span>
+            <span class="n">patience</span><span class="o">=</span><span class="n">patience</span><span class="p">,</span>
+            <span class="n">seed</span><span class="o">=</span><span class="n">seed</span><span class="p">,</span>
+            <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">,</span>
+            <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">model</span><span class="p">,</span> <span class="n">distance_fn</span><span class="p">,</span> <span class="n">diagnostics</span>
+    <span class="k">else</span><span class="p">:</span>  <span class="c1"># "lowrank"</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">.lowrank</span><span class="w"> </span><span class="kn">import</span> <span class="n">DEFAULT_RANK</span><span class="p">,</span> <span class="n">make_distance_fn</span><span class="p">,</span> <span class="n">train_local_mahalanobis_lmnn</span>
+
+        <span class="n">_reject_unconsumed_kwargs</span><span class="p">(</span><span class="n">kwargs</span><span class="p">,</span> <span class="n">train_local_mahalanobis_lmnn</span><span class="p">,</span> <span class="n">mode</span><span class="p">)</span>
+        <span class="n">model</span><span class="p">,</span> <span class="n">diagnostics</span> <span class="o">=</span> <span class="n">train_local_mahalanobis_lmnn</span><span class="p">(</span>
+            <span class="n">X</span><span class="p">,</span>
+            <span class="n">labels</span><span class="p">,</span>
+            <span class="n">rank</span><span class="o">=</span><span class="n">DEFAULT_RANK</span> <span class="k">if</span> <span class="n">rank</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">rank</span><span class="p">,</span>
+            <span class="n">dropout_rate</span><span class="o">=</span><span class="n">dropout</span><span class="p">,</span>
+            <span class="n">learning_rate</span><span class="o">=</span><span class="n">net_learning_rate</span><span class="p">,</span>
+            <span class="n">weight_decay</span><span class="o">=</span><span class="n">weight_decay</span><span class="p">,</span>
+            <span class="n">batch_size</span><span class="o">=</span><span class="n">batch_size</span><span class="p">,</span>
+            <span class="n">max_epochs</span><span class="o">=</span><span class="n">max_epochs</span><span class="p">,</span>
+            <span class="n">patience</span><span class="o">=</span><span class="n">patience</span><span class="p">,</span>
+            <span class="n">seed</span><span class="o">=</span><span class="n">seed</span><span class="p">,</span>
+            <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">,</span>
+            <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="n">model</span><span class="p">,</span> <span class="n">make_distance_fn</span><span class="p">(</span><span class="n">model</span><span class="p">),</span> <span class="n">diagnostics</span></div>
+
+
+
+<div class="viewcode-block" id="compute_feature_importance">
+<a class="viewcode-back" href="../../../../reference/clustering.html#climclusterpy.clustering.lmnn.compute_feature_importance">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">compute_feature_importance</span><span class="p">(</span>
+    <span class="n">M</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">feature_names</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""</span>
+<span class="sd">    Compute feature importance from Mahalanobis matrix.</span>
+
+<span class="sd">    Importance = diagonal of M (weight on each feature's squared distance).</span>
+<span class="sd">    Higher values indicate features that contribute more to the learned metric.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        M: Mahalanobis matrix (n_features, n_features)</span>
+<span class="sd">        feature_names: List of feature names</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">        DataFrame with columns ['feature', 'importance'] sorted by importance</span>
+<span class="sd">    """</span>
+    <span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"[LMNN] Computing feature importance from Mahalanobis matrix"</span><span class="p">)</span>
+
+    <span class="c1"># Extract diagonal (self-weights)</span>
+    <span class="n">importance</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">M</span><span class="p">)</span>
+
+    <span class="c1"># Create DataFrame</span>
+    <span class="n">importance_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+        <span class="p">{</span>
+            <span class="s2">"feature"</span><span class="p">:</span> <span class="n">feature_names</span><span class="p">,</span>
+            <span class="s2">"importance"</span><span class="p">:</span> <span class="n">importance</span><span class="p">,</span>
+        <span class="p">}</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s2">"importance"</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+    <span class="c1"># Normalize to sum to 1 for interpretability</span>
+    <span class="n">importance_df</span><span class="p">[</span><span class="s2">"importance_normalized"</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">importance_df</span><span class="p">[</span><span class="s2">"importance"</span><span class="p">]</span> <span class="o">/</span> <span class="n">importance_df</span><span class="p">[</span><span class="s2">"importance"</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+    <span class="p">)</span>
+
+    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"[LMNN] Top 5 most important features:"</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">_idx</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">importance_df</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">"  </span><span class="si">{</span><span class="n">row</span><span class="p">[</span><span class="s1">'feature'</span><span class="p">]</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">row</span><span class="p">[</span><span class="s1">'importance'</span><span class="p">]</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="n">row</span><span class="p">[</span><span class="s1">'importance_normalized'</span><span class="p">]</span><span class="si">:</span><span class="s2">.2%</span><span class="si">}</span><span class="s2">)"</span>
+        <span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">importance_df</span></div>
+
+
+
+<div class="viewcode-block" id="transform_features">
+<a class="viewcode-back" href="../../../../reference/clustering.html#climclusterpy.clustering.lmnn.transform_features">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">transform_features</span><span class="p">(</span><span class="n">X</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">L</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""</span>
+<span class="sd">    Apply LMNN transformation to features.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        X: Feature matrix (n_samples, n_features)</span>
+<span class="sd">        L: Transformation matrix (rank, n_features)</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">        X_transformed: Transformed features (n_samples, rank)</span>
+<span class="sd">    """</span>
+    <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
+        <span class="sa">f</span><span class="s2">"[LMNN] Transforming </span><span class="si">{</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2"> samples with learned metric"</span>
+    <span class="p">)</span>
+
+    <span class="n">X_transformed</span> <span class="o">=</span> <span class="n">X</span> <span class="o">@</span> <span class="n">L</span><span class="o">.</span><span class="n">T</span>
+
+    <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">"[LMNN] Output shape: </span><span class="si">{</span><span class="n">X_transformed</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">X_transformed</span></div>
+
+
+
+<div class="viewcode-block" id="compute_mahalanobis_distances">
+<a class="viewcode-back" href="../../../../reference/clustering.html#climclusterpy.clustering.lmnn.compute_mahalanobis_distances">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">compute_mahalanobis_distances</span><span class="p">(</span>
+    <span class="n">X</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">M</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""</span>
+<span class="sd">    Compute pairwise Mahalanobis distances.</span>
+
+<span class="sd">    D[i, j] = sqrt((x_i - x_j).T @ M @ (x_i - x_j))</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        X: Feature matrix (n_samples, n_features)</span>
+<span class="sd">        M: Mahalanobis matrix (n_features, n_features)</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">        Distance matrix (n_samples, n_samples)</span>
+<span class="sd">    """</span>
+    <span class="n">n_samples</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">D</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n_samples</span><span class="p">,</span> <span class="n">n_samples</span><span class="p">))</span>
+
+    <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
+        <span class="sa">f</span><span class="s2">"[LMNN] Computing Mahalanobis distances for </span><span class="si">{</span><span class="n">n_samples</span><span class="si">}</span><span class="s2"> samples (may be slow)"</span>
+    <span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_samples</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">i</span> <span class="o">%</span> <span class="mi">100</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">i</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">"  Progress: </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">n_samples</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+        <span class="n">diff</span> <span class="o">=</span> <span class="n">X</span> <span class="o">-</span> <span class="n">X</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="p">:]</span>  <span class="c1"># (n_samples, n_features)</span>
+        <span class="c1"># (diff @ M @ diff.T) gives squared distances</span>
+        <span class="n">D</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">((</span><span class="n">diff</span> <span class="o">@</span> <span class="n">M</span><span class="p">)</span> <span class="o">*</span> <span class="n">diff</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
+
+    <span class="k">return</span> <span class="n">D</span></div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, Jamir Priesner.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

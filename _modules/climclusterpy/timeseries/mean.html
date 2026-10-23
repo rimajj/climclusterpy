@@ -1,0 +1,935 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>climclusterpy.timeseries.mean &mdash; climclusterpy 0.5</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/custom.css?v=f2cc2102" />
+
+  
+    <link rel="shortcut icon" href="../../../_static/logo.svg"/>
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=1dd76d02"></script>
+      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            climclusterpy
+              <img src="../../../_static/logo.svg" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorials/index.html">Tutorials</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../tutorials/one_call_roundtrip.html">Tutorial 0 — the whole workflow in two calls</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/one_call_roundtrip.html#the-idea">The idea</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/one_call_roundtrip.html#call-1-build-the-reduced-grid">Call 1 — build the reduced grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/one_call_roundtrip.html#call-2-rebuild-the-original-grid">Call 2 — rebuild the original grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/one_call_roundtrip.html#the-complete-script">The complete script</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/one_call_roundtrip.html#run-it">Run it</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/one_call_roundtrip.html#next-steps">Next steps</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../tutorials/euclidean_clustering.html">Tutorial 1 — Euclidean clustering</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/euclidean_clustering.html#load-data-and-build-a-feature-matrix">Load data and build a feature matrix</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/euclidean_clustering.html#cluster">Cluster</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/euclidean_clustering.html#the-complete-script">The complete script</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/euclidean_clustering.html#run-it">Run it</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/euclidean_clustering.html#next-steps">Next steps</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../tutorials/lmnn_clustering.html">Tutorial 2 — LMNN metric-learning clustering</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/lmnn_clustering.html#provide-a-supervision-signal">Provide a supervision signal</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/lmnn_clustering.html#learn-a-metric-and-cluster">Learn a metric and cluster</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/lmnn_clustering.html#the-complete-script">The complete script</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/lmnn_clustering.html#run-it">Run it</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/lmnn_clustering.html#next-steps">Next steps</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../tutorials/supervision.html">Tutorial 3 — Supervision signals</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/supervision.html#koppengeiger-from-monthly-climatology">Köppen–Geiger from monthly climatology</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/supervision.html#model-output-trait-clustering">Model-output (trait) clustering</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/supervision.html#the-complete-script">The complete script</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/supervision.html#run-it">Run it</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/supervision.html#ecoregion-supervision">Ecoregion supervision</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../tutorials/reconstruction.html">Tutorial 4 — Reconstruct the original grid</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/reconstruction.html#the-round-trip">The round trip</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/reconstruction.html#verify">Verify</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/reconstruction.html#the-complete-script">The complete script</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/reconstruction.html#run-it">Run it</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/reconstruction.html#next-steps">Next steps</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../tutorials/index.html#a-note-on-the-synthetic-data">A note on the synthetic data</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">How-to guides</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../howto/index.html">How-to guides</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../howto/install.html">Install climclusterpy</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/install.html#base-install">Base install</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/install.html#optional-extras">Optional extras</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/install.html#installing-the-geospatial-extras-with-conda">Installing the geospatial extras with conda</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/install.html#pytorch-cpu-vs-gpu">PyTorch (CPU vs. GPU)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/install.html#environment-variables">Environment variables</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/install.html#building-the-documentation">Building the documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../howto/inputs.html">Prepare the input files</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/inputs.html#check-your-input-first">Check your input first</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/inputs.html#the-files">The files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/inputs.html#grid-and-coordinates">Grid and coordinates</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/inputs.html#which-cells-exist-the-soil-code">Which cells exist: the soil code</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/inputs.html#the-time-axis">The time axis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/inputs.html#missing-values">Missing values</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/inputs.html#another-vegetation-model-s-input">Another vegetation model’s input</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/inputs.html#output-files">Output files</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../howto/clustering.html">Cluster a feature matrix (choose a mode)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/clustering.html#euclidean-mode-no-supervision">Euclidean mode (no supervision)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/clustering.html#lmnn-mode-supervised-metric-learning">LMNN mode (supervised metric learning)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/clustering.html#lower-level-control">Lower-level control</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../howto/supervision.html">Build an LMNN supervision signal</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/supervision.html#from-climate-koppengeiger">From climate — Köppen–Geiger</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/supervision.html#from-model-output-traits">From model output — traits</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/supervision.html#from-a-shapefile-ecoregions2017">From a shapefile — Ecoregions2017</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/supervision.html#using-the-signal">Using the signal</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/supervision.html#in-one-call">In one call</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/supervision.html#saved-results-are-reused-only-for-the-same-inputs">Saved results are reused only for the same inputs</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../howto/cell_selection.html">Choosing the cells a cluster is simulated on</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/cell_selection.html#the-patch-budget">The patch budget</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/cell_selection.html#what-the-drawn-cells-carry">What the drawn cells carry</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/cell_selection.html#reproducibility">Reproducibility</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/cell_selection.html#looking-at-a-draw-without-building-a-grid">Looking at a draw without building a grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/cell_selection.html#back-to-the-full-grid">Back to the full grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/cell_selection.html#a-model-that-reads-its-own-inputs-the-grid-only-then-cut-the-rest">A model that reads its own inputs: the grid only, then cut the rest</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../howto/reconstruct.html">Reconstruct the original grid</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/reconstruct.html#the-usual-call">The usual call</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/reconstruct.html#picking-up-where-you-left-off">Picking up where you left off</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/reconstruct.html#without-a-result-or-run-folder">Without a result or run folder</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/reconstruct.html#required-mapping-files">Required mapping files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/reconstruct.html#reconstruction-paths-kind">Reconstruction paths (<code class="docutils literal notranslate"><span class="pre">kind</span></code>)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/reconstruct.html#verifying-the-result">Verifying the result</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../reference/index.html">Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../reference/api.html">Public API — <code class="xref py py-mod docutils literal notranslate"><span class="pre">climclusterpy</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/api.html#the-two-headline-functions">The two headline functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/api.html#before-and-after-the-model-run">Before and after the model run</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/api.html#input-for-a-model-other-than-lpjml">Input for a model other than LPJmL</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/api.html#other-ways-to-build-the-reduced-grid">Other ways to build the reduced grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/api.html#reusing-a-trained-metric">Reusing a trained metric</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/api.html#the-model-s-other-inputs">The model’s other inputs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/api.html#writing-the-reduced-grid-yourself">Writing the reduced grid yourself</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/api.html#building-blocks">Building blocks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/api.html#result-objects">Result objects</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../reference/toplevel.html">Data, timeseries, I/O &amp; plotting</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/toplevel.html#module-climclusterpy.data">Data loading &amp; the grid registry</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/toplevel.html#how-much-the-package-reports">How much the package reports</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/toplevel.html#coordinates">Coordinates</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/toplevel.html#module-climclusterpy.timeseries">Per-cluster timeseries</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/toplevel.html#module-climclusterpy.io">File input/output</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/toplevel.html#module-climclusterpy.preprocessing">Preprocessing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/toplevel.html#module-climclusterpy.viz">Plotting</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../reference/features.html">Feature engineering</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/features.html#ecological-summaries">Ecological summaries</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/features.html#vegetation-model-traits">Vegetation-model traits</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/features.html#standardization-filtering">Standardization &amp; filtering</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../reference/clustering.html">Clustering &amp; metric learning</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/clustering.html#hierarchical-clustering">Hierarchical clustering</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/clustering.html#module-climclusterpy.clustering.lmnn">LMNN metric learning</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../reference/supervision.html">Supervision labels</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/supervision.html#koppengeiger-climate-zones">Köppen–Geiger climate zones</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/supervision.html#vegetation-model-output-traits">Vegetation-model output traits</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/supervision.html#ecoregion-polygons">Ecoregion polygons</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/supervision.html#daily-input-helpers">Daily-input helpers</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../reference/grid.html">Grid building &amp; reconstruction</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/grid.html#where-each-reduced-cell-is-placed">Where each reduced cell is placed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/grid.html#writing-the-reduced-grid">Writing the reduced grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/grid.html#reconstruction">Reconstruction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/grid.html#lpjml-clm-conversion">LPJmL CLM conversion</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../reference/cli.html">Command-line interface (<code class="docutils literal notranslate"><span class="pre">climclu</span></code>)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/cli.html#the-two-headline-commands">The two headline commands</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/cli.html#building-blocks">Building blocks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/cli.html#options-shared-by-every-action-command">Options shared by every action command</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/cli.html#errors-and-exit-codes">Errors and exit codes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../reference/index.html#which-function-do-i-need">Which function do I need?</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Explanation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../explanation/index.html">Explanation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../explanation/overview.html">Overview</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/overview.html#design-philosophy">Design Philosophy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/overview.html#workflow-summary">Workflow Summary</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/overview.html#key-innovations">Key Innovations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/overview.html#use-cases">Use Cases</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/overview.html#limitations">Limitations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/overview.html#future-directions">Future Directions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/overview.html#references">References</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../explanation/methods.html">Scientific Methods</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/methods.html#data-acquisition-and-preprocessing">Data Acquisition and Preprocessing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/methods.html#ecoregion-assignment">Ecoregion Assignment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/methods.html#ecological-feature-summarization">Ecological Feature Summarization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/methods.html#feature-standardization-and-filtering">Feature Standardization and Filtering</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/methods.html#large-margin-nearest-neighbor-lmnn-metric-learning">Large Margin Nearest Neighbor (LMNN) Metric Learning</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/methods.html#hierarchical-clustering">Hierarchical Clustering</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/methods.html#representative-cell-selection">Representative Cell Selection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/methods.html#evaluation-metrics">Evaluation Metrics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/methods.html#netcdf-processing">NetCDF Processing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/methods.html#computational-implementation">Computational Implementation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../explanation/index.html#reconstruction-correctness">Reconstruction correctness</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">climclusterpy</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">climclusterpy.timeseries.mean</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for climclusterpy.timeseries.mean</h1><div class="highlight"><pre>
+<span></span><span class="sd">"""Cluster *mean* timeseries: average every member cell of a cluster.</span>
+
+<span class="sd">One of the two ways to give a cluster a timeseries. Averaging over all members is</span>
+<span class="sd">the statistically natural choice and smooths within-cluster noise, but the result is</span>
+<span class="sd">a synthetic series no real cell exhibits — which matters for a vegetation model whose</span>
+<span class="sd">responses are non-linear. The alternative, picking one real member, is in</span>
+<span class="sd">:mod:`climclusterpy.timeseries.representative`.</span>
+
+<span class="sd">Built on xarray throughout (no pandas round-trips) so the reduction stays lazy and</span>
+<span class="sd">chunk-parallel over large grids.</span>
+<span class="sd">"""</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">xarray</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">xr</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy.stats</span><span class="w"> </span><span class="kn">import</span> <span class="n">mode</span> <span class="k">as</span> <span class="n">scipy_mode</span>
+
+<span class="c1"># Import shared coordinate utilities</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">climclusterpy.data.coords</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">COORD_PRECISION</span><span class="p">,</span>
+    <span class="n">LAT_NAMES</span><span class="p">,</span>
+    <span class="n">LON_NAMES</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">climclusterpy.data.registry</span><span class="w"> </span><span class="kn">import</span> <span class="n">DataRegistry</span>
+
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="find_center_cell">
+<a class="viewcode-back" href="../../../reference/toplevel.html#climclusterpy.timeseries.find_center_cell">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">find_center_cell</span><span class="p">(</span><span class="n">ds_cluster</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""The member of one cluster nearest its median position.</span>
+
+<span class="sd">    The median is taken of the *absolute* latitude, so a cluster spanning the equator</span>
+<span class="sd">    (members at 30° N and 30° S) is centred at 30°, not at 0° where it has no member.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    ds_cluster : xarray.Dataset</span>
+<span class="sd">        One cluster's cells along a ``point`` dimension, with ``latitude`` and</span>
+<span class="sd">        ``longitude`` (degrees), as :func:`build_cluster_mean_timeseries` groups them.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    dict</span>
+<span class="sd">        ``{"center_lat": ..., "center_lon": ...}`` of that member, rounded to the package's</span>
+<span class="sd">        coordinate precision; both NaN for an empty cluster.</span>
+<span class="sd">    """</span>
+    <span class="k">if</span> <span class="n">ds_cluster</span><span class="o">.</span><span class="n">sizes</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"point"</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">{</span><span class="s2">"center_lat"</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="s2">"center_lon"</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">}</span>
+
+    <span class="n">abs_lats</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">ds_cluster</span><span class="o">.</span><span class="n">latitude</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+    <span class="n">lat_med_abs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">abs_lats</span><span class="p">)</span>
+    <span class="n">lon_med</span> <span class="o">=</span> <span class="n">ds_cluster</span><span class="o">.</span><span class="n">longitude</span><span class="o">.</span><span class="n">median</span><span class="p">()</span>
+    <span class="n">distances</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span>
+        <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">ds_cluster</span><span class="o">.</span><span class="n">latitude</span><span class="p">)</span> <span class="o">-</span> <span class="n">lat_med_abs</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="p">(</span><span class="n">ds_cluster</span><span class="o">.</span><span class="n">longitude</span> <span class="o">-</span> <span class="n">lon_med</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span>
+    <span class="p">)</span>
+    <span class="n">min_idx</span> <span class="o">=</span> <span class="n">distances</span><span class="o">.</span><span class="n">argmin</span><span class="p">()</span>
+    <span class="n">center_lat</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">ds_cluster</span><span class="o">.</span><span class="n">latitude</span><span class="o">.</span><span class="n">isel</span><span class="p">(</span><span class="n">point</span><span class="o">=</span><span class="n">min_idx</span><span class="p">))</span>
+    <span class="n">center_lon</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">ds_cluster</span><span class="o">.</span><span class="n">longitude</span><span class="o">.</span><span class="n">isel</span><span class="p">(</span><span class="n">point</span><span class="o">=</span><span class="n">min_idx</span><span class="p">))</span>
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="s2">"center_lat"</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">center_lat</span><span class="p">,</span> <span class="n">COORD_PRECISION</span><span class="p">),</span>
+        <span class="s2">"center_lon"</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">center_lon</span><span class="p">,</span> <span class="n">COORD_PRECISION</span><span class="p">),</span>
+    <span class="p">}</span></div>
+
+
+
+<div class="viewcode-block" id="compute_mean_timeseries">
+<a class="viewcode-back" href="../../../reference/toplevel.html#climclusterpy.timeseries.compute_mean_timeseries">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">compute_mean_timeseries</span><span class="p">(</span>
+    <span class="n">ds</span><span class="p">:</span> <span class="n">xr</span><span class="o">.</span><span class="n">Dataset</span><span class="p">,</span>
+    <span class="n">var</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">labels</span><span class="p">:</span> <span class="n">xr</span><span class="o">.</span><span class="n">Dataset</span><span class="p">,</span>
+    <span class="n">output_var_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">n_samples</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">min_samples</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="n">seed</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">xr</span><span class="o">.</span><span class="n">Dataset</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Compute mean timeseries per cluster given a small dataset and label points.</span>
+
+<span class="sd">    Each labelled point is matched to a grid cell of ``ds``: **by id** when the labels carry</span>
+<span class="sd">    ``cell_id`` and ``ds`` carries the grid's ``original_cell_id`` map (which</span>
+<span class="sd">    :meth:`~climclusterpy.data.registry.DataRegistry.attach_original_ids` adds), otherwise</span>
+<span class="sd">    to the cell whose latitude and whose longitude are nearest to it (each axis separately,</span>
+<span class="sd">    so a point off the grid is snapped to the closest cell rather than rejected). The</span>
+<span class="sd">    cluster's series is the NaN-skipping mean over its matched cells at every time step.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    ds : xarray.Dataset</span>
+<span class="sd">        Gridded data with coordinates named exactly ``latitude`` and ``longitude``</span>
+<span class="sd">        (standardize them first if needed), and optionally an ``original_cell_id``</span>
+<span class="sd">        variable on ``(latitude, longitude)`` giving each cell's id (``-1`` off the grid).</span>
+<span class="sd">        The variable ``var`` must have dimensions</span>
+<span class="sd">        ``(time, latitude, longitude)``, ``(latitude, longitude, time)`` or</span>
+<span class="sd">        ``(latitude, longitude)``; a 2-D variable is treated as a single time step.</span>
+<span class="sd">        Any other dimension order is read as ``(time, latitude, longitude)``</span>
+<span class="sd">        without a check.</span>
+<span class="sd">    var : str</span>
+<span class="sd">        Name of the data variable in ``ds`` to average.</span>
+<span class="sd">    labels : xarray.Dataset</span>
+<span class="sd">        One entry per cell along a ``point`` dimension, with variables ``latitude``,</span>
+<span class="sd">        ``longitude`` (degrees) and ``cluster_label`` (integer). Points with a label</span>
+<span class="sd">        of 0 or below are ignored. An optional ``cell_id`` variable is used to match</span>
+<span class="sd">        points when ``ds`` has ``original_cell_id``; before 0.3.0 it was ignored and</span>
+<span class="sd">        matching was always by coordinates.</span>
+<span class="sd">    output_var_name : str, optional</span>
+<span class="sd">        Name of the output variable. Default ``None``: ``f"{var}_mean"``.</span>
+<span class="sd">    n_samples : int or float, optional</span>
+<span class="sd">        Average over a random subset of each cluster's cells instead of all of them:</span>
+<span class="sd">        an int is a fixed number of cells per cluster (must be positive), a float in</span>
+<span class="sd">        (0, 1) is a fraction of each cluster's cells, rounded up and at least 1.</span>
+<span class="sd">        ``1.0`` is rejected; use ``None`` for all cells. Default ``None``. Cells are</span>
+<span class="sd">        drawn without replacement; a cluster with fewer cells than requested uses all</span>
+<span class="sd">        of them.</span>
+<span class="sd">    min_samples : int, optional</span>
+<span class="sd">        Lower bound on the number of cells drawn per cluster when ``n_samples`` is</span>
+<span class="sd">        given (default 1, must be at least 1). A cluster with fewer cells uses all of</span>
+<span class="sd">        them and a warning is logged. Has no effect when ``n_samples`` is ``None``.</span>
+<span class="sd">    seed : int, optional</span>
+<span class="sd">        Seed for the cell draw when ``n_samples`` is given. Default ``None``: a</span>
+<span class="sd">        different draw on every call.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    xarray.Dataset</span>
+<span class="sd">        One variable (``output_var_name``, or ``f"{var}_mean"``) with dimensions</span>
+<span class="sd">        ``("time", "cluster")``. The ``cluster`` coordinate lists the positive labels</span>
+<span class="sd">        in ascending order; the ``time`` coordinate is copied from ``ds`` (or is</span>
+<span class="sd">        ``0, 1, …`` when ``ds`` has none).</span>
+
+<span class="sd">    Raises</span>
+<span class="sd">    ------</span>
+<span class="sd">    ValueError</span>
+<span class="sd">        If ``var`` is not in ``ds``, ``n_samples``/``min_samples`` is invalid, a</span>
+<span class="sd">        ``cell_id`` is not on the grid of ``ds``, or no point has a positive label.</span>
+<span class="sd">    """</span>
+    <span class="k">if</span> <span class="n">var</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">ds</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Variable '</span><span class="si">{</span><span class="n">var</span><span class="si">}</span><span class="s2">' not found in dataset"</span><span class="p">)</span>
+    <span class="n">lat_name</span> <span class="o">=</span> <span class="s2">"latitude"</span>
+    <span class="n">lon_name</span> <span class="o">=</span> <span class="s2">"longitude"</span>
+
+    <span class="n">lat_vals</span> <span class="o">=</span> <span class="n">ds</span><span class="p">[</span><span class="n">lat_name</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+    <span class="n">lon_vals</span> <span class="o">=</span> <span class="n">ds</span><span class="p">[</span><span class="n">lon_name</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+    <span class="n">time_vals</span> <span class="o">=</span> <span class="n">ds</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
+        <span class="s2">"time"</span><span class="p">,</span> <span class="n">xr</span><span class="o">.</span><span class="n">DataArray</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">ds</span><span class="o">.</span><span class="n">sizes</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"time"</span><span class="p">,</span> <span class="mi">1</span><span class="p">)),</span> <span class="n">dims</span><span class="o">=</span><span class="p">[</span><span class="s2">"time"</span><span class="p">])</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">values</span>
+
+    <span class="c1"># Prepare index list per cluster</span>
+    <span class="n">clabs</span> <span class="o">=</span> <span class="n">labels</span><span class="p">[</span><span class="s2">"cluster_label"</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+    <span class="c1"># Match by id when both sides carry one; coordinates only when they cannot.</span>
+    <span class="n">id_to_index</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="k">if</span> <span class="s2">"cell_id"</span> <span class="ow">in</span> <span class="n">labels</span> <span class="ow">and</span> <span class="s2">"original_cell_id"</span> <span class="ow">in</span> <span class="n">ds</span><span class="p">:</span>
+        <span class="n">id_grid</span> <span class="o">=</span> <span class="n">ds</span><span class="p">[</span><span class="s2">"original_cell_id"</span><span class="p">]</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">lat_name</span><span class="p">,</span> <span class="n">lon_name</span><span class="p">)</span><span class="o">.</span><span class="n">values</span>
+        <span class="n">rows</span><span class="p">,</span> <span class="n">cols</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nonzero</span><span class="p">(</span><span class="n">id_grid</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="n">id_to_index</span> <span class="o">=</span> <span class="p">{</span><span class="nb">int</span><span class="p">(</span><span class="n">i</span><span class="p">):</span> <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">r</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="n">c</span><span class="p">))</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">id_grid</span><span class="p">[</span><span class="n">rows</span><span class="p">,</span> <span class="n">cols</span><span class="p">],</span> <span class="n">rows</span><span class="p">,</span> <span class="n">cols</span><span class="p">)}</span>
+        <span class="n">ids</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">labels</span><span class="p">[</span><span class="s2">"cell_id"</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+        <span class="n">unknown</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">({</span><span class="nb">int</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">ids</span><span class="p">,</span> <span class="n">clabs</span><span class="p">)</span> <span class="k">if</span> <span class="nb">int</span><span class="p">(</span><span class="n">c</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">}</span> <span class="o">-</span> <span class="nb">set</span><span class="p">(</span><span class="n">id_to_index</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">unknown</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">unknown</span><span class="p">)</span><span class="si">}</span><span class="s2"> labelled cell_id(s) are not on the grid of ds (first: "</span>
+                <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">unknown</span><span class="p">[:</span><span class="mi">5</span><span class="p">]</span><span class="si">}</span><span class="s2">). The labels and ds must describe the same grid."</span>
+            <span class="p">)</span>
+    <span class="n">lats</span> <span class="o">=</span> <span class="n">labels</span><span class="p">[</span><span class="s2">"latitude"</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+    <span class="n">lons</span> <span class="o">=</span> <span class="n">labels</span><span class="p">[</span><span class="s2">"longitude"</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+    <span class="n">clusters</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">({</span><span class="nb">int</span><span class="p">(</span><span class="n">c</span><span class="p">)</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">clabs</span> <span class="k">if</span> <span class="nb">int</span><span class="p">(</span><span class="n">c</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">})</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">clusters</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+            <span class="s2">"No labelled cell has a positive cluster label (labels of 0 or below are "</span>
+            <span class="s2">"ignored), so there is no cluster to average."</span>
+        <span class="p">)</span>
+
+    <span class="n">cluster_to_indices</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">list</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]]]</span> <span class="o">=</span> <span class="p">{</span><span class="n">c</span><span class="p">:</span> <span class="p">[]</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">clusters</span><span class="p">}</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">clabs</span><span class="p">)):</span>
+        <span class="n">c</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">clabs</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+        <span class="k">if</span> <span class="n">c</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">continue</span>
+        <span class="k">if</span> <span class="n">id_to_index</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">cluster_to_indices</span><span class="p">[</span><span class="n">c</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">id_to_index</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">ids</span><span class="p">[</span><span class="n">i</span><span class="p">])])</span>
+            <span class="k">continue</span>
+        <span class="n">lat_idx</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">lat_vals</span> <span class="o">-</span> <span class="n">lats</span><span class="p">[</span><span class="n">i</span><span class="p">])))</span>
+        <span class="n">lon_idx</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">lon_vals</span> <span class="o">-</span> <span class="n">lons</span><span class="p">[</span><span class="n">i</span><span class="p">])))</span>
+        <span class="n">cluster_to_indices</span><span class="p">[</span><span class="n">c</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">lat_idx</span><span class="p">,</span> <span class="n">lon_idx</span><span class="p">))</span>
+
+    <span class="c1"># Apply sampling if requested</span>
+    <span class="k">if</span> <span class="n">n_samples</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">climclusterpy.timeseries.sampling</span><span class="w"> </span><span class="kn">import</span> <span class="n">sample_cluster_indices</span>
+
+        <span class="n">cluster_to_indices</span> <span class="o">=</span> <span class="n">sample_cluster_indices</span><span class="p">(</span>
+            <span class="n">cluster_to_indices</span><span class="p">,</span>
+            <span class="n">n_samples</span><span class="o">=</span><span class="n">n_samples</span><span class="p">,</span>
+            <span class="n">min_samples</span><span class="o">=</span><span class="n">min_samples</span><span class="p">,</span>
+            <span class="n">seed</span><span class="o">=</span><span class="n">seed</span><span class="p">,</span>
+        <span class="p">)</span>
+
+    <span class="n">data</span> <span class="o">=</span> <span class="n">ds</span><span class="p">[</span><span class="n">var</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>  <span class="c1"># shape (time, lat, lon) or (lat, lon, time)</span>
+    <span class="c1"># normalize to (time, lat, lon)</span>
+    <span class="k">if</span> <span class="n">ds</span><span class="p">[</span><span class="n">var</span><span class="p">]</span><span class="o">.</span><span class="n">dims</span><span class="p">[:</span><span class="mi">3</span><span class="p">]</span> <span class="o">==</span> <span class="p">(</span><span class="n">lat_name</span><span class="p">,</span> <span class="n">lon_name</span><span class="p">,</span> <span class="s2">"time"</span><span class="p">):</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+    <span class="k">elif</span> <span class="n">ds</span><span class="p">[</span><span class="n">var</span><span class="p">]</span><span class="o">.</span><span class="n">dims</span><span class="p">[:</span><span class="mi">2</span><span class="p">]</span> <span class="o">==</span> <span class="p">(</span><span class="n">lat_name</span><span class="p">,</span> <span class="n">lon_name</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">ds</span><span class="p">[</span><span class="n">var</span><span class="p">]</span><span class="o">.</span><span class="n">dims</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span>
+
+    <span class="n">means</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">clusters</span><span class="p">:</span>
+        <span class="n">idxs</span> <span class="o">=</span> <span class="n">cluster_to_indices</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="p">[])</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">idxs</span><span class="p">:</span>
+            <span class="n">means</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">time_vals</span><span class="p">),),</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">))</span>
+            <span class="k">continue</span>
+        <span class="n">lat_idx</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">idxs</span><span class="p">]</span>
+        <span class="n">lon_idx</span> <span class="o">=</span> <span class="p">[</span><span class="n">j</span> <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">idxs</span><span class="p">]</span>
+        <span class="n">vals</span> <span class="o">=</span> <span class="n">data</span><span class="p">[:,</span> <span class="n">lat_idx</span><span class="p">,</span> <span class="n">lon_idx</span><span class="p">]</span>  <span class="c1"># (time, points)</span>
+        <span class="n">means</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">nanmean</span><span class="p">(</span><span class="n">vals</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
+
+    <span class="n">arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">stack</span><span class="p">(</span><span class="n">means</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="k">if</span> <span class="n">means</span> <span class="k">else</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">time_vals</span><span class="p">),</span> <span class="mi">0</span><span class="p">))</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="n">output_var_name</span> <span class="ow">or</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">var</span><span class="si">}</span><span class="s2">_mean"</span>
+    <span class="k">return</span> <span class="n">xr</span><span class="o">.</span><span class="n">Dataset</span><span class="p">(</span>
+        <span class="p">{</span><span class="n">name</span><span class="p">:</span> <span class="p">((</span><span class="s2">"time"</span><span class="p">,</span> <span class="s2">"cluster"</span><span class="p">),</span> <span class="n">arr</span><span class="p">)},</span> <span class="n">coords</span><span class="o">=</span><span class="p">{</span><span class="s2">"time"</span><span class="p">:</span> <span class="n">time_vals</span><span class="p">,</span> <span class="s2">"cluster"</span><span class="p">:</span> <span class="n">clusters</span><span class="p">}</span>
+    <span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="build_cluster_mean_timeseries">
+<a class="viewcode-back" href="../../../reference/toplevel.html#climclusterpy.timeseries.build_cluster_mean_timeseries">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">build_cluster_mean_timeseries</span><span class="p">(</span>
+    <span class="n">climate_data</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">xr</span><span class="o">.</span><span class="n">Dataset</span><span class="p">],</span>
+    <span class="n">registry</span><span class="p">:</span> <span class="n">DataRegistry</span><span class="p">,</span>
+    <span class="n">labels_csv</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">n_samples</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">min_samples</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="n">seed</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">xr</span><span class="o">.</span><span class="n">Dataset</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""The mean timeseries of every climate input, per cluster.</span>
+
+<span class="sd">    :func:`compute_mean_timeseries` for each climate dataset of ``climate_data`` at once,</span>
+<span class="sd">    plus each cluster's centre coordinates and, when ``climate_data`` holds them, its most</span>
+<span class="sd">    common ``soil_code`` and mean ``soil_depth``. The result can be handed to</span>
+<span class="sd">    :func:`climclusterpy.build_reduced_grid`.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    climate_data : dict of str to xarray.Dataset</span>
+<span class="sd">        The loaded inputs, keyed by field name (``"temperature"``, ``"precipitation"``, ...),</span>
+<span class="sd">        as :func:`climclusterpy.data.load_climate_and_soil_data` returns them. Keys other</span>
+<span class="sd">        than the standard climate fields and the two soil fields are averaged under their</span>
+<span class="sd">        own name.</span>
+<span class="sd">    registry : DataRegistry</span>
+<span class="sd">        The original grid; places each labelled ``cell_id``.</span>
+<span class="sd">    labels_csv : str</span>
+<span class="sd">        The per-cell label table (``cell_id``, ``latitude``, ``longitude``,</span>
+<span class="sd">        ``cluster_label``); labels of 0 or below are ignored. A table with no positive</span>
+<span class="sd">        label, or with a ``cell_id`` that is not a valid cell of ``registry``, is refused</span>
+<span class="sd">        with a ``ValueError``.</span>
+<span class="sd">    n_samples, min_samples, seed</span>
+<span class="sd">        As :func:`compute_mean_timeseries`: average over a random subset of each</span>
+<span class="sd">        cluster's cells instead of all of them.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    xarray.Dataset</span>
+<span class="sd">        One variable per climate field over ``("time", "cluster")``, plus ``cluster_label``,</span>
+<span class="sd">        ``center_lat``/``center_lon`` (also as ``latitude``/``longitude``) and the soil</span>
+<span class="sd">        fields over ``("cluster",)``.</span>
+<span class="sd">    """</span>
+    <span class="n">ds_labels</span> <span class="o">=</span> <span class="n">load_cluster_labels_as_xarray</span><span class="p">(</span><span class="n">labels_csv</span><span class="p">,</span> <span class="n">registry</span><span class="p">)</span>
+
+    <span class="c1"># Map of climate dict keys to (source var name, standardized output name)</span>
+    <span class="n">var_map</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">"precipitation"</span><span class="p">:</span> <span class="p">(</span><span class="s2">"tpr"</span><span class="p">,</span> <span class="s2">"precipitation"</span><span class="p">),</span>
+        <span class="s2">"temperature"</span><span class="p">:</span> <span class="p">(</span><span class="s2">"TMean"</span><span class="p">,</span> <span class="s2">"temperature"</span><span class="p">),</span>
+        <span class="s2">"short_wave_radiation"</span><span class="p">:</span> <span class="p">(</span><span class="s2">"SWR"</span><span class="p">,</span> <span class="s2">"short_wave_radiation"</span><span class="p">),</span>
+        <span class="s2">"long_wave_radiation"</span><span class="p">:</span> <span class="p">(</span><span class="s2">"LWR"</span><span class="p">,</span> <span class="s2">"long_wave_radiation"</span><span class="p">),</span>
+        <span class="s2">"humid"</span><span class="p">:</span> <span class="p">(</span><span class="s2">"humid"</span><span class="p">,</span> <span class="s2">"humid"</span><span class="p">),</span>
+    <span class="p">}</span>
+
+    <span class="n">out_vars</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="p">(</span><span class="n">src_var_expected</span><span class="p">,</span> <span class="n">out_name</span><span class="p">)</span> <span class="ow">in</span> <span class="n">var_map</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="k">if</span> <span class="n">key</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">climate_data</span><span class="p">:</span>
+            <span class="k">continue</span>
+        <span class="n">ds</span> <span class="o">=</span> <span class="n">climate_data</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+        <span class="n">var_candidates</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">ds</span><span class="o">.</span><span class="n">data_vars</span><span class="p">)</span>
+        <span class="c1"># Prefer canonical out_name in dataset, then expected src var from original naming</span>
+        <span class="n">src_var</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">if</span> <span class="n">out_name</span> <span class="ow">in</span> <span class="n">var_candidates</span><span class="p">:</span>
+            <span class="n">src_var</span> <span class="o">=</span> <span class="n">out_name</span>
+        <span class="k">elif</span> <span class="n">src_var_expected</span> <span class="ow">in</span> <span class="n">var_candidates</span><span class="p">:</span>
+            <span class="n">src_var</span> <span class="o">=</span> <span class="n">src_var_expected</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># Filter to time-varying variables only</span>
+            <span class="n">timed</span> <span class="o">=</span> <span class="p">[</span><span class="n">v</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">var_candidates</span> <span class="k">if</span> <span class="s2">"time"</span> <span class="ow">in</span> <span class="n">ds</span><span class="p">[</span><span class="n">v</span><span class="p">]</span><span class="o">.</span><span class="n">dims</span><span class="p">]</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">timed</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="n">src_var</span> <span class="o">=</span> <span class="n">timed</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="c1"># Try best textual match among time-varying vars</span>
+                <span class="n">prefer</span> <span class="o">=</span> <span class="p">[</span><span class="n">v</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">timed</span> <span class="k">if</span> <span class="p">(</span><span class="n">out_name</span> <span class="ow">in</span> <span class="n">v</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">v</span> <span class="ow">in</span> <span class="n">out_name</span><span class="p">)]</span>
+                <span class="n">src_var</span> <span class="o">=</span> <span class="p">(</span>
+                    <span class="n">prefer</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                    <span class="k">if</span> <span class="n">prefer</span>
+                    <span class="k">else</span> <span class="p">(</span><span class="n">timed</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">if</span> <span class="n">timed</span> <span class="k">else</span> <span class="p">(</span><span class="n">var_candidates</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">if</span> <span class="n">var_candidates</span> <span class="k">else</span> <span class="kc">None</span><span class="p">))</span>
+                <span class="p">)</span>
+        <span class="k">if</span> <span class="n">src_var</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">continue</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="n">compute_mean_timeseries</span><span class="p">(</span>
+            <span class="n">ds</span><span class="p">,</span>
+            <span class="n">src_var</span><span class="p">,</span>
+            <span class="n">ds_labels</span><span class="p">,</span>
+            <span class="n">output_var_name</span><span class="o">=</span><span class="n">out_name</span><span class="p">,</span>
+            <span class="n">n_samples</span><span class="o">=</span><span class="n">n_samples</span><span class="p">,</span>
+            <span class="n">min_samples</span><span class="o">=</span><span class="n">min_samples</span><span class="p">,</span>
+            <span class="n">seed</span><span class="o">=</span><span class="n">seed</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="n">out_vars</span><span class="p">[</span><span class="n">out_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">res</span><span class="p">[</span><span class="n">out_name</span><span class="p">]</span>
+
+    <span class="c1"># Anything in climate_data that wasn't one of the known keys above -- a custom climate</span>
+    <span class="c1"># variable from a non-LPJmL input -- gets the same per-cluster mean treatment, named</span>
+    <span class="c1"># after its own dict key instead of being silently dropped.</span>
+    <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">ds</span> <span class="ow">in</span> <span class="n">climate_data</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">var_map</span> <span class="ow">or</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">out_vars</span> <span class="ow">or</span> <span class="n">key</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">"soil_code"</span><span class="p">,</span> <span class="s2">"soil_depth"</span><span class="p">):</span>
+            <span class="k">continue</span>
+        <span class="n">var_candidates</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">ds</span><span class="o">.</span><span class="n">data_vars</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">var_candidates</span><span class="p">:</span>
+            <span class="n">src_var</span> <span class="o">=</span> <span class="n">key</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">timed</span> <span class="o">=</span> <span class="p">[</span><span class="n">v</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">var_candidates</span> <span class="k">if</span> <span class="s2">"time"</span> <span class="ow">in</span> <span class="n">ds</span><span class="p">[</span><span class="n">v</span><span class="p">]</span><span class="o">.</span><span class="n">dims</span><span class="p">]</span>
+            <span class="n">src_var</span> <span class="o">=</span> <span class="n">timed</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">if</span> <span class="n">timed</span> <span class="k">else</span> <span class="p">(</span><span class="n">var_candidates</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">if</span> <span class="n">var_candidates</span> <span class="k">else</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">src_var</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">continue</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="n">compute_mean_timeseries</span><span class="p">(</span>
+            <span class="n">ds</span><span class="p">,</span>
+            <span class="n">src_var</span><span class="p">,</span>
+            <span class="n">ds_labels</span><span class="p">,</span>
+            <span class="n">output_var_name</span><span class="o">=</span><span class="n">key</span><span class="p">,</span>
+            <span class="n">n_samples</span><span class="o">=</span><span class="n">n_samples</span><span class="p">,</span>
+            <span class="n">min_samples</span><span class="o">=</span><span class="n">min_samples</span><span class="p">,</span>
+            <span class="n">seed</span><span class="o">=</span><span class="n">seed</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="n">out_vars</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">res</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+
+    <span class="c1"># Merge into single dataset</span>
+    <span class="n">ds_out</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">Dataset</span><span class="p">(</span><span class="n">out_vars</span><span class="p">)</span>
+
+    <span class="c1"># Ensure we have a 'cluster' coordinate present; if not, derive from labels</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">ds_out</span><span class="o">.</span><span class="n">data_vars</span><span class="p">:</span>
+        <span class="c1"># Construct a structural-only dataset from labels to satisfy downstream expectations</span>
+        <span class="n">clusters_from_labels</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span>
+            <span class="p">{</span><span class="nb">int</span><span class="p">(</span><span class="n">c</span><span class="p">)</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">ds_labels</span><span class="p">[</span><span class="s2">"cluster_label"</span><span class="p">]</span><span class="o">.</span><span class="n">values</span> <span class="k">if</span> <span class="nb">int</span><span class="p">(</span><span class="n">c</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">}</span>
+        <span class="p">)</span>
+        <span class="k">if</span> <span class="n">clusters_from_labels</span><span class="p">:</span>
+            <span class="n">ds_out</span> <span class="o">=</span> <span class="n">ds_out</span><span class="o">.</span><span class="n">assign_coords</span><span class="p">(</span><span class="n">cluster</span><span class="o">=</span><span class="n">clusters_from_labels</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="c1"># Pick the first variable to copy coords from</span>
+        <span class="n">first_var</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="nb">iter</span><span class="p">(</span><span class="n">ds_out</span><span class="o">.</span><span class="n">data_vars</span><span class="p">))</span>
+        <span class="k">if</span> <span class="s2">"cluster"</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">ds_out</span><span class="o">.</span><span class="n">coords</span> <span class="ow">and</span> <span class="s2">"cluster"</span> <span class="ow">in</span> <span class="n">ds_out</span><span class="p">[</span><span class="n">first_var</span><span class="p">]</span><span class="o">.</span><span class="n">coords</span><span class="p">:</span>
+            <span class="n">ds_out</span> <span class="o">=</span> <span class="n">ds_out</span><span class="o">.</span><span class="n">assign_coords</span><span class="p">(</span><span class="n">cluster</span><span class="o">=</span><span class="n">ds_out</span><span class="p">[</span><span class="n">first_var</span><span class="p">]</span><span class="o">.</span><span class="n">coords</span><span class="p">[</span><span class="s2">"cluster"</span><span class="p">])</span>
+
+    <span class="c1"># Normalize cluster labels and center coordinates for structural parity</span>
+    <span class="k">if</span> <span class="p">(</span><span class="s2">"cluster"</span> <span class="ow">in</span> <span class="n">ds_out</span><span class="o">.</span><span class="n">dims</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="s2">"cluster"</span> <span class="ow">in</span> <span class="n">ds_out</span><span class="o">.</span><span class="n">coords</span><span class="p">):</span>
+        <span class="k">if</span> <span class="s2">"cluster"</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">ds_out</span><span class="o">.</span><span class="n">coords</span><span class="p">:</span>
+            <span class="n">ds_out</span> <span class="o">=</span> <span class="n">ds_out</span><span class="o">.</span><span class="n">assign_coords</span><span class="p">(</span><span class="n">cluster</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">ds_out</span><span class="o">.</span><span class="n">sizes</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"cluster"</span><span class="p">,</span> <span class="mi">0</span><span class="p">)))</span>
+        <span class="n">clusters</span> <span class="o">=</span> <span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">c</span><span class="p">)</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">ds_out</span><span class="p">[</span><span class="s2">"cluster"</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">)</span><span class="o">.</span><span class="n">tolist</span><span class="p">()]</span>
+        <span class="k">if</span> <span class="s2">"cluster_label"</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">ds_out</span><span class="p">:</span>
+            <span class="n">ds_out</span><span class="p">[</span><span class="s2">"cluster_label"</span><span class="p">]</span> <span class="o">=</span> <span class="p">((</span><span class="s2">"cluster"</span><span class="p">,),</span> <span class="n">clusters</span><span class="p">)</span>
+
+        <span class="c1"># Cluster centres from the labels; a cluster without one gets NaN coordinates</span>
+        <span class="n">centers_ds</span> <span class="o">=</span> <span class="n">calculate_cluster_centers_xarray</span><span class="p">(</span><span class="n">ds_labels</span><span class="p">)</span>
+        <span class="n">center_lat_map</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="nb">int</span><span class="p">(</span><span class="n">lbl</span><span class="p">):</span> <span class="nb">float</span><span class="p">(</span><span class="n">lat</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">lbl</span><span class="p">,</span> <span class="n">lat</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span>
+                <span class="n">centers_ds</span><span class="p">[</span><span class="s2">"cluster_label"</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">tolist</span><span class="p">(),</span>
+                <span class="n">centers_ds</span><span class="p">[</span><span class="s2">"center_lat"</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">tolist</span><span class="p">(),</span>
+            <span class="p">)</span>
+        <span class="p">}</span>
+        <span class="n">center_lon_map</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="nb">int</span><span class="p">(</span><span class="n">lbl</span><span class="p">):</span> <span class="nb">float</span><span class="p">(</span><span class="n">lon</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">lbl</span><span class="p">,</span> <span class="n">lon</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span>
+                <span class="n">centers_ds</span><span class="p">[</span><span class="s2">"cluster_label"</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">tolist</span><span class="p">(),</span>
+                <span class="n">centers_ds</span><span class="p">[</span><span class="s2">"center_lon"</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">tolist</span><span class="p">(),</span>
+            <span class="p">)</span>
+        <span class="p">}</span>
+        <span class="n">center_lats</span> <span class="o">=</span> <span class="p">[</span><span class="n">center_lat_map</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">c</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">clusters</span><span class="p">]</span>
+        <span class="n">center_lons</span> <span class="o">=</span> <span class="p">[</span><span class="n">center_lon_map</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">c</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">clusters</span><span class="p">]</span>
+
+        <span class="n">ds_out</span><span class="p">[</span><span class="s2">"center_lat"</span><span class="p">]</span> <span class="o">=</span> <span class="p">((</span><span class="s2">"cluster"</span><span class="p">,),</span> <span class="n">center_lats</span><span class="p">)</span>
+        <span class="n">ds_out</span><span class="p">[</span><span class="s2">"center_lon"</span><span class="p">]</span> <span class="o">=</span> <span class="p">((</span><span class="s2">"cluster"</span><span class="p">,),</span> <span class="n">center_lons</span><span class="p">)</span>
+        <span class="n">ds_out</span><span class="p">[</span><span class="s2">"center_lat"</span><span class="p">]</span><span class="o">.</span><span class="n">attrs</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">"units"</span><span class="p">:</span> <span class="s2">"degrees_north"</span><span class="p">,</span>
+            <span class="s2">"description"</span><span class="p">:</span> <span class="s2">"Latitude of cluster center"</span><span class="p">,</span>
+            <span class="s2">"_FillValue"</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span>
+        <span class="p">}</span>
+        <span class="n">ds_out</span><span class="p">[</span><span class="s2">"center_lon"</span><span class="p">]</span><span class="o">.</span><span class="n">attrs</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">"units"</span><span class="p">:</span> <span class="s2">"degrees_east"</span><span class="p">,</span>
+            <span class="s2">"description"</span><span class="p">:</span> <span class="s2">"Longitude of cluster center"</span><span class="p">,</span>
+            <span class="s2">"_FillValue"</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span>
+        <span class="p">}</span>
+        <span class="c1"># Also expose latitude/longitude per cluster</span>
+        <span class="n">ds_out</span><span class="p">[</span><span class="s2">"latitude"</span><span class="p">]</span> <span class="o">=</span> <span class="p">((</span><span class="s2">"cluster"</span><span class="p">,),</span> <span class="n">center_lats</span><span class="p">)</span>
+        <span class="n">ds_out</span><span class="p">[</span><span class="s2">"longitude"</span><span class="p">]</span> <span class="o">=</span> <span class="p">((</span><span class="s2">"cluster"</span><span class="p">,),</span> <span class="n">center_lons</span><span class="p">)</span>
+
+        <span class="c1"># Also provide soil fields for mean mode: soil_code as mode across cluster, soil_depth as mean across cluster</span>
+        <span class="n">soil_code_ds</span> <span class="o">=</span> <span class="n">climate_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"soil_code"</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">soil_code_ds</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">soil_code_ds</span><span class="p">,</span> <span class="n">xr</span><span class="o">.</span><span class="n">Dataset</span><span class="p">):</span>
+            <span class="c1"># Determine variable name for soil code</span>
+            <span class="n">soil_code_var</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">soil_code_ds</span><span class="o">.</span><span class="n">data_vars</span><span class="p">:</span>
+                <span class="k">if</span> <span class="p">(</span>
+                    <span class="p">(</span><span class="s2">"soil"</span> <span class="ow">in</span> <span class="n">v</span><span class="o">.</span><span class="n">lower</span><span class="p">())</span>
+                    <span class="ow">or</span> <span class="p">(</span><span class="s2">"texture"</span> <span class="ow">in</span> <span class="n">v</span><span class="o">.</span><span class="n">lower</span><span class="p">())</span>
+                    <span class="ow">or</span> <span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">"soil_code"</span><span class="p">,))</span>
+                <span class="p">):</span>
+                    <span class="n">soil_code_var</span> <span class="o">=</span> <span class="n">v</span>
+                    <span class="k">break</span>
+            <span class="k">if</span> <span class="n">soil_code_var</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">soil_code_ds</span><span class="o">.</span><span class="n">data_vars</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="n">soil_code_var</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="nb">iter</span><span class="p">(</span><span class="n">soil_code_ds</span><span class="o">.</span><span class="n">data_vars</span><span class="p">))</span>
+            <span class="c1"># Build mapping cluster -&gt; indices</span>
+            <span class="n">sc_lat_name</span> <span class="o">=</span> <span class="nb">next</span><span class="p">((</span><span class="n">n</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">LAT_NAMES</span> <span class="k">if</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">soil_code_ds</span><span class="o">.</span><span class="n">coords</span><span class="p">),</span> <span class="kc">None</span><span class="p">)</span>
+            <span class="n">sc_lon_name</span> <span class="o">=</span> <span class="nb">next</span><span class="p">((</span><span class="n">n</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">LON_NAMES</span> <span class="k">if</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">soil_code_ds</span><span class="o">.</span><span class="n">coords</span><span class="p">),</span> <span class="kc">None</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">sc_lat_name</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">sc_lon_name</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">"Soil code dataset missing lat/lon coords. Available: </span><span class="si">{</span><span class="nb">list</span><span class="p">(</span><span class="n">soil_code_ds</span><span class="o">.</span><span class="n">coords</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span>
+                <span class="p">)</span>
+            <span class="n">lat_vals</span> <span class="o">=</span> <span class="n">soil_code_ds</span><span class="p">[</span><span class="n">sc_lat_name</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+            <span class="n">lon_vals</span> <span class="o">=</span> <span class="n">soil_code_ds</span><span class="p">[</span><span class="n">sc_lon_name</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+            <span class="n">clabs</span> <span class="o">=</span> <span class="n">ds_labels</span><span class="p">[</span><span class="s2">"cluster_label"</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+            <span class="n">lats</span> <span class="o">=</span> <span class="n">ds_labels</span><span class="p">[</span><span class="s2">"latitude"</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+            <span class="n">lons</span> <span class="o">=</span> <span class="n">ds_labels</span><span class="p">[</span><span class="s2">"longitude"</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+            <span class="n">cluster_to_idx</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">list</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]]]</span> <span class="o">=</span> <span class="p">{</span><span class="n">c</span><span class="p">:</span> <span class="p">[]</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">clusters</span><span class="p">}</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">clabs</span><span class="p">)):</span>
+                <span class="n">c</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">clabs</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+                <span class="k">if</span> <span class="n">c</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">cluster_to_idx</span><span class="p">:</span>
+                    <span class="k">continue</span>
+                <span class="c1"># Strict equality on standardized grids</span>
+                <span class="n">lat_matches</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">lat_vals</span> <span class="o">==</span> <span class="n">lats</span><span class="p">[</span><span class="n">i</span><span class="p">])[</span><span class="mi">0</span><span class="p">]</span>
+                <span class="n">lon_matches</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">lon_vals</span> <span class="o">==</span> <span class="n">lons</span><span class="p">[</span><span class="n">i</span><span class="p">])[</span><span class="mi">0</span><span class="p">]</span>
+                <span class="k">if</span> <span class="n">lat_matches</span><span class="o">.</span><span class="n">size</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">lon_matches</span><span class="o">.</span><span class="n">size</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                        <span class="s2">"Label coordinate not found on soil_code grid; grids must be standardized"</span>
+                    <span class="p">)</span>
+                <span class="n">cluster_to_idx</span><span class="p">[</span><span class="n">c</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="nb">int</span><span class="p">(</span><span class="n">lat_matches</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="nb">int</span><span class="p">(</span><span class="n">lon_matches</span><span class="p">[</span><span class="mi">0</span><span class="p">])))</span>
+            <span class="n">soil_codes</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">clusters</span><span class="p">:</span>
+                <span class="n">idxs</span> <span class="o">=</span> <span class="n">cluster_to_idx</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="p">[])</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">idxs</span> <span class="ow">or</span> <span class="n">soil_code_var</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="n">soil_codes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span>
+                    <span class="k">continue</span>
+                <span class="n">vals</span> <span class="o">=</span> <span class="p">[</span>
+                    <span class="n">soil_code_ds</span><span class="p">[</span><span class="n">soil_code_var</span><span class="p">]</span><span class="o">.</span><span class="n">isel</span><span class="p">({</span><span class="n">sc_lat_name</span><span class="p">:</span> <span class="n">i</span><span class="p">,</span> <span class="n">sc_lon_name</span><span class="p">:</span> <span class="n">j</span><span class="p">})</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+                    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">idxs</span>
+                <span class="p">]</span>
+                <span class="n">vals_arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">vals</span><span class="p">)</span>
+                <span class="n">vals_arr</span> <span class="o">=</span> <span class="n">vals_arr</span><span class="p">[</span><span class="o">~</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">vals_arr</span><span class="p">)]</span> <span class="k">if</span> <span class="n">vals_arr</span><span class="o">.</span><span class="n">size</span> <span class="k">else</span> <span class="n">vals_arr</span>
+                <span class="k">if</span> <span class="n">vals_arr</span><span class="o">.</span><span class="n">size</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="n">soil_codes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">mode_res</span> <span class="o">=</span> <span class="n">scipy_mode</span><span class="p">(</span><span class="n">vals_arr</span><span class="p">,</span> <span class="n">keepdims</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+                    <span class="n">mode_val</span> <span class="o">=</span> <span class="p">(</span>
+                        <span class="n">mode_res</span><span class="o">.</span><span class="n">mode</span>
+                        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">mode_res</span><span class="p">,</span> <span class="s2">"mode"</span><span class="p">)</span>
+                        <span class="k">else</span> <span class="p">(</span><span class="n">mode_res</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">mode_res</span><span class="p">)</span> <span class="k">else</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span>
+                    <span class="p">)</span>
+                    <span class="n">soil_codes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                        <span class="nb">float</span><span class="p">(</span><span class="n">mode_val</span><span class="p">)</span>
+                        <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">mode_val</span><span class="p">,</span> <span class="nb">float</span><span class="p">)</span> <span class="ow">and</span> <span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">mode_val</span><span class="p">))</span>
+                        <span class="k">else</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+                    <span class="p">)</span>
+            <span class="n">ds_out</span><span class="p">[</span><span class="s2">"soil_code"</span><span class="p">]</span> <span class="o">=</span> <span class="p">((</span><span class="s2">"cluster"</span><span class="p">,),</span> <span class="n">soil_codes</span><span class="p">)</span>
+
+        <span class="n">soil_depth_ds</span> <span class="o">=</span> <span class="n">climate_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"soil_depth"</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">soil_depth_ds</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">soil_depth_ds</span><span class="p">,</span> <span class="n">xr</span><span class="o">.</span><span class="n">Dataset</span><span class="p">):</span>
+            <span class="c1"># Determine variable name for soil depth</span>
+            <span class="n">depth_var</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">soil_depth_ds</span><span class="o">.</span><span class="n">data_vars</span><span class="p">:</span>
+                <span class="k">if</span> <span class="p">(</span><span class="s2">"soil"</span> <span class="ow">in</span> <span class="n">v</span><span class="o">.</span><span class="n">lower</span><span class="p">())</span> <span class="ow">or</span> <span class="p">(</span><span class="s2">"depth"</span> <span class="ow">in</span> <span class="n">v</span><span class="o">.</span><span class="n">lower</span><span class="p">()):</span>
+                    <span class="n">depth_var</span> <span class="o">=</span> <span class="n">v</span>
+                    <span class="k">break</span>
+            <span class="k">if</span> <span class="n">depth_var</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">soil_depth_ds</span><span class="o">.</span><span class="n">data_vars</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="n">depth_var</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="nb">iter</span><span class="p">(</span><span class="n">soil_depth_ds</span><span class="o">.</span><span class="n">data_vars</span><span class="p">))</span>
+            <span class="n">dd_lat_name</span> <span class="o">=</span> <span class="nb">next</span><span class="p">((</span><span class="n">n</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">LAT_NAMES</span> <span class="k">if</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">soil_depth_ds</span><span class="o">.</span><span class="n">coords</span><span class="p">),</span> <span class="kc">None</span><span class="p">)</span>
+            <span class="n">dd_lon_name</span> <span class="o">=</span> <span class="nb">next</span><span class="p">((</span><span class="n">n</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">LON_NAMES</span> <span class="k">if</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">soil_depth_ds</span><span class="o">.</span><span class="n">coords</span><span class="p">),</span> <span class="kc">None</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">dd_lat_name</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">dd_lon_name</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">"Soil depth dataset missing lat/lon coords. Available: </span><span class="si">{</span><span class="nb">list</span><span class="p">(</span><span class="n">soil_depth_ds</span><span class="o">.</span><span class="n">coords</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span>
+                <span class="p">)</span>
+            <span class="n">lat_vals</span> <span class="o">=</span> <span class="n">soil_depth_ds</span><span class="p">[</span><span class="n">dd_lat_name</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+            <span class="n">lon_vals</span> <span class="o">=</span> <span class="n">soil_depth_ds</span><span class="p">[</span><span class="n">dd_lon_name</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+            <span class="n">clabs</span> <span class="o">=</span> <span class="n">ds_labels</span><span class="p">[</span><span class="s2">"cluster_label"</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+            <span class="n">lats</span> <span class="o">=</span> <span class="n">ds_labels</span><span class="p">[</span><span class="s2">"latitude"</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+            <span class="n">lons</span> <span class="o">=</span> <span class="n">ds_labels</span><span class="p">[</span><span class="s2">"longitude"</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+            <span class="n">cluster_to_idx</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">list</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]]]</span> <span class="o">=</span> <span class="p">{</span><span class="n">c</span><span class="p">:</span> <span class="p">[]</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">clusters</span><span class="p">}</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">clabs</span><span class="p">)):</span>
+                <span class="n">c</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">clabs</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+                <span class="k">if</span> <span class="n">c</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">cluster_to_idx</span><span class="p">:</span>
+                    <span class="k">continue</span>
+                <span class="n">lat_matches</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">lat_vals</span> <span class="o">==</span> <span class="n">lats</span><span class="p">[</span><span class="n">i</span><span class="p">])[</span><span class="mi">0</span><span class="p">]</span>
+                <span class="n">lon_matches</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">lon_vals</span> <span class="o">==</span> <span class="n">lons</span><span class="p">[</span><span class="n">i</span><span class="p">])[</span><span class="mi">0</span><span class="p">]</span>
+                <span class="k">if</span> <span class="n">lat_matches</span><span class="o">.</span><span class="n">size</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">lon_matches</span><span class="o">.</span><span class="n">size</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                        <span class="s2">"Label coordinate not found on soil_depth grid; grids must be standardized"</span>
+                    <span class="p">)</span>
+                <span class="n">cluster_to_idx</span><span class="p">[</span><span class="n">c</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="nb">int</span><span class="p">(</span><span class="n">lat_matches</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="nb">int</span><span class="p">(</span><span class="n">lon_matches</span><span class="p">[</span><span class="mi">0</span><span class="p">])))</span>
+            <span class="n">soil_depths</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">clusters</span><span class="p">:</span>
+                <span class="n">idxs</span> <span class="o">=</span> <span class="n">cluster_to_idx</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="p">[])</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">idxs</span> <span class="ow">or</span> <span class="n">depth_var</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="n">soil_depths</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span>
+                    <span class="k">continue</span>
+                <span class="n">vals</span> <span class="o">=</span> <span class="p">[</span>
+                    <span class="n">soil_depth_ds</span><span class="p">[</span><span class="n">depth_var</span><span class="p">]</span><span class="o">.</span><span class="n">isel</span><span class="p">({</span><span class="n">dd_lat_name</span><span class="p">:</span> <span class="n">i</span><span class="p">,</span> <span class="n">dd_lon_name</span><span class="p">:</span> <span class="n">j</span><span class="p">})</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+                    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">idxs</span>
+                <span class="p">]</span>
+                <span class="n">vals_arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">vals</span><span class="p">)</span>
+                <span class="n">vals_arr</span> <span class="o">=</span> <span class="n">vals_arr</span><span class="p">[</span><span class="o">~</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">vals_arr</span><span class="p">)]</span> <span class="k">if</span> <span class="n">vals_arr</span><span class="o">.</span><span class="n">size</span> <span class="k">else</span> <span class="n">vals_arr</span>
+                <span class="n">soil_depths</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">nanmean</span><span class="p">(</span><span class="n">vals_arr</span><span class="p">))</span> <span class="k">if</span> <span class="n">vals_arr</span><span class="o">.</span><span class="n">size</span> <span class="k">else</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span>
+            <span class="n">ds_out</span><span class="p">[</span><span class="s2">"soil_depth"</span><span class="p">]</span> <span class="o">=</span> <span class="p">((</span><span class="s2">"cluster"</span><span class="p">,),</span> <span class="n">soil_depths</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">ds_out</span></div>
+
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">load_cluster_labels_as_xarray</span><span class="p">(</span><span class="n">labels_file</span><span class="p">,</span> <span class="n">registry</span><span class="p">:</span> <span class="nb">object</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Load cluster labels and convert to xarray Dataset with proper coordinate handling."""</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Loading cluster labels from: </span><span class="si">{</span><span class="n">labels_file</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+    <span class="c1"># Read the CSV file into a pandas DataFrame first (minimal pandas usage)</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+
+    <span class="n">df_labels</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">labels_file</span><span class="p">)</span>
+
+    <span class="c1"># Check required columns</span>
+    <span class="n">required_cols</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"latitude"</span><span class="p">,</span> <span class="s2">"longitude"</span><span class="p">,</span> <span class="s2">"cluster_label"</span><span class="p">]</span>
+    <span class="n">missing_cols</span> <span class="o">=</span> <span class="p">[</span><span class="n">col</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">required_cols</span> <span class="k">if</span> <span class="n">col</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">df_labels</span><span class="o">.</span><span class="n">columns</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">missing_cols</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Missing required columns in label file: </span><span class="si">{</span><span class="n">missing_cols</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+    <span class="c1"># Convert cluster_label to numeric and filter out non-numeric values</span>
+    <span class="n">initial_count</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">df_labels</span><span class="p">)</span>
+    <span class="n">df_labels</span><span class="p">[</span><span class="s2">"cluster_label"</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_numeric</span><span class="p">(</span><span class="n">df_labels</span><span class="p">[</span><span class="s2">"cluster_label"</span><span class="p">],</span> <span class="n">errors</span><span class="o">=</span><span class="s2">"coerce"</span><span class="p">)</span>
+    <span class="n">df_labels</span> <span class="o">=</span> <span class="n">df_labels</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="s2">"cluster_label"</span><span class="p">])</span>
+    <span class="n">df_labels</span><span class="p">[</span><span class="s2">"cluster_label"</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_labels</span><span class="p">[</span><span class="s2">"cluster_label"</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+
+    <span class="c1"># Remove any cluster_label = 0 which might be from header issues</span>
+    <span class="n">df_labels</span> <span class="o">=</span> <span class="n">df_labels</span><span class="p">[</span><span class="n">df_labels</span><span class="p">[</span><span class="s2">"cluster_label"</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">]</span>
+
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+        <span class="sa">f</span><span class="s2">"After cleaning: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">df_labels</span><span class="p">)</span><span class="si">}</span><span class="s2"> valid cluster entries (removed </span><span class="si">{</span><span class="n">initial_count</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nb">len</span><span class="p">(</span><span class="n">df_labels</span><span class="p">)</span><span class="si">}</span><span class="s2"> invalid entries)"</span>
+    <span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">df_labels</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">"The label table </span><span class="si">{</span><span class="n">labels_file</span><span class="si">}</span><span class="s2"> has no cell with a positive cluster label (labels "</span>
+            <span class="s2">"of 0 or below are ignored), so there is no cluster to average."</span>
+        <span class="p">)</span>
+
+    <span class="c1"># Map cell_id to lat/lon via registry</span>
+    <span class="k">if</span> <span class="s2">"cell_id"</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">df_labels</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"Expected label CSV to include 'cell_id' column"</span><span class="p">)</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">climclusterpy.timeseries.representative</span><span class="w"> </span><span class="kn">import</span> <span class="n">_place_labels_by_cell_id</span>
+
+    <span class="n">df_labels</span> <span class="o">=</span> <span class="n">_place_labels_by_cell_id</span><span class="p">(</span><span class="n">df_labels</span><span class="p">,</span> <span class="n">registry</span><span class="p">)</span>
+
+    <span class="c1"># Remove duplicates</span>
+    <span class="n">n_duplicates</span> <span class="o">=</span> <span class="n">df_labels</span><span class="o">.</span><span class="n">duplicated</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="s2">"latitude"</span><span class="p">,</span> <span class="s2">"longitude"</span><span class="p">])</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">n_duplicates</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">"WARNING: Found </span><span class="si">{</span><span class="n">n_duplicates</span><span class="si">}</span><span class="s2"> duplicate lat/lon combinations. Keeping first occurrence."</span>
+        <span class="p">)</span>
+        <span class="n">df_labels</span> <span class="o">=</span> <span class="n">df_labels</span><span class="o">.</span><span class="n">drop_duplicates</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="s2">"latitude"</span><span class="p">,</span> <span class="s2">"longitude"</span><span class="p">],</span> <span class="n">keep</span><span class="o">=</span><span class="s2">"first"</span><span class="p">)</span>
+
+    <span class="c1"># Convert to xarray Dataset</span>
+    <span class="c1"># Create a point dimension for spatial indexing</span>
+    <span class="n">df_labels</span> <span class="o">=</span> <span class="n">df_labels</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">df_labels</span><span class="p">[</span><span class="s2">"point"</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_labels</span><span class="o">.</span><span class="n">index</span>
+
+    <span class="n">data_vars</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">"cluster_label"</span><span class="p">:</span> <span class="p">((</span><span class="s2">"point"</span><span class="p">,),</span> <span class="n">df_labels</span><span class="p">[</span><span class="s2">"cluster_label"</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">),</span>
+        <span class="s2">"latitude"</span><span class="p">:</span> <span class="p">((</span><span class="s2">"point"</span><span class="p">,),</span> <span class="n">df_labels</span><span class="p">[</span><span class="s2">"latitude"</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">),</span>
+        <span class="s2">"longitude"</span><span class="p">:</span> <span class="p">((</span><span class="s2">"point"</span><span class="p">,),</span> <span class="n">df_labels</span><span class="p">[</span><span class="s2">"longitude"</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">),</span>
+        <span class="s2">"cell_id"</span><span class="p">:</span> <span class="p">((</span><span class="s2">"point"</span><span class="p">,),</span> <span class="n">df_labels</span><span class="p">[</span><span class="s2">"cell_id"</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">),</span>
+    <span class="p">}</span>
+    <span class="n">ds_labels</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">Dataset</span><span class="p">(</span><span class="n">data_vars</span><span class="p">)</span>
+
+    <span class="c1"># Set coordinates</span>
+    <span class="n">ds_labels</span> <span class="o">=</span> <span class="n">ds_labels</span><span class="o">.</span><span class="n">set_coords</span><span class="p">([</span><span class="s2">"latitude"</span><span class="p">,</span> <span class="s2">"longitude"</span><span class="p">])</span>
+
+    <span class="c1"># Add metadata</span>
+    <span class="n">ds_labels</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s2">"description"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"Cluster labels for climate data points"</span>
+    <span class="n">ds_labels</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s2">"source_file"</span><span class="p">]</span> <span class="o">=</span> <span class="n">labels_file</span>
+    <span class="n">ds_labels</span><span class="p">[</span><span class="s2">"cluster_label"</span><span class="p">]</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s2">"description"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"Cluster assignment for each spatial point"</span>
+    <span class="n">ds_labels</span><span class="p">[</span><span class="s2">"latitude"</span><span class="p">]</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s2">"units"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"degrees_north"</span>
+    <span class="n">ds_labels</span><span class="p">[</span><span class="s2">"longitude"</span><span class="p">]</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s2">"units"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"degrees_east"</span>
+
+    <span class="n">unique_clusters</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">ds_labels</span><span class="p">[</span><span class="s2">"cluster_label"</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+        <span class="sa">f</span><span class="s2">"Found </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">unique_clusters</span><span class="p">)</span><span class="si">}</span><span class="s2"> unique clusters ranging from </span><span class="si">{</span><span class="nb">min</span><span class="p">(</span><span class="n">unique_clusters</span><span class="p">)</span><span class="si">}</span><span class="s2"> to </span><span class="si">{</span><span class="nb">max</span><span class="p">(</span><span class="n">unique_clusters</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span>
+    <span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">ds_labels</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">calculate_cluster_centers_xarray</span><span class="p">(</span><span class="n">ds_labels</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""</span>
+<span class="sd">    Calculate representative coordinates (center cells) for each cluster using xarray operations.</span>
+<span class="sd">    Returns an xarray Dataset with center coordinates.</span>
+<span class="sd">    """</span>
+    <span class="k">if</span> <span class="n">ds_labels</span><span class="o">.</span><span class="n">sizes</span><span class="p">[</span><span class="s2">"point"</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"The label table has no labelled cell, so no cluster has a centre."</span><span class="p">)</span>
+
+    <span class="c1"># Group by cluster and calculate center coordinates</span>
+    <span class="n">center_lats</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">center_lons</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">cluster_ids</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">for</span> <span class="n">cluster_id</span><span class="p">,</span> <span class="n">group</span> <span class="ow">in</span> <span class="n">ds_labels</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">"cluster_label"</span><span class="p">):</span>
+        <span class="n">center_coords</span> <span class="o">=</span> <span class="n">find_center_cell</span><span class="p">(</span><span class="n">group</span><span class="p">)</span>
+        <span class="n">center_lats</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">center_coords</span><span class="p">[</span><span class="s2">"center_lat"</span><span class="p">])</span>
+        <span class="n">center_lons</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">center_coords</span><span class="p">[</span><span class="s2">"center_lon"</span><span class="p">])</span>
+        <span class="n">cluster_ids</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cluster_id</span><span class="p">)</span>
+
+    <span class="c1"># Create Dataset with center coordinates</span>
+    <span class="n">ds_centers</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">Dataset</span><span class="p">(</span>
+        <span class="p">{</span>
+            <span class="s2">"center_lat"</span><span class="p">:</span> <span class="p">((</span><span class="s2">"cluster_label"</span><span class="p">,),</span> <span class="n">center_lats</span><span class="p">),</span>
+            <span class="s2">"center_lon"</span><span class="p">:</span> <span class="p">((</span><span class="s2">"cluster_label"</span><span class="p">,),</span> <span class="n">center_lons</span><span class="p">),</span>
+        <span class="p">},</span>
+        <span class="n">coords</span><span class="o">=</span><span class="p">{</span><span class="s2">"cluster_label"</span><span class="p">:</span> <span class="n">cluster_ids</span><span class="p">},</span>
+    <span class="p">)</span>
+
+    <span class="c1"># Add metadata</span>
+    <span class="n">ds_centers</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s2">"description"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"Center coordinates for each cluster"</span>
+    <span class="n">ds_centers</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s2">"processing_date"</span><span class="p">]</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">"%Y-%m-</span><span class="si">%d</span><span class="s2"> %H:%M:%S"</span><span class="p">)</span>
+    <span class="n">ds_centers</span><span class="p">[</span><span class="s2">"center_lat"</span><span class="p">]</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s2">"units"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"degrees_north"</span>
+    <span class="n">ds_centers</span><span class="p">[</span><span class="s2">"center_lon"</span><span class="p">]</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s2">"units"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"degrees_east"</span>
+    <span class="n">ds_centers</span><span class="p">[</span><span class="s2">"center_lat"</span><span class="p">]</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s2">"description"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"Latitude of cluster center"</span>
+    <span class="n">ds_centers</span><span class="p">[</span><span class="s2">"center_lon"</span><span class="p">]</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s2">"description"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"Longitude of cluster center"</span>
+
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Calculated center coordinates for </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">cluster_ids</span><span class="p">)</span><span class="si">}</span><span class="s2"> clusters."</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">ds_centers</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, Jamir Priesner.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,210 @@
+Command-line interface (``climclu``)
+====================================
+
+Installing the package puts a ``climclu`` command on your ``PATH`` (``python -m
+climclusterpy.cli`` does the same). It mirrors the public API:
+
+==================================  ====================================================
+Command                             Python equivalent
+==================================  ====================================================
+``climclu create-clusters``         :func:`~climclusterpy.create_clusters`
+``climclu create-regions``          :func:`~climclusterpy.create_regions`
+``climclu reconstruct-grid``        :func:`~climclusterpy.reconstruct_original_grid`
+``climclu cluster hierarchical``    :func:`~climclusterpy.cluster_matrix`
+``climclu supervision …``           :func:`~climclusterpy.compute_supervision`
+``climclu version``                 ``climclusterpy.__version__``
+==================================  ====================================================
+
+.. code-block:: console
+
+   $ climclu --help
+   $ climclu create-clusters --help
+   $ climclu version
+
+``climclu <command> --help`` is the source of truth for every option; this page shows
+the common ones.
+
+The two headline commands
+-------------------------
+
+``climclu create-clusters``
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Build a model-ready reduced grid from a directory of climate and soil NetCDFs
+(``temperature.nc``, ``precipitation.nc``, ``short_wave_radiation.nc``,
+``long_wave_radiation.nc``, ``soil_code.nc``, ``soil_depth.nc``, optional ``humid.nc``).
+
+.. code-block:: console
+
+   $ climclu create-clusters /data/climate_input -k 2000 --output-dir ./clusters
+
+   $ climclu create-clusters /data/climate_input -k 2000 --locally-weighted \
+       --supervision-data /data/model_output/trait_grids \
+       --supervision sla,wooddens,height,biomass \
+       --output-dir ./clusters
+
+Main options: ``-k/--n-clusters`` (at least 1) or ``--fraction`` (the number of clusters as
+a share of the valid cells, e.g. ``0.01``; give one of the two), ``--locally-weighted/--euclidean``,
+``--supervision`` (``koppen_geiger``, ``ecoregions`` or comma-separated traits),
+``--supervision-data``, ``--ecoregions-shapefile``, ``--ecoregion-id-column``,
+``--dominant-type/--no-dominant-type``,
+``--supervision-granularity``, ``--supervision-linkage`` (default ``complete``),
+``--lmnn-mode`` (``lowrank``, the default, ``global``, ``local`` or ``enhanced``),
+``--lmnn-k``, ``--rank`` (``lowrank``: default 16, at most the number of features;
+``global``: default full rank),
+``--representative`` (``auto``/``medoid``/``centroid``/``random``/``distributed``),
+``--placement`` (``native``/``cluster_center``),
+``--linkage``, ``--climate-variables`` (comma list, default ``tas,pr,rsds,rlds,hurs``),
+``--output-dir``, ``--n-repeat``, ``--npatch``, ``--cells-per-cluster``, ``--seed``
+(default 0, so the same command gives the same grid), ``--min-grid-spacing``
+(``--placement cluster_center`` only), ``--n-jobs``, ``--write-fields`` (comma list of the
+input fields to write; default all). The defaults of the metric-learning options are the
+configuration of the published results, so the second example needs no more than the
+supervision.
+
+``--dry-run`` checks the climate input (files present, variables and grid readable)
+without clustering anything: it prints a short report and exits with code 0 if
+``create-clusters`` would run, 1 if not.
+
+.. code-block:: console
+
+   $ climclu create-clusters /data/climate_input -k 2000 --dry-run
+
+``climclu create-regions``
+^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Build a reduced grid from a map you already have -- no metric is learned and nothing is
+clustered, so this is the cheapest route. The second argument is the map:
+``koppen_geiger`` (computed from the climate), ``ecoregions`` (with
+``--ecoregions-shapefile``), or a labels CSV with a ``cell_id`` column. A CSV that holds
+several cuts of one dendrogram (``cluster_k7`` ... ``cluster_k21320``) needs ``--column`` to
+name one, or ``--fraction`` to take the cut nearest that share of the valid cells.
+
+.. code-block:: console
+
+   $ climclu create-regions /data/climate_input koppen_geiger --output-dir ./regions
+
+   $ climclu create-regions /data/climate_input deploy/cluster_labels.csv --fraction 0.01 \
+       --representative distributed --npatch 25 --cells-per-cluster 25 --seed 1 \
+       --write-fields soil_code --output-dir ./grid_1pct
+
+The second example builds only the grid and its mapping (one soil file, no climate), for a
+model that reads its inputs from the original files through the mapping. Main options:
+``--column``, ``--fraction``, ``--representative`` (``centroid``/``medoid``/``random``/
+``distributed``), ``--placement``, ``--cold-threshold``, ``--ecoregion-id-column``,
+``--climate-variables``, ``--n-repeat``, ``--npatch``, ``--cells-per-cluster``, ``--seed``,
+``--min-grid-spacing``, ``--n-jobs``, ``--preload/--no-preload``, ``--write-fields``,
+``--output-dir``. ``--dry-run`` checks the climate input and that the partition file exists.
+
+``climclu reconstruct-grid``
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Project model output simulated on the reduced grid back onto the original grid. Give it
+the model output (one NetCDF or a directory of them) and the ``--output-dir`` that
+``create-clusters`` wrote; everything else is read from there.
+
+.. code-block:: console
+
+   $ climclu reconstruct-grid vegc_output.nc --clusters-dir ./clusters
+
+``-k`` is optional here and, when given, is checked against the clusters directory.
+``--kind`` (``output``/``distributed``) defaults to ``distributed`` for a grid
+built with ``--representative distributed``, else ``output``; ``--aggregate``
+(``mean``/``median``) applies to distributed grids only.
+
+The older route, which rebuilds the original grid from a JSON file of the input paths
+(the :class:`~climclusterpy.data.DataPaths` fields), still works and then needs ``-k``:
+
+.. code-block:: console
+
+   $ climclu reconstruct-grid vegc_output.nc --clusters-dir ./clusters -k 2000 \
+       --input-config inputs.json
+
+Building blocks
+---------------
+
+``climclu cluster hierarchical``
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Cluster a feature-matrix CSV. Metadata columns (``cell_id``/``latitude``/``longitude``/…)
+are detected automatically; the remaining numeric columns are the features.
+
+.. code-block:: console
+
+   $ climclu cluster hierarchical --features-csv features.csv --n-clusters 7 \
+       --euclidean --standardize --output clusters.csv
+
+For LMNN mode, pass a labels CSV with a ``cluster_label`` column:
+
+.. code-block:: console
+
+   $ climclu cluster hierarchical --features-csv features.csv --n-clusters 7 \
+       --locally-weighted --supervision-csv labels.csv --lmnn-mode global
+
+Options: ``-k/--n-clusters``, ``--locally-weighted/--euclidean``, ``--supervision-csv``,
+``--lmnn-mode`` (``lowrank``, the default, ``global``, ``local`` or ``enhanced``),
+``--rank``, ``--seed`` (default 0), ``--linkage``, ``--standardize``, ``--output``.
+
+``climclu supervision``
+^^^^^^^^^^^^^^^^^^^^^^^
+
+Generate a supervision labels CSV from one of three sources:
+``climclu supervision koppen-geiger``, ``climclu supervision output`` and
+``climclu supervision ecoregions``.
+
+.. code-block:: console
+
+   $ climclu supervision koppen-geiger --features-csv monthly_climatology.csv \
+       --output-dir out/
+
+   $ climclu supervision output --features-csv traits.csv --n-clusters 20 \
+       --continuous-cols vegc,height,sla --output-dir out/
+
+   $ climclu supervision ecoregions --input-config inputs.json \
+       --shapefile Ecoregions2017.shp --output-dir out/
+
+``ecoregions`` needs the ``[ecoregions]`` extra and builds the original grid from
+``--input-config`` (a JSON of :class:`~climclusterpy.data.DataPaths` fields).
+
+Options shared by every action command
+--------------------------------------
+
+``--config FILE``
+   A YAML or JSON file whose keys become the defaults of the command's options; any
+   flag given on the command line wins. Top-level scalar keys apply to every command
+   that has an option of that name. A section named after the command
+   (``create-clusters:``, ``reconstruct-grid:``) or after a group (``cluster:``,
+   ``supervision:``, optionally with a nested section for the
+   subcommand) applies to that command only. Keys may be spelled like the flag
+   (``n-clusters``, ``linkage``) or like the Python parameter (``n_clusters``,
+   ``linkage_method``); a list is accepted wherever the option takes a comma list. A key
+   in a command's section that is not one of its options is reported as a warning and
+   ignored.
+
+   .. code-block:: yaml
+
+      n_jobs: 4
+      create-clusters:
+        n_clusters: 2000
+        linkage: complete
+        climate_variables: [tas, pr, rsds, rlds, hurs]
+      cluster:
+        hierarchical:
+          n_clusters: 7
+          standardize: true
+
+``--dry-run``
+   On ``create-clusters``, the input check described above. On every other command,
+   check that the named input files exist and exit (code 0 if all do, 1 if not).
+
+Errors and exit codes
+---------------------
+
+* ``0`` — success.
+* ``1`` — ``--dry-run`` found a problem.
+* ``2`` — a usage error (unknown option, missing argument, a value out of range such as
+  ``-k 0``), or an input the library rejected. Library errors about the input are
+  printed as one line, ``Error: <message>``, on stderr.
+
+For the full Python traceback instead, put ``--debug`` before the command
+(``climclu --debug create-clusters …``) or set ``CLIMCLUSTERPY_DEBUG=1``.

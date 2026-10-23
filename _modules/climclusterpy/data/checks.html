@@ -1,0 +1,661 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>climclusterpy.data.checks &mdash; climclusterpy 0.5</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/custom.css?v=f2cc2102" />
+
+  
+    <link rel="shortcut icon" href="../../../_static/logo.svg"/>
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=1dd76d02"></script>
+      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            climclusterpy
+              <img src="../../../_static/logo.svg" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorials/index.html">Tutorials</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../tutorials/one_call_roundtrip.html">Tutorial 0 — the whole workflow in two calls</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/one_call_roundtrip.html#the-idea">The idea</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/one_call_roundtrip.html#call-1-build-the-reduced-grid">Call 1 — build the reduced grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/one_call_roundtrip.html#call-2-rebuild-the-original-grid">Call 2 — rebuild the original grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/one_call_roundtrip.html#the-complete-script">The complete script</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/one_call_roundtrip.html#run-it">Run it</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/one_call_roundtrip.html#next-steps">Next steps</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../tutorials/euclidean_clustering.html">Tutorial 1 — Euclidean clustering</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/euclidean_clustering.html#load-data-and-build-a-feature-matrix">Load data and build a feature matrix</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/euclidean_clustering.html#cluster">Cluster</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/euclidean_clustering.html#the-complete-script">The complete script</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/euclidean_clustering.html#run-it">Run it</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/euclidean_clustering.html#next-steps">Next steps</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../tutorials/lmnn_clustering.html">Tutorial 2 — LMNN metric-learning clustering</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/lmnn_clustering.html#provide-a-supervision-signal">Provide a supervision signal</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/lmnn_clustering.html#learn-a-metric-and-cluster">Learn a metric and cluster</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/lmnn_clustering.html#the-complete-script">The complete script</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/lmnn_clustering.html#run-it">Run it</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/lmnn_clustering.html#next-steps">Next steps</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../tutorials/supervision.html">Tutorial 3 — Supervision signals</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/supervision.html#koppengeiger-from-monthly-climatology">Köppen–Geiger from monthly climatology</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/supervision.html#model-output-trait-clustering">Model-output (trait) clustering</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/supervision.html#the-complete-script">The complete script</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/supervision.html#run-it">Run it</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/supervision.html#ecoregion-supervision">Ecoregion supervision</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../tutorials/reconstruction.html">Tutorial 4 — Reconstruct the original grid</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/reconstruction.html#the-round-trip">The round trip</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/reconstruction.html#verify">Verify</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/reconstruction.html#the-complete-script">The complete script</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/reconstruction.html#run-it">Run it</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/reconstruction.html#next-steps">Next steps</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../tutorials/index.html#a-note-on-the-synthetic-data">A note on the synthetic data</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">How-to guides</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../howto/index.html">How-to guides</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../howto/install.html">Install climclusterpy</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/install.html#base-install">Base install</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/install.html#optional-extras">Optional extras</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/install.html#installing-the-geospatial-extras-with-conda">Installing the geospatial extras with conda</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/install.html#pytorch-cpu-vs-gpu">PyTorch (CPU vs. GPU)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/install.html#environment-variables">Environment variables</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/install.html#building-the-documentation">Building the documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../howto/inputs.html">Prepare the input files</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/inputs.html#check-your-input-first">Check your input first</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/inputs.html#the-files">The files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/inputs.html#grid-and-coordinates">Grid and coordinates</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/inputs.html#which-cells-exist-the-soil-code">Which cells exist: the soil code</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/inputs.html#the-time-axis">The time axis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/inputs.html#missing-values">Missing values</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/inputs.html#another-vegetation-model-s-input">Another vegetation model’s input</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/inputs.html#output-files">Output files</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../howto/clustering.html">Cluster a feature matrix (choose a mode)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/clustering.html#euclidean-mode-no-supervision">Euclidean mode (no supervision)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/clustering.html#lmnn-mode-supervised-metric-learning">LMNN mode (supervised metric learning)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/clustering.html#lower-level-control">Lower-level control</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../howto/supervision.html">Build an LMNN supervision signal</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/supervision.html#from-climate-koppengeiger">From climate — Köppen–Geiger</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/supervision.html#from-model-output-traits">From model output — traits</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/supervision.html#from-a-shapefile-ecoregions2017">From a shapefile — Ecoregions2017</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/supervision.html#using-the-signal">Using the signal</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/supervision.html#in-one-call">In one call</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/supervision.html#saved-results-are-reused-only-for-the-same-inputs">Saved results are reused only for the same inputs</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../howto/cell_selection.html">Choosing the cells a cluster is simulated on</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/cell_selection.html#the-patch-budget">The patch budget</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/cell_selection.html#what-the-drawn-cells-carry">What the drawn cells carry</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/cell_selection.html#reproducibility">Reproducibility</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/cell_selection.html#looking-at-a-draw-without-building-a-grid">Looking at a draw without building a grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/cell_selection.html#back-to-the-full-grid">Back to the full grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/cell_selection.html#a-model-that-reads-its-own-inputs-the-grid-only-then-cut-the-rest">A model that reads its own inputs: the grid only, then cut the rest</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../howto/reconstruct.html">Reconstruct the original grid</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/reconstruct.html#the-usual-call">The usual call</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/reconstruct.html#picking-up-where-you-left-off">Picking up where you left off</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/reconstruct.html#without-a-result-or-run-folder">Without a result or run folder</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/reconstruct.html#required-mapping-files">Required mapping files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/reconstruct.html#reconstruction-paths-kind">Reconstruction paths (<code class="docutils literal notranslate"><span class="pre">kind</span></code>)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/reconstruct.html#verifying-the-result">Verifying the result</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../reference/index.html">Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../reference/api.html">Public API — <code class="xref py py-mod docutils literal notranslate"><span class="pre">climclusterpy</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/api.html#the-two-headline-functions">The two headline functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/api.html#before-and-after-the-model-run">Before and after the model run</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/api.html#input-for-a-model-other-than-lpjml">Input for a model other than LPJmL</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/api.html#other-ways-to-build-the-reduced-grid">Other ways to build the reduced grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/api.html#reusing-a-trained-metric">Reusing a trained metric</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/api.html#the-model-s-other-inputs">The model’s other inputs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/api.html#writing-the-reduced-grid-yourself">Writing the reduced grid yourself</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/api.html#building-blocks">Building blocks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/api.html#result-objects">Result objects</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../reference/toplevel.html">Data, timeseries, I/O &amp; plotting</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/toplevel.html#module-climclusterpy.data">Data loading &amp; the grid registry</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/toplevel.html#how-much-the-package-reports">How much the package reports</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/toplevel.html#coordinates">Coordinates</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/toplevel.html#module-climclusterpy.timeseries">Per-cluster timeseries</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/toplevel.html#module-climclusterpy.io">File input/output</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/toplevel.html#module-climclusterpy.preprocessing">Preprocessing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/toplevel.html#module-climclusterpy.viz">Plotting</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../reference/features.html">Feature engineering</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/features.html#ecological-summaries">Ecological summaries</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/features.html#vegetation-model-traits">Vegetation-model traits</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/features.html#standardization-filtering">Standardization &amp; filtering</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../reference/clustering.html">Clustering &amp; metric learning</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/clustering.html#hierarchical-clustering">Hierarchical clustering</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/clustering.html#module-climclusterpy.clustering.lmnn">LMNN metric learning</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../reference/supervision.html">Supervision labels</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/supervision.html#koppengeiger-climate-zones">Köppen–Geiger climate zones</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/supervision.html#vegetation-model-output-traits">Vegetation-model output traits</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/supervision.html#ecoregion-polygons">Ecoregion polygons</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/supervision.html#daily-input-helpers">Daily-input helpers</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../reference/grid.html">Grid building &amp; reconstruction</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/grid.html#where-each-reduced-cell-is-placed">Where each reduced cell is placed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/grid.html#writing-the-reduced-grid">Writing the reduced grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/grid.html#reconstruction">Reconstruction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/grid.html#lpjml-clm-conversion">LPJmL CLM conversion</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../reference/cli.html">Command-line interface (<code class="docutils literal notranslate"><span class="pre">climclu</span></code>)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/cli.html#the-two-headline-commands">The two headline commands</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/cli.html#building-blocks">Building blocks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/cli.html#options-shared-by-every-action-command">Options shared by every action command</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/cli.html#errors-and-exit-codes">Errors and exit codes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../reference/index.html#which-function-do-i-need">Which function do I need?</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Explanation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../explanation/index.html">Explanation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../explanation/overview.html">Overview</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/overview.html#design-philosophy">Design Philosophy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/overview.html#workflow-summary">Workflow Summary</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/overview.html#key-innovations">Key Innovations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/overview.html#use-cases">Use Cases</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/overview.html#limitations">Limitations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/overview.html#future-directions">Future Directions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/overview.html#references">References</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../explanation/methods.html">Scientific Methods</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/methods.html#data-acquisition-and-preprocessing">Data Acquisition and Preprocessing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/methods.html#ecoregion-assignment">Ecoregion Assignment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/methods.html#ecological-feature-summarization">Ecological Feature Summarization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/methods.html#feature-standardization-and-filtering">Feature Standardization and Filtering</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/methods.html#large-margin-nearest-neighbor-lmnn-metric-learning">Large Margin Nearest Neighbor (LMNN) Metric Learning</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/methods.html#hierarchical-clustering">Hierarchical Clustering</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/methods.html#representative-cell-selection">Representative Cell Selection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/methods.html#evaluation-metrics">Evaluation Metrics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/methods.html#netcdf-processing">NetCDF Processing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/methods.html#computational-implementation">Computational Implementation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../explanation/index.html#reconstruction-correctness">Reconstruction correctness</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">climclusterpy</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">climclusterpy.data.checks</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for climclusterpy.data.checks</h1><div class="highlight"><pre>
+<span></span><span class="sd">"""Checks on the climate and soil input, run before anything expensive happens.</span>
+
+<span class="sd">:func:`~climclusterpy.create_clusters` runs the cheap ones on every call and refuses to</span>
+<span class="sd">continue on a problem; :func:`~climclusterpy.check_inputs` runs all of them on their own, so a</span>
+<span class="sd">user can find out what is wrong with an input before submitting a long job.</span>
+
+<span class="sd">A *problem* is something that would make the run fail later or give a wrong answer without</span>
+<span class="sd">saying so (mixed time axes, precipitation given as a flux, missing values inside the land</span>
+<span class="sd">mask). A *warning* is something worth knowing that does not stop the run.</span>
+<span class="sd">"""</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">dataclasses</span><span class="w"> </span><span class="kn">import</span> <span class="n">dataclass</span><span class="p">,</span> <span class="n">field</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">xarray</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">xr</span>
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">"CLIMATE_INPUTS"</span><span class="p">,</span>
+    <span class="s2">"InputCheck"</span><span class="p">,</span>
+    <span class="s2">"check_loaded_inputs"</span><span class="p">,</span>
+    <span class="s2">"full_missing_scan"</span><span class="p">,</span>
+    <span class="s2">"missing_value_problems"</span><span class="p">,</span>
+<span class="p">]</span>
+
+<span class="c1">#: The climate inputs and what each must be given in.</span>
+<span class="n">CLIMATE_INPUTS</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">"temperature"</span><span class="p">:</span> <span class="s2">"°C (Kelvin is recognised and converted)"</span><span class="p">,</span>
+    <span class="s2">"precipitation"</span><span class="p">:</span> <span class="s2">"mm per time step (mm/day for daily data, mm/month for monthly data)"</span><span class="p">,</span>
+    <span class="s2">"short_wave_radiation"</span><span class="p">:</span> <span class="s2">"W m-2"</span><span class="p">,</span>
+    <span class="s2">"long_wave_radiation"</span><span class="p">:</span> <span class="s2">"W m-2"</span><span class="p">,</span>
+    <span class="s2">"humid"</span><span class="p">:</span> <span class="s2">"relative humidity, %"</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="c1">#: How many time steps the cheap checks look at to judge an input's units.</span>
+<span class="n">_SAMPLE_STEPS</span> <span class="o">=</span> <span class="mi">24</span>
+
+
+<div class="viewcode-block" id="InputCheck">
+<a class="viewcode-back" href="../../../reference/api.html#climclusterpy.data.InputCheck">[docs]</a>
+<span class="nd">@dataclass</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">InputCheck</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""What :func:`~climclusterpy.check_inputs` found.</span>
+
+<span class="sd">    Attributes</span>
+<span class="sd">    ----------</span>
+<span class="sd">    problems : list of str</span>
+<span class="sd">        Each would make :func:`~climclusterpy.create_clusters` fail, or give a wrong result.</span>
+<span class="sd">    warnings : list of str</span>
+<span class="sd">        Worth knowing; they do not stop a run.</span>
+<span class="sd">    facts : dict</span>
+<span class="sd">        The grid and the inputs as the package reads them: grid size, resolution, number</span>
+<span class="sd">        of land cells, time steps and step length per variable, units attribute, and the</span>
+<span class="sd">        sampled value range.</span>
+<span class="sd">    """</span>
+
+    <span class="n">problems</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">list</span><span class="p">)</span>
+    <span class="n">warnings</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">list</span><span class="p">)</span>
+    <span class="n">facts</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">dict</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">ok</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""True when there is no problem (warnings allowed)."""</span>
+        <span class="k">return</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">problems</span>
+
+<div class="viewcode-block" id="InputCheck.raise_if_problems">
+<a class="viewcode-back" href="../../../reference/api.html#climclusterpy.data.InputCheck.raise_if_problems">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">raise_if_problems</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Raise a single ValueError listing every problem, if there is any."""</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">problems</span><span class="p">:</span>
+            <span class="n">listed</span> <span class="o">=</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="sa">f</span><span class="s2">"  - </span><span class="si">{</span><span class="n">p</span><span class="si">}</span><span class="s2">"</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">problems</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">"The input has </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">problems</span><span class="p">)</span><span class="si">}</span><span class="s2"> problem(s):</span><span class="se">\n</span><span class="si">{</span><span class="n">listed</span><span class="si">}</span><span class="se">\n</span><span class="s2">"</span>
+                <span class="s2">"Run climclusterpy.check_inputs(&lt;input&gt;) for the full report."</span>
+            <span class="p">)</span></div>
+
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="n">lines</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"Input check: "</span> <span class="o">+</span> <span class="p">(</span><span class="s2">"OK"</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">ok</span> <span class="k">else</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">problems</span><span class="p">)</span><span class="si">}</span><span class="s2"> problem(s)"</span><span class="p">)]</span>
+        <span class="n">grid</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">facts</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"grid"</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">grid</span><span class="p">:</span>
+            <span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">"  grid: </span><span class="si">{</span><span class="n">grid</span><span class="p">[</span><span class="s1">'n_lat'</span><span class="p">]</span><span class="si">}</span><span class="s2"> x </span><span class="si">{</span><span class="n">grid</span><span class="p">[</span><span class="s1">'n_lon'</span><span class="p">]</span><span class="si">}</span><span class="s2"> (latitude x longitude), "</span>
+                <span class="sa">f</span><span class="s2">"resolution </span><span class="si">{</span><span class="n">grid</span><span class="p">[</span><span class="s1">'resolution'</span><span class="p">]</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">grid</span><span class="p">[</span><span class="s1">'n_land_cells'</span><span class="p">]</span><span class="si">}</span><span class="s2"> land cells, "</span>
+                <span class="sa">f</span><span class="s2">"latitude </span><span class="si">{</span><span class="n">grid</span><span class="p">[</span><span class="s1">'lat_range'</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s2">g</span><span class="si">}</span><span class="s2"> to </span><span class="si">{</span><span class="n">grid</span><span class="p">[</span><span class="s1">'lat_range'</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="si">:</span><span class="s2">g</span><span class="si">}</span><span class="s2">, "</span>
+                <span class="sa">f</span><span class="s2">"longitude </span><span class="si">{</span><span class="n">grid</span><span class="p">[</span><span class="s1">'lon_range'</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s2">g</span><span class="si">}</span><span class="s2"> to </span><span class="si">{</span><span class="n">grid</span><span class="p">[</span><span class="s1">'lon_range'</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="si">:</span><span class="s2">g</span><span class="si">}</span><span class="s2">"</span>
+            <span class="p">)</span>
+        <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">f</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">facts</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"variables"</span><span class="p">,</span> <span class="p">{})</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">step</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"step"</span><span class="p">)</span>
+            <span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">"  </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">f</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'n_time'</span><span class="p">,</span><span class="w"> </span><span class="s1">'-'</span><span class="p">)</span><span class="si">}</span><span class="s2"> time steps"</span>
+                <span class="o">+</span> <span class="p">(</span><span class="sa">f</span><span class="s2">" (</span><span class="si">{</span><span class="n">step</span><span class="si">}</span><span class="s2">)"</span> <span class="k">if</span> <span class="n">step</span> <span class="k">else</span> <span class="s2">""</span><span class="p">)</span>
+                <span class="o">+</span> <span class="p">(</span><span class="sa">f</span><span class="s2">", units </span><span class="si">{</span><span class="n">f</span><span class="p">[</span><span class="s1">'units'</span><span class="p">]</span><span class="si">!r}</span><span class="s2">"</span> <span class="k">if</span> <span class="n">f</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"units"</span><span class="p">)</span> <span class="k">else</span> <span class="s2">", no units attribute"</span><span class="p">)</span>
+                <span class="o">+</span> <span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">", sampled range </span><span class="si">{</span><span class="n">f</span><span class="p">[</span><span class="s1">'min'</span><span class="p">]</span><span class="si">:</span><span class="s2">.4g</span><span class="si">}</span><span class="s2"> to </span><span class="si">{</span><span class="n">f</span><span class="p">[</span><span class="s1">'max'</span><span class="p">]</span><span class="si">:</span><span class="s2">.4g</span><span class="si">}</span><span class="s2">"</span>
+                    <span class="k">if</span> <span class="n">f</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"min"</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+                    <span class="k">else</span> <span class="s2">""</span>
+                <span class="p">)</span>
+            <span class="p">)</span>
+        <span class="n">lines</span> <span class="o">+=</span> <span class="p">[</span><span class="sa">f</span><span class="s2">"  PROBLEM: </span><span class="si">{</span><span class="n">p</span><span class="si">}</span><span class="s2">"</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">problems</span><span class="p">]</span>
+        <span class="n">lines</span> <span class="o">+=</span> <span class="p">[</span><span class="sa">f</span><span class="s2">"  warning: </span><span class="si">{</span><span class="n">w</span><span class="si">}</span><span class="s2">"</span> <span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">warnings</span><span class="p">]</span>
+        <span class="k">return</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">lines</span><span class="p">)</span></div>
+
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_step_label</span><span class="p">(</span><span class="n">days</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span> <span class="n">n_time</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">days</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">None</span>
+    <span class="k">if</span> <span class="n">days</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s2">"daily"</span>
+    <span class="k">if</span> <span class="mi">27</span> <span class="o">&lt;=</span> <span class="n">days</span> <span class="o">&lt;=</span> <span class="mi">32</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s2">"monthly"</span>
+    <span class="k">if</span> <span class="mi">360</span> <span class="o">&lt;=</span> <span class="n">days</span> <span class="o">&lt;=</span> <span class="mi">367</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s2">"yearly"</span>
+    <span class="k">return</span> <span class="sa">f</span><span class="s2">"every </span><span class="si">{</span><span class="n">days</span><span class="si">:</span><span class="s2">g</span><span class="si">}</span><span class="s2"> days"</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_data_var</span><span class="p">(</span><span class="n">ds</span><span class="p">:</span> <span class="n">xr</span><span class="o">.</span><span class="n">Dataset</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">xr</span><span class="o">.</span><span class="n">DataArray</span><span class="p">:</span>
+    <span class="k">return</span> <span class="n">ds</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">ds</span><span class="o">.</span><span class="n">data_vars</span> <span class="k">else</span> <span class="n">ds</span><span class="p">[</span><span class="nb">next</span><span class="p">(</span><span class="nb">iter</span><span class="p">(</span><span class="n">ds</span><span class="o">.</span><span class="n">data_vars</span><span class="p">))]</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_land_sample</span><span class="p">(</span><span class="n">da</span><span class="p">:</span> <span class="n">xr</span><span class="o">.</span><span class="n">DataArray</span><span class="p">,</span> <span class="n">mask</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Values on land cells over the first few time steps (cheap: reads at most 24 steps)."""</span>
+    <span class="k">if</span> <span class="s2">"time"</span> <span class="ow">in</span> <span class="n">da</span><span class="o">.</span><span class="n">dims</span><span class="p">:</span>
+        <span class="n">da</span> <span class="o">=</span> <span class="n">da</span><span class="o">.</span><span class="n">isel</span><span class="p">(</span><span class="n">time</span><span class="o">=</span><span class="nb">slice</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">_SAMPLE_STEPS</span><span class="p">))</span>
+    <span class="n">da</span> <span class="o">=</span> <span class="n">da</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="o">...</span><span class="p">,</span> <span class="s2">"latitude"</span><span class="p">,</span> <span class="s2">"longitude"</span><span class="p">)</span>
+    <span class="n">vals</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">da</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">"float64"</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">vals</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="n">mask</span><span class="p">]</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_grid_facts</span><span class="p">(</span><span class="n">registry</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+    <span class="n">orig</span> <span class="o">=</span> <span class="n">registry</span><span class="o">.</span><span class="n">get_original_grid</span><span class="p">()</span>
+    <span class="n">lats</span><span class="p">,</span> <span class="n">lons</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">orig</span><span class="o">.</span><span class="n">latitudes</span><span class="p">,</span> <span class="nb">float</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">orig</span><span class="o">.</span><span class="n">longitudes</span><span class="p">,</span> <span class="nb">float</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">res</span><span class="p">(</span><span class="n">v</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">v</span><span class="p">))))</span> <span class="k">if</span> <span class="n">v</span><span class="o">.</span><span class="n">size</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="k">else</span> <span class="kc">None</span>
+
+    <span class="n">rlat</span><span class="p">,</span> <span class="n">rlon</span> <span class="o">=</span> <span class="n">res</span><span class="p">(</span><span class="n">lats</span><span class="p">),</span> <span class="n">res</span><span class="p">(</span><span class="n">lons</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">rlat</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">rlon</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">np</span><span class="o">.</span><span class="n">isclose</span><span class="p">(</span><span class="n">rlat</span><span class="p">,</span> <span class="n">rlon</span><span class="p">):</span>
+        <span class="n">resolution</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">rlat</span><span class="si">:</span><span class="s2">g</span><span class="si">}</span><span class="s2"> deg"</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">resolution</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">rlat</span><span class="si">}</span><span class="s2"> x </span><span class="si">{</span><span class="n">rlon</span><span class="si">}</span><span class="s2"> deg"</span>
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="s2">"n_lat"</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">lats</span><span class="o">.</span><span class="n">size</span><span class="p">),</span>
+        <span class="s2">"n_lon"</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">lons</span><span class="o">.</span><span class="n">size</span><span class="p">),</span>
+        <span class="s2">"resolution"</span><span class="p">:</span> <span class="n">resolution</span><span class="p">,</span>
+        <span class="s2">"n_land_cells"</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">registry</span><span class="o">.</span><span class="n">get_valid_mask</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()),</span>
+        <span class="s2">"lat_range"</span><span class="p">:</span> <span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">lats</span><span class="o">.</span><span class="n">min</span><span class="p">()),</span> <span class="nb">float</span><span class="p">(</span><span class="n">lats</span><span class="o">.</span><span class="n">max</span><span class="p">())),</span>
+        <span class="s2">"lon_range"</span><span class="p">:</span> <span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">lons</span><span class="o">.</span><span class="n">min</span><span class="p">()),</span> <span class="nb">float</span><span class="p">(</span><span class="n">lons</span><span class="o">.</span><span class="n">max</span><span class="p">())),</span>
+    <span class="p">}</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_units_problems</span><span class="p">(</span>
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">units</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">sample</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">step</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">list</span><span class="p">,</span> <span class="nb">list</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">"""(problems, warnings) about the units of one climate input, judged from a sample."""</span>
+    <span class="n">problems</span><span class="p">,</span> <span class="n">warns</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
+    <span class="n">finite</span> <span class="o">=</span> <span class="n">sample</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">isfinite</span><span class="p">(</span><span class="n">sample</span><span class="p">)]</span>
+    <span class="k">if</span> <span class="n">finite</span><span class="o">.</span><span class="n">size</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">problems</span><span class="p">,</span> <span class="n">warns</span>
+    <span class="n">mean</span><span class="p">,</span> <span class="n">vmin</span><span class="p">,</span> <span class="n">vmax</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">finite</span><span class="o">.</span><span class="n">mean</span><span class="p">()),</span> <span class="nb">float</span><span class="p">(</span><span class="n">finite</span><span class="o">.</span><span class="n">min</span><span class="p">()),</span> <span class="nb">float</span><span class="p">(</span><span class="n">finite</span><span class="o">.</span><span class="n">max</span><span class="p">())</span>
+    <span class="n">u</span> <span class="o">=</span> <span class="p">(</span><span class="n">units</span> <span class="ow">or</span> <span class="s2">""</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">" "</span><span class="p">,</span> <span class="s2">""</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">name</span> <span class="o">==</span> <span class="s2">"temperature"</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="o">-</span><span class="mf">100.0</span> <span class="o">&lt;=</span> <span class="n">mean</span> <span class="o">&lt;=</span> <span class="mf">60.0</span> <span class="ow">or</span> <span class="mf">150.0</span> <span class="o">&lt;=</span> <span class="n">mean</span> <span class="o">&lt;=</span> <span class="mf">350.0</span><span class="p">):</span>
+            <span class="n">problems</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">"temperature averages </span><span class="si">{</span><span class="n">mean</span><span class="si">:</span><span class="s2">.4g</span><span class="si">}</span><span class="s2"> over the sampled land cells, which is neither "</span>
+                <span class="s2">"°C nor K. Check the file and its scale_factor/add_offset attributes."</span>
+            <span class="p">)</span>
+    <span class="k">elif</span> <span class="n">name</span> <span class="o">==</span> <span class="s2">"precipitation"</span><span class="p">:</span>
+        <span class="n">flux</span> <span class="o">=</span> <span class="s2">"s-1"</span> <span class="ow">in</span> <span class="n">u</span> <span class="ow">or</span> <span class="s2">"/s"</span> <span class="ow">in</span> <span class="n">u</span> <span class="ow">or</span> <span class="s2">"s^-1"</span> <span class="ow">in</span> <span class="n">u</span>
+        <span class="k">if</span> <span class="n">flux</span> <span class="ow">or</span> <span class="n">vmax</span> <span class="o">&lt;</span> <span class="mf">1e-3</span><span class="p">:</span>
+            <span class="n">why</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="sa">f</span><span class="s2">"its units attribute is </span><span class="si">{</span><span class="n">units</span><span class="si">!r}</span><span class="s2">"</span>
+                <span class="k">if</span> <span class="n">flux</span>
+                <span class="k">else</span> <span class="sa">f</span><span class="s2">"its largest sampled value is </span><span class="si">{</span><span class="n">vmax</span><span class="si">:</span><span class="s2">.3g</span><span class="si">}</span><span class="s2">"</span>
+            <span class="p">)</span>
+            <span class="n">per</span> <span class="o">=</span> <span class="s2">"86400 (daily data)"</span> <span class="k">if</span> <span class="n">step</span> <span class="o">==</span> <span class="s2">"daily"</span> <span class="k">else</span> <span class="s2">"the seconds in each month"</span>
+            <span class="n">problems</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">"precipitation looks like a flux in kg m-2 s-1 (</span><span class="si">{</span><span class="n">why</span><span class="si">}</span><span class="s2">), but it must be "</span>
+                <span class="sa">f</span><span class="s2">"mm per time step. Multiply by </span><span class="si">{</span><span class="n">per</span><span class="si">}</span><span class="s2"> first."</span>
+            <span class="p">)</span>
+        <span class="k">if</span> <span class="n">vmin</span> <span class="o">&lt;</span> <span class="o">-</span><span class="mf">1e-6</span><span class="p">:</span>
+            <span class="n">warns</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">"precipitation has negative values (down to </span><span class="si">{</span><span class="n">vmin</span><span class="si">:</span><span class="s2">.4g</span><span class="si">}</span><span class="s2">); small ones are common "</span>
+                <span class="s2">"after regridding, large ones point at a wrong file or offset."</span>
+            <span class="p">)</span>
+    <span class="k">elif</span> <span class="n">name</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">"short_wave_radiation"</span><span class="p">,</span> <span class="s2">"long_wave_radiation"</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">vmax</span> <span class="o">&gt;</span> <span class="mf">2000.0</span> <span class="ow">or</span> <span class="n">vmin</span> <span class="o">&lt;</span> <span class="o">-</span><span class="mf">1.0</span><span class="p">:</span>
+            <span class="n">warns</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2"> ranges </span><span class="si">{</span><span class="n">vmin</span><span class="si">:</span><span class="s2">.4g</span><span class="si">}</span><span class="s2"> to </span><span class="si">{</span><span class="n">vmax</span><span class="si">:</span><span class="s2">.4g</span><span class="si">}</span><span class="s2">; W m-2 was expected (0 to about 1400). "</span>
+                <span class="s2">"Radiation given as an energy sum (J m-2 per day) is 86 400 times larger."</span>
+            <span class="p">)</span>
+    <span class="k">elif</span> <span class="n">name</span> <span class="o">==</span> <span class="s2">"humid"</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">vmax</span> <span class="o">&gt;</span> <span class="mf">100.5</span> <span class="ow">or</span> <span class="n">vmin</span> <span class="o">&lt;</span> <span class="o">-</span><span class="mf">0.5</span><span class="p">:</span>
+            <span class="n">warns</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">"humid ranges </span><span class="si">{</span><span class="n">vmin</span><span class="si">:</span><span class="s2">.4g</span><span class="si">}</span><span class="s2"> to </span><span class="si">{</span><span class="n">vmax</span><span class="si">:</span><span class="s2">.4g</span><span class="si">}</span><span class="s2">; relative humidity in % was expected."</span>
+            <span class="p">)</span>
+        <span class="k">elif</span> <span class="n">vmax</span> <span class="o">&lt;=</span> <span class="mf">1.0</span><span class="p">:</span>
+            <span class="n">warns</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">"humid ranges </span><span class="si">{</span><span class="n">vmin</span><span class="si">:</span><span class="s2">.4g</span><span class="si">}</span><span class="s2"> to </span><span class="si">{</span><span class="n">vmax</span><span class="si">:</span><span class="s2">.4g</span><span class="si">}</span><span class="s2">: that looks like a fraction, but % "</span>
+                <span class="s2">"(0-100) was expected."</span>
+            <span class="p">)</span>
+    <span class="k">return</span> <span class="n">problems</span><span class="p">,</span> <span class="n">warns</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">check_loaded_inputs</span><span class="p">(</span>
+    <span class="n">datasets</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">registry</span><span class="p">,</span> <span class="n">static_names</span><span class="p">:</span> <span class="nb">frozenset</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="nb">set</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="nb">frozenset</span><span class="p">()</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">InputCheck</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""The cheap checks on already-loaded inputs: grid, time axes and units.</span>
+
+<span class="sd">    Reads at most 24 time steps per variable, so it costs next to nothing next to the</span>
+<span class="sd">    feature construction that follows. Missing values are checked separately, on the</span>
+<span class="sd">    feature table (see :func:`missing_value_problems`), or in full by</span>
+<span class="sd">    :func:`~climclusterpy.check_inputs`.</span>
+
+<span class="sd">    ``static_names`` names the non-climate fields (``{"soil_code", "soil_depth"}`` for the</span>
+<span class="sd">    LPJmL path, or whatever a generic input's own static fields are called) -- these are</span>
+<span class="sd">    expected to have no time dimension, so they are skipped here rather than reported as a</span>
+<span class="sd">    problem; use :func:`full_missing_scan` to check them for missing values instead.</span>
+<span class="sd">    """</span>
+    <span class="n">static_names</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">static_names</span><span class="p">)</span> <span class="o">|</span> <span class="p">{</span><span class="s2">"soil_code"</span><span class="p">,</span> <span class="s2">"soil_depth"</span><span class="p">}</span>
+    <span class="n">report</span> <span class="o">=</span> <span class="n">InputCheck</span><span class="p">()</span>
+    <span class="n">report</span><span class="o">.</span><span class="n">facts</span><span class="p">[</span><span class="s2">"grid"</span><span class="p">]</span> <span class="o">=</span> <span class="n">_grid_facts</span><span class="p">(</span><span class="n">registry</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">report</span><span class="o">.</span><span class="n">facts</span><span class="p">[</span><span class="s2">"grid"</span><span class="p">][</span><span class="s2">"n_land_cells"</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">source</span> <span class="o">=</span> <span class="s2">"soil_code"</span> <span class="k">if</span> <span class="s2">"soil_code"</span> <span class="ow">in</span> <span class="n">datasets</span> <span class="k">else</span> <span class="s2">"the land mask"</span>
+        <span class="n">report</span><span class="o">.</span><span class="n">problems</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">source</span><span class="si">}</span><span class="s2"> has no valid cell: every value is missing or equals its fill value, so "</span>
+            <span class="s2">"there is no land to cluster."</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="n">report</span>
+    <span class="n">mask</span> <span class="o">=</span> <span class="n">registry</span><span class="o">.</span><span class="n">get_valid_mask</span><span class="p">()</span>
+
+    <span class="n">variables</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">dict</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">climclusterpy.features.climate</span><span class="w"> </span><span class="kn">import</span> <span class="n">_time_step_days</span>
+
+    <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">datasets</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">static_names</span> <span class="ow">or</span> <span class="n">datasets</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">continue</span>
+        <span class="n">da</span> <span class="o">=</span> <span class="n">_data_var</span><span class="p">(</span><span class="n">datasets</span><span class="p">[</span><span class="n">name</span><span class="p">],</span> <span class="n">name</span><span class="p">)</span>
+        <span class="n">facts</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"units"</span><span class="p">:</span> <span class="n">da</span><span class="o">.</span><span class="n">attrs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"units"</span><span class="p">)}</span>
+        <span class="k">if</span> <span class="s2">"time"</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">da</span><span class="o">.</span><span class="n">dims</span><span class="p">:</span>
+            <span class="n">report</span><span class="o">.</span><span class="n">problems</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2"> has no 'time' dimension (dimensions: </span><span class="si">{</span><span class="nb">list</span><span class="p">(</span><span class="n">da</span><span class="o">.</span><span class="n">dims</span><span class="p">)</span><span class="si">}</span><span class="s2">); climate inputs "</span>
+                <span class="s2">"must be time series."</span>
+            <span class="p">)</span>
+            <span class="n">variables</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">facts</span>
+            <span class="k">continue</span>
+        <span class="n">facts</span><span class="p">[</span><span class="s2">"n_time"</span><span class="p">]</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">da</span><span class="o">.</span><span class="n">sizes</span><span class="p">[</span><span class="s2">"time"</span><span class="p">])</span>
+        <span class="n">facts</span><span class="p">[</span><span class="s2">"step"</span><span class="p">]</span> <span class="o">=</span> <span class="n">_step_label</span><span class="p">(</span><span class="n">_time_step_days</span><span class="p">(</span><span class="n">da</span><span class="p">),</span> <span class="n">facts</span><span class="p">[</span><span class="s2">"n_time"</span><span class="p">])</span>
+        <span class="n">sample</span> <span class="o">=</span> <span class="n">_land_sample</span><span class="p">(</span><span class="n">da</span><span class="p">,</span> <span class="n">mask</span><span class="p">)</span>
+        <span class="n">finite</span> <span class="o">=</span> <span class="n">sample</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">isfinite</span><span class="p">(</span><span class="n">sample</span><span class="p">)]</span>
+        <span class="k">if</span> <span class="n">finite</span><span class="o">.</span><span class="n">size</span><span class="p">:</span>
+            <span class="n">facts</span><span class="p">[</span><span class="s2">"min"</span><span class="p">],</span> <span class="n">facts</span><span class="p">[</span><span class="s2">"max"</span><span class="p">]</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">finite</span><span class="o">.</span><span class="n">min</span><span class="p">()),</span> <span class="nb">float</span><span class="p">(</span><span class="n">finite</span><span class="o">.</span><span class="n">max</span><span class="p">())</span>
+            <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">isclose</span><span class="p">(</span><span class="n">facts</span><span class="p">[</span><span class="s2">"min"</span><span class="p">],</span> <span class="n">facts</span><span class="p">[</span><span class="s2">"max"</span><span class="p">]):</span>
+                <span class="n">report</span><span class="o">.</span><span class="n">warnings</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2"> has the same value (</span><span class="si">{</span><span class="n">facts</span><span class="p">[</span><span class="s1">'min'</span><span class="p">]</span><span class="si">:</span><span class="s2">.4g</span><span class="si">}</span><span class="s2">) everywhere in the sampled "</span>
+                    <span class="s2">"time steps; it carries no information to cluster on."</span>
+                <span class="p">)</span>
+        <span class="n">probs</span><span class="p">,</span> <span class="n">warns</span> <span class="o">=</span> <span class="n">_units_problems</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">facts</span><span class="p">[</span><span class="s2">"units"</span><span class="p">],</span> <span class="n">sample</span><span class="p">,</span> <span class="n">facts</span><span class="p">[</span><span class="s2">"step"</span><span class="p">])</span>
+        <span class="n">report</span><span class="o">.</span><span class="n">problems</span> <span class="o">+=</span> <span class="n">probs</span>
+        <span class="n">report</span><span class="o">.</span><span class="n">warnings</span> <span class="o">+=</span> <span class="n">warns</span>
+        <span class="n">variables</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">facts</span>
+    <span class="n">report</span><span class="o">.</span><span class="n">facts</span><span class="p">[</span><span class="s2">"variables"</span><span class="p">]</span> <span class="o">=</span> <span class="n">variables</span>
+
+    <span class="n">lengths</span> <span class="o">=</span> <span class="p">{</span><span class="n">n</span><span class="p">:</span> <span class="n">f</span><span class="p">[</span><span class="s2">"n_time"</span><span class="p">]</span> <span class="k">for</span> <span class="n">n</span><span class="p">,</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">variables</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="s2">"n_time"</span> <span class="ow">in</span> <span class="n">f</span><span class="p">}</span>
+    <span class="n">steps</span> <span class="o">=</span> <span class="p">{</span><span class="n">n</span><span class="p">:</span> <span class="n">f</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"step"</span><span class="p">)</span> <span class="k">for</span> <span class="n">n</span><span class="p">,</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">variables</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="s2">"n_time"</span> <span class="ow">in</span> <span class="n">f</span><span class="p">}</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">lengths</span><span class="o">.</span><span class="n">values</span><span class="p">()))</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">({</span><span class="n">s</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">steps</span><span class="o">.</span><span class="n">values</span><span class="p">()</span> <span class="k">if</span> <span class="n">s</span><span class="p">})</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">listed</span> <span class="o">=</span> <span class="s2">", "</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">n</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">lengths</span><span class="p">[</span><span class="n">n</span><span class="p">]</span><span class="si">}</span><span class="s2">"</span> <span class="o">+</span> <span class="p">(</span><span class="sa">f</span><span class="s2">" </span><span class="si">{</span><span class="n">steps</span><span class="p">[</span><span class="n">n</span><span class="p">]</span><span class="si">}</span><span class="s2">"</span> <span class="k">if</span> <span class="n">steps</span><span class="p">[</span><span class="n">n</span><span class="p">]</span> <span class="k">else</span> <span class="s2">""</span><span class="p">)</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">lengths</span>
+        <span class="p">)</span>
+        <span class="n">report</span><span class="o">.</span><span class="n">problems</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">"the climate inputs do not share one time axis (</span><span class="si">{</span><span class="n">listed</span><span class="si">}</span><span class="s2"> time steps). They must "</span>
+            <span class="s2">"all cover the same period at the same step -- all daily or all monthly."</span>
+        <span class="p">)</span>
+    <span class="k">return</span> <span class="n">report</span>
+
+
+<span class="c1">#: Which input a feature column comes from, by the prefix of its name.</span>
+<span class="n">_FEATURE_SOURCES</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">"tas"</span><span class="p">:</span> <span class="s2">"temperature"</span><span class="p">,</span>
+    <span class="s2">"pr"</span><span class="p">:</span> <span class="s2">"precipitation"</span><span class="p">,</span>
+    <span class="s2">"rsds"</span><span class="p">:</span> <span class="s2">"short_wave_radiation"</span><span class="p">,</span>
+    <span class="s2">"rlds"</span><span class="p">:</span> <span class="s2">"long_wave_radiation"</span><span class="p">,</span>
+    <span class="s2">"hurs"</span><span class="p">:</span> <span class="s2">"humid"</span><span class="p">,</span>
+    <span class="s2">"spei"</span><span class="p">:</span> <span class="s2">"the SPEI drought index (from temperature, precipitation and radiation)"</span><span class="p">,</span>
+    <span class="s2">"soil"</span><span class="p">:</span> <span class="s2">"soil_code/soil_depth"</span><span class="p">,</span>
+    <span class="s2">"kg"</span><span class="p">:</span> <span class="s2">"temperature/precipitation (climate-zone diagnostics)"</span><span class="p">,</span>
+<span class="p">}</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">missing_value_problems</span><span class="p">(</span><span class="n">features</span><span class="p">,</span> <span class="n">feature_columns</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">max_examples</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">5</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">"""One problem per input whose feature columns hold missing (NaN/inf) values on land cells.</span>
+
+<span class="sd">    A missing value anywhere in a land cell's series ends up here: every summary built from</span>
+<span class="sd">    that series is NaN. The message names the input, counts the cells and gives a few of</span>
+<span class="sd">    their coordinates, which is what a user needs to find them in the file.</span>
+<span class="sd">    """</span>
+    <span class="n">values</span> <span class="o">=</span> <span class="n">features</span><span class="p">[</span><span class="n">feature_columns</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">(</span><span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+    <span class="n">bad</span> <span class="o">=</span> <span class="o">~</span><span class="n">np</span><span class="o">.</span><span class="n">isfinite</span><span class="p">(</span><span class="n">values</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">bad</span><span class="o">.</span><span class="n">any</span><span class="p">():</span>
+        <span class="k">return</span> <span class="p">[]</span>
+    <span class="n">by_source</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">col</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">feature_columns</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">bad</span><span class="p">[:,</span> <span class="n">k</span><span class="p">]</span><span class="o">.</span><span class="n">any</span><span class="p">():</span>
+            <span class="k">continue</span>
+        <span class="n">prefix</span> <span class="o">=</span> <span class="n">col</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">"_"</span><span class="p">,</span> <span class="mi">1</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">source</span> <span class="o">=</span> <span class="n">_FEATURE_SOURCES</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">prefix</span><span class="p">,</span> <span class="sa">f</span><span class="s2">"the input behind feature '</span><span class="si">{</span><span class="n">col</span><span class="si">}</span><span class="s2">'"</span><span class="p">)</span>
+        <span class="n">by_source</span><span class="p">[</span><span class="n">source</span><span class="p">]</span> <span class="o">=</span> <span class="n">by_source</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">features</span><span class="p">),</span> <span class="nb">bool</span><span class="p">))</span> <span class="o">|</span> <span class="n">bad</span><span class="p">[:,</span> <span class="n">k</span><span class="p">]</span>
+    <span class="n">problems</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">source</span><span class="p">,</span> <span class="n">rows</span> <span class="ow">in</span> <span class="n">by_source</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="n">idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">flatnonzero</span><span class="p">(</span><span class="n">rows</span><span class="p">)</span>
+        <span class="n">examples</span> <span class="o">=</span> <span class="s2">", "</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">"(</span><span class="si">{</span><span class="n">features</span><span class="p">[</span><span class="s1">'latitude'</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="si">:</span><span class="s2">g</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">features</span><span class="p">[</span><span class="s1">'longitude'</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="si">:</span><span class="s2">g</span><span class="si">}</span><span class="s2">)"</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">idx</span><span class="p">[:</span><span class="n">max_examples</span><span class="p">]</span>
+        <span class="p">)</span>
+        <span class="n">problems</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">source</span><span class="si">}</span><span class="s2"> has missing values (NaN) in </span><span class="si">{</span><span class="n">idx</span><span class="o">.</span><span class="n">size</span><span class="si">}</span><span class="s2"> land cell(s), e.g. at "</span>
+            <span class="sa">f</span><span class="s2">"(latitude, longitude) </span><span class="si">{</span><span class="n">examples</span><span class="si">}</span><span class="s2">. A land cell is one inside the grid's land "</span>
+            <span class="s2">"mask; either fill the gaps, or leave those cells out of the mask so they are "</span>
+            <span class="s2">"not part of the grid."</span>
+        <span class="p">)</span>
+    <span class="k">return</span> <span class="n">problems</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">full_missing_scan</span><span class="p">(</span><span class="n">datasets</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">registry</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">max_examples</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">5</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">"""Missing values on land cells in every input, reading each one in full.</span>
+
+<span class="sd">    This is the expensive half of :func:`~climclusterpy.check_inputs`: it reads every time</span>
+<span class="sd">    step once (lazily, chunk by chunk, when the input was opened with dask).</span>
+<span class="sd">    """</span>
+    <span class="n">mask</span> <span class="o">=</span> <span class="n">registry</span><span class="o">.</span><span class="n">get_valid_mask</span><span class="p">()</span>
+    <span class="n">orig</span> <span class="o">=</span> <span class="n">registry</span><span class="o">.</span><span class="n">get_original_grid</span><span class="p">()</span>
+    <span class="n">problems</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">datasets</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">datasets</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">continue</span>
+        <span class="n">da</span> <span class="o">=</span> <span class="n">_data_var</span><span class="p">(</span><span class="n">datasets</span><span class="p">[</span><span class="n">name</span><span class="p">],</span> <span class="n">name</span><span class="p">)</span>
+        <span class="n">missing</span> <span class="o">=</span> <span class="n">da</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span>
+        <span class="n">extra</span> <span class="o">=</span> <span class="p">[</span><span class="n">d</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">missing</span><span class="o">.</span><span class="n">dims</span> <span class="k">if</span> <span class="n">d</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">"latitude"</span><span class="p">,</span> <span class="s2">"longitude"</span><span class="p">)]</span>
+        <span class="k">if</span> <span class="n">extra</span><span class="p">:</span>
+            <span class="n">missing</span> <span class="o">=</span> <span class="n">missing</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="n">extra</span><span class="p">)</span>
+        <span class="n">missing</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">missing</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="s2">"latitude"</span><span class="p">,</span> <span class="s2">"longitude"</span><span class="p">)</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">bool</span><span class="p">)</span>
+        <span class="n">holes</span> <span class="o">=</span> <span class="n">missing</span> <span class="o">&amp;</span> <span class="n">mask</span>
+        <span class="n">n</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">holes</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span>
+        <span class="k">if</span> <span class="n">n</span><span class="p">:</span>
+            <span class="n">ii</span><span class="p">,</span> <span class="n">jj</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nonzero</span><span class="p">(</span><span class="n">holes</span><span class="p">)</span>
+            <span class="n">examples</span> <span class="o">=</span> <span class="s2">", "</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">"(</span><span class="si">{</span><span class="nb">float</span><span class="p">(</span><span class="n">orig</span><span class="o">.</span><span class="n">latitudes</span><span class="p">[</span><span class="n">i</span><span class="p">])</span><span class="si">:</span><span class="s2">g</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="nb">float</span><span class="p">(</span><span class="n">orig</span><span class="o">.</span><span class="n">longitudes</span><span class="p">[</span><span class="n">j</span><span class="p">])</span><span class="si">:</span><span class="s2">g</span><span class="si">}</span><span class="s2">)"</span>
+                <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">ii</span><span class="p">,</span> <span class="n">jj</span><span class="p">))[:</span><span class="n">max_examples</span><span class="p">]</span>
+            <span class="p">)</span>
+            <span class="n">steps</span> <span class="o">=</span> <span class="s2">" at one or more time steps"</span> <span class="k">if</span> <span class="n">extra</span> <span class="k">else</span> <span class="s2">""</span>
+            <span class="n">mask_note</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="s2">"A land cell is one with a valid soil_code; either fill the gaps, or mark "</span>
+                <span class="s2">"those cells missing in soil_code so they are not part of the grid."</span>
+                <span class="k">if</span> <span class="s2">"soil_code"</span> <span class="ow">in</span> <span class="n">datasets</span>
+                <span class="k">else</span> <span class="s2">"Either fill the gaps, or leave those cells out of the land mask."</span>
+            <span class="p">)</span>
+            <span class="n">problems</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2"> has missing values (NaN)</span><span class="si">{</span><span class="n">steps</span><span class="si">}</span><span class="s2"> in </span><span class="si">{</span><span class="n">n</span><span class="si">}</span><span class="s2"> land cell(s), e.g. at "</span>
+                <span class="sa">f</span><span class="s2">"(latitude, longitude) </span><span class="si">{</span><span class="n">examples</span><span class="si">}</span><span class="s2">. </span><span class="si">{</span><span class="n">mask_note</span><span class="si">}</span><span class="s2">"</span>
+            <span class="p">)</span>
+    <span class="k">return</span> <span class="n">problems</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, Jamir Priesner.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

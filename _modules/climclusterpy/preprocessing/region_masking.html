@@ -1,0 +1,855 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>climclusterpy.preprocessing.region_masking &mdash; climclusterpy 0.5</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/custom.css?v=f2cc2102" />
+
+  
+    <link rel="shortcut icon" href="../../../_static/logo.svg"/>
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=1dd76d02"></script>
+      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            climclusterpy
+              <img src="../../../_static/logo.svg" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorials/index.html">Tutorials</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../tutorials/one_call_roundtrip.html">Tutorial 0 — the whole workflow in two calls</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/one_call_roundtrip.html#the-idea">The idea</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/one_call_roundtrip.html#call-1-build-the-reduced-grid">Call 1 — build the reduced grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/one_call_roundtrip.html#call-2-rebuild-the-original-grid">Call 2 — rebuild the original grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/one_call_roundtrip.html#the-complete-script">The complete script</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/one_call_roundtrip.html#run-it">Run it</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/one_call_roundtrip.html#next-steps">Next steps</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../tutorials/euclidean_clustering.html">Tutorial 1 — Euclidean clustering</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/euclidean_clustering.html#load-data-and-build-a-feature-matrix">Load data and build a feature matrix</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/euclidean_clustering.html#cluster">Cluster</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/euclidean_clustering.html#the-complete-script">The complete script</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/euclidean_clustering.html#run-it">Run it</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/euclidean_clustering.html#next-steps">Next steps</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../tutorials/lmnn_clustering.html">Tutorial 2 — LMNN metric-learning clustering</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/lmnn_clustering.html#provide-a-supervision-signal">Provide a supervision signal</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/lmnn_clustering.html#learn-a-metric-and-cluster">Learn a metric and cluster</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/lmnn_clustering.html#the-complete-script">The complete script</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/lmnn_clustering.html#run-it">Run it</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/lmnn_clustering.html#next-steps">Next steps</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../tutorials/supervision.html">Tutorial 3 — Supervision signals</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/supervision.html#koppengeiger-from-monthly-climatology">Köppen–Geiger from monthly climatology</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/supervision.html#model-output-trait-clustering">Model-output (trait) clustering</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/supervision.html#the-complete-script">The complete script</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/supervision.html#run-it">Run it</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/supervision.html#ecoregion-supervision">Ecoregion supervision</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../tutorials/reconstruction.html">Tutorial 4 — Reconstruct the original grid</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/reconstruction.html#the-round-trip">The round trip</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/reconstruction.html#verify">Verify</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/reconstruction.html#the-complete-script">The complete script</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/reconstruction.html#run-it">Run it</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/reconstruction.html#next-steps">Next steps</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../tutorials/index.html#a-note-on-the-synthetic-data">A note on the synthetic data</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">How-to guides</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../howto/index.html">How-to guides</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../howto/install.html">Install climclusterpy</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/install.html#base-install">Base install</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/install.html#optional-extras">Optional extras</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/install.html#installing-the-geospatial-extras-with-conda">Installing the geospatial extras with conda</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/install.html#pytorch-cpu-vs-gpu">PyTorch (CPU vs. GPU)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/install.html#environment-variables">Environment variables</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/install.html#building-the-documentation">Building the documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../howto/inputs.html">Prepare the input files</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/inputs.html#check-your-input-first">Check your input first</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/inputs.html#the-files">The files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/inputs.html#grid-and-coordinates">Grid and coordinates</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/inputs.html#which-cells-exist-the-soil-code">Which cells exist: the soil code</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/inputs.html#the-time-axis">The time axis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/inputs.html#missing-values">Missing values</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/inputs.html#another-vegetation-model-s-input">Another vegetation model’s input</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/inputs.html#output-files">Output files</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../howto/clustering.html">Cluster a feature matrix (choose a mode)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/clustering.html#euclidean-mode-no-supervision">Euclidean mode (no supervision)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/clustering.html#lmnn-mode-supervised-metric-learning">LMNN mode (supervised metric learning)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/clustering.html#lower-level-control">Lower-level control</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../howto/supervision.html">Build an LMNN supervision signal</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/supervision.html#from-climate-koppengeiger">From climate — Köppen–Geiger</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/supervision.html#from-model-output-traits">From model output — traits</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/supervision.html#from-a-shapefile-ecoregions2017">From a shapefile — Ecoregions2017</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/supervision.html#using-the-signal">Using the signal</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/supervision.html#in-one-call">In one call</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/supervision.html#saved-results-are-reused-only-for-the-same-inputs">Saved results are reused only for the same inputs</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../howto/cell_selection.html">Choosing the cells a cluster is simulated on</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/cell_selection.html#the-patch-budget">The patch budget</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/cell_selection.html#what-the-drawn-cells-carry">What the drawn cells carry</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/cell_selection.html#reproducibility">Reproducibility</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/cell_selection.html#looking-at-a-draw-without-building-a-grid">Looking at a draw without building a grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/cell_selection.html#back-to-the-full-grid">Back to the full grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/cell_selection.html#a-model-that-reads-its-own-inputs-the-grid-only-then-cut-the-rest">A model that reads its own inputs: the grid only, then cut the rest</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../howto/reconstruct.html">Reconstruct the original grid</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/reconstruct.html#the-usual-call">The usual call</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/reconstruct.html#picking-up-where-you-left-off">Picking up where you left off</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/reconstruct.html#without-a-result-or-run-folder">Without a result or run folder</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/reconstruct.html#required-mapping-files">Required mapping files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/reconstruct.html#reconstruction-paths-kind">Reconstruction paths (<code class="docutils literal notranslate"><span class="pre">kind</span></code>)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/reconstruct.html#verifying-the-result">Verifying the result</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../reference/index.html">Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../reference/api.html">Public API — <code class="xref py py-mod docutils literal notranslate"><span class="pre">climclusterpy</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/api.html#the-two-headline-functions">The two headline functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/api.html#before-and-after-the-model-run">Before and after the model run</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/api.html#input-for-a-model-other-than-lpjml">Input for a model other than LPJmL</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/api.html#other-ways-to-build-the-reduced-grid">Other ways to build the reduced grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/api.html#reusing-a-trained-metric">Reusing a trained metric</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/api.html#the-model-s-other-inputs">The model’s other inputs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/api.html#writing-the-reduced-grid-yourself">Writing the reduced grid yourself</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/api.html#building-blocks">Building blocks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/api.html#result-objects">Result objects</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../reference/toplevel.html">Data, timeseries, I/O &amp; plotting</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/toplevel.html#module-climclusterpy.data">Data loading &amp; the grid registry</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/toplevel.html#how-much-the-package-reports">How much the package reports</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/toplevel.html#coordinates">Coordinates</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/toplevel.html#module-climclusterpy.timeseries">Per-cluster timeseries</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/toplevel.html#module-climclusterpy.io">File input/output</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/toplevel.html#module-climclusterpy.preprocessing">Preprocessing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/toplevel.html#module-climclusterpy.viz">Plotting</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../reference/features.html">Feature engineering</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/features.html#ecological-summaries">Ecological summaries</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/features.html#vegetation-model-traits">Vegetation-model traits</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/features.html#standardization-filtering">Standardization &amp; filtering</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../reference/clustering.html">Clustering &amp; metric learning</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/clustering.html#hierarchical-clustering">Hierarchical clustering</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/clustering.html#module-climclusterpy.clustering.lmnn">LMNN metric learning</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../reference/supervision.html">Supervision labels</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/supervision.html#koppengeiger-climate-zones">Köppen–Geiger climate zones</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/supervision.html#vegetation-model-output-traits">Vegetation-model output traits</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/supervision.html#ecoregion-polygons">Ecoregion polygons</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/supervision.html#daily-input-helpers">Daily-input helpers</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../reference/grid.html">Grid building &amp; reconstruction</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/grid.html#where-each-reduced-cell-is-placed">Where each reduced cell is placed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/grid.html#writing-the-reduced-grid">Writing the reduced grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/grid.html#reconstruction">Reconstruction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/grid.html#lpjml-clm-conversion">LPJmL CLM conversion</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../reference/cli.html">Command-line interface (<code class="docutils literal notranslate"><span class="pre">climclu</span></code>)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/cli.html#the-two-headline-commands">The two headline commands</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/cli.html#building-blocks">Building blocks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/cli.html#options-shared-by-every-action-command">Options shared by every action command</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/cli.html#errors-and-exit-codes">Errors and exit codes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../reference/index.html#which-function-do-i-need">Which function do I need?</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Explanation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../explanation/index.html">Explanation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../explanation/overview.html">Overview</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/overview.html#design-philosophy">Design Philosophy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/overview.html#workflow-summary">Workflow Summary</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/overview.html#key-innovations">Key Innovations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/overview.html#use-cases">Use Cases</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/overview.html#limitations">Limitations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/overview.html#future-directions">Future Directions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/overview.html#references">References</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../explanation/methods.html">Scientific Methods</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/methods.html#data-acquisition-and-preprocessing">Data Acquisition and Preprocessing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/methods.html#ecoregion-assignment">Ecoregion Assignment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/methods.html#ecological-feature-summarization">Ecological Feature Summarization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/methods.html#feature-standardization-and-filtering">Feature Standardization and Filtering</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/methods.html#large-margin-nearest-neighbor-lmnn-metric-learning">Large Margin Nearest Neighbor (LMNN) Metric Learning</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/methods.html#hierarchical-clustering">Hierarchical Clustering</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/methods.html#representative-cell-selection">Representative Cell Selection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/methods.html#evaluation-metrics">Evaluation Metrics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/methods.html#netcdf-processing">NetCDF Processing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/methods.html#computational-implementation">Computational Implementation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../explanation/index.html#reconstruction-correctness">Reconstruction correctness</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">climclusterpy</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">climclusterpy.preprocessing.region_masking</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for climclusterpy.preprocessing.region_masking</h1><div class="highlight"><pre>
+<span></span><span class="sd">"""</span>
+<span class="sd">Region-based masking for climate and soil datasets.</span>
+
+<span class="sd">This module provides functionality to mask out specific geographical regions</span>
+<span class="sd">(defined by Köppen-Geiger climate zones or Ecoregion IDs) from the DataRegistry</span>
+<span class="sd">and all associated datasets.  After masking, cells belonging to the specified</span>
+<span class="sd">regions have their valid-mask entry set to ``False`` and the corresponding</span>
+<span class="sd">positions in every dataset variable are replaced with NaN (or the appropriate</span>
+<span class="sd">sentinel for integer variables).</span>
+
+<span class="sd">Typical usage</span>
+<span class="sd">-------------</span>
+<span class="sd">&gt;&gt;&gt; from climclusterpy.data.loader import load_climate_and_soil_data, DataPaths</span>
+<span class="sd">&gt;&gt;&gt; from climclusterpy.supervision.koppen_geiger import perform_koppen_geiger_assignment, KG_LABELS</span>
+<span class="sd">&gt;&gt;&gt; from climclusterpy.preprocessing.region_masking import mask_regions_by_koppen, mask_regions_by_ecoregion</span>
+
+<span class="sd">&gt;&gt;&gt; data, registry = load_climate_and_soil_data(paths)</span>
+<span class="sd">&gt;&gt;&gt; data, registry = mask_regions_by_koppen(</span>
+<span class="sd">...     data, registry,</span>
+<span class="sd">...     mask_kg_labels=["BWh", "BWk"],  # mask hot + cold desert</span>
+<span class="sd">... )</span>
+<span class="sd">"""</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">datetime</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">xarray</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">xr</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">climclusterpy.data.loader</span><span class="w"> </span><span class="kn">import</span> <span class="n">INT_SENTINEL</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">climclusterpy.data.registry</span><span class="w"> </span><span class="kn">import</span> <span class="n">DataRegistry</span><span class="p">,</span> <span class="n">_find_coord_names</span>
+
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+
+<span class="c1"># ---------------------------------------------------------------------------</span>
+<span class="c1"># Public helpers</span>
+<span class="c1"># ---------------------------------------------------------------------------</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_apply_mask_to_datasets</span><span class="p">(</span>
+    <span class="n">data</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">xr</span><span class="o">.</span><span class="n">Dataset</span><span class="p">],</span>
+    <span class="n">registry</span><span class="p">:</span> <span class="n">DataRegistry</span><span class="p">,</span>
+    <span class="n">cells_to_mask</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">xr</span><span class="o">.</span><span class="n">Dataset</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">"""Set masked cells to NaN/sentinel in all datasets and update registry valid mask.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        data: Dict of datasets, each on the original grid.</span>
+<span class="sd">        registry: DataRegistry whose valid mask will be modified in-place.</span>
+<span class="sd">        cells_to_mask: 1D boolean array of length ``n_valid_cells`` (True = mask out).</span>
+<span class="sd">            Alternatively a 1D integer array of *flat original_cell_id* values to remove.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">        Updated ``data`` dict with NaN/sentinel applied to masked cells.</span>
+<span class="sd">    """</span>
+    <span class="n">valid_mask</span> <span class="o">=</span> <span class="n">registry</span><span class="o">.</span><span class="n">get_valid_mask</span><span class="p">()</span>  <span class="c1"># (nlat, nlon) bool</span>
+
+    <span class="c1"># Build a 2D boolean array of cells to nullify on the full spatial grid</span>
+    <span class="n">nullify_2d</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">valid_mask</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">bool</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">cells_to_mask</span><span class="o">.</span><span class="n">dtype</span> <span class="o">==</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="c1"># cells_to_mask indexes into *valid* cells (1D, size = n_valid)</span>
+        <span class="n">valid_flat_indices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">flatnonzero</span><span class="p">(</span><span class="n">valid_mask</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">cells_to_mask</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">valid_flat_indices</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">"cells_to_mask bool length (</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">cells_to_mask</span><span class="p">)</span><span class="si">}</span><span class="s2">) does not match "</span>
+                <span class="sa">f</span><span class="s2">"number of valid cells (</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">valid_flat_indices</span><span class="p">)</span><span class="si">}</span><span class="s2">)."</span>
+            <span class="p">)</span>
+        <span class="n">flat_to_nullify</span> <span class="o">=</span> <span class="n">valid_flat_indices</span><span class="p">[</span><span class="n">cells_to_mask</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="c1"># cells_to_mask is an array of original_cell_id values (integers)</span>
+        <span class="n">orig</span> <span class="o">=</span> <span class="n">registry</span><span class="o">.</span><span class="n">get_original_grid</span><span class="p">()</span>
+        <span class="n">id_to_flat</span> <span class="o">=</span> <span class="p">{</span><span class="n">oid</span><span class="p">:</span> <span class="n">fi</span> <span class="k">for</span> <span class="n">fi</span><span class="p">,</span> <span class="n">oid</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">orig</span><span class="o">.</span><span class="n">cell_ids</span><span class="o">.</span><span class="n">ravel</span><span class="p">())}</span>
+        <span class="n">flat_to_nullify</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+            <span class="p">[</span><span class="n">id_to_flat</span><span class="p">[</span><span class="n">oid</span><span class="p">]</span> <span class="k">for</span> <span class="n">oid</span> <span class="ow">in</span> <span class="n">cells_to_mask</span> <span class="k">if</span> <span class="n">oid</span> <span class="ow">in</span> <span class="n">id_to_flat</span><span class="p">],</span>
+            <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">intp</span><span class="p">,</span>
+        <span class="p">)</span>
+
+    <span class="c1"># Update the 2D nullify mask using flat indices into the ravelled spatial grid</span>
+    <span class="n">nullify_flat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">valid_mask</span><span class="o">.</span><span class="n">size</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">bool</span><span class="p">)</span>
+    <span class="n">nullify_flat</span><span class="p">[</span><span class="n">flat_to_nullify</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="n">nullify_2d</span> <span class="o">=</span> <span class="n">nullify_flat</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">valid_mask</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+
+    <span class="c1"># Update registry valid mask in-place</span>
+    <span class="n">registry</span><span class="o">.</span><span class="n">_valid_mask</span> <span class="o">=</span> <span class="n">valid_mask</span> <span class="o">&amp;</span> <span class="p">(</span><span class="o">~</span><span class="n">nullify_2d</span><span class="p">)</span>
+
+    <span class="c1"># Also update cell IDs: set masked cells to -1 in OriginalGrid</span>
+    <span class="n">orig</span> <span class="o">=</span> <span class="n">registry</span><span class="o">.</span><span class="n">get_original_grid</span><span class="p">()</span>
+    <span class="n">orig</span><span class="o">.</span><span class="n">cell_ids</span><span class="p">[</span><span class="n">nullify_2d</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+    <span class="c1"># Re-assign consecutive IDs to the remaining valid cells</span>
+    <span class="n">new_valid_mask</span> <span class="o">=</span> <span class="n">registry</span><span class="o">.</span><span class="n">_valid_mask</span>
+    <span class="n">new_ids</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">full_like</span><span class="p">(</span><span class="n">orig</span><span class="o">.</span><span class="n">cell_ids</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">new_ids</span><span class="p">[</span><span class="n">new_valid_mask</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">new_valid_mask</span><span class="o">.</span><span class="n">sum</span><span class="p">()),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int64</span><span class="p">)</span>
+    <span class="n">orig</span><span class="o">.</span><span class="n">cell_ids</span><span class="p">[:]</span> <span class="o">=</span> <span class="n">new_ids</span>
+
+    <span class="n">n_masked</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">nullify_2d</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span>
+    <span class="n">n_remaining</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">new_valid_mask</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"[RegionMasking] Masked </span><span class="si">{</span><span class="n">n_masked</span><span class="si">}</span><span class="s2"> cells. </span><span class="si">{</span><span class="n">n_remaining</span><span class="si">}</span><span class="s2"> valid cells remain."</span><span class="p">)</span>
+
+    <span class="c1"># Apply NaN / sentinel to every dataset variable at masked locations</span>
+    <span class="n">masked_data</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">xr</span><span class="o">.</span><span class="n">Dataset</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">ds</span> <span class="ow">in</span> <span class="n">data</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="n">masked_data</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">_nullify_cells_in_dataset</span><span class="p">(</span><span class="n">ds</span><span class="p">,</span> <span class="n">nullify_2d</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">masked_data</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_nullify_cells_in_dataset</span><span class="p">(</span><span class="n">ds</span><span class="p">:</span> <span class="n">xr</span><span class="o">.</span><span class="n">Dataset</span><span class="p">,</span> <span class="n">nullify_2d</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">xr</span><span class="o">.</span><span class="n">Dataset</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Set cells indicated by ``nullify_2d`` to NaN (or sentinel) in ``ds``."""</span>
+    <span class="n">lat_name</span><span class="p">,</span> <span class="n">lon_name</span> <span class="o">=</span> <span class="n">_find_coord_names</span><span class="p">(</span><span class="n">ds</span><span class="p">)</span>
+    <span class="c1"># Build a 2D DataArray mask aligned to ds</span>
+    <span class="n">mask_da</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">DataArray</span><span class="p">(</span>
+        <span class="n">nullify_2d</span><span class="p">,</span>
+        <span class="n">dims</span><span class="o">=</span><span class="p">(</span><span class="n">lat_name</span><span class="p">,</span> <span class="n">lon_name</span><span class="p">),</span>
+        <span class="n">coords</span><span class="o">=</span><span class="p">{</span><span class="n">lat_name</span><span class="p">:</span> <span class="n">ds</span><span class="p">[</span><span class="n">lat_name</span><span class="p">],</span> <span class="n">lon_name</span><span class="p">:</span> <span class="n">ds</span><span class="p">[</span><span class="n">lon_name</span><span class="p">]},</span>
+    <span class="p">)</span>
+
+    <span class="n">new_vars</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">xr</span><span class="o">.</span><span class="n">DataArray</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">var_name</span><span class="p">,</span> <span class="n">da</span> <span class="ow">in</span> <span class="n">ds</span><span class="o">.</span><span class="n">data_vars</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="k">if</span> <span class="n">lat_name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">da</span><span class="o">.</span><span class="n">dims</span> <span class="ow">or</span> <span class="n">lon_name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">da</span><span class="o">.</span><span class="n">dims</span><span class="p">:</span>
+            <span class="n">new_vars</span><span class="p">[</span><span class="n">var_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">da</span>
+            <span class="k">continue</span>
+
+        <span class="c1"># Broadcast the 2D mask to match the full dimensions of da</span>
+        <span class="n">broadcast_mask</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">broadcast</span><span class="p">(</span><span class="n">mask_da</span><span class="p">,</span> <span class="n">da</span><span class="p">)</span>
+        <span class="n">broadcast_mask</span> <span class="o">=</span> <span class="n">broadcast_mask</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="o">*</span><span class="n">da</span><span class="o">.</span><span class="n">dims</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">issubdtype</span><span class="p">(</span><span class="n">da</span><span class="o">.</span><span class="n">dtype</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">integer</span><span class="p">)</span> <span class="ow">or</span> <span class="n">var_name</span> <span class="o">==</span> <span class="s2">"soil_code"</span><span class="p">:</span>
+            <span class="c1"># Use integer sentinel for soil_code / integer variables</span>
+            <span class="n">nulled</span> <span class="o">=</span> <span class="n">da</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="o">~</span><span class="n">broadcast_mask</span><span class="p">,</span> <span class="n">other</span><span class="o">=</span><span class="n">INT_SENTINEL</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">nulled</span> <span class="o">=</span> <span class="n">da</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="o">~</span><span class="n">broadcast_mask</span><span class="p">,</span> <span class="n">other</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span>
+
+        <span class="n">new_vars</span><span class="p">[</span><span class="n">var_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">nulled</span>
+
+    <span class="c1"># Preserve non-data variables (e.g. original_cell_id) as-is</span>
+    <span class="k">for</span> <span class="n">var_name</span> <span class="ow">in</span> <span class="n">ds</span><span class="o">.</span><span class="n">data_vars</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">var_name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">new_vars</span><span class="p">:</span>
+            <span class="n">new_vars</span><span class="p">[</span><span class="n">var_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">ds</span><span class="p">[</span><span class="n">var_name</span><span class="p">]</span>
+
+    <span class="k">return</span> <span class="n">ds</span><span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">new_vars</span><span class="p">)</span>
+
+
+<span class="c1"># ---------------------------------------------------------------------------</span>
+<span class="c1"># Köppen-Geiger based masking</span>
+<span class="c1"># ---------------------------------------------------------------------------</span>
+
+
+<div class="viewcode-block" id="mask_regions_by_assignment">
+<a class="viewcode-back" href="../../../reference/toplevel.html#climclusterpy.preprocessing.mask_regions_by_assignment">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">mask_regions_by_assignment</span><span class="p">(</span>
+    <span class="n">data</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">xr</span><span class="o">.</span><span class="n">Dataset</span><span class="p">],</span>
+    <span class="n">registry</span><span class="p">:</span> <span class="n">DataRegistry</span><span class="p">,</span>
+    <span class="n">assignment_df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span>
+    <span class="n">mask_cluster_labels</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span>
+    <span class="o">*</span><span class="p">,</span>
+    <span class="n">cell_id_column</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"cell_id"</span><span class="p">,</span>
+    <span class="n">cluster_label_column</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"cluster_label"</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">xr</span><span class="o">.</span><span class="n">Dataset</span><span class="p">],</span> <span class="n">DataRegistry</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">"""Mask out cells based on a pre-computed assignment table.</span>
+
+<span class="sd">    Works with any region assignment table in the package's standard format, one row per</span>
+<span class="sd">    valid cell: its ``cell_id`` (the registry's original cell id) and its integer</span>
+<span class="sd">    ``cluster_label`` (a Köppen–Geiger code, an ecoregion id, ...).</span>
+
+<span class="sd">    The function updates the registry's valid-mask and nullifies masked cells</span>
+<span class="sd">    in *all* datasets.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    data : dict of str to xarray.Dataset</span>
+<span class="sd">        The datasets, aligned to the original grid.</span>
+<span class="sd">    registry : DataRegistry</span>
+<span class="sd">        The original grid.</span>
+<span class="sd">    assignment_df : pandas.DataFrame</span>
+<span class="sd">        At least the ``cell_id`` and ``cluster_label`` columns.</span>
+<span class="sd">    mask_cluster_labels : sequence of int</span>
+<span class="sd">        The labels to mask out.</span>
+<span class="sd">    cell_id_column, cluster_label_column : str, optional</span>
+<span class="sd">        The column names (default ``"cell_id"`` and ``"cluster_label"``).</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    tuple</span>
+<span class="sd">        ``(updated_data, updated_registry)``.</span>
+<span class="sd">    """</span>
+    <span class="k">if</span> <span class="n">cell_id_column</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">assignment_df</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">"assignment_df missing required column '</span><span class="si">{</span><span class="n">cell_id_column</span><span class="si">}</span><span class="s2">'. "</span>
+            <span class="sa">f</span><span class="s2">"Available: </span><span class="si">{</span><span class="nb">list</span><span class="p">(</span><span class="n">assignment_df</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span>
+        <span class="p">)</span>
+    <span class="k">if</span> <span class="n">cluster_label_column</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">assignment_df</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">"assignment_df missing required column '</span><span class="si">{</span><span class="n">cluster_label_column</span><span class="si">}</span><span class="s2">'. "</span>
+            <span class="sa">f</span><span class="s2">"Available: </span><span class="si">{</span><span class="nb">list</span><span class="p">(</span><span class="n">assignment_df</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span>
+        <span class="p">)</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">mask_cluster_labels</span><span class="p">:</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">"mask_cluster_labels is empty. Nothing masked."</span><span class="p">,</span> <span class="ne">UserWarning</span><span class="p">,</span> <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">data</span><span class="p">,</span> <span class="n">registry</span>
+
+    <span class="n">to_mask</span> <span class="o">=</span> <span class="n">assignment_df</span><span class="p">[</span><span class="n">cluster_label_column</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">mask_cluster_labels</span><span class="p">)</span>
+    <span class="n">n_to_mask</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">to_mask</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+        <span class="sa">f</span><span class="s2">"[RegionMasking] Masking </span><span class="si">{</span><span class="n">n_to_mask</span><span class="si">}</span><span class="s2"> of </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">assignment_df</span><span class="p">)</span><span class="si">}</span><span class="s2"> assigned cells "</span>
+        <span class="sa">f</span><span class="s2">"(labels: </span><span class="si">{</span><span class="nb">sorted</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">mask_cluster_labels</span><span class="p">))</span><span class="si">}</span><span class="s2">)."</span>
+    <span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">n_to_mask</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">"No cells found matching labels </span><span class="si">{</span><span class="n">mask_cluster_labels</span><span class="si">}</span><span class="s2">. Nothing masked."</span><span class="p">,</span>
+            <span class="ne">UserWarning</span><span class="p">,</span>
+            <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="n">data</span><span class="p">,</span> <span class="n">registry</span>
+
+    <span class="n">cell_ids_to_mask</span> <span class="o">=</span> <span class="n">assignment_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">to_mask</span><span class="p">,</span> <span class="n">cell_id_column</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
+    <span class="n">updated_data</span> <span class="o">=</span> <span class="n">_apply_mask_to_datasets</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">registry</span><span class="p">,</span> <span class="n">cell_ids_to_mask</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">updated_data</span><span class="p">,</span> <span class="n">registry</span></div>
+
+
+
+<div class="viewcode-block" id="compute_koppen_classification_from_data">
+<a class="viewcode-back" href="../../../reference/toplevel.html#climclusterpy.preprocessing.compute_koppen_classification_from_data">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">compute_koppen_classification_from_data</span><span class="p">(</span>
+    <span class="n">data</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">xr</span><span class="o">.</span><span class="n">Dataset</span><span class="p">],</span>
+    <span class="n">registry</span><span class="p">:</span> <span class="n">DataRegistry</span><span class="p">,</span>
+    <span class="n">reference_period</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">use_last_n_years</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">30</span><span class="p">,</span>
+    <span class="n">chunk_time</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">cold_threshold</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Compute Köppen-Geiger classification for all valid cells using temperature and</span>
+<span class="sd">    precipitation data from ``data``.</span>
+
+<span class="sd">    Computes monthly climatologies (mean over ``reference_period`` or full record)</span>
+<span class="sd">    and delegates to :func:`climclusterpy.supervision.koppen_geiger.assign_cells_to_koppen_geiger`</span>
+<span class="sd">    for the actual classification logic.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        data: Dict containing ``"temperature"`` and ``"precipitation"`` datasets</span>
+<span class="sd">            aligned to the original grid.</span>
+<span class="sd">        registry: Initialized DataRegistry.</span>
+<span class="sd">        reference_period: Optional (start_date, end_date) ISO strings to restrict the</span>
+<span class="sd">            climatology period (e.g. ``("1981-01-01", "2010-12-31")``). If not set,</span>
+<span class="sd">            defaults to the most recent ``use_last_n_years`` years based on the</span>
+<span class="sd">            temperature dataset's time coordinate.</span>
+<span class="sd">        use_last_n_years: Number of most recent years to use when ``reference_period``</span>
+<span class="sd">            is not provided (default: 30). Set to 0 to use the full record.</span>
+<span class="sd">        chunk_time: Optional chunk size (number of time steps) to apply before</span>
+<span class="sd">            climatology computation. This can reduce memory usage for very large</span>
+<span class="sd">            datasets. If None, leaves chunking as-is.</span>
+<span class="sd">        cold_threshold: C/D boundary temperature threshold in °C (default 0.0).</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">        DataFrame with columns: ``cell_id``, ``latitude``, ``longitude``,</span>
+<span class="sd">        ``cluster_label`` (integer KG code 1–30).</span>
+<span class="sd">    """</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">climclusterpy.features.climate</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+        <span class="n">monthly_climatology_from_daily</span><span class="p">,</span>
+        <span class="n">to_celsius</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">climclusterpy.supervision.koppen_geiger</span><span class="w"> </span><span class="kn">import</span> <span class="n">assign_cells_to_koppen_geiger</span>
+
+    <span class="k">if</span> <span class="s2">"temperature"</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="s2">"'temperature' key required in data dict for KG classification."</span><span class="p">)</span>
+    <span class="k">if</span> <span class="s2">"precipitation"</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="s2">"'precipitation' key required in data dict for KG classification."</span><span class="p">)</span>
+
+    <span class="n">temp_ds</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">"temperature"</span><span class="p">]</span>
+    <span class="n">prec_ds</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">"precipitation"</span><span class="p">]</span>
+
+    <span class="k">if</span> <span class="n">chunk_time</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="c1"># Keep spatial dims unchunked; only chunk along time</span>
+        <span class="n">temp_ds</span> <span class="o">=</span> <span class="n">temp_ds</span><span class="o">.</span><span class="n">chunk</span><span class="p">({</span><span class="s2">"time"</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">chunk_time</span><span class="p">)})</span>
+        <span class="n">prec_ds</span> <span class="o">=</span> <span class="n">prec_ds</span><span class="o">.</span><span class="n">chunk</span><span class="p">({</span><span class="s2">"time"</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">chunk_time</span><span class="p">)})</span>
+
+    <span class="c1"># Restrict to reference period if requested; otherwise default to last N years</span>
+    <span class="k">if</span> <span class="n">reference_period</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">start</span><span class="p">,</span> <span class="n">end</span> <span class="o">=</span> <span class="n">reference_period</span>
+        <span class="n">temp_ds</span> <span class="o">=</span> <span class="n">temp_ds</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">time</span><span class="o">=</span><span class="nb">slice</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">))</span>
+        <span class="n">prec_ds</span> <span class="o">=</span> <span class="n">prec_ds</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">time</span><span class="o">=</span><span class="nb">slice</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">))</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">"[RegionMasking] Using reference period </span><span class="si">{</span><span class="n">start</span><span class="si">}</span><span class="s2"> – </span><span class="si">{</span><span class="n">end</span><span class="si">}</span><span class="s2"> for KG classification."</span>
+        <span class="p">)</span>
+    <span class="k">elif</span> <span class="n">use_last_n_years</span> <span class="ow">and</span> <span class="n">use_last_n_years</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="c1"># Works on both numpy dates and cftime calendars (e.g. noleap): both subtract a</span>
+        <span class="c1"># timedelta and both reset the time of day with replace().</span>
+        <span class="n">time_index</span> <span class="o">=</span> <span class="n">temp_ds</span><span class="o">.</span><span class="n">indexes</span><span class="p">[</span><span class="s2">"time"</span><span class="p">]</span>
+        <span class="n">t1</span> <span class="o">=</span> <span class="n">time_index</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">start</span> <span class="o">=</span> <span class="p">(</span><span class="n">t1</span> <span class="o">-</span> <span class="n">datetime</span><span class="o">.</span><span class="n">timedelta</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">use_last_n_years</span> <span class="o">*</span> <span class="mi">365</span><span class="p">)))</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span>
+                <span class="n">hour</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">minute</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">second</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">microsecond</span><span class="o">=</span><span class="mi">0</span>
+            <span class="p">)</span>
+        <span class="k">except</span> <span class="ne">TypeError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">"use_last_n_years=</span><span class="si">{</span><span class="n">use_last_n_years</span><span class="si">}</span><span class="s2"> needs calendar dates on the temperature "</span>
+                <span class="sa">f</span><span class="s2">"time axis, but it holds </span><span class="si">{</span><span class="n">time_index</span><span class="o">.</span><span class="n">dtype</span><span class="si">}</span><span class="s2"> values. Decode the time axis "</span>
+                <span class="s2">"(xarray.decode_cf), pass reference_period=(start, end), or set "</span>
+                <span class="s2">"use_last_n_years=0 to use the full record."</span>
+            <span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">e</span>
+        <span class="n">temp_ds</span> <span class="o">=</span> <span class="n">temp_ds</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">time</span><span class="o">=</span><span class="nb">slice</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">t1</span><span class="p">))</span>
+        <span class="n">prec_ds</span> <span class="o">=</span> <span class="n">prec_ds</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">time</span><span class="o">=</span><span class="nb">slice</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">t1</span><span class="p">))</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">"[RegionMasking] Using most recent </span><span class="si">{</span><span class="n">use_last_n_years</span><span class="si">}</span><span class="s2"> years "</span>
+            <span class="sa">f</span><span class="s2">"(</span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">start</span><span class="p">)[:</span><span class="mi">10</span><span class="p">]</span><span class="si">}</span><span class="s2"> – </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">t1</span><span class="p">)[:</span><span class="mi">10</span><span class="p">]</span><span class="si">}</span><span class="s2">) for KG classification."</span>
+        <span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"[RegionMasking] Using the full record for KG classification."</span><span class="p">)</span>
+
+    <span class="n">temp_var</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">v</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">temp_ds</span><span class="o">.</span><span class="n">data_vars</span> <span class="k">if</span> <span class="n">v</span> <span class="o">!=</span> <span class="s2">"original_cell_id"</span><span class="p">)</span>
+    <span class="n">prec_var</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">v</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">prec_ds</span><span class="o">.</span><span class="n">data_vars</span> <span class="k">if</span> <span class="n">v</span> <span class="o">!=</span> <span class="s2">"original_cell_id"</span><span class="p">)</span>
+
+    <span class="c1"># Monthly climatologies via the shared preprocessing helper</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"[RegionMasking] Computing monthly climatologies for KG classification…"</span><span class="p">)</span>
+    <span class="n">temp_monthly</span><span class="p">,</span> <span class="n">prec_monthly</span> <span class="o">=</span> <span class="n">monthly_climatology_from_daily</span><span class="p">(</span>
+        <span class="n">to_celsius</span><span class="p">(</span><span class="n">temp_ds</span><span class="p">[</span><span class="n">temp_var</span><span class="p">]),</span>
+        <span class="n">prec_ds</span><span class="p">[</span><span class="n">prec_var</span><span class="p">],</span>
+    <span class="p">)</span>
+    <span class="n">temp_monthly</span> <span class="o">=</span> <span class="n">temp_monthly</span><span class="o">.</span><span class="n">compute</span><span class="p">()</span>
+    <span class="n">prec_monthly</span> <span class="o">=</span> <span class="n">prec_monthly</span><span class="o">.</span><span class="n">compute</span><span class="p">()</span>
+
+    <span class="c1"># Ensure month is the first dimension</span>
+    <span class="n">temp_monthly</span> <span class="o">=</span> <span class="n">temp_monthly</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="s2">"month"</span><span class="p">,</span> <span class="o">*</span><span class="p">[</span><span class="n">d</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">temp_monthly</span><span class="o">.</span><span class="n">dims</span> <span class="k">if</span> <span class="n">d</span> <span class="o">!=</span> <span class="s2">"month"</span><span class="p">])</span>
+    <span class="n">prec_monthly</span> <span class="o">=</span> <span class="n">prec_monthly</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="s2">"month"</span><span class="p">,</span> <span class="o">*</span><span class="p">[</span><span class="n">d</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">prec_monthly</span><span class="o">.</span><span class="n">dims</span> <span class="k">if</span> <span class="n">d</span> <span class="o">!=</span> <span class="s2">"month"</span><span class="p">])</span>
+
+    <span class="c1"># Get valid cell coordinates and IDs from registry</span>
+    <span class="n">valid_lats</span><span class="p">,</span> <span class="n">valid_lons</span> <span class="o">=</span> <span class="n">registry</span><span class="o">.</span><span class="n">get_valid_lat_lon</span><span class="p">()</span>
+    <span class="n">valid_ids</span> <span class="o">=</span> <span class="n">registry</span><span class="o">.</span><span class="n">get_valid_original_ids</span><span class="p">()</span>
+
+    <span class="n">lat_dim</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">d</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">temp_monthly</span><span class="o">.</span><span class="n">dims</span> <span class="k">if</span> <span class="n">d</span> <span class="o">!=</span> <span class="s2">"month"</span><span class="p">)</span>
+    <span class="n">lon_dim</span> <span class="o">=</span> <span class="p">[</span><span class="n">d</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">temp_monthly</span><span class="o">.</span><span class="n">dims</span> <span class="k">if</span> <span class="n">d</span> <span class="o">!=</span> <span class="s2">"month"</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
+
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"[RegionMasking] Extracting monthly features for </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">valid_lats</span><span class="p">)</span><span class="si">}</span><span class="s2"> valid cells…"</span><span class="p">)</span>
+
+    <span class="c1"># Vectorised extraction of monthly values at valid cell coordinates</span>
+    <span class="n">temp_arr</span> <span class="o">=</span> <span class="n">temp_monthly</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span>
+        <span class="p">{</span>
+            <span class="n">lat_dim</span><span class="p">:</span> <span class="n">xr</span><span class="o">.</span><span class="n">DataArray</span><span class="p">(</span><span class="n">valid_lats</span><span class="p">,</span> <span class="n">dims</span><span class="o">=</span><span class="s2">"cell"</span><span class="p">),</span>
+            <span class="n">lon_dim</span><span class="p">:</span> <span class="n">xr</span><span class="o">.</span><span class="n">DataArray</span><span class="p">(</span><span class="n">valid_lons</span><span class="p">,</span> <span class="n">dims</span><span class="o">=</span><span class="s2">"cell"</span><span class="p">),</span>
+        <span class="p">},</span>
+        <span class="n">method</span><span class="o">=</span><span class="s2">"nearest"</span><span class="p">,</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">values</span>  <span class="c1"># (12, n_cells)</span>
+
+    <span class="n">prec_arr</span> <span class="o">=</span> <span class="n">prec_monthly</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span>
+        <span class="p">{</span>
+            <span class="n">lat_dim</span><span class="p">:</span> <span class="n">xr</span><span class="o">.</span><span class="n">DataArray</span><span class="p">(</span><span class="n">valid_lats</span><span class="p">,</span> <span class="n">dims</span><span class="o">=</span><span class="s2">"cell"</span><span class="p">),</span>
+            <span class="n">lon_dim</span><span class="p">:</span> <span class="n">xr</span><span class="o">.</span><span class="n">DataArray</span><span class="p">(</span><span class="n">valid_lons</span><span class="p">,</span> <span class="n">dims</span><span class="o">=</span><span class="s2">"cell"</span><span class="p">),</span>
+        <span class="p">},</span>
+        <span class="n">method</span><span class="o">=</span><span class="s2">"nearest"</span><span class="p">,</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">values</span>  <span class="c1"># (12, n_cells)</span>
+
+    <span class="c1"># Build the features DataFrame expected by assign_cells_to_koppen_geiger</span>
+    <span class="n">feat_data</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">"cell_id"</span><span class="p">:</span> <span class="n">valid_ids</span><span class="p">,</span>
+        <span class="s2">"latitude"</span><span class="p">:</span> <span class="n">valid_lats</span><span class="p">,</span>
+        <span class="s2">"longitude"</span><span class="p">:</span> <span class="n">valid_lons</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="k">for</span> <span class="n">m_idx</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">12</span><span class="p">):</span>
+        <span class="n">feat_data</span><span class="p">[</span><span class="sa">f</span><span class="s2">"tas_month_</span><span class="si">{</span><span class="n">m_idx</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="si">:</span><span class="s2">02d</span><span class="si">}</span><span class="s2">"</span><span class="p">]</span> <span class="o">=</span> <span class="n">temp_arr</span><span class="p">[</span><span class="n">m_idx</span><span class="p">]</span>
+        <span class="n">feat_data</span><span class="p">[</span><span class="sa">f</span><span class="s2">"pr_month_</span><span class="si">{</span><span class="n">m_idx</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="si">:</span><span class="s2">02d</span><span class="si">}</span><span class="s2">"</span><span class="p">]</span> <span class="o">=</span> <span class="n">prec_arr</span><span class="p">[</span><span class="n">m_idx</span><span class="p">]</span>
+
+    <span class="n">features_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">feat_data</span><span class="p">)</span>
+
+    <span class="c1"># Delegate classification to the canonical implementation</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"[RegionMasking] Running KG classification…"</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">assign_cells_to_koppen_geiger</span><span class="p">(</span><span class="n">features_df</span><span class="p">,</span> <span class="n">cold_threshold</span><span class="o">=</span><span class="n">cold_threshold</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="mask_regions_by_koppen">
+<a class="viewcode-back" href="../../../reference/toplevel.html#climclusterpy.preprocessing.mask_regions_by_koppen">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">mask_regions_by_koppen</span><span class="p">(</span>
+    <span class="n">data</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">xr</span><span class="o">.</span><span class="n">Dataset</span><span class="p">],</span>
+    <span class="n">registry</span><span class="p">:</span> <span class="n">DataRegistry</span><span class="p">,</span>
+    <span class="n">mask_kg_labels</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
+    <span class="n">reference_period</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">use_last_n_years</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">30</span><span class="p">,</span>
+    <span class="n">chunk_time</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">cold_threshold</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">xr</span><span class="o">.</span><span class="n">Dataset</span><span class="p">],</span> <span class="n">DataRegistry</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">"""Mask out cells belonging to specified Köppen-Geiger climate zones.</span>
+
+<span class="sd">    Computes a KG climatology classification over the loaded datasets, identifies</span>
+<span class="sd">    all valid cells that fall into ``mask_kg_labels``, removes them from the</span>
+<span class="sd">    registry's valid mask, and sets their values to NaN (float) or the integer</span>
+<span class="sd">    sentinel in all datasets.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        data: Dict of datasets keyed by variable name, aligned to the original grid.</span>
+<span class="sd">        registry: Initialized DataRegistry.</span>
+<span class="sd">        mask_kg_labels: List of KG labels to mask out, e.g. ``["BWh", "BWk"]``.</span>
+<span class="sd">        reference_period: Optional (start, end) ISO date strings to restrict the</span>
+<span class="sd">            climatology used for classification.</span>
+<span class="sd">        use_last_n_years: If ``reference_period`` is not provided, use the most</span>
+<span class="sd">            recent N years (default 30). Set to 0 for full record.</span>
+<span class="sd">        chunk_time: Optional dask chunk size along ``time`` used during KG</span>
+<span class="sd">            climatology computation.</span>
+<span class="sd">        cold_threshold: C/D boundary in °C (default 0.0).</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">        Tuple of (updated_data, updated_registry).  The registry and data dicts</span>
+<span class="sd">        are modified in-place; the same objects are also returned for convenience.</span>
+<span class="sd">    """</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">climclusterpy.supervision.koppen_geiger</span><span class="w"> </span><span class="kn">import</span> <span class="n">KG_LABELS</span><span class="p">,</span> <span class="n">LABEL_TO_CODE</span>
+
+    <span class="c1"># Validate labels</span>
+    <span class="n">valid_labels</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">KG_LABELS</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+    <span class="n">unknown</span> <span class="o">=</span> <span class="p">[</span><span class="n">l</span> <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="n">mask_kg_labels</span> <span class="k">if</span> <span class="n">l</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">valid_labels</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">unknown</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Unknown KG labels: </span><span class="si">{</span><span class="n">unknown</span><span class="si">}</span><span class="s2">. Valid labels are: </span><span class="si">{</span><span class="nb">sorted</span><span class="p">(</span><span class="n">valid_labels</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"[RegionMasking] Masking KG zones: </span><span class="si">{</span><span class="n">mask_kg_labels</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+    <span class="n">kg_df</span> <span class="o">=</span> <span class="n">compute_koppen_classification_from_data</span><span class="p">(</span>
+        <span class="n">data</span><span class="p">,</span>
+        <span class="n">registry</span><span class="p">,</span>
+        <span class="n">reference_period</span><span class="o">=</span><span class="n">reference_period</span><span class="p">,</span>
+        <span class="n">use_last_n_years</span><span class="o">=</span><span class="n">use_last_n_years</span><span class="p">,</span>
+        <span class="n">chunk_time</span><span class="o">=</span><span class="n">chunk_time</span><span class="p">,</span>
+        <span class="n">cold_threshold</span><span class="o">=</span><span class="n">cold_threshold</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="n">mask_codes</span> <span class="o">=</span> <span class="p">[</span><span class="n">LABEL_TO_CODE</span><span class="p">[</span><span class="n">l</span><span class="p">]</span> <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="n">mask_kg_labels</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">mask_regions_by_assignment</span><span class="p">(</span>
+        <span class="n">data</span><span class="p">,</span>
+        <span class="n">registry</span><span class="p">,</span>
+        <span class="n">kg_df</span><span class="p">,</span>
+        <span class="n">mask_cluster_labels</span><span class="o">=</span><span class="n">mask_codes</span><span class="p">,</span>
+    <span class="p">)</span></div>
+
+
+
+<span class="c1"># ---------------------------------------------------------------------------</span>
+<span class="c1"># Ecoregion-based masking</span>
+<span class="c1"># ---------------------------------------------------------------------------</span>
+
+
+<div class="viewcode-block" id="mask_regions_by_ecoregion">
+<a class="viewcode-back" href="../../../reference/toplevel.html#climclusterpy.preprocessing.mask_regions_by_ecoregion">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">mask_regions_by_ecoregion</span><span class="p">(</span>
+    <span class="n">data</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">xr</span><span class="o">.</span><span class="n">Dataset</span><span class="p">],</span>
+    <span class="n">registry</span><span class="p">:</span> <span class="n">DataRegistry</span><span class="p">,</span>
+    <span class="n">mask_ecoregion_ids</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span>
+    <span class="n">shapefile_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">ecoregion_id_column</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"ECO_ID"</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">xr</span><span class="o">.</span><span class="n">Dataset</span><span class="p">],</span> <span class="n">DataRegistry</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">"""Mask out cells belonging to specified ecoregion IDs.</span>
+
+<span class="sd">    Performs a spatial join between the valid grid cells and ecoregion polygons,</span>
+<span class="sd">    then removes cells whose ecoregion ID is in ``mask_ecoregion_ids``.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        data: Dict of datasets aligned to the original grid.</span>
+<span class="sd">        registry: Initialized DataRegistry.</span>
+<span class="sd">        mask_ecoregion_ids: List of integer ecoregion IDs to mask out.</span>
+<span class="sd">        shapefile_path: Path to the ecoregions shapefile (.shp).</span>
+<span class="sd">        ecoregion_id_column: Column in the shapefile containing ecoregion IDs.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">        Tuple of (updated_data, updated_registry).</span>
+<span class="sd">    """</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">climclusterpy.supervision.ecoregions</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+        <span class="n">assign_cells_to_ecoregions</span><span class="p">,</span>
+        <span class="n">load_ecoregions_shapefile</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+        <span class="sa">f</span><span class="s2">"[RegionMasking] Masking ecoregion IDs: </span><span class="si">{</span><span class="n">mask_ecoregion_ids</span><span class="si">}</span><span class="s2"> "</span>
+        <span class="sa">f</span><span class="s2">"(column: </span><span class="si">{</span><span class="n">ecoregion_id_column</span><span class="si">}</span><span class="s2">)"</span>
+    <span class="p">)</span>
+
+    <span class="n">ecoregions_gdf</span> <span class="o">=</span> <span class="n">load_ecoregions_shapefile</span><span class="p">(</span><span class="n">shapefile_path</span><span class="p">)</span>
+    <span class="n">eco_df</span> <span class="o">=</span> <span class="n">assign_cells_to_ecoregions</span><span class="p">(</span><span class="n">registry</span><span class="p">,</span> <span class="n">ecoregions_gdf</span><span class="p">,</span> <span class="n">ecoregion_id_column</span><span class="p">)</span>
+
+    <span class="n">to_mask_bool</span> <span class="o">=</span> <span class="n">eco_df</span><span class="p">[</span><span class="s2">"cluster_label"</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">mask_ecoregion_ids</span><span class="p">)</span><span class="o">.</span><span class="n">values</span>
+
+    <span class="n">n_to_mask</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">to_mask_bool</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+        <span class="sa">f</span><span class="s2">"[RegionMasking] </span><span class="si">{</span><span class="n">n_to_mask</span><span class="si">}</span><span class="s2"> of </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">eco_df</span><span class="p">)</span><span class="si">}</span><span class="s2"> valid cells will be masked "</span>
+        <span class="sa">f</span><span class="s2">"(ecoregion IDs: </span><span class="si">{</span><span class="n">mask_ecoregion_ids</span><span class="si">}</span><span class="s2">)."</span>
+    <span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">n_to_mask</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">"No cells found matching ecoregion IDs </span><span class="si">{</span><span class="n">mask_ecoregion_ids</span><span class="si">}</span><span class="s2">. Nothing masked."</span><span class="p">,</span>
+            <span class="ne">UserWarning</span><span class="p">,</span>
+            <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="n">data</span><span class="p">,</span> <span class="n">registry</span>
+
+    <span class="n">updated_data</span> <span class="o">=</span> <span class="n">_apply_mask_to_datasets</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">registry</span><span class="p">,</span> <span class="n">to_mask_bool</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">updated_data</span><span class="p">,</span> <span class="n">registry</span></div>
+
+
+
+<span class="c1"># ---------------------------------------------------------------------------</span>
+<span class="c1"># Save helpers</span>
+<span class="c1"># ---------------------------------------------------------------------------</span>
+
+
+<div class="viewcode-block" id="save_masked_datasets">
+<a class="viewcode-back" href="../../../reference/toplevel.html#climclusterpy.preprocessing.save_masked_datasets">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">save_masked_datasets</span><span class="p">(</span>
+    <span class="n">data</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">xr</span><span class="o">.</span><span class="n">Dataset</span><span class="p">],</span>
+    <span class="n">output_dir</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">compression_level</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">4</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">"""Save all masked datasets as NetCDF4 files.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        data: Dict of datasets to save.</span>
+<span class="sd">        output_dir: Directory in which to write NetCDF files.</span>
+<span class="sd">        compression_level: zlib compression level 0–9 (default 4).</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">        Dict mapping variable name to saved file path.</span>
+<span class="sd">    """</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+
+    <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">output_dir</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">saved</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">ds</span> <span class="ow">in</span> <span class="n">data</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="n">out_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">output_dir</span><span class="p">,</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2">.nc"</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"[RegionMasking] Saving </span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2"> → </span><span class="si">{</span><span class="n">out_path</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+        <span class="c1"># Build per-variable encoding</span>
+        <span class="n">encoding</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">var</span> <span class="ow">in</span> <span class="n">ds</span><span class="o">.</span><span class="n">data_vars</span><span class="p">:</span>
+            <span class="n">da</span> <span class="o">=</span> <span class="n">ds</span><span class="p">[</span><span class="n">var</span><span class="p">]</span>
+            <span class="n">enc</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"zlib"</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s2">"complevel"</span><span class="p">:</span> <span class="n">compression_level</span><span class="p">}</span>
+            <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">issubdtype</span><span class="p">(</span><span class="n">da</span><span class="o">.</span><span class="n">dtype</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">integer</span><span class="p">):</span>
+                <span class="n">enc</span><span class="p">[</span><span class="s2">"dtype"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"int32"</span>
+                <span class="n">enc</span><span class="p">[</span><span class="s2">"_FillValue"</span><span class="p">]</span> <span class="o">=</span> <span class="n">INT_SENTINEL</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">enc</span><span class="p">[</span><span class="s2">"dtype"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"float32"</span>
+                <span class="n">enc</span><span class="p">[</span><span class="s2">"_FillValue"</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span>
+            <span class="n">encoding</span><span class="p">[</span><span class="n">var</span><span class="p">]</span> <span class="o">=</span> <span class="n">enc</span>
+
+        <span class="c1"># Compute dask arrays before writing to avoid scheduler issues</span>
+        <span class="n">ds_computed</span> <span class="o">=</span> <span class="n">ds</span><span class="o">.</span><span class="n">compute</span><span class="p">()</span>
+        <span class="n">ds_computed</span><span class="o">.</span><span class="n">to_netcdf</span><span class="p">(</span><span class="n">out_path</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">"NETCDF4"</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="n">encoding</span><span class="p">)</span>
+        <span class="n">saved</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">out_path</span>
+
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"[RegionMasking] All datasets saved to </span><span class="si">{</span><span class="n">output_dir</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">saved</span></div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, Jamir Priesner.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

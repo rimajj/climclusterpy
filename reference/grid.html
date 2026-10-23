@@ -1,0 +1,934 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Grid building &amp; reconstruction &mdash; climclusterpy 0.5</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=f2cc2102" />
+
+  
+    <link rel="shortcut icon" href="../_static/logo.svg"/>
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=1dd76d02"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Command-line interface (climclu)" href="cli.html" />
+    <link rel="prev" title="Supervision labels" href="supervision.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            climclusterpy
+              <img src="../_static/logo.svg" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">Tutorials</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/one_call_roundtrip.html">Tutorial 0 — the whole workflow in two calls</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/one_call_roundtrip.html#the-idea">The idea</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/one_call_roundtrip.html#call-1-build-the-reduced-grid">Call 1 — build the reduced grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/one_call_roundtrip.html#call-2-rebuild-the-original-grid">Call 2 — rebuild the original grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/one_call_roundtrip.html#the-complete-script">The complete script</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/one_call_roundtrip.html#run-it">Run it</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/one_call_roundtrip.html#next-steps">Next steps</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/euclidean_clustering.html">Tutorial 1 — Euclidean clustering</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/euclidean_clustering.html#load-data-and-build-a-feature-matrix">Load data and build a feature matrix</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/euclidean_clustering.html#cluster">Cluster</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/euclidean_clustering.html#the-complete-script">The complete script</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/euclidean_clustering.html#run-it">Run it</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/euclidean_clustering.html#next-steps">Next steps</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/lmnn_clustering.html">Tutorial 2 — LMNN metric-learning clustering</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/lmnn_clustering.html#provide-a-supervision-signal">Provide a supervision signal</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/lmnn_clustering.html#learn-a-metric-and-cluster">Learn a metric and cluster</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/lmnn_clustering.html#the-complete-script">The complete script</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/lmnn_clustering.html#run-it">Run it</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/lmnn_clustering.html#next-steps">Next steps</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/supervision.html">Tutorial 3 — Supervision signals</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/supervision.html#koppengeiger-from-monthly-climatology">Köppen–Geiger from monthly climatology</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/supervision.html#model-output-trait-clustering">Model-output (trait) clustering</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/supervision.html#the-complete-script">The complete script</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/supervision.html#run-it">Run it</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/supervision.html#ecoregion-supervision">Ecoregion supervision</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/reconstruction.html">Tutorial 4 — Reconstruct the original grid</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/reconstruction.html#the-round-trip">The round trip</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/reconstruction.html#verify">Verify</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/reconstruction.html#the-complete-script">The complete script</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/reconstruction.html#run-it">Run it</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/reconstruction.html#next-steps">Next steps</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/index.html#a-note-on-the-synthetic-data">A note on the synthetic data</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">How-to guides</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../howto/index.html">How-to guides</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../howto/install.html">Install climclusterpy</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../howto/install.html#base-install">Base install</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/install.html#optional-extras">Optional extras</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/install.html#installing-the-geospatial-extras-with-conda">Installing the geospatial extras with conda</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/install.html#pytorch-cpu-vs-gpu">PyTorch (CPU vs. GPU)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/install.html#environment-variables">Environment variables</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/install.html#building-the-documentation">Building the documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../howto/inputs.html">Prepare the input files</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../howto/inputs.html#check-your-input-first">Check your input first</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/inputs.html#the-files">The files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/inputs.html#grid-and-coordinates">Grid and coordinates</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/inputs.html#which-cells-exist-the-soil-code">Which cells exist: the soil code</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/inputs.html#the-time-axis">The time axis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/inputs.html#missing-values">Missing values</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/inputs.html#another-vegetation-model-s-input">Another vegetation model’s input</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/inputs.html#output-files">Output files</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../howto/clustering.html">Cluster a feature matrix (choose a mode)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../howto/clustering.html#euclidean-mode-no-supervision">Euclidean mode (no supervision)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/clustering.html#lmnn-mode-supervised-metric-learning">LMNN mode (supervised metric learning)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/clustering.html#lower-level-control">Lower-level control</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../howto/supervision.html">Build an LMNN supervision signal</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../howto/supervision.html#from-climate-koppengeiger">From climate — Köppen–Geiger</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/supervision.html#from-model-output-traits">From model output — traits</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/supervision.html#from-a-shapefile-ecoregions2017">From a shapefile — Ecoregions2017</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/supervision.html#using-the-signal">Using the signal</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/supervision.html#in-one-call">In one call</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/supervision.html#saved-results-are-reused-only-for-the-same-inputs">Saved results are reused only for the same inputs</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../howto/cell_selection.html">Choosing the cells a cluster is simulated on</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../howto/cell_selection.html#the-patch-budget">The patch budget</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/cell_selection.html#what-the-drawn-cells-carry">What the drawn cells carry</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/cell_selection.html#reproducibility">Reproducibility</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/cell_selection.html#looking-at-a-draw-without-building-a-grid">Looking at a draw without building a grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/cell_selection.html#back-to-the-full-grid">Back to the full grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/cell_selection.html#a-model-that-reads-its-own-inputs-the-grid-only-then-cut-the-rest">A model that reads its own inputs: the grid only, then cut the rest</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../howto/reconstruct.html">Reconstruct the original grid</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../howto/reconstruct.html#the-usual-call">The usual call</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/reconstruct.html#picking-up-where-you-left-off">Picking up where you left off</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/reconstruct.html#without-a-result-or-run-folder">Without a result or run folder</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/reconstruct.html#required-mapping-files">Required mapping files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/reconstruct.html#reconstruction-paths-kind">Reconstruction paths (<code class="docutils literal notranslate"><span class="pre">kind</span></code>)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/reconstruct.html#verifying-the-result">Verifying the result</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="api.html">Public API — <code class="xref py py-mod docutils literal notranslate"><span class="pre">climclusterpy</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api.html#the-two-headline-functions">The two headline functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api.html#before-and-after-the-model-run">Before and after the model run</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api.html#input-for-a-model-other-than-lpjml">Input for a model other than LPJmL</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api.html#other-ways-to-build-the-reduced-grid">Other ways to build the reduced grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api.html#reusing-a-trained-metric">Reusing a trained metric</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api.html#the-model-s-other-inputs">The model’s other inputs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api.html#writing-the-reduced-grid-yourself">Writing the reduced grid yourself</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api.html#building-blocks">Building blocks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api.html#result-objects">Result objects</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="toplevel.html">Data, timeseries, I/O &amp; plotting</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="toplevel.html#module-climclusterpy.data">Data loading &amp; the grid registry</a></li>
+<li class="toctree-l3"><a class="reference internal" href="toplevel.html#how-much-the-package-reports">How much the package reports</a></li>
+<li class="toctree-l3"><a class="reference internal" href="toplevel.html#coordinates">Coordinates</a></li>
+<li class="toctree-l3"><a class="reference internal" href="toplevel.html#module-climclusterpy.timeseries">Per-cluster timeseries</a></li>
+<li class="toctree-l3"><a class="reference internal" href="toplevel.html#module-climclusterpy.io">File input/output</a></li>
+<li class="toctree-l3"><a class="reference internal" href="toplevel.html#module-climclusterpy.preprocessing">Preprocessing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="toplevel.html#module-climclusterpy.viz">Plotting</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="features.html">Feature engineering</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="features.html#ecological-summaries">Ecological summaries</a></li>
+<li class="toctree-l3"><a class="reference internal" href="features.html#vegetation-model-traits">Vegetation-model traits</a></li>
+<li class="toctree-l3"><a class="reference internal" href="features.html#standardization-filtering">Standardization &amp; filtering</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="clustering.html">Clustering &amp; metric learning</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="clustering.html#hierarchical-clustering">Hierarchical clustering</a></li>
+<li class="toctree-l3"><a class="reference internal" href="clustering.html#module-climclusterpy.clustering.lmnn">LMNN metric learning</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="supervision.html">Supervision labels</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="supervision.html#koppengeiger-climate-zones">Köppen–Geiger climate zones</a></li>
+<li class="toctree-l3"><a class="reference internal" href="supervision.html#vegetation-model-output-traits">Vegetation-model output traits</a></li>
+<li class="toctree-l3"><a class="reference internal" href="supervision.html#ecoregion-polygons">Ecoregion polygons</a></li>
+<li class="toctree-l3"><a class="reference internal" href="supervision.html#daily-input-helpers">Daily-input helpers</a></li>
+</ul>
+</li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Grid building &amp; reconstruction</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#where-each-reduced-cell-is-placed">Where each reduced cell is placed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#writing-the-reduced-grid">Writing the reduced grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#reconstruction">Reconstruction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#lpjml-clm-conversion">LPJmL CLM conversion</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="cli.html">Command-line interface (<code class="docutils literal notranslate"><span class="pre">climclu</span></code>)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cli.html#the-two-headline-commands">The two headline commands</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cli.html#building-blocks">Building blocks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cli.html#options-shared-by-every-action-command">Options shared by every action command</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cli.html#errors-and-exit-codes">Errors and exit codes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#which-function-do-i-need">Which function do I need?</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Explanation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../explanation/index.html">Explanation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../explanation/overview.html">Overview</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../explanation/overview.html#design-philosophy">Design Philosophy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../explanation/overview.html#workflow-summary">Workflow Summary</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../explanation/overview.html#key-innovations">Key Innovations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../explanation/overview.html#use-cases">Use Cases</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../explanation/overview.html#limitations">Limitations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../explanation/overview.html#future-directions">Future Directions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../explanation/overview.html#references">References</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../explanation/methods.html">Scientific Methods</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../explanation/methods.html#data-acquisition-and-preprocessing">Data Acquisition and Preprocessing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../explanation/methods.html#ecoregion-assignment">Ecoregion Assignment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../explanation/methods.html#ecological-feature-summarization">Ecological Feature Summarization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../explanation/methods.html#feature-standardization-and-filtering">Feature Standardization and Filtering</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../explanation/methods.html#large-margin-nearest-neighbor-lmnn-metric-learning">Large Margin Nearest Neighbor (LMNN) Metric Learning</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../explanation/methods.html#hierarchical-clustering">Hierarchical Clustering</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../explanation/methods.html#representative-cell-selection">Representative Cell Selection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../explanation/methods.html#evaluation-metrics">Evaluation Metrics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../explanation/methods.html#netcdf-processing">NetCDF Processing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../explanation/methods.html#computational-implementation">Computational Implementation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../explanation/index.html#reconstruction-correctness">Reconstruction correctness</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">climclusterpy</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Reference</a></li>
+      <li class="breadcrumb-item active">Grid building &amp; reconstruction</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://gitlab.pik-potsdam.de/lpjmlfit_analysis/climclusterpy/blob/main/docs/src/reference/grid.rst" class="fa fa-gitlab"> Edit on GitLab</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-climclusterpy.grid">
+<span id="grid-building-reconstruction"></span><h1>Grid building &amp; reconstruction<a class="headerlink" href="#module-climclusterpy.grid" title="Link to this heading"></a></h1>
+<p>Write per-cluster output to NetCDF on the reduced (artificial) grid, and project it
+back onto the full original grid. <a class="reference internal" href="api.html#climclusterpy.reconstruct_original_grid" title="climclusterpy.reconstruct_original_grid"><code class="xref py py-func docutils literal notranslate"><span class="pre">reconstruct_original_grid()</span></code></a>
+dispatches over the two reconstruction functions below; see
+<a class="reference internal" href="../howto/reconstruct.html"><span class="doc">Reconstruct the original grid</span></a> for which mapping files each needs.</p>
+<p><a class="reference internal" href="api.html#climclusterpy.create_clusters" title="climclusterpy.create_clusters"><code class="xref py py-func docutils literal notranslate"><span class="pre">create_clusters()</span></code></a> and <a class="reference internal" href="api.html#climclusterpy.create_regions" title="climclusterpy.create_regions"><code class="xref py py-func docutils literal notranslate"><span class="pre">create_regions()</span></code></a> call
+these for you. You need them directly only when you build the per-cluster timeseries
+yourself, or want to check where the cells landed.</p>
+<section id="where-each-reduced-cell-is-placed">
+<h2>Where each reduced cell is placed<a class="headerlink" href="#where-each-reduced-cell-is-placed" title="Link to this heading"></a></h2>
+<p>Every reduced-grid cell carries the climate of one real cell. These functions decide the
+<em>coordinates</em> it is written at. The coordinates matter to the model because latitude sets
+day length.</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 30.0%" />
+<col style="width: 70.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Function</p></th>
+<th class="head"><p>What it does</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><a class="reference internal" href="#climclusterpy.grid.build_reduced_grid" title="climclusterpy.grid.build_reduced_grid"><code class="xref py py-func docutils literal notranslate"><span class="pre">build_reduced_grid()</span></code></a></p></td>
+<td><p><strong>Recommended.</strong> Places each cell at the coordinates of the cell whose climate it
+carries, on the source grid’s own latitude spacing, writes the NetCDFs and mapping
+CSVs, then re-opens what it wrote and fails if the axes are not uniform or a cell
+was displaced.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#climclusterpy.grid.create_native_grid_from_dataset" title="climclusterpy.grid.create_native_grid_from_dataset"><code class="xref py py-func docutils literal notranslate"><span class="pre">create_native_grid_from_dataset()</span></code></a></p></td>
+<td><p>The placement step of <a class="reference internal" href="#climclusterpy.grid.build_reduced_grid" title="climclusterpy.grid.build_reduced_grid"><code class="xref py py-func docutils literal notranslate"><span class="pre">build_reduced_grid()</span></code></a> on its own: returns the
+coordinates, writes nothing but the placement records.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#climclusterpy.grid.create_regular_grid_from_dataset" title="climclusterpy.grid.create_regular_grid_from_dataset"><code class="xref py py-func docutils literal notranslate"><span class="pre">create_regular_grid_from_dataset()</span></code></a></p></td>
+<td><p>The older layout: places each cell at its cluster’s <em>centre</em> latitude (the member
+nearest the cluster’s median absolute latitude) on a lattice found by
+<a class="reference internal" href="#climclusterpy.grid.calculate_grid_parameters" title="climclusterpy.grid.calculate_grid_parameters"><code class="xref py py-func docutils literal notranslate"><span class="pre">calculate_grid_parameters()</span></code></a>. That is generally not the latitude of the cell
+whose climate it carries, and on real global cluster sets the two differ by up to
+107°. Use it only when the latitudes genuinely do not lie on a regular lattice.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>In this version <a class="reference internal" href="api.html#climclusterpy.create_clusters" title="climclusterpy.create_clusters"><code class="xref py py-func docutils literal notranslate"><span class="pre">create_clusters()</span></code></a> uses <a class="reference internal" href="#climclusterpy.grid.build_reduced_grid" title="climclusterpy.grid.build_reduced_grid"><code class="xref py py-func docutils literal notranslate"><span class="pre">build_reduced_grid()</span></code></a>
+for <code class="docutils literal notranslate"><span class="pre">representative=&quot;random&quot;</span></code>, writes <code class="docutils literal notranslate"><span class="pre">&quot;distributed&quot;</span></code> cells at their own positions
+with <a class="reference internal" href="#climclusterpy.grid.write_distributed_grid" title="climclusterpy.grid.write_distributed_grid"><code class="xref py py-func docutils literal notranslate"><span class="pre">write_distributed_grid()</span></code></a>, but still uses the centre-latitude layout of
+<a class="reference internal" href="#climclusterpy.grid.create_regular_grid_from_dataset" title="climclusterpy.grid.create_regular_grid_from_dataset"><code class="xref py py-func docutils literal notranslate"><span class="pre">create_regular_grid_from_dataset()</span></code></a> for <code class="docutils literal notranslate"><span class="pre">&quot;medoid&quot;</span></code> and <code class="docutils literal notranslate"><span class="pre">&quot;centroid&quot;</span></code>. For those
+two, <code class="docutils literal notranslate"><span class="pre">latitude_adjustments_&lt;K&gt;.csv</span></code> in the output folder records each cluster’s centre
+latitude and the latitude it was written at — not the representative cell’s own
+latitude, which is in <code class="docutils literal notranslate"><span class="pre">selected_cells_&lt;K&gt;.csv</span></code>. Compare the two files to see how far
+a cell was moved.</p>
+</div>
+<dl class="py function">
+<dt class="sig sig-object py" id="climclusterpy.grid.build_reduced_grid">
+<span class="sig-name descname"><span class="pre">build_reduced_grid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">timeseries_dataset</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_dir</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">source_spacing</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">labels_csv</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_repeat</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">npatch</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeseries_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'representative'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">aggregation_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'clustering'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cluster_method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">artifacts_dir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id_mapping_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lat_anchor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lon_origin</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">overwrite</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/climclusterpy/grid/native.html#build_reduced_grid"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#climclusterpy.grid.build_reduced_grid" title="Link to this definition"></a></dt>
+<dd><p>Write a model-ready reduced grid with every cell where its climate came from.</p>
+<p>One call for the build half of the round trip: it places the cells
+(<a class="reference internal" href="#climclusterpy.grid.create_native_grid_from_dataset" title="climclusterpy.grid.create_native_grid_from_dataset"><code class="xref py py-func docutils literal notranslate"><span class="pre">create_native_grid_from_dataset()</span></code></a>), writes one NetCDF per forcing variable plus
+the mapping CSVs the projection back reads
+(<code class="xref py py-func docutils literal notranslate"><span class="pre">create_cluster_nc_files()</span></code>), and then re-opens what it
+wrote to check the guarantees on the artifact rather than on the intent.</p>
+<p>The other half is <a class="reference internal" href="api.html#climclusterpy.reconstruct_original_grid" title="climclusterpy.reconstruct_original_grid"><code class="xref py py-func docutils literal notranslate"><span class="pre">reconstruct_original_grid()</span></code></a>, which needs nothing
+from this function but the two CSVs: it places values by cluster label and row index,
+never by coordinate, so where a cell sits changes the science but not the projection.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>timeseries_dataset</strong> (<a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.Dataset.html#xarray.Dataset" title="(in xarray v2026.9.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.Dataset</span></code></a>) – One entry per cluster, carrying <code class="docutils literal notranslate"><span class="pre">cluster_label</span></code>, the representative cell’s
+<code class="docutils literal notranslate"><span class="pre">latitude</span></code>/<code class="docutils literal notranslate"><span class="pre">longitude</span></code>, <code class="docutils literal notranslate"><span class="pre">time</span></code>, and the forcing variables to write.</p></li>
+<li><p><strong>output_dir</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>) – Where the NetCDFs go.</p></li>
+<li><p><strong>source_spacing</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>) – The source grid’s cell size in degrees (0.5 for a half-degree grid).</p></li>
+<li><p><strong>labels_csv</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <em>optional</em>) – The <code class="docutils literal notranslate"><span class="pre">cell_id,cluster_label</span></code> table for the whole original grid. Needed to write
+<code class="docutils literal notranslate"><span class="pre">cluster_id_mapping_{K}.csv</span></code>, without which the projection back has no way to know
+which original cells a cluster stands for.</p></li>
+<li><p><strong>n_repeat</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>, <em>optional</em>) – Cells written per cluster, and patches per cluster, as
+<code class="xref py py-func docutils literal notranslate"><span class="pre">create_cluster_nc_files()</span></code> defines them.</p></li>
+<li><p><strong>npatch</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>, <em>optional</em>) – Cells written per cluster, and patches per cluster, as
+<code class="xref py py-func docutils literal notranslate"><span class="pre">create_cluster_nc_files()</span></code> defines them.</p></li>
+<li><p><strong>timeseries_type</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <em>optional</em>) – Carried into the output filenames unchanged.</p></li>
+<li><p><strong>aggregation_type</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <em>optional</em>) – Carried into the output filenames unchanged.</p></li>
+<li><p><strong>cluster_method</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <em>optional</em>) – Carried into the output filenames unchanged.</p></li>
+<li><p><strong>artifacts_dir</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <em>optional</em>) – Where the CSVs go; defaults to <code class="docutils literal notranslate"><span class="pre">output_dir</span></code>.</p></li>
+<li><p><strong>id_mapping_file</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <em>optional</em>) – An existing <code class="docutils literal notranslate"><span class="pre">cluster_id_mapping</span></code> CSV to use instead of writing one.</p></li>
+<li><p><strong>lat_anchor</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>, <em>optional</em>) – Passed to <a class="reference internal" href="#climclusterpy.grid.create_native_grid_from_dataset" title="climclusterpy.grid.create_native_grid_from_dataset"><code class="xref py py-func docutils literal notranslate"><span class="pre">create_native_grid_from_dataset()</span></code></a>.</p></li>
+<li><p><strong>lon_origin</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>, <em>optional</em>) – Passed to <a class="reference internal" href="#climclusterpy.grid.create_native_grid_from_dataset" title="climclusterpy.grid.create_native_grid_from_dataset"><code class="xref py py-func docutils literal notranslate"><span class="pre">create_native_grid_from_dataset()</span></code></a>.</p></li>
+<li><p><strong>overwrite</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a>, <em>optional</em>) – When False, a variable whose NetCDF already exists and is non-empty is skipped.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Variable name to written path, plus <code class="docutils literal notranslate"><span class="pre">&quot;__id_mapping__&quot;</span></code> and <code class="docutils literal notranslate"><span class="pre">&quot;__placement__&quot;</span></code>.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a></p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/builtins/exceptions.html#ValueError" title="(in Python v3.15)"><strong>ValueError</strong></a> – If the placement cannot be made faithfully (see
+    <a class="reference internal" href="#climclusterpy.grid.create_native_grid_from_dataset" title="climclusterpy.grid.create_native_grid_from_dataset"><code class="xref py py-func docutils literal notranslate"><span class="pre">create_native_grid_from_dataset()</span></code></a>), or if the grid that was written does not
+    carry the placement it was told to — a uniform axis at the source spacing, one slot
+    block per cluster, and a compact map that points at those blocks.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="climclusterpy.grid.create_native_grid_from_dataset">
+<span class="sig-name descname"><span class="pre">create_native_grid_from_dataset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ds</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_repeat</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_dir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">source_spacing</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lat_anchor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lon_origin</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/climclusterpy/grid/native.html#create_native_grid_from_dataset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#climclusterpy.grid.create_native_grid_from_dataset" title="Link to this definition"></a></dt>
+<dd><p>Place every cluster at its representative cell’s coordinates, on the source lattice.</p>
+<p>The drop-in alternative to
+<a class="reference internal" href="#climclusterpy.grid.create_regular_grid_from_dataset" title="climclusterpy.grid.create_regular_grid_from_dataset"><code class="xref py py-func docutils literal notranslate"><span class="pre">create_regular_grid_from_dataset()</span></code></a>: same six-field
+return, no spacing search, and no free parameter to tune — the lattice is the source
+grid’s, and the placement is the cell’s own.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ds</strong> (<a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.Dataset.html#xarray.Dataset" title="(in xarray v2026.9.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.Dataset</span></code></a>) – The cluster timeseries dataset, one entry per cluster along <code class="docutils literal notranslate"><span class="pre">cluster</span></code>, carrying
+<code class="docutils literal notranslate"><span class="pre">cluster_label</span></code> and the representative cell’s <code class="docutils literal notranslate"><span class="pre">latitude</span></code>/<code class="docutils literal notranslate"><span class="pre">longitude</span></code>. This is
+what <a class="reference internal" href="toplevel.html#climclusterpy.timeseries.extract_representative_cells" title="climclusterpy.timeseries.extract_representative_cells"><code class="xref py py-func docutils literal notranslate"><span class="pre">extract_representative_cells()</span></code></a>
+writes.</p></li>
+<li><p><strong>n_repeat</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>, <em>optional</em>) – Cells written per cluster (default 1). Each cluster gets <code class="docutils literal notranslate"><span class="pre">n_repeat</span></code> adjacent
+columns, so a row’s width is the busiest cluster count times this.</p></li>
+<li><p><strong>output_dir</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <em>optional</em>) – Where to write the two placement records. When given,
+<code class="docutils literal notranslate"><span class="pre">cell_placement_{K}.csv</span></code> (every cluster’s true coordinates, the slot it occupies,
+and its displacement — all zero by construction) and <code class="docutils literal notranslate"><span class="pre">latitude_adjustments_{K}.csv</span></code>
+(the same thing in the column names the reconstruction path already reads) land here.
+Writing them is what keeps the fictional longitude axis admissible: the true
+coordinates are recorded even though the axis cannot carry them.</p></li>
+<li><p><strong>source_spacing</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>) – The source grid’s cell size in degrees — 0.5 for a half-degree grid. Required, and
+deliberately not inferred: guessing it is exactly the silent decision this
+construction exists to remove.</p></li>
+<li><p><strong>lat_anchor</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>, <em>optional</em>) – The real source latitude the lattice is anchored on. Defaults to the southernmost
+representative latitude, which is a source latitude by definition.</p></li>
+<li><p><strong>lon_origin</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>, <em>optional</em>) – Where the packed column block starts. Defaults to the westernmost representative
+longitude, shifted west only as far as needed to keep the block inside ±180°.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Hand it to <code class="xref py py-func docutils literal notranslate"><span class="pre">create_cluster_nc_files()</span></code> as
+<code class="docutils literal notranslate"><span class="pre">precomputed_grid=</span></code>, with <code class="docutils literal notranslate"><span class="pre">lon_spacing=source_spacing</span></code>, or let
+<a class="reference internal" href="#climclusterpy.grid.build_reduced_grid" title="climclusterpy.grid.build_reduced_grid"><code class="xref py py-func docutils literal notranslate"><span class="pre">build_reduced_grid()</span></code></a> do both.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#climclusterpy.grid.NativePlacement" title="climclusterpy.grid.NativePlacement"><code class="xref py py-class docutils literal notranslate"><span class="pre">NativePlacement</span></code></a></p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/builtins/exceptions.html#ValueError" title="(in Python v3.15)"><strong>ValueError</strong></a> – If any representative latitude does not already lie on the source lattice, if either
+    declared cell size would differ from <code class="docutils literal notranslate"><span class="pre">source_spacing</span></code>, if the packed block cannot
+    fit inside ±180°, or if the dataset does not carry one coordinate pair per cluster.
+    Every one of these is a silent-wrong-answer condition downstream, so none of them
+    warns.</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span><span class="o">,</span><span class="w"> </span><span class="nn">xarray</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">xr</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ds</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">Dataset</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="p">{</span>
+<span class="gp">... </span>        <span class="s2">"cluster_label"</span><span class="p">:</span> <span class="p">(</span><span class="s2">"cluster"</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])),</span>
+<span class="gp">... </span>        <span class="s2">"latitude"</span><span class="p">:</span> <span class="p">(</span><span class="s2">"cluster"</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="o">-</span><span class="mf">0.25</span><span class="p">,</span> <span class="mf">10.25</span><span class="p">,</span> <span class="mf">10.25</span><span class="p">])),</span>
+<span class="gp">... </span>        <span class="s2">"longitude"</span><span class="p">:</span> <span class="p">(</span><span class="s2">"cluster"</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">12.25</span><span class="p">,</span> <span class="o">-</span><span class="mf">3.75</span><span class="p">,</span> <span class="mf">40.25</span><span class="p">])),</span>
+<span class="gp">... </span>    <span class="p">}</span>
+<span class="gp">... </span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">placement</span> <span class="o">=</span> <span class="n">create_native_grid_from_dataset</span><span class="p">(</span><span class="n">ds</span><span class="p">,</span> <span class="n">source_spacing</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">placement</span><span class="o">.</span><span class="n">adjusted_lats</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+<span class="go">[-0.25, 10.25, 10.25]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">placement</span><span class="o">.</span><span class="n">lat_spacing</span><span class="p">,</span> <span class="n">placement</span><span class="o">.</span><span class="n">lat_offset</span>
+<span class="go">(0.5, -0.25)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="climclusterpy.grid.NativePlacement">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">NativePlacement</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">grid_lats</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grid_lons</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">adjusted_lats</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">global_lons</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lat_spacing</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lat_offset</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/climclusterpy/grid/native.html#NativePlacement"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#climclusterpy.grid.NativePlacement" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.NamedTuple" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">NamedTuple</span></code></a></p>
+<p>Where every reduced cell sits, and the lattice it sits on.</p>
+<p>A six-field tuple in the order
+<code class="xref py py-func docutils literal notranslate"><span class="pre">create_cluster_nc_files()</span></code> expects for its
+<code class="docutils literal notranslate"><span class="pre">precomputed_grid</span></code> argument, so it can be handed straight over; the names are here so a
+caller can read the placement instead of unpacking it positionally.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>grid_lats</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.5)"><em>ndarray</em></a>)</p></li>
+<li><p><strong>grid_lons</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.5)"><em>ndarray</em></a>)</p></li>
+<li><p><strong>adjusted_lats</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.5)"><em>ndarray</em></a>)</p></li>
+<li><p><strong>global_lons</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.5)"><em>ndarray</em></a>)</p></li>
+<li><p><strong>lat_spacing</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.15)"><em>float</em></a>)</p></li>
+<li><p><strong>lat_offset</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.15)"><em>float</em></a>)</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="climclusterpy.grid.NativePlacement.grid_lats">
+<span class="sig-name descname"><span class="pre">grid_lats</span></span><a class="headerlink" href="#climclusterpy.grid.NativePlacement.grid_lats" title="Link to this definition"></a></dt>
+<dd><p>One latitude per written cell, <code class="docutils literal notranslate"><span class="pre">n_clusters</span> <span class="pre">*</span> <span class="pre">n_repeat</span></code> long.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.5)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="climclusterpy.grid.NativePlacement.grid_lons">
+<span class="sig-name descname"><span class="pre">grid_lons</span></span><a class="headerlink" href="#climclusterpy.grid.NativePlacement.grid_lons" title="Link to this definition"></a></dt>
+<dd><p>The longitude axis, one entry per column.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.5)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="climclusterpy.grid.NativePlacement.adjusted_lats">
+<span class="sig-name descname"><span class="pre">adjusted_lats</span></span><a class="headerlink" href="#climclusterpy.grid.NativePlacement.adjusted_lats" title="Link to this definition"></a></dt>
+<dd><p>The latitude each cluster is placed at, in dataset order, <code class="docutils literal notranslate"><span class="pre">n_clusters</span></code> long. Under
+this construction it equals the representative cell’s own latitude exactly.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.5)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="climclusterpy.grid.NativePlacement.global_lons">
+<span class="sig-name descname"><span class="pre">global_lons</span></span><a class="headerlink" href="#climclusterpy.grid.NativePlacement.global_lons" title="Link to this definition"></a></dt>
+<dd><p>The longitude axis again (the shape <code class="docutils literal notranslate"><span class="pre">create_cluster_nc_files</span></code> reads).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.5)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="climclusterpy.grid.NativePlacement.lat_spacing">
+<span class="sig-name descname"><span class="pre">lat_spacing</span></span><a class="headerlink" href="#climclusterpy.grid.NativePlacement.lat_spacing" title="Link to this definition"></a></dt>
+<dd><p>The latitude step — the source grid’s own cell size.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="climclusterpy.grid.NativePlacement.lat_offset">
+<span class="sig-name descname"><span class="pre">lat_offset</span></span><a class="headerlink" href="#climclusterpy.grid.NativePlacement.lat_offset" title="Link to this definition"></a></dt>
+<dd><p>The real source latitude the lattice is anchored on.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="climclusterpy.grid.create_regular_grid_from_dataset">
+<span class="sig-name descname"><span class="pre">create_regular_grid_from_dataset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ds</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_repeat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_dir</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">labels_csv</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_grid_spacing</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_grid_spacing</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grid_spacing_steps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/climclusterpy/grid/build.html#create_regular_grid_from_dataset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#climclusterpy.grid.create_regular_grid_from_dataset" title="Link to this definition"></a></dt>
+<dd><p>Create grid with guaranteed even spacing and minimal deviation from input dataset.</p>
+<p>Places each cluster at its <strong>centre</strong> latitude — <code class="docutils literal notranslate"><span class="pre">center_lat</span></code>, the latitude of
+whichever member sits nearest the cluster’s median absolute latitude — on a lattice found
+by <a class="reference internal" href="#climclusterpy.grid.calculate_grid_parameters" title="climclusterpy.grid.calculate_grid_parameters"><code class="xref py py-func docutils literal notranslate"><span class="pre">calculate_grid_parameters()</span></code></a>. That is not the latitude of the cell whose climate
+the reduced cell carries: measured on 26 real cluster sets, the two are up to 107° of
+latitude apart. For the reduced-grid round trip use
+<a class="reference internal" href="#climclusterpy.grid.build_reduced_grid" title="climclusterpy.grid.build_reduced_grid"><code class="xref py py-func docutils literal notranslate"><span class="pre">build_reduced_grid()</span></code></a> instead, which places each cell at its own
+representative coordinates; this function remains the right call when the latitudes
+genuinely do not lie on a regular lattice and a spacing search is needed.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ds</strong> (<a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.Dataset.html#xarray.Dataset" title="(in xarray v2026.9.0)"><em>Dataset</em></a>) – Dataset with cluster centers</p></li>
+<li><p><strong>n_repeat</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><em>int</em></a>) – Number of repeated cells per cluster</p></li>
+<li><p><strong>output_dir</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><em>str</em></a>) – Directory for output files</p></li>
+<li><p><strong>labels_csv</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><em>str</em></a><em> | </em><em>None</em>) – Optional CSV file with cluster labels</p></li>
+<li><p><strong>min_grid_spacing</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.15)"><em>float</em></a>) – Minimum grid spacing in degrees, and the tolerance for accepting a
+coarser one. Smaller = finer grid = more RAM. Default 0.1°. On
+latitudes that already lie on a regular lattice the search returns
+this value itself rather than coarsening, so it sets the row count
+outright — see <a class="reference internal" href="#climclusterpy.grid.calculate_grid_parameters" title="climclusterpy.grid.calculate_grid_parameters"><code class="xref py py-func docutils literal notranslate"><span class="pre">calculate_grid_parameters()</span></code></a>.</p></li>
+<li><p><strong>max_grid_spacing</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.15)"><em>float</em></a>) – Maximum grid spacing to test in degrees. Default: 5.0.</p></li>
+<li><p><strong>grid_spacing_steps</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><em>int</em></a>) – Number of spacing candidates to test. Default: 100.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Tuple</span> <span class="pre">containing</span></code></p></li>
+<li><p><strong>- grid_lats</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">repeated</span> <span class="pre">adjusted</span> <span class="pre">latitudes</span> <span class="pre">(n_clusters</span> <span class="pre">*</span> <span class="pre">n_repeat)</span></code>)</p></li>
+<li><p><strong>- grid_lons</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">all</span> <span class="pre">longitude</span> <span class="pre">values</span> <span class="pre">(n_clusters</span> <span class="pre">*</span> <span class="pre">n_repeat)</span></code>)</p></li>
+<li><p><strong>- adjusted_lats</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">unique</span> <span class="pre">adjusted</span> <span class="pre">latitudes</span> <span class="pre">per</span> <span class="pre">cluster</span> <span class="pre">(n_clusters)</span></code>)</p></li>
+<li><p><strong>- global_lons</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">all</span> <span class="pre">longitude</span> <span class="pre">values</span> <span class="pre">(n_clusters</span> <span class="pre">*</span> <span class="pre">n_repeat)</span></code>)</p></li>
+<li><p><strong>- lat_spacing</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">the</span> <span class="pre">calculated</span> <span class="pre">latitude</span> <span class="pre">grid</span> <span class="pre">spacing</span></code>)</p></li>
+<li><p><strong>- lat_offset</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">the</span> <span class="pre">calculated</span> <span class="pre">latitude</span> <span class="pre">grid</span> <span class="pre">offset</span> <span class="pre">(x0)</span></code>)</p></li>
+</ul>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#tuple" title="(in Python v3.15)">tuple</a>[<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.5)"><em>ndarray</em></a>, <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.5)"><em>ndarray</em></a>, <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.5)"><em>ndarray</em></a>, <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.5)"><em>ndarray</em></a>, <a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.15)">float</a>, <a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.15)">float</a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="climclusterpy.grid.calculate_grid_parameters">
+<span class="sig-name descname"><span class="pre">calculate_grid_parameters</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sorted_lats</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_spacing</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.25</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">beta</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.01</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tolerance</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_spacing</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">spacing_steps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/climclusterpy/grid/build.html#calculate_grid_parameters"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#climclusterpy.grid.calculate_grid_parameters" title="Link to this definition"></a></dt>
+<dd><p>Fast grid detection using candidate-based approach with tolerance-based coarsening.</p>
+<dl class="simple">
+<dt>Algorithm features:</dt><dd><ul class="simple">
+<li><p>O(N) complexity: evaluates spacing candidates from linspace</p></li>
+<li><p>Works on unique latitudes</p></li>
+<li><p>Tests spacings uniformly distributed between min_spacing and max_spacing</p></li>
+<li><p>Accepts grids where all points can shift ≤ tolerance to fit</p></li>
+<li><p>Robust x0 via circular mode on residues with IQR outlier rejection</p></li>
+<li><p>Scoring balances fit quality (median deviation) vs grid parsimony</p></li>
+<li><p>Optional local refinement (±10%) around best candidate</p></li>
+<li><p>Monotonicity validation</p></li>
+</ul>
+</dd>
+</dl>
+<p>⚠ <strong>On latitudes that already lie on a regular lattice, ``min_spacing`` is the answer,
+not a floor.</strong> Every candidate spacing then fits to within ~0 deviation, so the parsimony
+term decides and it always prefers the finest candidate offered. Measured across 26 real
+cluster sets, this function returned the 0.1° floor in all 26 and never coarsened,
+which is why the grids built from cluster centres carry a latitude
+axis about five times longer than their cells need. Callers whose latitudes come off a
+regular source grid — which cluster centres do — should pass that grid’s own cell size,
+or place the cells with <a class="reference internal" href="#climclusterpy.grid.build_reduced_grid" title="climclusterpy.grid.build_reduced_grid"><code class="xref py py-func docutils literal notranslate"><span class="pre">build_reduced_grid()</span></code></a>, which needs no search
+at all.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>sorted_lats</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.5)"><em>ndarray</em></a>) – Sorted array of latitude values</p></li>
+<li><p><strong>min_spacing</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.15)"><em>float</em></a>) – Minimum allowed grid spacing in degrees (default 0.25°).
+Also serves as tolerance if tolerance is None. See the note above: on
+regularly-spaced input this value is what you get.</p></li>
+<li><p><strong>beta</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.15)"><em>float</em></a>) – Parsimony penalty weight (default 0.01). Higher values favor coarser grids.</p></li>
+<li><p><strong>tolerance</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.15)"><em>float</em></a><em> | </em><em>None</em>) – Maximum allowed shift for original latitudes (degrees).
+If provided, only grids with max_dev ≤ tolerance are accepted.
+If None, uses min_spacing as tolerance.</p></li>
+<li><p><strong>max_spacing</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.15)"><em>float</em></a>) – Maximum grid spacing to test in degrees (default 5.0°).</p></li>
+<li><p><strong>spacing_steps</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><em>int</em></a>) – Number of spacing candidates to test between min and max (default 100).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>Dict with keys</strong> – coverage, adaptive_thresh, grid_points, monotonic</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">d</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">x0</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">max_dev</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">mean_dev</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">median_dev</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">p90_dev,</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="writing-the-reduced-grid">
+<h2>Writing the reduced grid<a class="headerlink" href="#writing-the-reduced-grid" title="Link to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="climclusterpy.grid.verify_written_grid">
+<span class="sig-name descname"><span class="pre">verify_written_grid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">source_spacing</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_clusters</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_repeat</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">compact_map_csv</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/climclusterpy/grid/native.html#verify_written_grid"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#climclusterpy.grid.verify_written_grid" title="Link to this definition"></a></dt>
+<dd><p>Fail unless the NetCDF on disk carries the placement it was built with.</p>
+<p>Checks the three things a silently wrong grid gets wrong: the axes are uniform at the
+source spacing (so <code class="docutils literal notranslate"><span class="pre">cdf2clm</span></code> indexes them correctly and declares the right cell size),
+every cluster occupies its own <code class="docutils literal notranslate"><span class="pre">n_repeat</span></code> slots and no other cluster’s, and — when the
+compact map is given — that map points at exactly those slots, which is the only thing
+the projection back reads.</p>
+<p>Give <code class="docutils literal notranslate"><span class="pre">compact_map_csv</span></code> a path and it must exist: a missing map is an error, not a
+skipped check.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><em>str</em></a>)</p></li>
+<li><p><strong>source_spacing</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.15)"><em>float</em></a>)</p></li>
+<li><p><strong>n_clusters</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><em>int</em></a>)</p></li>
+<li><p><strong>n_repeat</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><em>int</em></a>)</p></li>
+<li><p><strong>compact_map_csv</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><em>str</em></a><em> | </em><em>None</em>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="climclusterpy.grid.write_distributed_grid">
+<span class="sig-name descname"><span class="pre">write_distributed_grid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">timeseries_dataset</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">registry</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_dir</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_clusters</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">artifacts_dir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">aggregation_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'clustering'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cluster_method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">extra_attrs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">overwrite</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time_chunk</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2000</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/climclusterpy/grid/distributed.html#write_distributed_grid"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#climclusterpy.grid.write_distributed_grid" title="Link to this definition"></a></dt>
+<dd><p>Write one NetCDF per forcing variable, every chosen cell at its own grid position.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>timeseries_dataset</strong> (<a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.Dataset.html#xarray.Dataset" title="(in xarray v2026.9.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.Dataset</span></code></a>) – What <a class="reference internal" href="toplevel.html#climclusterpy.timeseries.extract_distributed_cells" title="climclusterpy.timeseries.extract_distributed_cells"><code class="xref py py-func docutils literal notranslate"><span class="pre">climclusterpy.timeseries.extract_distributed_cells()</span></code></a>
+returns: dimension <code class="docutils literal notranslate"><span class="pre">cell</span></code> (one entry per chosen slot) carrying <code class="docutils literal notranslate"><span class="pre">cluster_label</span></code>,
+<code class="docutils literal notranslate"><span class="pre">cell_id</span></code>, <code class="docutils literal notranslate"><span class="pre">latitude</span></code>, <code class="docutils literal notranslate"><span class="pre">longitude</span></code>, the forcing variables and the soil fields.</p></li>
+<li><p><strong>registry</strong> (<a class="reference internal" href="toplevel.html#climclusterpy.data.DataRegistry" title="climclusterpy.data.DataRegistry"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataRegistry</span></code></a>) – The original grid; its lattice becomes the written grid’s axes.</p></li>
+<li><p><strong>output_dir</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>) – Where the NetCDFs go.</p></li>
+<li><p><strong>n_clusters</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>) – Number of clusters, for the file names.</p></li>
+<li><p><strong>artifacts_dir</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <em>optional</em>) – Where <code class="docutils literal notranslate"><span class="pre">cluster_distributed_mapping_{K}.csv</span></code> goes; defaults to <code class="docutils literal notranslate"><span class="pre">output_dir</span></code>.</p></li>
+<li><p><strong>aggregation_type</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <em>optional</em>) – Carried into the file names (see <code class="xref py py-func docutils literal notranslate"><span class="pre">distributed_filename()</span></code>).</p></li>
+<li><p><strong>cluster_method</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <em>optional</em>) – Carried into the file names (see <code class="xref py py-func docutils literal notranslate"><span class="pre">distributed_filename()</span></code>).</p></li>
+<li><p><strong>extra_attrs</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a>, <em>optional</em>) – Global attributes written into every file (the public API records the patch
+arithmetic here).</p></li>
+<li><p><strong>overwrite</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a>, <em>optional</em>) – When False, a variable whose NetCDF already exists and is non-empty is skipped.</p></li>
+<li><p><strong>time_chunk</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>, <em>optional</em>) – Time steps per write batch; bounds peak memory on long forcing series.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Variable name to written path, plus <code class="docutils literal notranslate"><span class="pre">&quot;__distributed_mapping__&quot;</span></code>.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a></p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/builtins/exceptions.html#ValueError" title="(in Python v3.15)"><strong>ValueError</strong></a> – If a chosen cell is not on the registry’s grid, or a latitude row is over-full.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="reconstruction">
+<h2>Reconstruction<a class="headerlink" href="#reconstruction" title="Link to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="climclusterpy.grid.reconstruct_output_netcdf">
+<span class="sig-name descname"><span class="pre">reconstruct_output_netcdf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">clustered_nc</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">registry</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id_mapping_csv</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">latrow_map_csv</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/climclusterpy/grid/reconstruct.html#reconstruct_output_netcdf"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#climclusterpy.grid.reconstruct_output_netcdf" title="Link to this definition"></a></dt>
+<dd><p>Reconstruct a model output NetCDF (on the reduced grid) back to the original grid.</p>
+<p>Places values strictly through the ID mapping and the position table. Before copying
+anything it checks that the three inputs belong together: both mapping files describe the
+same clusters, every cluster’s cells exist in the output, the output holds no values where
+this grid has no cluster, and every mapped cell exists on the original grid.</p>
+<ul class="simple">
+<li><p>clustered_nc: model output on the reduced grid; dimensions <code class="docutils literal notranslate"><span class="pre">lat</span></code>/<code class="docutils literal notranslate"><span class="pre">lon</span></code> (as LPJmL
+writes them) or <code class="docutils literal notranslate"><span class="pre">latitude</span></code>/<code class="docutils literal notranslate"><span class="pre">longitude</span></code> (as this package writes them), plus any
+leading dimensions such as <code class="docutils literal notranslate"><span class="pre">time</span></code>.</p></li>
+<li><p>registry: the original grid (see <a class="reference internal" href="toplevel.html#climclusterpy.data.DataRegistry.load" title="climclusterpy.data.DataRegistry.load"><code class="xref py py-meth docutils literal notranslate"><span class="pre">DataRegistry.load()</span></code></a>).</p></li>
+<li><p>id_mapping_csv: <code class="docutils literal notranslate"><span class="pre">cluster_id_mapping_&lt;K&gt;.csv</span></code>.</p></li>
+<li><p>latrow_map_csv: <code class="docutils literal notranslate"><span class="pre">cluster_compact_map_&lt;K&gt;.csv</span></code>.</p></li>
+<li><p>output_path: where to write; default next to the input with a <code class="docutils literal notranslate"><span class="pre">_reconstructed</span></code> suffix.</p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>clustered_nc</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><em>str</em></a>)</p></li>
+<li><p><strong>registry</strong> (<a class="reference internal" href="toplevel.html#climclusterpy.data.DataRegistry" title="climclusterpy.data.registry.DataRegistry"><em>DataRegistry</em></a>)</p></li>
+<li><p><strong>id_mapping_csv</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><em>str</em></a>)</p></li>
+<li><p><strong>latrow_map_csv</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><em>str</em></a>)</p></li>
+<li><p><strong>output_path</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><em>str</em></a><em> | </em><em>None</em>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="climclusterpy.grid.reconstruct_from_distributed">
+<span class="sig-name descname"><span class="pre">reconstruct_from_distributed</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cluster_file_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">distributed_mapping_file</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_dir</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">registry</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">labels_csv</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">variable</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">aggregate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'mean'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/climclusterpy/grid/reconstruct.html#reconstruct_from_distributed"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#climclusterpy.grid.reconstruct_from_distributed" title="Link to this definition"></a></dt>
+<dd><p>Project output from a distributed grid back onto every cell of the original grid.</p>
+<p>In the <code class="docutils literal notranslate"><span class="pre">&quot;distributed&quot;</span></code> cell choice each cluster was simulated on several of its own
+member cells, each with a fraction of the patch budget. This combines those cells per
+cluster — at every time step and for every non-spatial index — and writes the result to
+<strong>every</strong> original cell of the cluster.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>cluster_file_path</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>) – A NetCDF on the distributed grid: model output (<code class="docutils literal notranslate"><span class="pre">lat</span></code>/<code class="docutils literal notranslate"><span class="pre">lon</span></code>, as LPJmL writes it)
+or a forcing file this package wrote (<code class="docutils literal notranslate"><span class="pre">latitude</span></code>/<code class="docutils literal notranslate"><span class="pre">longitude</span></code>). The file name is
+not parsed; any name works. A model run may trim empty margins from the grid —
+chosen cells are located by coordinate, so that is harmless.</p></li>
+<li><p><strong>distributed_mapping_file</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>) – The <code class="docutils literal notranslate"><span class="pre">cluster_distributed_mapping_{K}.csv</span></code> written with the grid.</p></li>
+<li><p><strong>output_dir</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a> or <a class="reference external" href="https://docs.python.org/3/builtins/constants.html#None" title="(in Python v3.15)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>) – Directory for the output when <code class="docutils literal notranslate"><span class="pre">output_path</span></code> is not given (default: beside the
+input).</p></li>
+<li><p><strong>registry</strong> (<a class="reference internal" href="toplevel.html#climclusterpy.data.DataRegistry" title="climclusterpy.data.DataRegistry"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataRegistry</span></code></a>) – The original grid.</p></li>
+<li><p><strong>labels_csv</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>) – The per-cell <code class="docutils literal notranslate"><span class="pre">cell_id,cluster_label</span></code> table for the whole original grid.</p></li>
+<li><p><strong>variable</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <em>optional</em>) – Reconstruct only this variable. Default: every variable with both spatial
+dimensions.</p></li>
+<li><p><strong>aggregate</strong> (<code class="docutils literal notranslate"><span class="pre">{&quot;mean&quot;,</span> <span class="pre">&quot;median&quot;}</span></code>, <em>optional</em>) – How a cluster’s chosen cells are combined. <code class="docutils literal notranslate"><span class="pre">&quot;mean&quot;</span></code> (default) is what the
+vegetation model does across the patches inside one cell, so <code class="docutils literal notranslate"><span class="pre">n</span></code> cells × <code class="docutils literal notranslate"><span class="pre">p</span></code>
+patches then corresponds to one cell × <code class="docutils literal notranslate"><span class="pre">n·p</span></code> patches. <code class="docutils literal notranslate"><span class="pre">&quot;median&quot;</span></code> reproduces
+the reconstruction the method was originally published with. Missing values (NaN, or a fill value
+of magnitude ≥ 1e30) are ignored.</p></li>
+<li><p><strong>output_path</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <em>optional</em>) – Exact output path; overrides <code class="docutils literal notranslate"><span class="pre">output_dir</span></code>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Path to the reconstructed NetCDF. Cells outside the original land mask, and every
+cell of a cluster none of whose chosen cells has a value, are NaN.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a></p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><a class="reference external" href="https://docs.python.org/3/builtins/exceptions.html#FileNotFoundError" title="(in Python v3.15)"><strong>FileNotFoundError</strong></a> – If an input is missing.</p></li>
+<li><p><a class="reference external" href="https://docs.python.org/3/builtins/exceptions.html#ValueError" title="(in Python v3.15)"><strong>ValueError</strong></a> – On an unknown <code class="docutils literal notranslate"><span class="pre">aggregate</span></code>, a missing <code class="docutils literal notranslate"><span class="pre">labels_csv</span></code>, or a model output whose grid
+    does not hold the cells the mapping names.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="climclusterpy.grid.validate_reconstruction_grid">
+<span class="sig-name descname"><span class="pre">validate_reconstruction_grid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">reconstructed_nc</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">registry</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">var_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'VegC'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/climclusterpy/grid/reconstruct.html#validate_reconstruction_grid"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#climclusterpy.grid.validate_reconstruction_grid" title="Link to this definition"></a></dt>
+<dd><p>Validate that reconstructed NetCDF has identical grid structure to original soilcode grid.</p>
+<p>Tests:
+1. Grid dimensions match original grid
+2. Coordinates match original grid
+3. Valid/invalid (NaN) cells are in exactly the same locations as original grid</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>reconstructed_nc</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><em>str</em></a>) – Path to reconstructed NetCDF file</p></li>
+<li><p><strong>registry</strong> (<a class="reference internal" href="toplevel.html#climclusterpy.data.DataRegistry" title="climclusterpy.data.registry.DataRegistry"><em>DataRegistry</em></a>) – DataRegistry with original grid information</p></li>
+<li><p><strong>var_name</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><em>str</em></a>) – Variable name to check in the reconstructed file</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><code class="xref py py-class docutils literal notranslate"><span class="pre">True</span> <span class="pre">if</span> <span class="pre">validation</span> <span class="pre">passes</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">False</span> <span class="pre">otherwise.</span> <span class="pre">The</span> <span class="pre">reason</span> <span class="pre">for</span> <span class="pre">a</span> <span class="pre">failure</span> <span class="pre">is</span> <span class="pre">logged</span> <span class="pre">as</span> <span class="pre">a</span></code></p></li>
+<li><p><code class="xref py py-class docutils literal notranslate"><span class="pre">warning.</span></code></p></li>
+</ul>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)">bool</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="lpjml-clm-conversion">
+<h2>LPJmL CLM conversion<a class="headerlink" href="#lpjml-clm-conversion" title="Link to this heading"></a></h2>
+<p><a class="reference internal" href="#climclusterpy.io.convert_netcdf_to_clm" title="climclusterpy.io.convert_netcdf_to_clm"><code class="xref py py-func docutils literal notranslate"><span class="pre">convert_netcdf_to_clm()</span></code></a> turns the reduced-grid NetCDFs into the <code class="docutils literal notranslate"><span class="pre">.clm</span></code> binaries
+LPJmL reads. It calls LPJmL’s own <code class="docutils literal notranslate"><span class="pre">cdf2clm</span></code> / <code class="docutils literal notranslate"><span class="pre">cdf2soil</span></code> tools, which must be
+installed. Those tools read each axis’s step from its first and last coordinate only, so
+every input is first checked with <a class="reference internal" href="#climclusterpy.io.assert_uniform_axes" title="climclusterpy.io.assert_uniform_axes"><code class="xref py py-func docutils literal notranslate"><span class="pre">assert_uniform_axes()</span></code></a>.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="climclusterpy.io.convert_netcdf_to_clm">
+<span class="sig-name descname"><span class="pre">convert_netcdf_to_clm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">netcdf_files</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_dir</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grid_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">soil_code_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">strict</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">uniform_axis_tolerance_deg</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0001</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tools_dir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/climclusterpy/io/clm.html#convert_netcdf_to_clm"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#climclusterpy.io.convert_netcdf_to_clm" title="Link to this definition"></a></dt>
+<dd><p>Convert NetCDF grids to the CLM binaries LPJmL reads, and return what was written.</p>
+<p>This is the input half of the reduced-grid round trip:
+<a class="reference internal" href="#climclusterpy.grid.build_reduced_grid" title="climclusterpy.grid.build_reduced_grid"><code class="xref py py-func docutils literal notranslate"><span class="pre">build_reduced_grid()</span></code></a> writes one NetCDF per forcing variable, and
+this turns them into the <code class="docutils literal notranslate"><span class="pre">.clm</span></code> files a model run consumes. Coordinates are written
+as floats (both tools are called with <code class="docutils literal notranslate"><span class="pre">-float</span></code>), which is what keeps them exact —
+the tools’ integer path truncates rather than rounds,
+so a coordinate one bit below a lattice point would land a whole step away. Do not drop
+that flag.</p>
+<p>Every input is checked for a uniform axis first (<a class="reference internal" href="#climclusterpy.io.assert_uniform_axes" title="climclusterpy.io.assert_uniform_axes"><code class="xref py py-func docutils literal notranslate"><span class="pre">assert_uniform_axes()</span></code></a>), because
+the tools infer each axis’s step from its endpoints alone.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>netcdf_files</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a> or <a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></a> of <a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>) – The files to convert. Unless <code class="docutils literal notranslate"><span class="pre">soil_code_file</span></code> or <code class="docutils literal notranslate"><span class="pre">grid_file</span></code> is given, exactly
+one must be a soil-code file, recognised by <code class="docutils literal notranslate"><span class="pre">&quot;soil_code&quot;</span></code> in its name; it is
+converted first because it produces the grid file every climate conversion needs.</p></li>
+<li><p><strong>output_dir</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>) – Where the <code class="docutils literal notranslate"><span class="pre">.clm</span></code> / <code class="docutils literal notranslate"><span class="pre">.bin</span></code> files land. Created if absent.</p></li>
+<li><p><strong>grid_file</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <em>optional</em>) – An existing <code class="docutils literal notranslate"><span class="pre">.grid.clm</span></code> to convert against. When given, no soil-code file is
+needed and none is converted; a path that does not exist raises.</p></li>
+<li><p><strong>soil_code_file</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <em>optional</em>) – The soil-code NetCDF that defines the grid, named explicitly instead of found by
+<code class="docutils literal notranslate"><span class="pre">&quot;soil_code&quot;</span></code> in a file name – safer when names are your own. It need not be in
+<code class="docutils literal notranslate"><span class="pre">netcdf_files</span></code>; if it is, it is converted once, as the grid. Not together with
+<code class="docutils literal notranslate"><span class="pre">grid_file</span></code>.</p></li>
+<li><p><strong>strict</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a>, <em>optional</em>) – Default <code class="docutils literal notranslate"><span class="pre">True</span></code>: a failed conversion raises. With <code class="docutils literal notranslate"><span class="pre">False</span></code> the failure is logged
+and that file’s entry is <code class="docutils literal notranslate"><span class="pre">None</span></code>, which is the older behaviour — use it only when
+a partial result is genuinely useful, never before a model run. A run launched
+against a silently missing forcing file is the failure this default prevents. An
+unevenly spaced axis raises <code class="docutils literal notranslate"><span class="pre">ValueError</span></code> either way.</p></li>
+<li><p><strong>uniform_axis_tolerance_deg</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>, <em>optional</em>) – Passed through to <a class="reference internal" href="#climclusterpy.io.assert_uniform_axes" title="climclusterpy.io.assert_uniform_axes"><code class="xref py py-func docutils literal notranslate"><span class="pre">assert_uniform_axes()</span></code></a>.</p></li>
+<li><p><strong>tools_dir</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <em>optional</em>) – The folder holding <code class="docutils literal notranslate"><span class="pre">cdf2clm</span></code> and <code class="docutils literal notranslate"><span class="pre">cdf2soil</span></code>. By default they are looked for in
+<code class="docutils literal notranslate"><span class="pre">$LPJROOT/bin</span></code> and then on the <code class="docutils literal notranslate"><span class="pre">PATH</span></code>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Input path to output path. The soil-code entry maps to the <code class="docutils literal notranslate"><span class="pre">.grid.clm</span></code> that was
+written from it. Values are <code class="docutils literal notranslate"><span class="pre">None</span></code> only when <code class="docutils literal notranslate"><span class="pre">strict=False</span></code>.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a></p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><a class="reference external" href="https://docs.python.org/3/builtins/exceptions.html#RuntimeError" title="(in Python v3.15)"><strong>RuntimeError</strong></a> – If no soil-code file is present and no <code class="docutils literal notranslate"><span class="pre">grid_file</span></code> was given, or — under
+    <code class="docutils literal notranslate"><span class="pre">strict</span></code> — if any conversion fails.</p></li>
+<li><p><a class="reference external" href="https://docs.python.org/3/builtins/exceptions.html#ValueError" title="(in Python v3.15)"><strong>ValueError</strong></a> – If any input’s latitude or longitude axis is not uniformly spaced (whatever
+    <code class="docutils literal notranslate"><span class="pre">strict</span></code> is), or both <code class="docutils literal notranslate"><span class="pre">grid_file</span></code> and <code class="docutils literal notranslate"><span class="pre">soil_code_file</span></code> are given.</p></li>
+<li><p><a class="reference external" href="https://docs.python.org/3/builtins/exceptions.html#FileNotFoundError" title="(in Python v3.15)"><strong>FileNotFoundError</strong></a> – If an input, <code class="docutils literal notranslate"><span class="pre">grid_file</span></code> or <code class="docutils literal notranslate"><span class="pre">soil_code_file</span></code> does not exist.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="climclusterpy.io.assert_uniform_axes">
+<span class="sig-name descname"><span class="pre">assert_uniform_axes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">netcdf_file</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tolerance_deg</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0001</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/climclusterpy/io/clm.html#assert_uniform_axes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#climclusterpy.io.assert_uniform_axes" title="Link to this definition"></a></dt>
+<dd><p>Fail unless every spatial axis of <code class="docutils literal notranslate"><span class="pre">netcdf_file</span></code> is evenly spaced.</p>
+<p><code class="docutils literal notranslate"><span class="pre">cdf2clm</span></code> and <code class="docutils literal notranslate"><span class="pre">cdf2soil</span></code> infer each axis’s step from its endpoints and never look
+at the interior, so an uneven axis is a silently wrong answer rather than an error.
+This is the check that makes handing them a file safe.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>netcdf_file</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>) – Path to the file about to be converted.</p></li>
+<li><p><strong>tolerance_deg</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>, <em>optional</em>) – Largest permitted departure from a constant step, in degrees. Defaults to
+<code class="xref py py-data docutils literal notranslate"><span class="pre">UNIFORM_AXIS_TOLERANCE_DEG</span></code>. <strong>Loosening this re-opens the hazard</strong> — a
+caller who raises it is asserting that the interior of their axis does not matter,
+which for a model input it does.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The step found for each axis present, keyed by that axis’s variable name. An axis
+of fewer than three points has no interior to disagree with and is reported as-is.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a></p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/builtins/exceptions.html#ValueError" title="(in Python v3.15)"><strong>ValueError</strong></a> – If any axis’s step varies by more than <code class="docutils literal notranslate"><span class="pre">tolerance_deg</span></code>. The message names the
+    index where it first happens and both steps, because “the grid is uneven” is not
+    actionable and “row 37 steps 0.75 where every other row steps 0.5” is.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="supervision.html" class="btn btn-neutral float-left" title="Supervision labels" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="cli.html" class="btn btn-neutral float-right" title="Command-line interface (climclu)" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, Jamir Priesner.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,869 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>climclusterpy.io.clm &mdash; climclusterpy 0.5</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/custom.css?v=f2cc2102" />
+
+  
+    <link rel="shortcut icon" href="../../../_static/logo.svg"/>
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=1dd76d02"></script>
+      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            climclusterpy
+              <img src="../../../_static/logo.svg" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorials/index.html">Tutorials</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../tutorials/one_call_roundtrip.html">Tutorial 0 — the whole workflow in two calls</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/one_call_roundtrip.html#the-idea">The idea</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/one_call_roundtrip.html#call-1-build-the-reduced-grid">Call 1 — build the reduced grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/one_call_roundtrip.html#call-2-rebuild-the-original-grid">Call 2 — rebuild the original grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/one_call_roundtrip.html#the-complete-script">The complete script</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/one_call_roundtrip.html#run-it">Run it</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/one_call_roundtrip.html#next-steps">Next steps</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../tutorials/euclidean_clustering.html">Tutorial 1 — Euclidean clustering</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/euclidean_clustering.html#load-data-and-build-a-feature-matrix">Load data and build a feature matrix</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/euclidean_clustering.html#cluster">Cluster</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/euclidean_clustering.html#the-complete-script">The complete script</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/euclidean_clustering.html#run-it">Run it</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/euclidean_clustering.html#next-steps">Next steps</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../tutorials/lmnn_clustering.html">Tutorial 2 — LMNN metric-learning clustering</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/lmnn_clustering.html#provide-a-supervision-signal">Provide a supervision signal</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/lmnn_clustering.html#learn-a-metric-and-cluster">Learn a metric and cluster</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/lmnn_clustering.html#the-complete-script">The complete script</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/lmnn_clustering.html#run-it">Run it</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/lmnn_clustering.html#next-steps">Next steps</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../tutorials/supervision.html">Tutorial 3 — Supervision signals</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/supervision.html#koppengeiger-from-monthly-climatology">Köppen–Geiger from monthly climatology</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/supervision.html#model-output-trait-clustering">Model-output (trait) clustering</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/supervision.html#the-complete-script">The complete script</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/supervision.html#run-it">Run it</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/supervision.html#ecoregion-supervision">Ecoregion supervision</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../tutorials/reconstruction.html">Tutorial 4 — Reconstruct the original grid</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/reconstruction.html#the-round-trip">The round trip</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/reconstruction.html#verify">Verify</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/reconstruction.html#the-complete-script">The complete script</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/reconstruction.html#run-it">Run it</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/reconstruction.html#next-steps">Next steps</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../tutorials/index.html#a-note-on-the-synthetic-data">A note on the synthetic data</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">How-to guides</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../howto/index.html">How-to guides</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../howto/install.html">Install climclusterpy</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/install.html#base-install">Base install</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/install.html#optional-extras">Optional extras</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/install.html#installing-the-geospatial-extras-with-conda">Installing the geospatial extras with conda</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/install.html#pytorch-cpu-vs-gpu">PyTorch (CPU vs. GPU)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/install.html#environment-variables">Environment variables</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/install.html#building-the-documentation">Building the documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../howto/inputs.html">Prepare the input files</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/inputs.html#check-your-input-first">Check your input first</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/inputs.html#the-files">The files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/inputs.html#grid-and-coordinates">Grid and coordinates</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/inputs.html#which-cells-exist-the-soil-code">Which cells exist: the soil code</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/inputs.html#the-time-axis">The time axis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/inputs.html#missing-values">Missing values</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/inputs.html#another-vegetation-model-s-input">Another vegetation model’s input</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/inputs.html#output-files">Output files</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../howto/clustering.html">Cluster a feature matrix (choose a mode)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/clustering.html#euclidean-mode-no-supervision">Euclidean mode (no supervision)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/clustering.html#lmnn-mode-supervised-metric-learning">LMNN mode (supervised metric learning)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/clustering.html#lower-level-control">Lower-level control</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../howto/supervision.html">Build an LMNN supervision signal</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/supervision.html#from-climate-koppengeiger">From climate — Köppen–Geiger</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/supervision.html#from-model-output-traits">From model output — traits</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/supervision.html#from-a-shapefile-ecoregions2017">From a shapefile — Ecoregions2017</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/supervision.html#using-the-signal">Using the signal</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/supervision.html#in-one-call">In one call</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/supervision.html#saved-results-are-reused-only-for-the-same-inputs">Saved results are reused only for the same inputs</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../howto/cell_selection.html">Choosing the cells a cluster is simulated on</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/cell_selection.html#the-patch-budget">The patch budget</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/cell_selection.html#what-the-drawn-cells-carry">What the drawn cells carry</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/cell_selection.html#reproducibility">Reproducibility</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/cell_selection.html#looking-at-a-draw-without-building-a-grid">Looking at a draw without building a grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/cell_selection.html#back-to-the-full-grid">Back to the full grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/cell_selection.html#a-model-that-reads-its-own-inputs-the-grid-only-then-cut-the-rest">A model that reads its own inputs: the grid only, then cut the rest</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../howto/reconstruct.html">Reconstruct the original grid</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/reconstruct.html#the-usual-call">The usual call</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/reconstruct.html#picking-up-where-you-left-off">Picking up where you left off</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/reconstruct.html#without-a-result-or-run-folder">Without a result or run folder</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/reconstruct.html#required-mapping-files">Required mapping files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/reconstruct.html#reconstruction-paths-kind">Reconstruction paths (<code class="docutils literal notranslate"><span class="pre">kind</span></code>)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/reconstruct.html#verifying-the-result">Verifying the result</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../reference/index.html">Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../reference/api.html">Public API — <code class="xref py py-mod docutils literal notranslate"><span class="pre">climclusterpy</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/api.html#the-two-headline-functions">The two headline functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/api.html#before-and-after-the-model-run">Before and after the model run</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/api.html#input-for-a-model-other-than-lpjml">Input for a model other than LPJmL</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/api.html#other-ways-to-build-the-reduced-grid">Other ways to build the reduced grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/api.html#reusing-a-trained-metric">Reusing a trained metric</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/api.html#the-model-s-other-inputs">The model’s other inputs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/api.html#writing-the-reduced-grid-yourself">Writing the reduced grid yourself</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/api.html#building-blocks">Building blocks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/api.html#result-objects">Result objects</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../reference/toplevel.html">Data, timeseries, I/O &amp; plotting</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/toplevel.html#module-climclusterpy.data">Data loading &amp; the grid registry</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/toplevel.html#how-much-the-package-reports">How much the package reports</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/toplevel.html#coordinates">Coordinates</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/toplevel.html#module-climclusterpy.timeseries">Per-cluster timeseries</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/toplevel.html#module-climclusterpy.io">File input/output</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/toplevel.html#module-climclusterpy.preprocessing">Preprocessing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/toplevel.html#module-climclusterpy.viz">Plotting</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../reference/features.html">Feature engineering</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/features.html#ecological-summaries">Ecological summaries</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/features.html#vegetation-model-traits">Vegetation-model traits</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/features.html#standardization-filtering">Standardization &amp; filtering</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../reference/clustering.html">Clustering &amp; metric learning</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/clustering.html#hierarchical-clustering">Hierarchical clustering</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/clustering.html#module-climclusterpy.clustering.lmnn">LMNN metric learning</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../reference/supervision.html">Supervision labels</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/supervision.html#koppengeiger-climate-zones">Köppen–Geiger climate zones</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/supervision.html#vegetation-model-output-traits">Vegetation-model output traits</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/supervision.html#ecoregion-polygons">Ecoregion polygons</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/supervision.html#daily-input-helpers">Daily-input helpers</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../reference/grid.html">Grid building &amp; reconstruction</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/grid.html#where-each-reduced-cell-is-placed">Where each reduced cell is placed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/grid.html#writing-the-reduced-grid">Writing the reduced grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/grid.html#reconstruction">Reconstruction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/grid.html#lpjml-clm-conversion">LPJmL CLM conversion</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../reference/cli.html">Command-line interface (<code class="docutils literal notranslate"><span class="pre">climclu</span></code>)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/cli.html#the-two-headline-commands">The two headline commands</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/cli.html#building-blocks">Building blocks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/cli.html#options-shared-by-every-action-command">Options shared by every action command</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/cli.html#errors-and-exit-codes">Errors and exit codes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../reference/index.html#which-function-do-i-need">Which function do I need?</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Explanation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../explanation/index.html">Explanation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../explanation/overview.html">Overview</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/overview.html#design-philosophy">Design Philosophy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/overview.html#workflow-summary">Workflow Summary</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/overview.html#key-innovations">Key Innovations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/overview.html#use-cases">Use Cases</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/overview.html#limitations">Limitations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/overview.html#future-directions">Future Directions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/overview.html#references">References</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../explanation/methods.html">Scientific Methods</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/methods.html#data-acquisition-and-preprocessing">Data Acquisition and Preprocessing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/methods.html#ecoregion-assignment">Ecoregion Assignment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/methods.html#ecological-feature-summarization">Ecological Feature Summarization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/methods.html#feature-standardization-and-filtering">Feature Standardization and Filtering</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/methods.html#large-margin-nearest-neighbor-lmnn-metric-learning">Large Margin Nearest Neighbor (LMNN) Metric Learning</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/methods.html#hierarchical-clustering">Hierarchical Clustering</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/methods.html#representative-cell-selection">Representative Cell Selection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/methods.html#evaluation-metrics">Evaluation Metrics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/methods.html#netcdf-processing">NetCDF Processing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/methods.html#computational-implementation">Computational Implementation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../explanation/index.html#reconstruction-correctness">Reconstruction correctness</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">climclusterpy</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">climclusterpy.io.clm</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for climclusterpy.io.clm</h1><div class="highlight"><pre>
+<span></span><span class="sd">"""Convert NetCDF grids to the LPJmL binary CLM input format.</span>
+
+<span class="sd">LPJmL reads climate and soil inputs as CLM binaries, produced by the ``cdf2clm``</span>
+<span class="sd">and ``cdf2soil`` utilities that ship with an LPJmL installation. This module is a</span>
+<span class="sd">thin, well-behaved wrapper around those binaries: it locates them, runs them, and</span>
+<span class="sd">fails with an actionable message when they are missing.</span>
+
+<span class="sd">The binaries are found in this order:</span>
+
+<span class="sd">1. explicit ``cdf2clm_path`` / ``cdf2soil_path`` arguments (a path given that does not</span>
+<span class="sd">   exist raises ``FileNotFoundError`` rather than falling back to the places below);</span>
+<span class="sd">2. ``tools_dir``, if given;</span>
+<span class="sd">3. ``$LPJROOT/bin``;</span>
+<span class="sd">4. ``PATH`` (including a login shell, so environment modules are picked up).</span>
+
+<span class="sd">Both tools take each axis's step from its **first and last coordinate only**, never</span>
+<span class="sd">checking the interior, and the check that would report a problem is disabled in the LPJmL</span>
+<span class="sd">source. An unevenly spaced latitude axis therefore gives every cell the wrong row's climate, with no warning and no failure. So</span>
+<span class="sd">every file handed to either tool is checked for a strictly uniform axis first, and a</span>
+<span class="sd">non-uniform one **raises** — see :func:`assert_uniform_axes`. That is a correctness guard,</span>
+<span class="sd">not tidiness; do not downgrade it to a warning.</span>
+<span class="sd">"""</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">shlex</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">shutil</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">subprocess</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+
+<span class="c1">#: Largest departure from a constant axis step, in degrees, that still counts as uniform.</span>
+<span class="c1">#: Set well below the 0.00125 deg lattice snap seen on real reduced grids so that a</span>
+<span class="c1">#: snapped axis trips the guard too, and well above float32 representation noise on a</span>
+<span class="c1">#: coordinate of magnitude 90 (about 8e-06 deg).</span>
+<span class="n">UNIFORM_AXIS_TOLERANCE_DEG</span> <span class="o">=</span> <span class="mf">1e-4</span>
+
+<span class="n">_LAT_NAMES</span> <span class="o">=</span> <span class="p">(</span><span class="s2">"lat"</span><span class="p">,</span> <span class="s2">"latitude"</span><span class="p">,</span> <span class="s2">"Lat"</span><span class="p">,</span> <span class="s2">"Latitude"</span><span class="p">,</span> <span class="s2">"LAT"</span><span class="p">)</span>
+<span class="n">_LON_NAMES</span> <span class="o">=</span> <span class="p">(</span><span class="s2">"lon"</span><span class="p">,</span> <span class="s2">"longitude"</span><span class="p">,</span> <span class="s2">"Lon"</span><span class="p">,</span> <span class="s2">"Longitude"</span><span class="p">,</span> <span class="s2">"LON"</span><span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_axis_values</span><span class="p">(</span><span class="n">ds</span><span class="p">,</span> <span class="n">names</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="o">...</span><span class="p">]):</span>
+<span class="w">    </span><span class="sd">"""Return the first coordinate in ``names`` present on ``ds``, or ``(None, None)``."""</span>
+    <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">names</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">ds</span><span class="o">.</span><span class="n">variables</span> <span class="ow">or</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">ds</span><span class="o">.</span><span class="n">coords</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">name</span><span class="p">,</span> <span class="n">ds</span><span class="p">[</span><span class="n">name</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+        <span class="k">continue</span>
+    <span class="k">return</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span>
+
+
+<div class="viewcode-block" id="assert_uniform_axes">
+<a class="viewcode-back" href="../../../reference/grid.html#climclusterpy.io.assert_uniform_axes">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">assert_uniform_axes</span><span class="p">(</span>
+    <span class="n">netcdf_file</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">tolerance_deg</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">UNIFORM_AXIS_TOLERANCE_DEG</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">"""Fail unless every spatial axis of ``netcdf_file`` is evenly spaced.</span>
+
+<span class="sd">    ``cdf2clm`` and ``cdf2soil`` infer each axis's step from its endpoints and never look</span>
+<span class="sd">    at the interior, so an uneven axis is a silently wrong answer rather than an error.</span>
+<span class="sd">    This is the check that makes handing them a file safe.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    netcdf_file : str</span>
+<span class="sd">        Path to the file about to be converted.</span>
+<span class="sd">    tolerance_deg : float, optional</span>
+<span class="sd">        Largest permitted departure from a constant step, in degrees. Defaults to</span>
+<span class="sd">        :data:`UNIFORM_AXIS_TOLERANCE_DEG`. **Loosening this re-opens the hazard** — a</span>
+<span class="sd">        caller who raises it is asserting that the interior of their axis does not matter,</span>
+<span class="sd">        which for a model input it does.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    dict</span>
+<span class="sd">        The step found for each axis present, keyed by that axis's variable name. An axis</span>
+<span class="sd">        of fewer than three points has no interior to disagree with and is reported as-is.</span>
+
+<span class="sd">    Raises</span>
+<span class="sd">    ------</span>
+<span class="sd">    ValueError</span>
+<span class="sd">        If any axis's step varies by more than ``tolerance_deg``. The message names the</span>
+<span class="sd">        index where it first happens and both steps, because "the grid is uneven" is not</span>
+<span class="sd">        actionable and "row 37 steps 0.75 where every other row steps 0.5" is.</span>
+<span class="sd">    """</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">xarray</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">xr</span>
+
+    <span class="n">steps</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">with</span> <span class="n">xr</span><span class="o">.</span><span class="n">open_dataset</span><span class="p">(</span><span class="n">netcdf_file</span><span class="p">,</span> <span class="n">decode_times</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> <span class="k">as</span> <span class="n">ds</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">what</span><span class="p">,</span> <span class="n">names</span> <span class="ow">in</span> <span class="p">((</span><span class="s2">"latitude"</span><span class="p">,</span> <span class="n">_LAT_NAMES</span><span class="p">),</span> <span class="p">(</span><span class="s2">"longitude"</span><span class="p">,</span> <span class="n">_LON_NAMES</span><span class="p">)):</span>
+            <span class="n">axis_name</span><span class="p">,</span> <span class="n">values</span> <span class="o">=</span> <span class="n">_axis_values</span><span class="p">(</span><span class="n">ds</span><span class="p">,</span> <span class="n">names</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">axis_name</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="c1"># Checking nothing and returning success is the one outcome a guard must</span>
+                <span class="c1"># never have: the converters need both axes, so say which is missing.</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">netcdf_file</span><span class="si">}</span><span class="s2">: no </span><span class="si">{</span><span class="n">what</span><span class="si">}</span><span class="s2"> axis found, so its spacing cannot be checked. "</span>
+                    <span class="sa">f</span><span class="s2">"Accepted names: </span><span class="si">{</span><span class="nb">list</span><span class="p">(</span><span class="n">names</span><span class="p">)</span><span class="si">}</span><span class="s2">; the file has </span><span class="si">{</span><span class="nb">sorted</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span><span class="w"> </span><span class="n">ds</span><span class="o">.</span><span class="n">variables</span><span class="p">))</span><span class="si">}</span><span class="s2">."</span>
+                <span class="p">)</span>
+            <span class="n">values</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">values</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">"float64"</span><span class="p">)</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">values</span><span class="o">.</span><span class="n">size</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span>
+                <span class="n">steps</span><span class="p">[</span><span class="n">axis_name</span><span class="p">]</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="s2">"nan"</span><span class="p">)</span>
+                <span class="k">continue</span>
+            <span class="n">diffs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">values</span><span class="p">)</span>
+            <span class="n">step</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">diffs</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+            <span class="n">steps</span><span class="p">[</span><span class="n">axis_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">step</span>
+            <span class="k">if</span> <span class="n">values</span><span class="o">.</span><span class="n">size</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="p">:</span>
+                <span class="k">continue</span>
+            <span class="n">offenders</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">flatnonzero</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">diffs</span> <span class="o">-</span> <span class="n">step</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">tolerance_deg</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">offenders</span><span class="o">.</span><span class="n">size</span><span class="p">:</span>
+                <span class="n">first</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">offenders</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">netcdf_file</span><span class="si">}</span><span class="s2">: axis '</span><span class="si">{</span><span class="n">axis_name</span><span class="si">}</span><span class="s2">' is not uniformly spaced. "</span>
+                    <span class="sa">f</span><span class="s2">"Step </span><span class="si">{</span><span class="nb">float</span><span class="p">(</span><span class="n">diffs</span><span class="p">[</span><span class="n">first</span><span class="p">])</span><span class="si">:</span><span class="s2">.10g</span><span class="si">}</span><span class="s2"> deg between index </span><span class="si">{</span><span class="n">first</span><span class="si">}</span><span class="s2"> "</span>
+                    <span class="sa">f</span><span class="s2">"(</span><span class="si">{</span><span class="n">values</span><span class="p">[</span><span class="n">first</span><span class="p">]</span><span class="si">:</span><span class="s2">.10g</span><span class="si">}</span><span class="s2">) and </span><span class="si">{</span><span class="n">first</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="n">values</span><span class="p">[</span><span class="n">first</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">]</span><span class="si">:</span><span class="s2">.10g</span><span class="si">}</span><span class="s2">), "</span>
+                    <span class="sa">f</span><span class="s2">"against </span><span class="si">{</span><span class="n">step</span><span class="si">:</span><span class="s2">.10g</span><span class="si">}</span><span class="s2"> deg at the start of the axis "</span>
+                    <span class="sa">f</span><span class="s2">"(</span><span class="si">{</span><span class="n">offenders</span><span class="o">.</span><span class="n">size</span><span class="si">}</span><span class="s2"> of </span><span class="si">{</span><span class="n">diffs</span><span class="o">.</span><span class="n">size</span><span class="si">}</span><span class="s2"> steps disagree by more than "</span>
+                    <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">tolerance_deg</span><span class="si">:</span><span class="s2">g</span><span class="si">}</span><span class="s2"> deg). cdf2clm/cdf2soil would take the step from the "</span>
+                    <span class="sa">f</span><span class="s2">"endpoints only and give cells the wrong row's data, silently. Rebuild "</span>
+                    <span class="sa">f</span><span class="s2">"the grid on a regular lattice — climclusterpy.build_reduced_grid does "</span>
+                    <span class="sa">f</span><span class="s2">"this by construction."</span>
+                <span class="p">)</span>
+    <span class="k">return</span> <span class="n">steps</span></div>
+
+
+
+<span class="k">class</span><span class="w"> </span><span class="nc">CLMConverter</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""</span>
+<span class="sd">    Python interface for converting NetCDF files to CLM format.</span>
+<span class="sd">    Wraps the external cdf2soil and cdf2clm utilities.</span>
+<span class="sd">    """</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">check_tools</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="n">cdf2soil_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">cdf2clm_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">tools_dir</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">uniform_axis_tolerance_deg</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">UNIFORM_AXIS_TOLERANCE_DEG</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="c1"># A tool path the caller names and that does not exist is a mistake to report, not</span>
+        <span class="c1"># a hint to ignore: falling back would quietly run whatever other copy is found.</span>
+        <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">path</span> <span class="ow">in</span> <span class="p">((</span><span class="s2">"cdf2soil_path"</span><span class="p">,</span> <span class="n">cdf2soil_path</span><span class="p">),</span> <span class="p">(</span><span class="s2">"cdf2clm_path"</span><span class="p">,</span> <span class="n">cdf2clm_path</span><span class="p">)):</span>
+            <span class="k">if</span> <span class="n">path</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+                <span class="k">raise</span> <span class="ne">FileNotFoundError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">=</span><span class="si">{</span><span class="n">path</span><span class="si">!r}</span><span class="s2"> does not exist or is not a file."</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_cdf2soil_path</span> <span class="o">=</span> <span class="n">cdf2soil_path</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_cdf2clm_path</span> <span class="o">=</span> <span class="n">cdf2clm_path</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_tools_dir</span> <span class="o">=</span> <span class="n">tools_dir</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">uniform_axis_tolerance_deg</span> <span class="o">=</span> <span class="n">uniform_axis_tolerance_deg</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_base_env</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_build_env</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_resolved_bins</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_resolve_bins</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tools_available</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_check_tools</span><span class="p">()</span> <span class="k">if</span> <span class="n">check_tools</span> <span class="k">else</span> <span class="kc">True</span>
+
+        <span class="c1"># Variable configuration for CLM conversion</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">climate_vars</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">"precipitation"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"var_name"</span><span class="p">:</span> <span class="s2">"precipitation"</span><span class="p">,</span> <span class="s2">"units"</span><span class="p">:</span> <span class="s2">"mm/day"</span><span class="p">},</span>
+            <span class="s2">"temperature"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"var_name"</span><span class="p">:</span> <span class="s2">"temperature"</span><span class="p">,</span> <span class="s2">"units"</span><span class="p">:</span> <span class="s2">"celsius"</span><span class="p">},</span>
+            <span class="s2">"short_wave_radiation"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"var_name"</span><span class="p">:</span> <span class="s2">"short_wave_radiation"</span><span class="p">,</span> <span class="s2">"units"</span><span class="p">:</span> <span class="s2">"W/m2"</span><span class="p">},</span>
+            <span class="s2">"long_wave_radiation"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"var_name"</span><span class="p">:</span> <span class="s2">"long_wave_radiation"</span><span class="p">,</span> <span class="s2">"units"</span><span class="p">:</span> <span class="s2">"W/m2"</span><span class="p">},</span>
+        <span class="p">}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">soil_vars</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">"soil_code"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"var_name"</span><span class="p">:</span> <span class="s2">"soil_code"</span><span class="p">,</span> <span class="s2">"units"</span><span class="p">:</span> <span class="kc">None</span><span class="p">},</span>
+            <span class="s2">"soil_depth"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"var_name"</span><span class="p">:</span> <span class="s2">"soil_depth"</span><span class="p">,</span> <span class="s2">"units"</span><span class="p">:</span> <span class="s2">"m"</span><span class="p">},</span>
+        <span class="p">}</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_build_env</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">"""Return the child-process environment, with the tool directories on PATH."""</span>
+        <span class="n">env</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="n">extra_paths</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tools_dir</span><span class="p">:</span>
+            <span class="n">extra_paths</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_tools_dir</span><span class="p">)</span>
+        <span class="n">lpjroot</span> <span class="o">=</span> <span class="n">env</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"LPJROOT"</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">lpjroot</span><span class="p">:</span>
+            <span class="n">extra_paths</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">lpjroot</span><span class="p">,</span> <span class="s2">"bin"</span><span class="p">))</span>
+        <span class="n">current_path</span> <span class="o">=</span> <span class="n">env</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"PATH"</span><span class="p">,</span> <span class="s2">""</span><span class="p">)</span>
+        <span class="n">env</span><span class="p">[</span><span class="s2">"PATH"</span><span class="p">]</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">pathsep</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">p</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">extra_paths</span> <span class="k">if</span> <span class="n">p</span><span class="p">]</span> <span class="o">+</span> <span class="p">[</span><span class="n">current_path</span><span class="p">])</span>
+        <span class="k">return</span> <span class="n">env</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_resolve_bins</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">"""Locate cdf2soil/cdf2clm; values are None when a tool cannot be found."""</span>
+
+        <span class="k">def</span><span class="w"> </span><span class="nf">_resolve</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">explicit</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">explicit</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">explicit</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tools_dir</span><span class="p">:</span>
+                <span class="n">cand</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_tools_dir</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">cand</span><span class="p">):</span>
+                    <span class="k">return</span> <span class="n">cand</span>
+            <span class="n">lpjroot</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_base_env</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"LPJROOT"</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">lpjroot</span><span class="p">:</span>
+                <span class="n">cand</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">lpjroot</span><span class="p">,</span> <span class="s2">"bin"</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">cand</span><span class="p">):</span>
+                    <span class="k">return</span> <span class="n">cand</span>
+            <span class="c1"># Last resort: the PATH built in _build_env (tools_dir + $LPJROOT/bin</span>
+            <span class="c1"># prepended to the inherited PATH).</span>
+            <span class="k">return</span> <span class="n">shutil</span><span class="o">.</span><span class="n">which</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_base_env</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"PATH"</span><span class="p">))</span>
+
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s2">"cdf2soil"</span><span class="p">:</span> <span class="n">_resolve</span><span class="p">(</span><span class="s2">"cdf2soil"</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cdf2soil_path</span><span class="p">),</span>
+            <span class="s2">"cdf2clm"</span><span class="p">:</span> <span class="n">_resolve</span><span class="p">(</span><span class="s2">"cdf2clm"</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cdf2clm_path</span><span class="p">),</span>
+        <span class="p">}</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_missing_tool_message</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Where ``name`` was looked for, and how to point the converter at it."""</span>
+        <span class="n">lpjroot</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_base_env</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"LPJROOT"</span><span class="p">)</span>
+        <span class="n">places</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tools_dir</span><span class="p">:</span>
+            <span class="n">places</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">"tools_dir=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_tools_dir</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+        <span class="n">places</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">"$LPJROOT/bin (</span><span class="si">{</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">lpjroot</span><span class="p">,</span><span class="w"> </span><span class="s1">'bin'</span><span class="p">)</span><span class="si">}</span><span class="s2">)"</span>
+            <span class="k">if</span> <span class="n">lpjroot</span>
+            <span class="k">else</span> <span class="s2">"$LPJROOT/bin ($LPJROOT is not set)"</span>
+        <span class="p">)</span>
+        <span class="n">places</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">"the PATH, including a login shell's"</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">(</span>
+            <span class="sa">f</span><span class="s2">"The LPJmL conversion tool '</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">' was not found. Looked in: "</span>
+            <span class="o">+</span> <span class="s2">"; "</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">places</span><span class="p">)</span>
+            <span class="o">+</span> <span class="s2">". It ships with an LPJmL installation (in its bin/ folder): set LPJROOT to "</span>
+            <span class="s2">"that installation, load its environment module, or pass tools_dir= (the folder "</span>
+            <span class="sa">f</span><span class="s2">"holding </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">)."</span>
+        <span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_check_tools</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="c1"># If binaries resolved directly, consider available</span>
+        <span class="n">missing</span> <span class="o">=</span> <span class="p">[</span><span class="n">name</span> <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">path</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_resolved_bins</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">path</span><span class="p">]</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">missing</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"✓ CLM conversion tools available (direct paths)"</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">True</span>
+        <span class="c1"># Try detecting via login shell environment (sources user's profile and modules)</span>
+        <span class="n">detected</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">missing</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_command_exists_login</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
+                <span class="n">detected</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+        <span class="n">still_missing</span> <span class="o">=</span> <span class="p">[</span><span class="n">n</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">missing</span> <span class="k">if</span> <span class="n">n</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">detected</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">still_missing</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Missing CLM conversion tools: </span><span class="si">{</span><span class="n">still_missing</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">False</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"✓ CLM conversion tools available via login shell"</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">True</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_command_exists_login</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">proc</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">run</span><span class="p">(</span>
+                <span class="p">[</span><span class="s2">"/bin/bash"</span><span class="p">,</span> <span class="s2">"-lc"</span><span class="p">,</span> <span class="sa">f</span><span class="s2">"command -v </span><span class="si">{</span><span class="n">shlex</span><span class="o">.</span><span class="n">quote</span><span class="p">(</span><span class="n">name</span><span class="p">)</span><span class="si">}</span><span class="s2"> &gt;/dev/null 2&gt;&amp;1"</span><span class="p">],</span>
+                <span class="n">env</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_base_env</span><span class="p">,</span>
+                <span class="n">check</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                <span class="n">capture_output</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                <span class="n">text</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="k">return</span> <span class="n">proc</span><span class="o">.</span><span class="n">returncode</span> <span class="o">==</span> <span class="mi">0</span>
+        <span class="k">except</span> <span class="ne">OSError</span><span class="p">:</span>  <span class="c1"># no bash to ask: the tool cannot be found this way</span>
+            <span class="k">return</span> <span class="kc">False</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_run_login</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">cwd</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">CompletedProcess</span><span class="p">:</span>
+        <span class="n">cmd_str</span> <span class="o">=</span> <span class="s2">" "</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">shlex</span><span class="o">.</span><span class="n">quote</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">args</span><span class="p">)</span>
+        <span class="c1"># Use login shell to ensure ~/.profile (and modules) are loaded</span>
+        <span class="k">return</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">run</span><span class="p">(</span>
+            <span class="p">[</span><span class="s2">"/bin/bash"</span><span class="p">,</span> <span class="s2">"-lc"</span><span class="p">,</span> <span class="n">cmd_str</span><span class="p">],</span>
+            <span class="n">env</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_base_env</span><span class="p">,</span>
+            <span class="n">cwd</span><span class="o">=</span><span class="n">cwd</span><span class="p">,</span>
+            <span class="n">check</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="n">capture_output</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="n">text</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">convert_soil_code</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">netcdf_file</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">output_dir</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">var_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"soil_code"</span><span class="p">,</span>
+        <span class="n">output_prefix</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">netcdf_file</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">FileNotFoundError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Input file not found: </span><span class="si">{</span><span class="n">netcdf_file</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">tools_available</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_missing_tool_message</span><span class="p">(</span><span class="s2">"cdf2soil"</span><span class="p">))</span>
+        <span class="n">assert_uniform_axes</span><span class="p">(</span><span class="n">netcdf_file</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">uniform_axis_tolerance_deg</span><span class="p">)</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">output_dir</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">output_prefix</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">output_prefix</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">netcdf_file</span><span class="p">)</span><span class="o">.</span><span class="n">stem</span>
+        <span class="n">grid_file</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">output_dir</span><span class="p">,</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">output_prefix</span><span class="si">}</span><span class="s2">.grid.clm"</span><span class="p">)</span>
+        <span class="n">soil_file</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">output_dir</span><span class="p">,</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">output_prefix</span><span class="si">}</span><span class="s2">.soil.bin"</span><span class="p">)</span>
+
+        <span class="n">bin_path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_resolved_bins</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"cdf2soil"</span><span class="p">)</span> <span class="ow">or</span> <span class="s2">"cdf2soil"</span>
+        <span class="n">cmd</span> <span class="o">=</span> <span class="p">[</span><span class="n">bin_path</span><span class="p">,</span> <span class="s2">"-float"</span><span class="p">,</span> <span class="s2">"-var"</span><span class="p">,</span> <span class="n">var_name</span><span class="p">,</span> <span class="n">netcdf_file</span><span class="p">,</span> <span class="n">grid_file</span><span class="p">,</span> <span class="n">soil_file</span><span class="p">]</span>
+
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Converting soil code with: </span><span class="si">{</span><span class="s1">' '</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">cmd</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="c1"># Prefer login shell to load user's environment if direct path is not resolved</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_resolved_bins</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"cdf2soil"</span><span class="p">):</span>
+                <span class="n">subprocess</span><span class="o">.</span><span class="n">run</span><span class="p">(</span>
+                    <span class="n">cmd</span><span class="p">,</span>
+                    <span class="n">check</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                    <span class="n">capture_output</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                    <span class="n">text</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                    <span class="n">cwd</span><span class="o">=</span><span class="n">output_dir</span><span class="p">,</span>
+                    <span class="n">env</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_base_env</span><span class="p">,</span>
+                <span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_run_login</span><span class="p">(</span><span class="n">cmd</span><span class="p">,</span> <span class="n">cwd</span><span class="o">=</span><span class="n">output_dir</span><span class="p">)</span>
+        <span class="k">except</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">CalledProcessError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">"cdf2soil failed: </span><span class="si">{</span><span class="n">e</span><span class="o">.</span><span class="n">stderr</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+            <span class="c1"># The tool's OWN message, in the exception, not only in a log nobody</span>
+            <span class="c1"># reads. `CalledProcessError` renders as "returned non-zero exit status</span>
+            <span class="c1"># 127" and nothing else, so a caller whose LD_LIBRARY_PATH is missing</span>
+            <span class="c1"># libnetcdf sees an exit code where the loader had written a sentence</span>
+            <span class="c1"># naming the library.</span>
+            <span class="n">detail</span> <span class="o">=</span> <span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">stderr</span> <span class="ow">or</span> <span class="n">e</span><span class="o">.</span><span class="n">stdout</span> <span class="ow">or</span> <span class="s2">""</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">"cdf2soil conversion failed: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">"</span>
+                <span class="o">+</span> <span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">cdf2soil said: </span><span class="si">{</span><span class="n">detail</span><span class="si">}</span><span class="s2">"</span> <span class="k">if</span> <span class="n">detail</span> <span class="k">else</span> <span class="s2">""</span><span class="p">)</span>
+            <span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">e</span>
+        <span class="k">return</span> <span class="p">{</span><span class="s2">"grid_file"</span><span class="p">:</span> <span class="n">grid_file</span><span class="p">,</span> <span class="s2">"soil_file"</span><span class="p">:</span> <span class="n">soil_file</span><span class="p">}</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">convert_climate_file</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">netcdf_file</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">grid_file</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">output_dir</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">var_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">units</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">output_prefix</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">netcdf_file</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">FileNotFoundError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Input file not found: </span><span class="si">{</span><span class="n">netcdf_file</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">tools_available</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_missing_tool_message</span><span class="p">(</span><span class="s2">"cdf2clm"</span><span class="p">))</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">grid_file</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">FileNotFoundError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Grid file not found: </span><span class="si">{</span><span class="n">grid_file</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+        <span class="n">assert_uniform_axes</span><span class="p">(</span><span class="n">netcdf_file</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">uniform_axis_tolerance_deg</span><span class="p">)</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">output_dir</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="n">basename</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">netcdf_file</span><span class="p">)</span><span class="o">.</span><span class="n">stem</span>
+        <span class="k">if</span> <span class="n">var_name</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">units</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">d_var</span><span class="p">,</span> <span class="n">d_units</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_detect_variable_info</span><span class="p">(</span><span class="n">basename</span><span class="p">)</span>
+            <span class="n">var_name</span> <span class="o">=</span> <span class="n">var_name</span> <span class="ow">or</span> <span class="n">d_var</span>
+            <span class="n">units</span> <span class="o">=</span> <span class="n">units</span> <span class="ow">or</span> <span class="n">d_units</span>
+        <span class="n">output_prefix</span> <span class="o">=</span> <span class="n">output_prefix</span> <span class="ow">or</span> <span class="n">basename</span>
+        <span class="n">clm_file</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">output_dir</span><span class="p">,</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">output_prefix</span><span class="si">}</span><span class="s2">.clm"</span><span class="p">)</span>
+
+        <span class="n">bin_path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_resolved_bins</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"cdf2clm"</span><span class="p">)</span> <span class="ow">or</span> <span class="s2">"cdf2clm"</span>
+        <span class="n">cmd</span> <span class="o">=</span> <span class="p">[</span><span class="n">bin_path</span><span class="p">,</span> <span class="s2">"-float"</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">var_name</span><span class="p">:</span>
+            <span class="n">cmd</span> <span class="o">+=</span> <span class="p">[</span><span class="s2">"-var"</span><span class="p">,</span> <span class="n">var_name</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">units</span><span class="p">:</span>
+            <span class="n">cmd</span> <span class="o">+=</span> <span class="p">[</span><span class="s2">"-units"</span><span class="p">,</span> <span class="n">units</span><span class="p">]</span>
+        <span class="n">cmd</span> <span class="o">+=</span> <span class="p">[</span><span class="s2">"-o"</span><span class="p">,</span> <span class="n">clm_file</span><span class="p">,</span> <span class="n">grid_file</span><span class="p">,</span> <span class="n">netcdf_file</span><span class="p">]</span>
+
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Converting NetCDF to CLM with: </span><span class="si">{</span><span class="s1">' '</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">cmd</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_resolved_bins</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"cdf2clm"</span><span class="p">):</span>
+                <span class="n">subprocess</span><span class="o">.</span><span class="n">run</span><span class="p">(</span>
+                    <span class="n">cmd</span><span class="p">,</span>
+                    <span class="n">check</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                    <span class="n">capture_output</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                    <span class="n">text</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                    <span class="n">cwd</span><span class="o">=</span><span class="n">output_dir</span><span class="p">,</span>
+                    <span class="n">env</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_base_env</span><span class="p">,</span>
+                <span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_run_login</span><span class="p">(</span><span class="n">cmd</span><span class="p">,</span> <span class="n">cwd</span><span class="o">=</span><span class="n">output_dir</span><span class="p">)</span>
+        <span class="k">except</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">CalledProcessError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">"cdf2clm failed: </span><span class="si">{</span><span class="n">e</span><span class="o">.</span><span class="n">stderr</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+            <span class="c1"># The tool's OWN message, in the exception, not only in a log nobody</span>
+            <span class="c1"># reads. `CalledProcessError` renders as "returned non-zero exit status</span>
+            <span class="c1"># 127" and nothing else, so a caller whose LD_LIBRARY_PATH is missing</span>
+            <span class="c1"># libnetcdf sees an exit code where the loader had written a sentence</span>
+            <span class="c1"># naming the library.</span>
+            <span class="n">detail</span> <span class="o">=</span> <span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">stderr</span> <span class="ow">or</span> <span class="n">e</span><span class="o">.</span><span class="n">stdout</span> <span class="ow">or</span> <span class="s2">""</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">"cdf2clm conversion failed: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">"</span> <span class="o">+</span> <span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">cdf2clm said: </span><span class="si">{</span><span class="n">detail</span><span class="si">}</span><span class="s2">"</span> <span class="k">if</span> <span class="n">detail</span> <span class="k">else</span> <span class="s2">""</span><span class="p">)</span>
+            <span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">e</span>
+        <span class="k">return</span> <span class="n">clm_file</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_detect_variable_info</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="p">]:</span>
+        <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">info</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">climate_vars</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">filename</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">info</span><span class="p">[</span><span class="s2">"var_name"</span><span class="p">],</span> <span class="n">info</span><span class="p">[</span><span class="s2">"units"</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">info</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">soil_vars</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">filename</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">info</span><span class="p">[</span><span class="s2">"var_name"</span><span class="p">],</span> <span class="n">info</span><span class="p">[</span><span class="s2">"units"</span><span class="p">]</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Could not auto-detect variable info for: </span><span class="si">{</span><span class="n">filename</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">convert_netcdf_directory</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">input_dir</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">output_dir</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">file_pattern</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"*.nc"</span><span class="p">,</span>
+        <span class="n">grid_file</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="p">]:</span>
+        <span class="n">input_path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">input_dir</span><span class="p">)</span>
+        <span class="n">nc_files</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">input_path</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">file_pattern</span><span class="p">))</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">nc_files</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">FileNotFoundError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">"No NetCDF files in </span><span class="si">{</span><span class="n">input_dir</span><span class="si">}</span><span class="s2"> match </span><span class="si">{</span><span class="n">file_pattern</span><span class="si">!r}</span><span class="s2">; check the folder and "</span>
+                <span class="s2">"the pattern."</span>
+            <span class="p">)</span>
+
+        <span class="n">results</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="n">soil_code_file</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">if</span> <span class="n">grid_file</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">grid_file</span><span class="p">):</span>
+                <span class="k">raise</span> <span class="ne">FileNotFoundError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"grid_file not found: </span><span class="si">{</span><span class="n">grid_file</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Using provided grid file: </span><span class="si">{</span><span class="n">grid_file</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">soil_code_files</span> <span class="o">=</span> <span class="p">[</span><span class="n">f</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">nc_files</span> <span class="k">if</span> <span class="s2">"soil_code"</span> <span class="ow">in</span> <span class="n">f</span><span class="o">.</span><span class="n">name</span><span class="p">]</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">soil_code_files</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">"No soil_code file found and no grid_file provided"</span><span class="p">)</span>
+            <span class="n">soil_code_file</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">soil_code_files</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+
+        <span class="c1"># Every file's axes first, so an uneven one stops the run before anything is written</span>
+        <span class="c1"># and reaches the caller as the ValueError it is, not wrapped as a failed conversion.</span>
+        <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">nc_files</span><span class="p">:</span>
+            <span class="n">assert_uniform_axes</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">f</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">uniform_axis_tolerance_deg</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">soil_code_file</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">soil_result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">convert_soil_code</span><span class="p">(</span><span class="n">soil_code_file</span><span class="p">,</span> <span class="n">output_dir</span><span class="p">)</span>
+            <span class="n">grid_file</span> <span class="o">=</span> <span class="n">soil_result</span><span class="p">[</span><span class="s2">"grid_file"</span><span class="p">]</span>
+            <span class="n">results</span><span class="p">[</span><span class="n">soil_code_file</span><span class="p">]</span> <span class="o">=</span> <span class="n">grid_file</span>
+
+        <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">nc_files</span><span class="p">:</span>
+            <span class="k">if</span> <span class="s2">"soil_code"</span> <span class="ow">in</span> <span class="n">f</span><span class="o">.</span><span class="n">name</span><span class="p">:</span>
+                <span class="k">continue</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">results</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">f</span><span class="p">)]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">convert_climate_file</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">f</span><span class="p">),</span> <span class="n">grid_file</span><span class="p">,</span> <span class="n">output_dir</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>  <span class="c1"># re-raised with the file named; any failure is fatal</span>
+                <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">"Failed to convert </span><span class="si">{</span><span class="n">f</span><span class="si">}</span><span class="s2"> to CLM: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">. Every forcing file a run needs must "</span>
+                    <span class="s2">"convert; fix this file or remove it from the directory."</span>
+                <span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">e</span>
+
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Conversion summary: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">results</span><span class="p">)</span><span class="si">}</span><span class="s2"> files converted"</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">results</span>
+
+
+<div class="viewcode-block" id="convert_netcdf_to_clm">
+<a class="viewcode-back" href="../../../reference/grid.html#climclusterpy.io.convert_netcdf_to_clm">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">convert_netcdf_to_clm</span><span class="p">(</span>
+    <span class="n">netcdf_files</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
+    <span class="n">output_dir</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">grid_file</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="o">*</span><span class="p">,</span>
+    <span class="n">soil_code_file</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">strict</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="n">uniform_axis_tolerance_deg</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">UNIFORM_AXIS_TOLERANCE_DEG</span><span class="p">,</span>
+    <span class="n">tools_dir</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">"""Convert NetCDF grids to the CLM binaries LPJmL reads, and return what was written.</span>
+
+<span class="sd">    This is the input half of the reduced-grid round trip:</span>
+<span class="sd">    :func:`~climclusterpy.build_reduced_grid` writes one NetCDF per forcing variable, and</span>
+<span class="sd">    this turns them into the ``.clm`` files a model run consumes. Coordinates are written</span>
+<span class="sd">    as floats (both tools are called with ``-float``), which is what keeps them exact —</span>
+<span class="sd">    the tools' integer path truncates rather than rounds,</span>
+<span class="sd">    so a coordinate one bit below a lattice point would land a whole step away. Do not drop</span>
+<span class="sd">    that flag.</span>
+
+<span class="sd">    Every input is checked for a uniform axis first (:func:`assert_uniform_axes`), because</span>
+<span class="sd">    the tools infer each axis's step from its endpoints alone.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    netcdf_files : str or list of str</span>
+<span class="sd">        The files to convert. Unless ``soil_code_file`` or ``grid_file`` is given, exactly</span>
+<span class="sd">        one must be a soil-code file, recognised by ``"soil_code"`` in its name; it is</span>
+<span class="sd">        converted first because it produces the grid file every climate conversion needs.</span>
+<span class="sd">    output_dir : str</span>
+<span class="sd">        Where the ``.clm`` / ``.bin`` files land. Created if absent.</span>
+<span class="sd">    grid_file : str, optional</span>
+<span class="sd">        An existing ``.grid.clm`` to convert against. When given, no soil-code file is</span>
+<span class="sd">        needed and none is converted; a path that does not exist raises.</span>
+<span class="sd">    soil_code_file : str, optional</span>
+<span class="sd">        The soil-code NetCDF that defines the grid, named explicitly instead of found by</span>
+<span class="sd">        ``"soil_code"`` in a file name -- safer when names are your own. It need not be in</span>
+<span class="sd">        ``netcdf_files``; if it is, it is converted once, as the grid. Not together with</span>
+<span class="sd">        ``grid_file``.</span>
+<span class="sd">    strict : bool, optional</span>
+<span class="sd">        Default ``True``: a failed conversion raises. With ``False`` the failure is logged</span>
+<span class="sd">        and that file's entry is ``None``, which is the older behaviour — use it only when</span>
+<span class="sd">        a partial result is genuinely useful, never before a model run. A run launched</span>
+<span class="sd">        against a silently missing forcing file is the failure this default prevents. An</span>
+<span class="sd">        unevenly spaced axis raises ``ValueError`` either way.</span>
+<span class="sd">    uniform_axis_tolerance_deg : float, optional</span>
+<span class="sd">        Passed through to :func:`assert_uniform_axes`.</span>
+<span class="sd">    tools_dir : str, optional</span>
+<span class="sd">        The folder holding ``cdf2clm`` and ``cdf2soil``. By default they are looked for in</span>
+<span class="sd">        ``$LPJROOT/bin`` and then on the ``PATH``.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    dict</span>
+<span class="sd">        Input path to output path. The soil-code entry maps to the ``.grid.clm`` that was</span>
+<span class="sd">        written from it. Values are ``None`` only when ``strict=False``.</span>
+
+<span class="sd">    Raises</span>
+<span class="sd">    ------</span>
+<span class="sd">    RuntimeError</span>
+<span class="sd">        If no soil-code file is present and no ``grid_file`` was given, or — under</span>
+<span class="sd">        ``strict`` — if any conversion fails.</span>
+<span class="sd">    ValueError</span>
+<span class="sd">        If any input's latitude or longitude axis is not uniformly spaced (whatever</span>
+<span class="sd">        ``strict`` is), or both ``grid_file`` and ``soil_code_file`` are given.</span>
+<span class="sd">    FileNotFoundError</span>
+<span class="sd">        If an input, ``grid_file`` or ``soil_code_file`` does not exist.</span>
+<span class="sd">    """</span>
+    <span class="n">files</span> <span class="o">=</span> <span class="p">[</span><span class="n">netcdf_files</span><span class="p">]</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">netcdf_files</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="k">else</span> <span class="nb">list</span><span class="p">(</span><span class="n">netcdf_files</span><span class="p">)</span>
+    <span class="n">missing</span> <span class="o">=</span> <span class="p">[</span><span class="n">f</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">files</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">f</span><span class="p">)]</span>
+    <span class="k">if</span> <span class="n">missing</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">FileNotFoundError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Input file(s) not found: </span><span class="si">{</span><span class="n">missing</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+    <span class="n">converter</span> <span class="o">=</span> <span class="n">CLMConverter</span><span class="p">(</span>
+        <span class="n">uniform_axis_tolerance_deg</span><span class="o">=</span><span class="n">uniform_axis_tolerance_deg</span><span class="p">,</span> <span class="n">tools_dir</span><span class="o">=</span><span class="n">tools_dir</span>
+    <span class="p">)</span>
+    <span class="n">results</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="k">if</span> <span class="n">grid_file</span> <span class="ow">and</span> <span class="n">soil_code_file</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+            <span class="s2">"Pass grid_file= (an existing grid to convert against) or soil_code_file= (the "</span>
+            <span class="s2">"NetCDF to make the grid from), not both."</span>
+        <span class="p">)</span>
+    <span class="k">if</span> <span class="n">grid_file</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">grid_file</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">FileNotFoundError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"grid_file not found: </span><span class="si">{</span><span class="n">grid_file</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">soil_code_file</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">soil_code_file</span><span class="p">):</span>
+                <span class="k">raise</span> <span class="ne">FileNotFoundError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"soil_code_file not found: </span><span class="si">{</span><span class="n">soil_code_file</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+            <span class="n">soil_file</span> <span class="o">=</span> <span class="n">soil_code_file</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">soil</span> <span class="o">=</span> <span class="p">[</span><span class="n">f</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">files</span> <span class="k">if</span> <span class="s2">"soil_code"</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">f</span><span class="p">)]</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">soil</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
+                    <span class="s2">"No soil-code file to make the grid from: pass soil_code_file=, or "</span>
+                    <span class="s2">"grid_file= to convert against an existing grid."</span>
+                <span class="p">)</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">soil</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">soil</span><span class="p">)</span><span class="si">}</span><span class="s2"> files have 'soil_code' in their name (</span><span class="si">{</span><span class="n">soil</span><span class="si">}</span><span class="s2">); name the one "</span>
+                    <span class="s2">"that defines the grid with soil_code_file=."</span>
+                <span class="p">)</span>
+            <span class="n">soil_file</span> <span class="o">=</span> <span class="n">soil</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">soil_result</span> <span class="o">=</span> <span class="n">converter</span><span class="o">.</span><span class="n">convert_soil_code</span><span class="p">(</span><span class="n">soil_file</span><span class="p">,</span> <span class="n">output_dir</span><span class="p">)</span>
+        <span class="n">grid_file</span> <span class="o">=</span> <span class="n">soil_result</span><span class="p">[</span><span class="s2">"grid_file"</span><span class="p">]</span>
+        <span class="n">results</span><span class="p">[</span><span class="n">soil_file</span><span class="p">]</span> <span class="o">=</span> <span class="n">grid_file</span>
+        <span class="n">files</span> <span class="o">=</span> <span class="p">[</span><span class="n">f</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">files</span> <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">f</span><span class="p">)</span> <span class="o">!=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">soil_file</span><span class="p">)]</span>
+
+    <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">files</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">out</span> <span class="o">=</span> <span class="n">converter</span><span class="o">.</span><span class="n">convert_climate_file</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">grid_file</span><span class="p">,</span> <span class="n">output_dir</span><span class="p">)</span>
+            <span class="n">results</span><span class="p">[</span><span class="n">f</span><span class="p">]</span> <span class="o">=</span> <span class="n">out</span>
+        <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+            <span class="c1"># An unevenly spaced axis (checked before every conversion) is a file the tool</span>
+            <span class="c1"># would read wrongly without failing, not a failed conversion: it always reaches</span>
+            <span class="c1"># the caller as the ValueError it is, whatever strict says.</span>
+            <span class="k">raise</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>  <span class="c1"># re-raised unless the caller asked for partial results</span>
+            <span class="k">if</span> <span class="n">strict</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">"Failed to convert </span><span class="si">{</span><span class="n">f</span><span class="si">}</span><span class="s2"> to CLM: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">. Every forcing file a run needs "</span>
+                    <span class="sa">f</span><span class="s2">"must convert, so this is fatal by default; pass strict=False to "</span>
+                    <span class="sa">f</span><span class="s2">"collect partial results instead."</span>
+                <span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">e</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Failed to convert </span><span class="si">{</span><span class="n">f</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+            <span class="n">results</span><span class="p">[</span><span class="n">f</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="k">return</span> <span class="n">results</span></div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, Jamir Priesner.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

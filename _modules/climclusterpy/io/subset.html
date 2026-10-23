@@ -1,0 +1,668 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>climclusterpy.io.subset &mdash; climclusterpy 0.5</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/custom.css?v=f2cc2102" />
+
+  
+    <link rel="shortcut icon" href="../../../_static/logo.svg"/>
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=1dd76d02"></script>
+      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            climclusterpy
+              <img src="../../../_static/logo.svg" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorials/index.html">Tutorials</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../tutorials/one_call_roundtrip.html">Tutorial 0 — the whole workflow in two calls</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/one_call_roundtrip.html#the-idea">The idea</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/one_call_roundtrip.html#call-1-build-the-reduced-grid">Call 1 — build the reduced grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/one_call_roundtrip.html#call-2-rebuild-the-original-grid">Call 2 — rebuild the original grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/one_call_roundtrip.html#the-complete-script">The complete script</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/one_call_roundtrip.html#run-it">Run it</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/one_call_roundtrip.html#next-steps">Next steps</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../tutorials/euclidean_clustering.html">Tutorial 1 — Euclidean clustering</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/euclidean_clustering.html#load-data-and-build-a-feature-matrix">Load data and build a feature matrix</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/euclidean_clustering.html#cluster">Cluster</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/euclidean_clustering.html#the-complete-script">The complete script</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/euclidean_clustering.html#run-it">Run it</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/euclidean_clustering.html#next-steps">Next steps</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../tutorials/lmnn_clustering.html">Tutorial 2 — LMNN metric-learning clustering</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/lmnn_clustering.html#provide-a-supervision-signal">Provide a supervision signal</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/lmnn_clustering.html#learn-a-metric-and-cluster">Learn a metric and cluster</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/lmnn_clustering.html#the-complete-script">The complete script</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/lmnn_clustering.html#run-it">Run it</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/lmnn_clustering.html#next-steps">Next steps</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../tutorials/supervision.html">Tutorial 3 — Supervision signals</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/supervision.html#koppengeiger-from-monthly-climatology">Köppen–Geiger from monthly climatology</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/supervision.html#model-output-trait-clustering">Model-output (trait) clustering</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/supervision.html#the-complete-script">The complete script</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/supervision.html#run-it">Run it</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/supervision.html#ecoregion-supervision">Ecoregion supervision</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../tutorials/reconstruction.html">Tutorial 4 — Reconstruct the original grid</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/reconstruction.html#the-round-trip">The round trip</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/reconstruction.html#verify">Verify</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/reconstruction.html#the-complete-script">The complete script</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/reconstruction.html#run-it">Run it</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/reconstruction.html#next-steps">Next steps</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../tutorials/index.html#a-note-on-the-synthetic-data">A note on the synthetic data</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">How-to guides</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../howto/index.html">How-to guides</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../howto/install.html">Install climclusterpy</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/install.html#base-install">Base install</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/install.html#optional-extras">Optional extras</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/install.html#installing-the-geospatial-extras-with-conda">Installing the geospatial extras with conda</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/install.html#pytorch-cpu-vs-gpu">PyTorch (CPU vs. GPU)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/install.html#environment-variables">Environment variables</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/install.html#building-the-documentation">Building the documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../howto/inputs.html">Prepare the input files</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/inputs.html#check-your-input-first">Check your input first</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/inputs.html#the-files">The files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/inputs.html#grid-and-coordinates">Grid and coordinates</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/inputs.html#which-cells-exist-the-soil-code">Which cells exist: the soil code</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/inputs.html#the-time-axis">The time axis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/inputs.html#missing-values">Missing values</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/inputs.html#another-vegetation-model-s-input">Another vegetation model’s input</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/inputs.html#output-files">Output files</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../howto/clustering.html">Cluster a feature matrix (choose a mode)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/clustering.html#euclidean-mode-no-supervision">Euclidean mode (no supervision)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/clustering.html#lmnn-mode-supervised-metric-learning">LMNN mode (supervised metric learning)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/clustering.html#lower-level-control">Lower-level control</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../howto/supervision.html">Build an LMNN supervision signal</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/supervision.html#from-climate-koppengeiger">From climate — Köppen–Geiger</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/supervision.html#from-model-output-traits">From model output — traits</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/supervision.html#from-a-shapefile-ecoregions2017">From a shapefile — Ecoregions2017</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/supervision.html#using-the-signal">Using the signal</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/supervision.html#in-one-call">In one call</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/supervision.html#saved-results-are-reused-only-for-the-same-inputs">Saved results are reused only for the same inputs</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../howto/cell_selection.html">Choosing the cells a cluster is simulated on</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/cell_selection.html#the-patch-budget">The patch budget</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/cell_selection.html#what-the-drawn-cells-carry">What the drawn cells carry</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/cell_selection.html#reproducibility">Reproducibility</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/cell_selection.html#looking-at-a-draw-without-building-a-grid">Looking at a draw without building a grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/cell_selection.html#back-to-the-full-grid">Back to the full grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/cell_selection.html#a-model-that-reads-its-own-inputs-the-grid-only-then-cut-the-rest">A model that reads its own inputs: the grid only, then cut the rest</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../howto/reconstruct.html">Reconstruct the original grid</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/reconstruct.html#the-usual-call">The usual call</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/reconstruct.html#picking-up-where-you-left-off">Picking up where you left off</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/reconstruct.html#without-a-result-or-run-folder">Without a result or run folder</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/reconstruct.html#required-mapping-files">Required mapping files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/reconstruct.html#reconstruction-paths-kind">Reconstruction paths (<code class="docutils literal notranslate"><span class="pre">kind</span></code>)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/reconstruct.html#verifying-the-result">Verifying the result</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../reference/index.html">Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../reference/api.html">Public API — <code class="xref py py-mod docutils literal notranslate"><span class="pre">climclusterpy</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/api.html#the-two-headline-functions">The two headline functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/api.html#before-and-after-the-model-run">Before and after the model run</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/api.html#input-for-a-model-other-than-lpjml">Input for a model other than LPJmL</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/api.html#other-ways-to-build-the-reduced-grid">Other ways to build the reduced grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/api.html#reusing-a-trained-metric">Reusing a trained metric</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/api.html#the-model-s-other-inputs">The model’s other inputs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/api.html#writing-the-reduced-grid-yourself">Writing the reduced grid yourself</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/api.html#building-blocks">Building blocks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/api.html#result-objects">Result objects</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../reference/toplevel.html">Data, timeseries, I/O &amp; plotting</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/toplevel.html#module-climclusterpy.data">Data loading &amp; the grid registry</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/toplevel.html#how-much-the-package-reports">How much the package reports</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/toplevel.html#coordinates">Coordinates</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/toplevel.html#module-climclusterpy.timeseries">Per-cluster timeseries</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/toplevel.html#module-climclusterpy.io">File input/output</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/toplevel.html#module-climclusterpy.preprocessing">Preprocessing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/toplevel.html#module-climclusterpy.viz">Plotting</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../reference/features.html">Feature engineering</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/features.html#ecological-summaries">Ecological summaries</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/features.html#vegetation-model-traits">Vegetation-model traits</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/features.html#standardization-filtering">Standardization &amp; filtering</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../reference/clustering.html">Clustering &amp; metric learning</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/clustering.html#hierarchical-clustering">Hierarchical clustering</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/clustering.html#module-climclusterpy.clustering.lmnn">LMNN metric learning</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../reference/supervision.html">Supervision labels</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/supervision.html#koppengeiger-climate-zones">Köppen–Geiger climate zones</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/supervision.html#vegetation-model-output-traits">Vegetation-model output traits</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/supervision.html#ecoregion-polygons">Ecoregion polygons</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/supervision.html#daily-input-helpers">Daily-input helpers</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../reference/grid.html">Grid building &amp; reconstruction</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/grid.html#where-each-reduced-cell-is-placed">Where each reduced cell is placed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/grid.html#writing-the-reduced-grid">Writing the reduced grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/grid.html#reconstruction">Reconstruction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/grid.html#lpjml-clm-conversion">LPJmL CLM conversion</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../reference/cli.html">Command-line interface (<code class="docutils literal notranslate"><span class="pre">climclu</span></code>)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/cli.html#the-two-headline-commands">The two headline commands</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/cli.html#building-blocks">Building blocks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/cli.html#options-shared-by-every-action-command">Options shared by every action command</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/cli.html#errors-and-exit-codes">Errors and exit codes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../reference/index.html#which-function-do-i-need">Which function do I need?</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Explanation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../explanation/index.html">Explanation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../explanation/overview.html">Overview</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/overview.html#design-philosophy">Design Philosophy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/overview.html#workflow-summary">Workflow Summary</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/overview.html#key-innovations">Key Innovations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/overview.html#use-cases">Use Cases</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/overview.html#limitations">Limitations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/overview.html#future-directions">Future Directions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/overview.html#references">References</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../explanation/methods.html">Scientific Methods</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/methods.html#data-acquisition-and-preprocessing">Data Acquisition and Preprocessing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/methods.html#ecoregion-assignment">Ecoregion Assignment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/methods.html#ecological-feature-summarization">Ecological Feature Summarization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/methods.html#feature-standardization-and-filtering">Feature Standardization and Filtering</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/methods.html#large-margin-nearest-neighbor-lmnn-metric-learning">Large Margin Nearest Neighbor (LMNN) Metric Learning</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/methods.html#hierarchical-clustering">Hierarchical Clustering</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/methods.html#representative-cell-selection">Representative Cell Selection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/methods.html#evaluation-metrics">Evaluation Metrics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/methods.html#netcdf-processing">NetCDF Processing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/methods.html#computational-implementation">Computational Implementation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../explanation/index.html#reconstruction-correctness">Reconstruction correctness</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">climclusterpy</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">climclusterpy.io.subset</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for climclusterpy.io.subset</h1><div class="highlight"><pre>
+<span></span><span class="sd">"""Cut any model input down to the cells of a reduced grid: ``subset_inputs``.</span>
+
+<span class="sd">The reduced grid the package writes carries the climate and soil it clustered on. A real model</span>
+<span class="sd">run opens more inputs than that -- LPJmL with nitrogen on opens wind, wet days, deposition, soil</span>
+<span class="sd">pH, slopes, hydrotopes and more -- and each must reach the reduced grid with exactly the values of</span>
+<span class="sd">the full run, only for fewer cells. This module copies them, without decoding, rescaling or</span>
+<span class="sd">converting anything:</span>
+
+<span class="sd">* **NetCDF** inputs are written on the reduced grid's own lattice -- the same latitude and</span>
+<span class="sd">  longitude axes as the reduced-grid NetCDFs the package wrote -- with every slot holding its</span>
+<span class="sd">  *source* cell's values. A model that finds NetCDF cells by coordinate therefore reads the right</span>
+<span class="sd">  climate even for the slots that do not sit at their source position (the repeated cells of the</span>
+<span class="sd">  distributed choice, every cell of a packed medoid/centroid grid).</span>
+<span class="sd">* **LPJmL** ``.clm`` / ``.clm.json`` / raw inputs are cut record by record into the reduced grid's</span>
+<span class="sd">  cell order, which is the order of its LPJmL grid file. Each slot's source cell is found by</span>
+<span class="sd">  coordinate in the full run's grid file; a positional join between the two grids would be</span>
+<span class="sd">  silently wrong.</span>
+<span class="sd">"""</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">.lpjml</span><span class="w"> </span><span class="kn">import</span> <span class="n">_keys</span><span class="p">,</span> <span class="n">cell_index_in_grid</span><span class="p">,</span> <span class="n">cut_clm</span><span class="p">,</span> <span class="n">cut_meta</span><span class="p">,</span> <span class="n">cut_raw</span><span class="p">,</span> <span class="n">read_lpjml_grid</span>
+
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"subset_inputs"</span><span class="p">]</span>
+
+<span class="n">_NETCDF_SUFFIXES</span> <span class="o">=</span> <span class="p">(</span><span class="s2">".nc"</span><span class="p">,</span> <span class="s2">".nc4"</span><span class="p">,</span> <span class="s2">".cdf"</span><span class="p">,</span> <span class="s2">".netcdf"</span><span class="p">)</span>
+<span class="n">RECORD</span> <span class="o">=</span> <span class="s2">"subset_inputs.json"</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_format</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="n">lower</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">lower</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="n">_NETCDF_SUFFIXES</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s2">"netcdf"</span>
+    <span class="k">if</span> <span class="n">lower</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">".json"</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s2">"meta"</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s2">"rb"</span><span class="p">)</span> <span class="k">as</span> <span class="n">fh</span><span class="p">:</span>
+        <span class="n">head</span> <span class="o">=</span> <span class="n">fh</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">head</span><span class="p">[:</span><span class="mi">3</span><span class="p">]</span> <span class="o">==</span> <span class="sa">b</span><span class="s2">"CDF"</span> <span class="ow">or</span> <span class="n">head</span><span class="p">[:</span><span class="mi">4</span><span class="p">]</span> <span class="o">==</span> <span class="sa">b</span><span class="s2">"</span><span class="se">\x89</span><span class="s2">HDF"</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s2">"netcdf"</span>
+    <span class="k">if</span> <span class="n">head</span><span class="p">[:</span><span class="mi">3</span><span class="p">]</span> <span class="o">==</span> <span class="sa">b</span><span class="s2">"LPJ"</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s2">"clm"</span>
+    <span class="k">return</span> <span class="s2">"raw"</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_normalised_inputs</span><span class="p">(</span><span class="n">inputs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]:</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">inputs</span><span class="p">,</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">os</span><span class="o">.</span><span class="n">PathLike</span><span class="p">):</span>
+        <span class="n">inputs</span> <span class="o">=</span> <span class="p">[</span><span class="n">inputs</span><span class="p">]</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">inputs</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+        <span class="n">named</span> <span class="o">=</span> <span class="p">{</span><span class="nb">str</span><span class="p">(</span><span class="n">k</span><span class="p">):</span> <span class="n">os</span><span class="o">.</span><span class="n">fspath</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">inputs</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">named</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">path</span> <span class="ow">in</span> <span class="n">inputs</span><span class="p">:</span>
+            <span class="n">name</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">path</span><span class="p">)</span><span class="o">.</span><span class="n">stem</span>  <span class="c1"># input.clm.json -&gt; input.clm, wind.nc -&gt; wind</span>
+            <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">named</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">"Two inputs would both be called </span><span class="si">{</span><span class="n">name</span><span class="si">!r}</span><span class="s2">; pass a mapping of names to paths."</span>
+                <span class="p">)</span>
+            <span class="n">named</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">fspath</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+    <span class="n">missing</span> <span class="o">=</span> <span class="p">[</span><span class="n">p</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">named</span><span class="o">.</span><span class="n">values</span><span class="p">()</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">p</span><span class="p">)]</span>
+    <span class="k">if</span> <span class="n">missing</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">FileNotFoundError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Input file(s) not found: </span><span class="si">{</span><span class="n">missing</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">named</span>
+
+
+<span class="c1"># --------------------------------------------------------------------------- NetCDF</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_lattice</span><span class="p">(</span><span class="n">clusters</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">"""The latitude and longitude axes of the reduced grid's own NetCDFs."""</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">netCDF4</span>
+
+    <span class="kn">from</span><span class="w"> </span><span class="nn">..data.coords</span><span class="w"> </span><span class="kn">import</span> <span class="n">LAT_NAMES</span><span class="p">,</span> <span class="n">LON_NAMES</span>
+
+    <span class="n">files</span> <span class="o">=</span> <span class="p">[</span><span class="n">p</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">clusters</span><span class="o">.</span><span class="n">cluster_files</span> <span class="k">if</span> <span class="nb">str</span><span class="p">(</span><span class="n">p</span><span class="p">)</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">".nc"</span><span class="p">)</span> <span class="ow">and</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">p</span><span class="p">)]</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">files</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+            <span class="s2">"The reduced grid has no NetCDF to take its lattice from; build it with at least "</span>
+            <span class="s2">"one field written (write_fields)."</span>
+        <span class="p">)</span>
+    <span class="k">with</span> <span class="n">netCDF4</span><span class="o">.</span><span class="n">Dataset</span><span class="p">(</span><span class="n">files</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="k">as</span> <span class="n">nc</span><span class="p">:</span>
+        <span class="n">lat</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">n</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">LAT_NAMES</span> <span class="k">if</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">nc</span><span class="o">.</span><span class="n">variables</span><span class="p">)</span>
+        <span class="n">lon</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">n</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">LON_NAMES</span> <span class="k">if</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">nc</span><span class="o">.</span><span class="n">variables</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">nc</span><span class="p">[</span><span class="n">lat</span><span class="p">][:],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">nc</span><span class="p">[</span><span class="n">lon</span><span class="p">][:],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_positions</span><span class="p">(</span><span class="n">axis</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">values</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">longitude</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span> <span class="n">what</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">norm</span><span class="p">(</span><span class="n">v</span><span class="p">):</span>
+        <span class="n">v</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">),</span> <span class="mi">4</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">v</span> <span class="o">&gt;=</span> <span class="mf">180.0</span><span class="p">,</span> <span class="n">v</span> <span class="o">-</span> <span class="mf">360.0</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span> <span class="k">if</span> <span class="n">longitude</span> <span class="k">else</span> <span class="n">v</span>
+
+    <span class="n">a</span><span class="p">,</span> <span class="n">v</span> <span class="o">=</span> <span class="n">norm</span><span class="p">(</span><span class="n">axis</span><span class="p">),</span> <span class="n">norm</span><span class="p">(</span><span class="n">values</span><span class="p">)</span>
+    <span class="n">order</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s2">"stable"</span><span class="p">)</span>
+    <span class="n">pos</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">searchsorted</span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="n">order</span><span class="p">],</span> <span class="n">v</span><span class="p">),</span> <span class="mi">0</span><span class="p">,</span> <span class="n">a</span><span class="o">.</span><span class="n">size</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">array_equal</span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="n">order</span><span class="p">][</span><span class="n">pos</span><span class="p">],</span> <span class="n">v</span><span class="p">):</span>
+        <span class="n">bad</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">values</span><span class="p">)[</span><span class="n">a</span><span class="p">[</span><span class="n">order</span><span class="p">][</span><span class="n">pos</span><span class="p">]</span> <span class="o">!=</span> <span class="n">v</span><span class="p">][:</span><span class="mi">5</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">what</span><span class="si">}</span><span class="s2">: coordinates </span><span class="si">{</span><span class="n">bad</span><span class="si">}</span><span class="s2"> are not on the axis."</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">order</span><span class="p">[</span><span class="n">pos</span><span class="p">]</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_subset_netcdf</span><span class="p">(</span><span class="n">src</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">dst</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">slots</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">lattice</span><span class="p">,</span> <span class="n">n_jobs</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">netCDF4</span>
+
+    <span class="kn">from</span><span class="w"> </span><span class="nn">..data.coords</span><span class="w"> </span><span class="kn">import</span> <span class="n">LAT_NAMES</span><span class="p">,</span> <span class="n">LON_NAMES</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">.cellread</span><span class="w"> </span><span class="kn">import</span> <span class="n">file_source</span><span class="p">,</span> <span class="n">read_cell_series</span>
+
+    <span class="n">target_lat</span><span class="p">,</span> <span class="n">target_lon</span> <span class="o">=</span> <span class="n">lattice</span>
+    <span class="n">t_lat</span> <span class="o">=</span> <span class="n">_positions</span><span class="p">(</span><span class="n">target_lat</span><span class="p">,</span> <span class="n">slots</span><span class="p">[</span><span class="s2">"grid_latitude"</span><span class="p">],</span> <span class="n">longitude</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">what</span><span class="o">=</span><span class="s2">"reduced grid"</span><span class="p">)</span>
+    <span class="n">t_lon</span> <span class="o">=</span> <span class="n">_positions</span><span class="p">(</span><span class="n">target_lon</span><span class="p">,</span> <span class="n">slots</span><span class="p">[</span><span class="s2">"grid_longitude"</span><span class="p">],</span> <span class="n">longitude</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">what</span><span class="o">=</span><span class="s2">"reduced grid"</span><span class="p">)</span>
+
+    <span class="k">with</span> <span class="n">netCDF4</span><span class="o">.</span><span class="n">Dataset</span><span class="p">(</span><span class="n">src</span><span class="p">)</span> <span class="k">as</span> <span class="n">nc_in</span><span class="p">,</span> <span class="n">netCDF4</span><span class="o">.</span><span class="n">Dataset</span><span class="p">(</span><span class="n">dst</span><span class="p">,</span> <span class="s2">"w"</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="n">nc_in</span><span class="o">.</span><span class="n">data_model</span><span class="p">)</span> <span class="k">as</span> <span class="n">out</span><span class="p">:</span>
+        <span class="n">lat_dim</span> <span class="o">=</span> <span class="nb">next</span><span class="p">((</span><span class="n">d</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">nc_in</span><span class="o">.</span><span class="n">dimensions</span> <span class="k">if</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">LAT_NAMES</span><span class="p">),</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="n">lon_dim</span> <span class="o">=</span> <span class="nb">next</span><span class="p">((</span><span class="n">d</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">nc_in</span><span class="o">.</span><span class="n">dimensions</span> <span class="k">if</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">LON_NAMES</span><span class="p">),</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">lat_dim</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">lon_dim</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">src</span><span class="si">}</span><span class="s2"> has no latitude/longitude dimensions (</span><span class="si">{</span><span class="nb">list</span><span class="p">(</span><span class="n">nc_in</span><span class="o">.</span><span class="n">dimensions</span><span class="p">)</span><span class="si">}</span><span class="s2">)."</span>
+            <span class="p">)</span>
+        <span class="n">s_lat</span> <span class="o">=</span> <span class="n">_positions</span><span class="p">(</span><span class="n">nc_in</span><span class="p">[</span><span class="n">lat_dim</span><span class="p">][:],</span> <span class="n">slots</span><span class="p">[</span><span class="s2">"source_latitude"</span><span class="p">],</span> <span class="n">longitude</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">what</span><span class="o">=</span><span class="n">src</span><span class="p">)</span>
+        <span class="n">s_lon</span> <span class="o">=</span> <span class="n">_positions</span><span class="p">(</span><span class="n">nc_in</span><span class="p">[</span><span class="n">lon_dim</span><span class="p">][:],</span> <span class="n">slots</span><span class="p">[</span><span class="s2">"source_longitude"</span><span class="p">],</span> <span class="n">longitude</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">what</span><span class="o">=</span><span class="n">src</span><span class="p">)</span>
+
+        <span class="n">out</span><span class="o">.</span><span class="n">setncatts</span><span class="p">({</span><span class="n">a</span><span class="p">:</span> <span class="n">nc_in</span><span class="o">.</span><span class="n">getncattr</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">nc_in</span><span class="o">.</span><span class="n">ncattrs</span><span class="p">()})</span>
+        <span class="n">out</span><span class="o">.</span><span class="n">setncattr</span><span class="p">(</span>
+            <span class="s2">"climclusterpy_subset"</span><span class="p">,</span>
+            <span class="sa">f</span><span class="s2">"cut from </span><span class="si">{</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">src</span><span class="p">)</span><span class="si">}</span><span class="s2"> to the </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">slots</span><span class="p">)</span><span class="si">}</span><span class="s2"> cells of a reduced grid; "</span>
+            <span class="s2">"every cell holds the values of its source cell"</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">dim</span> <span class="ow">in</span> <span class="n">nc_in</span><span class="o">.</span><span class="n">dimensions</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">size</span> <span class="o">=</span> <span class="p">{</span><span class="n">lat_dim</span><span class="p">:</span> <span class="n">target_lat</span><span class="o">.</span><span class="n">size</span><span class="p">,</span> <span class="n">lon_dim</span><span class="p">:</span> <span class="n">target_lon</span><span class="o">.</span><span class="n">size</span><span class="p">}</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">dim</span><span class="p">))</span>
+            <span class="n">out</span><span class="o">.</span><span class="n">createDimension</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="kc">None</span> <span class="k">if</span> <span class="n">dim</span><span class="o">.</span><span class="n">isunlimited</span><span class="p">()</span> <span class="k">else</span> <span class="n">size</span><span class="p">)</span>
+
+        <span class="n">spatial</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">var</span> <span class="ow">in</span> <span class="n">nc_in</span><span class="o">.</span><span class="n">variables</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">dims</span> <span class="o">=</span> <span class="n">var</span><span class="o">.</span><span class="n">dimensions</span>
+            <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="p">(</span><span class="n">lat_dim</span><span class="p">,</span> <span class="n">lon_dim</span><span class="p">):</span>
+                <span class="k">continue</span>
+            <span class="k">if</span> <span class="n">lat_dim</span> <span class="ow">in</span> <span class="n">dims</span> <span class="ow">and</span> <span class="n">lon_dim</span> <span class="ow">in</span> <span class="n">dims</span><span class="p">:</span>
+                <span class="n">spatial</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">lat_dim</span> <span class="ow">in</span> <span class="n">dims</span> <span class="ow">or</span> <span class="n">lon_dim</span> <span class="ow">in</span> <span class="n">dims</span><span class="p">:</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"subset_inputs: </span><span class="si">%s</span><span class="s2">:</span><span class="si">%s</span><span class="s2"> describes the old axis; not copied"</span><span class="p">,</span> <span class="n">src</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">copy</span> <span class="o">=</span> <span class="n">out</span><span class="o">.</span><span class="n">createVariable</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">var</span><span class="o">.</span><span class="n">dtype</span><span class="p">,</span> <span class="n">dims</span><span class="p">,</span> <span class="n">fill_value</span><span class="o">=</span><span class="n">_fill_attr</span><span class="p">(</span><span class="n">var</span><span class="p">))</span>
+                <span class="n">copy</span><span class="o">.</span><span class="n">setncatts</span><span class="p">(</span><span class="n">_attrs</span><span class="p">(</span><span class="n">var</span><span class="p">))</span>
+                <span class="n">copy</span><span class="o">.</span><span class="n">set_auto_maskandscale</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+                <span class="n">var</span><span class="o">.</span><span class="n">set_auto_maskandscale</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+                <span class="n">copy</span><span class="p">[</span><span class="o">...</span><span class="p">]</span> <span class="o">=</span> <span class="n">var</span><span class="p">[</span><span class="o">...</span><span class="p">]</span>
+
+        <span class="c1"># The new axes: the reduced grid's own lattice, under the source's names and attributes.</span>
+        <span class="k">for</span> <span class="n">dim</span><span class="p">,</span> <span class="n">values</span> <span class="ow">in</span> <span class="p">((</span><span class="n">lat_dim</span><span class="p">,</span> <span class="n">target_lat</span><span class="p">),</span> <span class="p">(</span><span class="n">lon_dim</span><span class="p">,</span> <span class="n">target_lon</span><span class="p">)):</span>
+            <span class="n">src_var</span> <span class="o">=</span> <span class="n">nc_in</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="n">dim</span><span class="p">]</span>
+            <span class="n">coord</span> <span class="o">=</span> <span class="n">out</span><span class="o">.</span><span class="n">createVariable</span><span class="p">(</span><span class="n">dim</span><span class="p">,</span> <span class="n">src_var</span><span class="o">.</span><span class="n">dtype</span><span class="p">,</span> <span class="p">(</span><span class="n">dim</span><span class="p">,))</span>
+            <span class="n">coord</span><span class="o">.</span><span class="n">setncatts</span><span class="p">(</span><span class="n">_attrs</span><span class="p">(</span><span class="n">src_var</span><span class="p">))</span>
+            <span class="n">coord</span><span class="p">[:]</span> <span class="o">=</span> <span class="n">values</span>
+
+        <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">spatial</span><span class="p">:</span>
+            <span class="n">var</span> <span class="o">=</span> <span class="n">nc_in</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="n">name</span><span class="p">]</span>
+            <span class="n">var</span><span class="o">.</span><span class="n">set_auto_maskandscale</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+            <span class="n">fill</span> <span class="o">=</span> <span class="n">_fill_attr</span><span class="p">(</span><span class="n">var</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">fill</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">fill</span> <span class="o">=</span> <span class="n">netCDF4</span><span class="o">.</span><span class="n">default_fillvals</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">var</span><span class="o">.</span><span class="n">dtype</span><span class="o">.</span><span class="n">str</span><span class="p">[</span><span class="mi">1</span><span class="p">:],</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span>
+            <span class="n">other</span> <span class="o">=</span> <span class="p">[</span><span class="n">d</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">var</span><span class="o">.</span><span class="n">dimensions</span> <span class="k">if</span> <span class="n">d</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="n">lat_dim</span><span class="p">,</span> <span class="n">lon_dim</span><span class="p">)]</span>
+            <span class="n">dims</span> <span class="o">=</span> <span class="p">(</span><span class="o">*</span><span class="n">other</span><span class="p">,</span> <span class="n">lat_dim</span><span class="p">,</span> <span class="n">lon_dim</span><span class="p">)</span>
+            <span class="n">chunks</span> <span class="o">=</span> <span class="p">(</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">other</span><span class="p">),</span> <span class="n">target_lat</span><span class="o">.</span><span class="n">size</span><span class="p">,</span> <span class="n">target_lon</span><span class="o">.</span><span class="n">size</span><span class="p">)</span>
+            <span class="n">new</span> <span class="o">=</span> <span class="n">out</span><span class="o">.</span><span class="n">createVariable</span><span class="p">(</span>
+                <span class="n">name</span><span class="p">,</span> <span class="n">var</span><span class="o">.</span><span class="n">dtype</span><span class="p">,</span> <span class="n">dims</span><span class="p">,</span> <span class="n">fill_value</span><span class="o">=</span><span class="n">fill</span><span class="p">,</span> <span class="n">zlib</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">complevel</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">chunksizes</span><span class="o">=</span><span class="n">chunks</span>
+            <span class="p">)</span>
+            <span class="n">new</span><span class="o">.</span><span class="n">setncatts</span><span class="p">(</span><span class="n">_attrs</span><span class="p">(</span><span class="n">var</span><span class="p">))</span>
+            <span class="n">new</span><span class="o">.</span><span class="n">set_auto_maskandscale</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">other</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">grid</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">((</span><span class="n">target_lat</span><span class="o">.</span><span class="n">size</span><span class="p">,</span> <span class="n">target_lon</span><span class="o">.</span><span class="n">size</span><span class="p">),</span> <span class="n">fill</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">var</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+                <span class="n">grid</span><span class="p">[</span><span class="n">t_lat</span><span class="p">,</span> <span class="n">t_lon</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">var</span><span class="p">[</span><span class="o">...</span><span class="p">])</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span>
+                    <span class="n">var</span><span class="o">.</span><span class="n">dimensions</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">lat_dim</span><span class="p">),</span> <span class="n">var</span><span class="o">.</span><span class="n">dimensions</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">lon_dim</span><span class="p">)</span>
+                <span class="p">)[</span><span class="n">s_lat</span><span class="p">,</span> <span class="n">s_lon</span><span class="p">]</span>
+                <span class="n">new</span><span class="p">[</span><span class="o">...</span><span class="p">]</span> <span class="o">=</span> <span class="n">grid</span>
+            <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">other</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="n">lat_vals</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">nc_in</span><span class="p">[</span><span class="n">lat_dim</span><span class="p">][:])[</span><span class="n">s_lat</span><span class="p">]</span>
+                <span class="n">lon_vals</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">nc_in</span><span class="p">[</span><span class="n">lon_dim</span><span class="p">][:])[</span><span class="n">s_lon</span><span class="p">]</span>
+                <span class="n">packed</span> <span class="o">=</span> <span class="n">s_lat</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">int64</span><span class="p">)</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">nc_in</span><span class="o">.</span><span class="n">dimensions</span><span class="p">[</span><span class="n">lon_dim</span><span class="p">])</span> <span class="o">+</span> <span class="n">s_lon</span>
+                <span class="n">unique</span><span class="p">,</span> <span class="n">slot_to_unique</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">packed</span><span class="p">,</span> <span class="n">return_inverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+                <span class="n">first</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">slot_to_unique</span><span class="p">,</span> <span class="n">return_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
+                <span class="n">source</span> <span class="o">=</span> <span class="n">file_source</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">lat_vals</span><span class="p">[</span><span class="n">first</span><span class="p">],</span> <span class="n">lon_vals</span><span class="p">[</span><span class="n">first</span><span class="p">],</span> <span class="n">raw</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+                <span class="n">series</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">read_cell_series</span><span class="p">({</span><span class="n">name</span><span class="p">:</span> <span class="n">source</span><span class="p">},</span> <span class="n">n_jobs</span><span class="o">=</span><span class="n">n_jobs</span><span class="p">)</span>
+                <span class="n">values</span> <span class="o">=</span> <span class="n">series</span><span class="p">[</span><span class="n">name</span><span class="p">]</span>
+                <span class="n">n_t</span> <span class="o">=</span> <span class="n">values</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                <span class="n">step</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">min</span><span class="p">(</span><span class="n">n_t</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="mf">2e8</span> <span class="o">//</span> <span class="nb">max</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">target_lat</span><span class="o">.</span><span class="n">size</span> <span class="o">*</span> <span class="n">target_lon</span><span class="o">.</span><span class="n">size</span><span class="p">))))</span>
+                <span class="k">for</span> <span class="n">t0</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">n_t</span><span class="p">,</span> <span class="n">step</span><span class="p">):</span>
+                    <span class="n">t1</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">t0</span> <span class="o">+</span> <span class="n">step</span><span class="p">,</span> <span class="n">n_t</span><span class="p">)</span>
+                    <span class="n">buf</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">((</span><span class="n">t1</span> <span class="o">-</span> <span class="n">t0</span><span class="p">,</span> <span class="n">target_lat</span><span class="o">.</span><span class="n">size</span><span class="p">,</span> <span class="n">target_lon</span><span class="o">.</span><span class="n">size</span><span class="p">),</span> <span class="n">fill</span><span class="p">,</span> <span class="n">var</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+                    <span class="n">buf</span><span class="p">[:,</span> <span class="n">t_lat</span><span class="p">,</span> <span class="n">t_lon</span><span class="p">]</span> <span class="o">=</span> <span class="n">values</span><span class="p">[</span><span class="n">t0</span><span class="p">:</span><span class="n">t1</span><span class="p">][:,</span> <span class="n">slot_to_unique</span><span class="p">]</span>
+                    <span class="n">new</span><span class="p">[</span><span class="n">t0</span><span class="p">:</span><span class="n">t1</span><span class="p">]</span> <span class="o">=</span> <span class="n">buf</span>
+                <span class="k">del</span> <span class="n">values</span><span class="p">,</span> <span class="n">series</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">src</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2"> has </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">other</span><span class="p">)</span><span class="si">}</span><span class="s2"> non-spatial dimensions </span><span class="si">{</span><span class="n">other</span><span class="si">}</span><span class="s2">; only one "</span>
+                    <span class="s2">"(time, usually) is supported."</span>
+                <span class="p">)</span>
+    <span class="k">return</span> <span class="p">{</span><span class="s2">"format"</span><span class="p">:</span> <span class="s2">"netcdf"</span><span class="p">,</span> <span class="s2">"variables"</span><span class="p">:</span> <span class="n">spatial</span><span class="p">}</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_fill_attr</span><span class="p">(</span><span class="n">var</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">attr</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">"_FillValue"</span><span class="p">,</span> <span class="s2">"missing_value"</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">attr</span> <span class="ow">in</span> <span class="n">var</span><span class="o">.</span><span class="n">ncattrs</span><span class="p">():</span>
+            <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">var</span><span class="o">.</span><span class="n">getncattr</span><span class="p">(</span><span class="n">attr</span><span class="p">))</span><span class="o">.</span><span class="n">ravel</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">return</span> <span class="kc">None</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_attrs</span><span class="p">(</span><span class="n">var</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+    <span class="k">return</span> <span class="p">{</span><span class="n">a</span><span class="p">:</span> <span class="n">var</span><span class="o">.</span><span class="n">getncattr</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">var</span><span class="o">.</span><span class="n">ncattrs</span><span class="p">()</span> <span class="k">if</span> <span class="n">a</span> <span class="o">!=</span> <span class="s2">"_FillValue"</span><span class="p">}</span>
+
+
+<span class="c1"># --------------------------------------------------------------------------- LPJmL binaries</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_positional_index</span><span class="p">(</span><span class="n">slots</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">source_grid</span><span class="p">,</span> <span class="n">target_grid</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""For each cell of ``target_grid``, in its order, the index of its source cell in ``source_grid``."""</span>
+    <span class="n">target</span> <span class="o">=</span> <span class="n">read_lpjml_grid</span><span class="p">(</span><span class="n">target_grid</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">target</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">slots</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">target_grid</span><span class="si">}</span><span class="s2"> has </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">target</span><span class="p">)</span><span class="si">}</span><span class="s2"> cells but the reduced grid has </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">slots</span><span class="p">)</span><span class="si">}</span><span class="s2"> slots: "</span>
+            <span class="s2">"it is not this reduced grid's grid file."</span>
+        <span class="p">)</span>
+    <span class="n">slot_keys</span> <span class="o">=</span> <span class="n">_keys</span><span class="p">(</span><span class="n">slots</span><span class="p">[</span><span class="s2">"grid_longitude"</span><span class="p">],</span> <span class="n">slots</span><span class="p">[</span><span class="s2">"grid_latitude"</span><span class="p">])</span>
+    <span class="n">lookup</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">slots</span><span class="p">)),</span> <span class="n">index</span><span class="o">=</span><span class="n">slot_keys</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">lookup</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">has_duplicates</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"Two slots of the reduced grid share one position."</span><span class="p">)</span>
+    <span class="n">target_keys</span> <span class="o">=</span> <span class="n">_keys</span><span class="p">(</span><span class="n">target</span><span class="p">[</span><span class="s2">"longitude"</span><span class="p">],</span> <span class="n">target</span><span class="p">[</span><span class="s2">"latitude"</span><span class="p">])</span>
+    <span class="n">missing</span> <span class="o">=</span> <span class="o">~</span><span class="n">np</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">target_keys</span><span class="p">,</span> <span class="n">slot_keys</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">missing</span><span class="o">.</span><span class="n">any</span><span class="p">():</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">missing</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span><span class="si">}</span><span class="s2"> cells of </span><span class="si">{</span><span class="n">target_grid</span><span class="si">}</span><span class="s2"> are not slots of this reduced grid."</span>
+        <span class="p">)</span>
+    <span class="n">order</span> <span class="o">=</span> <span class="n">lookup</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">target_keys</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
+    <span class="n">rows</span> <span class="o">=</span> <span class="n">slots</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">order</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">cell_index_in_grid</span><span class="p">(</span>
+        <span class="n">source_grid</span><span class="p">,</span> <span class="n">rows</span><span class="p">[</span><span class="s2">"source_latitude"</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">(),</span> <span class="n">rows</span><span class="p">[</span><span class="s2">"source_longitude"</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
+    <span class="p">)</span>
+
+
+<span class="c1"># --------------------------------------------------------------------------- public</span>
+
+
+<div class="viewcode-block" id="subset_inputs">
+<a class="viewcode-back" href="../../../reference/api.html#climclusterpy.subset_inputs">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">subset_inputs</span><span class="p">(</span>
+    <span class="n">clusters</span><span class="p">,</span>
+    <span class="n">inputs</span><span class="p">,</span>
+    <span class="n">output_dir</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="o">*</span><span class="p">,</span>
+    <span class="n">source_grid</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">target_grid</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">n_jobs</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">"""Cut model input files down to the cells of a reduced grid, keeping their format and type.</span>
+
+<span class="sd">    For the inputs the reduced grid itself does not carry -- whatever else the model opens per</span>
+<span class="sd">    cell. Every slot of the reduced grid gets its *source* cell's record: the cell whose climate</span>
+<span class="sd">    it carries. A slot that repeats a cell (the distributed choice in a region with fewer cells</span>
+<span class="sd">    than draws) gets that cell's record again.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    clusters : CreateClustersResult or str</span>
+<span class="sd">        The reduced grid: what :func:`~climclusterpy.create_clusters` or</span>
+<span class="sd">        :func:`~climclusterpy.create_regions` returned, or their ``output_dir``.</span>
+<span class="sd">    inputs : str, sequence of str, or mapping of name to path</span>
+<span class="sd">        The files to cut. The format is taken from each file:</span>
+
+<span class="sd">        * NetCDF (``.nc`` and the like) -- every variable on the latitude/longitude grid is</span>
+<span class="sd">          written on the reduced grid's own lattice, each slot holding its source cell's values</span>
+<span class="sd">          in the variable's own type, attributes and packing. Variables with no spatial axis</span>
+<span class="sd">          (time, CO2 series, ...) are copied unchanged. At most one non-spatial axis per</span>
+<span class="sd">          variable.</span>
+<span class="sd">        * LPJmL ``.clm`` (an ``LPJ...`` header, order ``cellyear``) -- records cut into the</span>
+<span class="sd">          reduced grid's cell order; the header kept with only the cell count changed.</span>
+<span class="sd">        * LPJmL ``.clm.json`` -- the data file it names is cut, and the description rewritten</span>
+<span class="sd">          for the new cell count (its ``grid`` entry, which named the full grid, is dropped).</span>
+<span class="sd">        * anything else -- a header-less file of one fixed-width record per cell (LPJmL's</span>
+<span class="sd">          ``soil.bin``-style raw files).</span>
+
+<span class="sd">        A mapping names the outputs in the returned dict; a sequence names each by its file</span>
+<span class="sd">        name without the last extension (``wind.nc`` -&gt; ``wind``, ``ph.clm.json`` -&gt;</span>
+<span class="sd">        ``ph.clm``).</span>
+<span class="sd">    output_dir : str</span>
+<span class="sd">        Where the cut files go, each under its source's file name (created if missing). A</span>
+<span class="sd">        ``subset_inputs.json`` there records what was cut from where.</span>
+<span class="sd">    source_grid : str, optional</span>
+<span class="sd">        LPJmL inputs only, and required for them: the full run's grid file (``.clm`` with an</span>
+<span class="sd">        ``LPJGRID`` header, or its ``.clm.json``). Record ``i`` of every full-run input belongs</span>
+<span class="sd">        to cell ``i`` of this file; each slot's source cell is found in it **by coordinate**.</span>
+<span class="sd">    target_grid : str, optional</span>
+<span class="sd">        LPJmL inputs only, and required for them: the reduced grid's own LPJmL grid file, as</span>
+<span class="sd">        :func:`~climclusterpy.convert_netcdf_to_clm` wrote it. Its cell order is the order the</span>
+<span class="sd">        cut files are written in.</span>
+<span class="sd">    n_jobs : int, optional</span>
+<span class="sd">        Worker processes for reading NetCDF series (default ``-1``, all cores).</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    dict</span>
+<span class="sd">        Input name to the path written (for ``.clm.json``, the description).</span>
+
+<span class="sd">    Raises</span>
+<span class="sd">    ------</span>
+<span class="sd">    ValueError</span>
+<span class="sd">        If a slot's source cell is not in an input's grid or in ``source_grid``; if</span>
+<span class="sd">        ``target_grid`` does not hold exactly this reduced grid's cells; if an LPJmL input is</span>
+<span class="sd">        given without both grid files, does not cover ``source_grid``'s cells, or is not</span>
+<span class="sd">        ordered ``cellyear``.</span>
+<span class="sd">    FileNotFoundError</span>
+<span class="sd">        If an input does not exist.</span>
+<span class="sd">    """</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">clusters</span><span class="p">,</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">os</span><span class="o">.</span><span class="n">PathLike</span><span class="p">):</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">..api</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_clusters</span>
+
+        <span class="n">clusters</span> <span class="o">=</span> <span class="n">load_clusters</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">fspath</span><span class="p">(</span><span class="n">clusters</span><span class="p">))</span>
+    <span class="n">named</span> <span class="o">=</span> <span class="n">_normalised_inputs</span><span class="p">(</span><span class="n">inputs</span><span class="p">)</span>
+    <span class="n">formats</span> <span class="o">=</span> <span class="p">{</span><span class="n">name</span><span class="p">:</span> <span class="n">_format</span><span class="p">(</span><span class="n">path</span><span class="p">)</span> <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">path</span> <span class="ow">in</span> <span class="n">named</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
+    <span class="n">slots</span> <span class="o">=</span> <span class="n">clusters</span><span class="o">.</span><span class="n">slot_sources</span>
+
+    <span class="n">needs_grids</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">n</span> <span class="k">for</span> <span class="n">n</span><span class="p">,</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">formats</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">f</span> <span class="o">!=</span> <span class="s2">"netcdf"</span><span class="p">)</span>
+    <span class="n">index</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="k">if</span> <span class="n">needs_grids</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">source_grid</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">target_grid</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">needs_grids</span><span class="si">}</span><span class="s2"> are LPJmL binaries, which LPJmL reads by position: cutting them "</span>
+                <span class="s2">"needs source_grid= (the full run's grid file, whose order they follow) and "</span>
+                <span class="s2">"target_grid= (the reduced grid's own grid file, whose order to write)."</span>
+            <span class="p">)</span>
+        <span class="n">index</span> <span class="o">=</span> <span class="n">_positional_index</span><span class="p">(</span><span class="n">slots</span><span class="p">,</span> <span class="n">source_grid</span><span class="p">,</span> <span class="n">target_grid</span><span class="p">)</span>
+        <span class="n">n_source</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">read_lpjml_grid</span><span class="p">(</span><span class="n">source_grid</span><span class="p">))</span>
+
+    <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">output_dir</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">lattice</span> <span class="o">=</span> <span class="n">_lattice</span><span class="p">(</span><span class="n">clusters</span><span class="p">)</span> <span class="k">if</span> <span class="s2">"netcdf"</span> <span class="ow">in</span> <span class="n">formats</span><span class="o">.</span><span class="n">values</span><span class="p">()</span> <span class="k">else</span> <span class="kc">None</span>
+    <span class="n">written</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">record</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">"reduced_grid"</span><span class="p">:</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">clusters</span><span class="o">.</span><span class="n">output_dir</span><span class="p">),</span>
+        <span class="s2">"n_slots"</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">slots</span><span class="p">),</span>
+        <span class="s2">"n_repeated_slots"</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">slots</span><span class="o">.</span><span class="n">duplicated</span><span class="p">(</span><span class="s2">"cell_id"</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()),</span>
+        <span class="s2">"source_grid"</span><span class="p">:</span> <span class="kc">None</span> <span class="k">if</span> <span class="n">source_grid</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">source_grid</span><span class="p">),</span>
+        <span class="s2">"target_grid"</span><span class="p">:</span> <span class="kc">None</span> <span class="k">if</span> <span class="n">target_grid</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">target_grid</span><span class="p">),</span>
+        <span class="s2">"inputs"</span><span class="p">:</span> <span class="p">{},</span>
+    <span class="p">}</span>
+    <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">src</span> <span class="ow">in</span> <span class="n">named</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="n">dst</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">output_dir</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">src</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">dst</span><span class="p">)</span> <span class="o">==</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">src</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"output_dir would overwrite the input </span><span class="si">{</span><span class="n">src</span><span class="si">}</span><span class="s2">."</span><span class="p">)</span>
+        <span class="n">fmt</span> <span class="o">=</span> <span class="n">formats</span><span class="p">[</span><span class="n">name</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">fmt</span> <span class="o">==</span> <span class="s2">"netcdf"</span><span class="p">:</span>
+            <span class="n">info</span> <span class="o">=</span> <span class="n">_subset_netcdf</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">dst</span><span class="p">,</span> <span class="n">slots</span><span class="p">,</span> <span class="n">lattice</span><span class="p">,</span> <span class="n">n_jobs</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">fmt</span> <span class="o">==</span> <span class="s2">"clm"</span><span class="p">:</span>
+            <span class="n">info</span> <span class="o">=</span> <span class="n">cut_clm</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">dst</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="n">n_source</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">fmt</span> <span class="o">==</span> <span class="s2">"meta"</span><span class="p">:</span>
+            <span class="n">info</span> <span class="o">=</span> <span class="n">cut_meta</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">dst</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="n">n_source</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">info</span> <span class="o">=</span> <span class="n">cut_raw</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">dst</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="n">n_source</span><span class="p">)</span>
+        <span class="n">written</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">dst</span>
+        <span class="n">record</span><span class="p">[</span><span class="s2">"inputs"</span><span class="p">][</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"source"</span><span class="p">:</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">src</span><span class="p">),</span> <span class="s2">"written"</span><span class="p">:</span> <span class="n">dst</span><span class="p">,</span> <span class="o">**</span><span class="n">info</span><span class="p">}</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"subset_inputs: </span><span class="si">%s</span><span class="s2"> (</span><span class="si">%s</span><span class="s2">) -&gt; </span><span class="si">%s</span><span class="s2">"</span><span class="p">,</span> <span class="n">src</span><span class="p">,</span> <span class="n">fmt</span><span class="p">,</span> <span class="n">dst</span><span class="p">)</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">output_dir</span><span class="p">,</span> <span class="n">RECORD</span><span class="p">),</span> <span class="s2">"w"</span><span class="p">)</span> <span class="k">as</span> <span class="n">fh</span><span class="p">:</span>
+        <span class="n">json</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">record</span><span class="p">,</span> <span class="n">fh</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="nb">str</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">written</span></div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, Jamir Priesner.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

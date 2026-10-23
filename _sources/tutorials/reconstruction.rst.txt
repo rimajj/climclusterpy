@@ -1,0 +1,70 @@
+Tutorial 4 — Reconstruct the original grid
+==========================================
+
+**Capability 4: reconstruct the original grid from cluster-grid output.** This tutorial
+runs the full round trip on synthetic data: cluster the cells, emit a synthetic
+"model output" NetCDF on the artificial cluster grid together with the two mapping CSVs,
+then reconstruct the output back onto every original cell and verify each cell recovered
+exactly its cluster's value.
+
+The round trip
+--------------
+
+After clustering (:doc:`euclidean_clustering`), the example writes an artificial-grid
+output NetCDF laid out as one latitude row with one longitude column per cluster, plus:
+
+* ``cluster_id_mapping_{K}.csv`` — every original cell → its cluster;
+* ``cluster_compact_map_{K}.csv`` — each cluster → its ``lat_index`` and longitude span
+  on the artificial grid.
+
+:func:`~climclusterpy.reconstruct_original_grid` consumes both, with the grid description,
+and writes the reconstructed grid. Without a :func:`~climclusterpy.create_clusters` result
+to hand it, name the three yourself:
+
+.. code-block:: python
+
+   from climclusterpy import reconstruct_original_grid
+
+   recon_path = reconstruct_original_grid(
+       clustered_nc,
+       registry=registry,
+       id_mapping_csv=id_csv,
+       compact_map_csv=compact_csv,    # where each cluster sits on the reduced grid
+       output_dir=out_dir,
+   ).path
+
+Verify
+------
+
+Every original valid cell must carry its cluster's synthetic value, and invalid (ocean)
+cells must stay ``NaN``. The example checks each cell explicitly and then calls
+:func:`~climclusterpy.grid.validate_reconstruction_grid`:
+
+.. code-block:: python
+
+   from climclusterpy.grid import validate_reconstruction_grid
+
+   assert validate_reconstruction_grid(recon_path, registry, var_name="vegc")
+
+The complete script
+-------------------
+
+.. literalinclude:: ../../../examples/example_4_reconstruct.py
+   :language: python
+   :caption: examples/example_4_reconstruct.py
+
+Run it
+------
+
+.. code-block:: console
+
+   $ python examples/example_4_reconstruct.py
+   Clustered 64 cells into 6 clusters
+   Reconstructed -> .../reconstructed/vegc_clustered_reconstructed.nc
+   OK: example 4 (reconstruction round trip) verified 64 cells.
+
+Next steps
+----------
+
+* Which mapping files each reconstruction path needs: :doc:`../howto/reconstruct`.
+* Why the compact map matters at high *K*: :doc:`../explanation/index`.

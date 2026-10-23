@@ -1,0 +1,85 @@
+Cluster a feature matrix (choose a mode)
+========================================
+
+:func:`~climclusterpy.cluster_matrix` turns a per-cell feature matrix into cluster labels.
+It accepts either a NumPy array of shape ``(n_cells, n_features)`` or a
+:class:`pandas.DataFrame` (metadata columns such as ``cell_id``/``latitude``/``longitude``
+are split off automatically and carried through), and returns a
+:class:`~climclusterpy.ClusterResult`.
+
+Euclidean mode (no supervision)
+-------------------------------
+
+.. code-block:: python
+
+   from climclusterpy import cluster_matrix
+
+   result = cluster_matrix(X, n_clusters=7, locally_weighted=False, standardize=True)
+   result.labels        # 1-indexed cluster label per cell, shape (n_cells,)
+   result.linkage       # SciPy linkage matrix Z
+   result.to_frame()    # DataFrame: metadata columns + a cluster_label column
+
+Set ``standardize=True`` to z-score each feature before clustering. If your features are
+already standardized (the production feature pipeline standardizes), leave it ``False``
+(the default) to avoid double-scaling. Choose the agglomeration rule with
+``linkage_method`` (default ``"complete"``).
+
+Passing a DataFrame
+~~~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: python
+
+   # df has columns: cell_id, latitude, longitude, feat_1, feat_2, ...
+   result = cluster_matrix(df, n_clusters=7)
+   result.metadata          # the cell_id/latitude/longitude columns, row-aligned
+   # Select feature columns explicitly if auto-detection is not what you want:
+   result = cluster_matrix(df, n_clusters=7, feature_columns=["feat_1", "feat_2"])
+
+LMNN mode (supervised metric learning)
+--------------------------------------
+
+LMNN learns a distance metric from a **supervision** signal before clustering, so
+same-class cells are pulled together and different-class cells pushed apart. It needs the
+``[lmnn]`` extra (see :doc:`install`) and a supervision argument aligned row-for-row with
+the features — either a :class:`~climclusterpy.SupervisionResult` from
+:func:`~climclusterpy.compute_supervision` (see :doc:`supervision`) or your own label
+array.
+
+.. code-block:: python
+
+   from climclusterpy import cluster_matrix, compute_supervision
+
+   sup = compute_supervision("koppen_geiger", features_df=monthly_climatology)
+   result = cluster_matrix(
+       X,
+       n_clusters=7,
+       locally_weighted=True,
+       supervision=sup,          # or an aligned 1-D label array
+       lmnn_mode="lowrank",      # the default; or "global" | "local" | "enhanced"
+       standardize=True,
+   )
+   result.diagnostics            # mode-specific LMNN training info
+
+Choose the LMNN sub-mode with ``lmnn_mode``:
+
+* ``"lowrank"`` (default) — a neural network predicts a low-rank Mahalanobis metric for
+  every cell, which also captures how features interact; the configuration of the
+  published results. ``rank`` sets its rank (default 16, at most the number of features).
+* ``"global"`` — one linear Mahalanobis metric for all cells (``rank`` default: full rank).
+* ``"local"`` — a neural network predicts cell-specific feature weights (a diagonal metric).
+* ``"enhanced"`` — local mode with adaptive-*k*, prototypes and oversampling for
+  imbalanced (small/large) classes.
+
+Every mode trains with ``torch``. ``seed`` (default 0) makes two identical calls give
+identical clusters; ``seed=None`` draws afresh each time. Omitting ``supervision`` in LMNN
+mode raises a ``ValueError``. The mathematics of each
+sub-mode is in :doc:`../explanation/methods`.
+
+Lower-level control
+-------------------
+
+For a precomputed distance matrix, custom linkage, or to reuse the learned metric,
+call :func:`~climclusterpy.clustering.lmnn.run_lmnn_clustering` (it accepts
+``return_distance_matrix=True``) or the primitives in :mod:`climclusterpy.clustering`
+directly. See the
+:doc:`../reference/clustering`.

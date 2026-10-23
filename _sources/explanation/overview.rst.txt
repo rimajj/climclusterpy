@@ -1,0 +1,245 @@
+Overview
+========
+
+``climclusterpy`` is a comprehensive Python package for performing ecologically-informed spatial clustering of climate and soil data. The package is designed to reduce computational complexity in land surface models while preserving essential spatial heterogeneity patterns.
+
+The package was developed to address the challenge of downscaling global land surface models by identifying climatically-similar grid cells that can be aggregated without significant loss of ecological information.
+
+.. note::
+
+   This page explains *why* the package is built the way it is. The workflow below is run
+   in one call by :func:`~climclusterpy.create_clusters` and undone by
+   :func:`~climclusterpy.reconstruct_original_grid`; the building blocks
+   :func:`~climclusterpy.cluster_matrix` and :func:`~climclusterpy.compute_supervision`,
+   and the concept packages below, expose single steps. See the :doc:`../reference/api`
+   and the runnable :doc:`../tutorials/index`.
+
+Design Philosophy
+-----------------
+
+The package follows several key design principles:
+
+**1. Scientific Rigor**
+
+All algorithms are based on peer-reviewed methods with clear mathematical formulations. The LMNN implementation follows Weinberger & Saul (2009), ecoregion assignments use the Ecoregions2017 framework (Dinerstein et al., 2017), and clustering employs standard hierarchical methods with Ward's linkage.
+
+**2. Computational Efficiency**
+
+Large-scale climate datasets (often >10 GB) require careful memory management:
+
+* **Dask chunking**: Parallel processing with configurable chunk sizes
+* **Float32 conversion**: Automatic precision reduction (-50% memory)
+* **Valid-cell masking**: Eliminate ocean/missing cells from computation
+* **Lazy evaluation**: Only compute what's needed
+* **Caching**: Save intermediate results for rapid iteration
+
+**3. Ecological Interpretability**
+
+Rather than using raw time series, the package transforms climate data into interpretable summary statistics:
+
+* Annual means and variability
+* Seasonal patterns (monthly climatology, compressed via whitened block PCA)
+* Extreme values (wet-day frequency, temperature range)
+* Coefficients of variation
+* Köppen–Geiger diagnostic scalars (warmest/coldest month, seasonality ratios, aridity index)
+* Ecology diagnostic features (vapour pressure deficit, growing degree days, frost-free days, PET, moisture balance, dry spells, precipitation intensity)
+
+These features align with how ecologists characterize climate regimes.
+
+**4. Modular Architecture**
+
+The package is organized into logical submodules:
+
+.. code-block:: text
+
+   climclusterpy/
+   ├── __init__.py    # The public surface — start here
+   ├── cli.py         # `climclu`, mirroring the public functions
+   ├── data/          # Loading, coordinates, cell-identity registry
+   ├── features/      # Ecological summaries, filtering, climatology
+   ├── supervision/   # Class labels: Köppen–Geiger, ecoregions, model traits
+   ├── clustering/    # Hierarchical clustering; lmnn/ metric learning
+   ├── timeseries/    # Cluster mean / representative / distributed extraction
+   ├── grid/          # Build the reduced grid; reconstruct the original one
+   ├── io/            # NetCDF read/write; LPJmL CLM conversion and grid files
+   ├── preprocessing/ # Coordinate alignment, region masking
+   └── viz/           # Plotting helpers
+
+Each of these packages lists its public names in ``__all__``; the modules inside them are
+internal.
+
+This allows users to:
+
+* Use individual components independently
+* Drive the steps of :func:`~climclusterpy.create_clusters` one by one
+* Extend functionality without modifying core code
+
+Workflow Summary
+----------------
+
+A typical workflow consists of:
+
+1. **Data Loading** (:mod:`climclusterpy.data`)
+
+   * Open NetCDF files with chunking
+   * Standardize coordinates
+   * Build valid-cell registry
+
+2. **Ecoregion Assignment** (:mod:`climclusterpy.supervision`)
+
+   * Load ecoregion shapefile
+   * Perform spatial join (point-in-polygon)
+   * Assign ecoregion labels to cells
+
+3. **Feature Engineering** (:mod:`climclusterpy.features`)
+
+   * Compute ecological summaries (temperature, precipitation, radiation, humidity)
+   * Compute Köppen–Geiger diagnostic scalar features (warmest/coldest month, seasonality, aridity)
+   * Compute ecology diagnostic features (VPD, GDD, frost-free days, PET, moisture balance, dry spells, precipitation intensity)
+   * Block PCA compression of monthly profiles with whitening
+   * Standardize to zero mean, unit variance
+   * Remove correlated features (Spearman ρ > 0.9)
+   * PCA diagnostic filtering (retain features contributing >1% to 95% variance)
+
+4. **Clustering Mode Selection** (:func:`~climclusterpy.cluster_matrix`, ``locally_weighted=``)
+
+   Two modes are supported:
+
+   * **Euclidean** (``locally_weighted=False``): plain agglomerative clustering of the
+     (optionally standardized) feature matrix — no supervision needed.
+   * **LMNN** (``locally_weighted=True``): a supervised distance metric is learned first, then
+     hierarchical clustering runs in the learned metric space.
+
+5. **LMNN Metric Learning** (LMNN mode, :mod:`climclusterpy.clustering.lmnn`)
+
+   * Train a metric that pulls same-class cells together and pushes different-class
+     cells apart, using a supervision signal (see step 2 /
+     :func:`~climclusterpy.compute_supervision`).
+   * Choose a sub-mode: lowrank (the default; a low-rank metric per cell), global (one
+     Mahalanobis metric), local (a diagonal metric per cell), or enhanced (local, adapted
+     for small classes).
+   * Extract feature importance from the learned metric.
+
+6. **Hierarchical Clustering** (Feature clustering mode, :mod:`climclusterpy.clustering`)
+
+   * Compute Ward's linkage on LMNN-transformed features or precomputed distances
+   * Cut dendrogram to K clusters
+
+7. **Representative Selection** (:mod:`climclusterpy.timeseries`)
+
+   * For each cluster (or ecoregion), choose the real cell(s) the model is run on
+   * ``representative=``: ``"medoid"``, ``"centroid"`` (nearest the cluster mean), ``"random"``
+     (one member drawn at random) or ``"distributed"`` (``cells_per_cluster`` members drawn at
+     random, the ``npatch`` budget split evenly between them) — see :doc:`../howto/cell_selection`
+   * Distributed mode writes every chosen cell at its own position on the source grid
+     (:func:`~climclusterpy.grid.write_distributed_grid`)
+
+8. **NetCDF Export** (:func:`~climclusterpy.grid.build_reduced_grid`)
+
+   * Write cluster/ecoregion timeseries to NetCDF
+   * Path structure: ``{method_type}/{timeseries_type}/`` where method_type is "ecoregions" or "clusters"
+   * Include metadata (cluster size, representative coordinates)
+
+9. **Reconstruction** (:func:`~climclusterpy.reconstruct_original_grid`)
+
+   * Map cluster/ecoregion results back to original grid
+   * Validate accuracy
+
+10. **Analysis** (the ``climclusterpy-research`` repository)
+
+   Evaluation metrics and diagnostics — ARI/NMI against reference ecoregions, cluster maps,
+   feature-importance plots, cell-vs-cluster feature comparisons — live in the separate
+   research repository, which installs this package and calls its public API. They are
+   kept out of the library so that it holds only what a user needs to build and undo a
+   reduced grid.
+
+Key Innovations
+---------------
+
+Enhanced LMNN for Small and Large Ecoregions
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The ``"enhanced"`` metric-learning mode extends standard LMNN to handle datasets with variable-sized ecoregions (common in ecological data):
+
+* **Proportional Adaptive k**: Scales neighborhood size with class size using k_i = min(k_max, max(k_min, floor(beta * n_i)))
+  
+  - Small classes (<5 samples): k_i = k_min to avoid overfitting
+  - Large classes (e.g., 500 samples): k_i scales up (e.g., k_i=25 with beta=0.05)
+  - Configurable via ADAPTIVE_K_MIN, ADAPTIVE_K_MAX, ADAPTIVE_K_BETA parameters
+
+* **Prototype fallback**: Uses class centroids for tiny classes (<5 samples) instead of k-nearest neighbors
+* **Ecological jittering**: Oversamples small classes with variable-specific noise
+* **k_i statistics**: Tracks k_i distribution across anchors for diagnostic monitoring
+
+This enables learning from imbalanced ecoregion distributions where some regions have <10 grid cells while others span 500+ cells. Proportional adaptive-k allows large ecoregions to maintain internal cohesion through broader neighborhoods while preventing small-class overfitting.
+
+Data Registry System
+~~~~~~~~~~~~~~~~~~~~~
+
+The :class:`climclusterpy.data.DataRegistry` provides a centralized system for managing spatial grids:
+
+* Tracks valid cells (excluding ocean/missing data)
+* Maintains ID mappings between original and artificial grids
+* Provides :meth:`~climclusterpy.data.DataRegistry.flatten_on_valid` for efficient array operations
+* Supports repeated-cell patterns for computational oversampling
+
+This abstraction simplifies coordinate handling across the package.
+
+Caching Strategy
+~~~~~~~~~~~~~~~~
+
+The package implements aggressive caching of intermediate results:
+
+* Raw features (pre-standardization)
+* Standardized features
+* Correlation-filtered features
+* PCA-filtered features
+* LMNN-transformed features / distance matrices
+* Cluster labels and dendrograms
+
+Files are named with configuration suffixes (e.g., ``features_filtered_corr0p9_pca0p95_contrib0p01.csv``) to enable rapid experimentation with different hyperparameters without full pipeline recomputation.
+
+Use Cases
+---------
+
+**Land Surface Modeling**
+
+Reduce spatial resolution for computationally expensive land surface models (e.g., LPJ-ML) by aggregating similar cells while preserving ecosystem diversity.
+
+**Climate Regionalization**
+
+Identify homogeneous climate zones for regional climate studies or downscaling applications.
+
+**Ecoregion Validation**
+
+Validate expert-defined ecoregion boundaries using data-driven clustering and quantify agreement via ARI/NMI metrics.
+
+**Feature Importance Analysis**
+
+Determine which climate variables most strongly distinguish ecoregions via LMNN feature importance.
+
+Limitations
+-----------
+
+* **Spatial autocorrelation**: Clustering does not explicitly account for spatial connectivity (cells are treated as independent)
+* **Temporal dynamics**: Summaries capture climatology but not interannual variability or trends
+* **Computational cost**: Enhanced LMNN with neural networks is slower than global LMNN for large datasets
+* **Categorical soil data**: Soil codes are one-hot encoded, so every pair of different soil types is equally far apart; similarities between textures (a loam is closer to a sandy loam than to clay) are not represented
+
+Future Directions
+-----------------
+
+Potential extensions include:
+
+* Spatially-constrained clustering (contiguity constraints)
+* Temporal clustering of interannual variability patterns
+* Integration with vegetation data for biogeographic classification
+* Uncertainty quantification for cluster assignments
+* Online clustering for streaming data
+
+References
+----------
+
+* Weinberger, K. Q., & Saul, L. K. (2009). Distance metric learning for large margin nearest neighbor classification. *Journal of Machine Learning Research*, 10, 207-244.
+* Dinerstein, E., Olson, D., Joshi, A., et al. (2017). An ecoregion-based approach to protecting half the terrestrial realm. *BioScience*, 67(6), 534-545.
+* Ward, J. H. (1963). Hierarchical grouping to optimize an objective function. *Journal of the American Statistical Association*, 58(301), 236-244.

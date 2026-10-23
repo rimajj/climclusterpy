@@ -1,0 +1,188 @@
+Install climclusterpy
+=====================
+
+``climclusterpy`` requires **Python ≥ 3.11**. It follows a **light-core + extras** model:
+the base install carries only lightweight dependencies and covers Euclidean clustering,
+Köppen–Geiger supervision, and reconstruction. Heavy or install-fragile dependencies
+(PyTorch, GeoPandas, Cartopy) live behind optional extras you add only when you need them.
+
+Base install
+------------
+
+.. important::
+
+   ``climclusterpy`` is **not on PyPI yet**, so ``pip install climclusterpy`` will not find
+   it. Install it from its GitLab repository, as below.
+
+Straight from the repository (pip clones it, so you need to be able to reach
+``gitlab.pik-potsdam.de`` and, if the project is not public to you, have read access):
+
+.. code-block:: console
+
+   $ pip install "climclusterpy @ git+https://gitlab.pik-potsdam.de/lpjmlfit_analysis/climclusterpy.git"
+
+Or clone it and install the checkout in editable mode, which is the better choice if you
+want to read or change the code:
+
+.. code-block:: console
+
+   $ git clone https://gitlab.pik-potsdam.de/lpjmlfit_analysis/climclusterpy.git
+   $ cd climclusterpy
+   $ pip install -e .
+
+Verify:
+
+.. code-block:: console
+
+   $ python -c "import climclusterpy; print(climclusterpy.__version__)"
+   $ climclu --help
+
+Both succeed with **no** heavy dependencies installed — ``import climclusterpy`` is lazy,
+so PyTorch / GeoPandas / Cartopy are never imported until a feature that needs them is
+called.
+
+Optional extras
+---------------
+
+These are exactly the extras ``pyproject.toml`` defines:
+
+.. list-table::
+   :header-rows: 1
+   :widths: 16 34 50
+
+   * - Extra
+     - Adds
+     - Enables
+   * - ``[lmnn]``
+     - ``torch``
+     - LMNN metric-learning clustering (``locally_weighted=True``), every mode.
+   * - ``[ecoregions]``
+     - ``geopandas``
+     - Ecoregion supervision, or regions, from a shapefile
+   * - ``[viz]``
+     - ``cartopy``
+     - Map plotting helpers
+   * - ``[features]``
+     - ``pyet``
+     - SPEI drought and potential-evapotranspiration features
+       (``climate_variables=[..., "spei"]``)
+   * - ``[all]``
+     - everything in the four extras above
+     - Every optional capability
+   * - ``[test]``
+     - ``pytest``, ``pytest-cov``
+     - Running the test suite
+   * - ``[docs]``
+     - ``sphinx``, ``sphinx-rtd-theme``
+     - Building this documentation
+   * - ``[dev]``
+     - ``pytest``, ``pytest-cov``, ``ruff``, ``build``, ``twine``, ``pre-commit``
+     - Development and release tooling
+
+Install one or several, from the repository or from a checkout:
+
+.. code-block:: console
+
+   $ pip install "climclusterpy[lmnn] @ git+https://gitlab.pik-potsdam.de/lpjmlfit_analysis/climclusterpy.git"
+   $ pip install "climclusterpy[lmnn,features] @ git+https://gitlab.pik-potsdam.de/lpjmlfit_analysis/climclusterpy.git"
+   $ pip install -e '.[all]'          # from a checkout
+
+.. note::
+
+   Attempting an LMNN or ecoregion operation without the matching extra raises a clear
+   ``ImportError`` naming the extra to install — it never fails silently.
+
+.. note::
+
+   The SPEI / potential-evapotranspiration drought features in
+   :func:`~climclusterpy.features.summarize_climate_features` use the ``pyet`` package,
+   which the ``[features]`` extra (and ``[all]``) installs. They are not computed by
+   default: :func:`~climclusterpy.create_clusters` summarizes ``tas``, ``pr``, ``rsds``,
+   ``rlds`` and ``hurs`` unless you add ``"spei"`` to ``climate_variables``.
+
+Installing the geospatial extras with conda
+-------------------------------------------
+
+``cartopy`` (``[viz]``) and ``geopandas`` (``[ecoregions]``) depend on native GEOS / PROJ
+/ GDAL libraries and are often fragile to install with pip alone. If a pip install of
+those extras fails, install the native packages from ``conda-forge`` first, then pip the
+rest:
+
+.. code-block:: console
+
+   $ conda install -c conda-forge cartopy geopandas
+   $ pip install -e '.[lmnn,features]'
+
+PyTorch (CPU vs. GPU)
+---------------------
+
+The ``[lmnn]`` extra pulls a default PyTorch build. To pin a CPU-only or a specific CUDA
+build, install ``torch`` from the PyTorch index first, then the extra:
+
+.. code-block:: console
+
+   $ pip install torch --index-url https://download.pytorch.org/whl/cpu
+   $ pip install -e '.[lmnn]'
+
+The full metric-learning pipeline runs perfectly well on CPU.
+
+.. _environment-variables:
+
+Environment variables
+---------------------
+
+None of these is needed. They tune how much data is read or held in memory at a time;
+everything that changes what is computed is a function argument instead. A value that
+cannot be read (a word where a number is expected, a negative size) stops the run with an
+error naming the variable.
+
+.. list-table::
+   :header-rows: 1
+   :widths: 38 12 50
+
+   * - Variable
+     - Default
+     - What it sets
+   * - ``CLIMCLUSTERPY_CHUNK_TIME``
+     - 500
+     - Time steps per chunk when an input NetCDF is opened. Smaller uses less memory per
+       step of work. Averages over time are summed chunk by chunk, so another chunk length
+       can move them in the last floating-point digit, never more.
+   * - ``CLIMCLUSTERPY_DISTRIBUTED_TIME_CHUNK``
+     - 2000
+     - Time steps read at once when the cells of a ``representative="distributed"`` grid
+       are extracted.
+   * - ``CLIMCLUSTERPY_DISTRIBUTED_EXPAND_THRESHOLD_GB``
+     - 50
+     - Size (GB) of one extracted variable above which a cell drawn into several patches
+       is held in memory once and copied out only when the files are written.
+   * - ``CLIMCLUSTERPY_DIRECT_READ``
+     - 1
+     - ``0`` turns off reading distributed cells straight from the input files and reads
+       them through xarray instead. Both give identical results; the direct read is faster.
+   * - ``CLIMCLUSTERPY_DEBUG``
+     - 0
+     - ``1`` makes the ``climclu`` command print the full Python traceback instead of a
+       one-line error. Any value other than empty, ``0``, ``false``, ``no`` or ``off``
+       turns it on.
+
+Yes/no variables accept ``1``/``0``, ``true``/``false``, ``yes``/``no`` and ``on``/``off``.
+
+One variable belongs to LPJmL rather than to climclusterpy: ``LPJROOT``. When it is set,
+:func:`~climclusterpy.convert_netcdf_to_clm` looks for the ``cdf2clm`` and ``cdf2soil``
+tools in ``$LPJROOT/bin`` before the ``PATH`` (or pass ``tools_dir=``).
+
+.. versionchanged:: 0.4.0
+   The variables gained the ``CLIMCLUSTERPY_`` prefix (they were ``CHUNK_TIME``,
+   ``DISTRIBUTED_TIME_CHUNK``, ``DISTRIBUTED_EXPAND_THRESHOLD_GB`` and ``CCP_DIRECT_READ``);
+   an old name that is still set is ignored with a warning. ``MAX_TIME_STEPS``, which
+   silently shortened the climate series used for clustering, is gone: to cluster on a
+   shorter period, select it from the input before passing it in.
+
+Building the documentation
+--------------------------
+
+.. code-block:: console
+
+   $ pip install -e '.[docs]'
+   $ sphinx-build -W docs/src docs/_build/html

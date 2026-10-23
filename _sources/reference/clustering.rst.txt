@@ -1,0 +1,60 @@
+Clustering & metric learning
+============================
+
+.. py:module:: climclusterpy.clustering
+
+The clustering primitives the :func:`~climclusterpy.cluster_matrix` facade is built on.
+Prefer the facades for ordinary use; these are exposed for finer control.
+The supervision-label generators live in :doc:`supervision`.
+
+Hierarchical clustering
+-----------------------
+
+.. autofunction:: climclusterpy.clustering.compute_dendrogram
+
+.. autofunction:: climclusterpy.clustering.perform_hierarchical_clustering
+
+.. autofunction:: climclusterpy.clustering.stack_feature_arrays
+
+.. autofunction:: climclusterpy.clustering.process_cluster_labels
+
+LMNN metric learning
+--------------------
+
+.. py:module:: climclusterpy.clustering.lmnn
+
+.. note::
+
+   Every LMNN mode needs ``torch``, through the ``[lmnn]`` extra. See
+   :doc:`../howto/install`. Importing ``climclusterpy.clustering.lmnn`` does not import
+   it; a mode loads it when it trains.
+
+.. autofunction:: climclusterpy.clustering.lmnn.run_lmnn_clustering
+
+.. autoclass:: climclusterpy.clustering.lmnn.LmnnClusteringResult
+   :members:
+
+.. autofunction:: climclusterpy.clustering.lmnn.train_lmnn
+
+.. autofunction:: climclusterpy.clustering.lmnn.transform_features
+
+.. autofunction:: climclusterpy.clustering.lmnn.compute_mahalanobis_distances
+
+.. autofunction:: climclusterpy.clustering.lmnn.compute_feature_importance
+
+.. autoclass:: climclusterpy.clustering.lmnn.LDAMetricLearner
+   :no-members:
+
+The per-cell trainers and their distance matrices
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The pieces behind the per-cell modes, for anyone tuning or extending them. They need
+``torch`` and are loaded on first use:
+
+* ``train_local_lmnn``, ``train_enhanced_local_lmnn``, ``train_local_mahalanobis_lmnn`` —
+  the three per-cell trainers behind ``lmnn_mode="local"``, ``"enhanced"`` and
+  ``"lowrank"``;
+* ``compute_distance_matrix_local``, ``compute_local_mahalanobis_distance_matrix`` — the
+  n × n distance matrix under a trained diagonal or low-rank network.
+
+Their docstrings are the reference: ``help(climclusterpy.clustering.lmnn.train_local_lmnn)``.

@@ -1,0 +1,155 @@
+Data, timeseries, I/O & plotting
+================================
+
+The lower-level building blocks outside clustering and grid building: data loading and
+the grid registry, per-cluster timeseries, file input/output, preprocessing and the
+plotting helpers. Each is importable from its package (``climclusterpy.data``,
+``climclusterpy.timeseries``, ...); the grid descriptions are also importable from
+``climclusterpy`` itself. All of it runs on the core install, except the map plots, which
+need the ``[viz]`` extra.
+
+Data loading & the grid registry
+---------------------------------
+
+.. py:module:: climclusterpy.data
+
+A :class:`~climclusterpy.data.DataRegistry` describes the original grid: its coordinates,
+which cells exist (those with a soil code) and their ``cell_id``. You rarely build one
+yourself — :func:`~climclusterpy.create_clusters` makes it and saves it as
+``original_grid.nc`` in the output folder. When a function asks for one, use
+:meth:`DataRegistry.load(path) <climclusterpy.data.DataRegistry.load>` on that file, or
+:meth:`DataRegistry.from_soil_code(path) <climclusterpy.data.DataRegistry.from_soil_code>`
+on the soil-code input the grid was built from; both give the same ``cell_id`` for every
+cell.
+
+.. autoclass:: climclusterpy.data.DataPaths
+   :members:
+
+.. autofunction:: climclusterpy.data.load_climate_and_soil_data
+
+.. autofunction:: climclusterpy.data.create_test_data
+
+.. autofunction:: climclusterpy.data.create_test_data_by_latlon_range
+
+.. autoclass:: climclusterpy.data.DataRegistry
+   :members:
+
+.. autoclass:: climclusterpy.data.OriginalGrid
+   :members:
+
+.. autoclass:: climclusterpy.data.ArtificialGrid
+   :members:
+
+.. autodata:: climclusterpy.data.INT_SENTINEL
+
+.. autodata:: climclusterpy.data.FLOAT_SENTINEL
+
+How much the package reports
+----------------------------
+
+.. autofunction:: climclusterpy.set_verbosity
+
+Coordinates
+-----------
+
+Coordinates are rounded to 5 decimals and stored as 32-bit floats everywhere in the
+package, so that the same cell always compares equal. Use these before joining your own
+tables or datasets to the package's output.
+
+.. autodata:: climclusterpy.data.COORD_PRECISION
+   :annotation: = 5
+
+.. autodata:: climclusterpy.data.LAT_NAMES
+
+.. autodata:: climclusterpy.data.LON_NAMES
+
+.. autofunction:: climclusterpy.data.standardize_coordinates
+
+.. autofunction:: climclusterpy.data.standardize_dataset_coordinates
+
+.. autofunction:: climclusterpy.data.regrid_to_reference
+
+Per-cluster timeseries
+----------------------
+
+.. py:module:: climclusterpy.timeseries
+
+.. autofunction:: climclusterpy.timeseries.compute_mean_timeseries
+
+.. autofunction:: climclusterpy.timeseries.build_cluster_mean_timeseries
+
+.. autofunction:: climclusterpy.timeseries.find_center_cell
+
+.. autofunction:: climclusterpy.timeseries.extract_representative_cells
+
+.. autofunction:: climclusterpy.timeseries.select_representative_by_features
+
+.. autofunction:: climclusterpy.timeseries.extract_distributed_cells
+
+.. autofunction:: climclusterpy.timeseries.load_and_clean_cluster_labels
+
+.. autofunction:: climclusterpy.timeseries.get_most_common_soil
+
+.. autofunction:: climclusterpy.timeseries.sample_cluster_indices
+
+File input/output
+-----------------
+
+.. py:module:: climclusterpy.io
+
+NetCDF:
+
+.. autofunction:: climclusterpy.io.read_nc
+
+.. autofunction:: climclusterpy.io.write_nc
+
+.. autofunction:: climclusterpy.io.enforce_precision
+
+.. autofunction:: climclusterpy.io.inspect_structure
+
+LPJmL grid files (cutting the model's other inputs to the reduced grid is
+:func:`~climclusterpy.subset_inputs`; the ``.clm`` conversion is on :doc:`grid`):
+
+.. autofunction:: climclusterpy.io.read_lpjml_grid
+
+.. autofunction:: climclusterpy.io.cell_index_in_grid
+
+Preprocessing
+-------------
+
+.. py:module:: climclusterpy.preprocessing
+
+.. autofunction:: climclusterpy.preprocessing.align_coords
+
+.. autofunction:: climclusterpy.preprocessing.build_features
+
+.. autofunction:: climclusterpy.preprocessing.mask_regions_by_koppen
+
+.. autofunction:: climclusterpy.preprocessing.mask_regions_by_ecoregion
+
+.. autofunction:: climclusterpy.preprocessing.mask_regions_by_assignment
+
+.. autofunction:: climclusterpy.preprocessing.compute_koppen_classification_from_data
+
+.. autofunction:: climclusterpy.preprocessing.save_masked_datasets
+
+Plotting
+--------
+
+.. py:module:: climclusterpy.viz
+
+A deterministic, inch-based figure layout and the plots built on it. Only ``matplotlib``
+is needed to import it; the map plots need ``cartopy`` (the ``[viz]`` extra). The layout
+constants (margins, gutters, DPI, column widths) are importable from
+``climclusterpy.viz.style`` for fine tuning but are not part of the public list.
+
+Style and layout: ``StyleConfig``, ``apply_style``, ``style_context``, ``create_figure``,
+``figure_size``, ``add_colorbar``, ``legend_below``, ``add_panel_label``,
+``add_panel_labels``, ``save_figure``. Colours: ``OKABE_ITO``, ``TOL_BRIGHT``,
+``TOL_VIBRANT``, ``qualitative_colors``, ``categorical_cmap``, ``get_cmap``,
+``sequential_cmap``, ``diverging_cmap``. Maps: ``setup_map_ax``, ``scatter_on_map``,
+``global_scatter_map``, ``categorical_scatter_map``, ``multi_panel_map``,
+``comparison_map``. Plots: ``bar_chart``, ``boxplot_grid``, ``grouped_boxplot``,
+``histogram``, ``metric_trend``, ``scatter_correlation``, ``eigenvalue_spectrum``,
+``create_aggregated_visualizations``, ``create_comparison_plot``. Each docstring is its
+reference: ``help(climclusterpy.viz.global_scatter_map)``.

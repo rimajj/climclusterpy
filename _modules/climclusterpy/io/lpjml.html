@@ -1,0 +1,564 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>climclusterpy.io.lpjml &mdash; climclusterpy 0.5</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/custom.css?v=f2cc2102" />
+
+  
+    <link rel="shortcut icon" href="../../../_static/logo.svg"/>
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=1dd76d02"></script>
+      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            climclusterpy
+              <img src="../../../_static/logo.svg" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorials/index.html">Tutorials</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../tutorials/one_call_roundtrip.html">Tutorial 0 — the whole workflow in two calls</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/one_call_roundtrip.html#the-idea">The idea</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/one_call_roundtrip.html#call-1-build-the-reduced-grid">Call 1 — build the reduced grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/one_call_roundtrip.html#call-2-rebuild-the-original-grid">Call 2 — rebuild the original grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/one_call_roundtrip.html#the-complete-script">The complete script</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/one_call_roundtrip.html#run-it">Run it</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/one_call_roundtrip.html#next-steps">Next steps</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../tutorials/euclidean_clustering.html">Tutorial 1 — Euclidean clustering</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/euclidean_clustering.html#load-data-and-build-a-feature-matrix">Load data and build a feature matrix</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/euclidean_clustering.html#cluster">Cluster</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/euclidean_clustering.html#the-complete-script">The complete script</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/euclidean_clustering.html#run-it">Run it</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/euclidean_clustering.html#next-steps">Next steps</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../tutorials/lmnn_clustering.html">Tutorial 2 — LMNN metric-learning clustering</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/lmnn_clustering.html#provide-a-supervision-signal">Provide a supervision signal</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/lmnn_clustering.html#learn-a-metric-and-cluster">Learn a metric and cluster</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/lmnn_clustering.html#the-complete-script">The complete script</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/lmnn_clustering.html#run-it">Run it</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/lmnn_clustering.html#next-steps">Next steps</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../tutorials/supervision.html">Tutorial 3 — Supervision signals</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/supervision.html#koppengeiger-from-monthly-climatology">Köppen–Geiger from monthly climatology</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/supervision.html#model-output-trait-clustering">Model-output (trait) clustering</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/supervision.html#the-complete-script">The complete script</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/supervision.html#run-it">Run it</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/supervision.html#ecoregion-supervision">Ecoregion supervision</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../tutorials/reconstruction.html">Tutorial 4 — Reconstruct the original grid</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/reconstruction.html#the-round-trip">The round trip</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/reconstruction.html#verify">Verify</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/reconstruction.html#the-complete-script">The complete script</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/reconstruction.html#run-it">Run it</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/reconstruction.html#next-steps">Next steps</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../tutorials/index.html#a-note-on-the-synthetic-data">A note on the synthetic data</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">How-to guides</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../howto/index.html">How-to guides</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../howto/install.html">Install climclusterpy</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/install.html#base-install">Base install</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/install.html#optional-extras">Optional extras</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/install.html#installing-the-geospatial-extras-with-conda">Installing the geospatial extras with conda</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/install.html#pytorch-cpu-vs-gpu">PyTorch (CPU vs. GPU)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/install.html#environment-variables">Environment variables</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/install.html#building-the-documentation">Building the documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../howto/inputs.html">Prepare the input files</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/inputs.html#check-your-input-first">Check your input first</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/inputs.html#the-files">The files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/inputs.html#grid-and-coordinates">Grid and coordinates</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/inputs.html#which-cells-exist-the-soil-code">Which cells exist: the soil code</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/inputs.html#the-time-axis">The time axis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/inputs.html#missing-values">Missing values</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/inputs.html#another-vegetation-model-s-input">Another vegetation model’s input</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/inputs.html#output-files">Output files</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../howto/clustering.html">Cluster a feature matrix (choose a mode)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/clustering.html#euclidean-mode-no-supervision">Euclidean mode (no supervision)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/clustering.html#lmnn-mode-supervised-metric-learning">LMNN mode (supervised metric learning)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/clustering.html#lower-level-control">Lower-level control</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../howto/supervision.html">Build an LMNN supervision signal</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/supervision.html#from-climate-koppengeiger">From climate — Köppen–Geiger</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/supervision.html#from-model-output-traits">From model output — traits</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/supervision.html#from-a-shapefile-ecoregions2017">From a shapefile — Ecoregions2017</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/supervision.html#using-the-signal">Using the signal</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/supervision.html#in-one-call">In one call</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/supervision.html#saved-results-are-reused-only-for-the-same-inputs">Saved results are reused only for the same inputs</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../howto/cell_selection.html">Choosing the cells a cluster is simulated on</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/cell_selection.html#the-patch-budget">The patch budget</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/cell_selection.html#what-the-drawn-cells-carry">What the drawn cells carry</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/cell_selection.html#reproducibility">Reproducibility</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/cell_selection.html#looking-at-a-draw-without-building-a-grid">Looking at a draw without building a grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/cell_selection.html#back-to-the-full-grid">Back to the full grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/cell_selection.html#a-model-that-reads-its-own-inputs-the-grid-only-then-cut-the-rest">A model that reads its own inputs: the grid only, then cut the rest</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../howto/reconstruct.html">Reconstruct the original grid</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/reconstruct.html#the-usual-call">The usual call</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/reconstruct.html#picking-up-where-you-left-off">Picking up where you left off</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/reconstruct.html#without-a-result-or-run-folder">Without a result or run folder</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/reconstruct.html#required-mapping-files">Required mapping files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/reconstruct.html#reconstruction-paths-kind">Reconstruction paths (<code class="docutils literal notranslate"><span class="pre">kind</span></code>)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/reconstruct.html#verifying-the-result">Verifying the result</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../reference/index.html">Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../reference/api.html">Public API — <code class="xref py py-mod docutils literal notranslate"><span class="pre">climclusterpy</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/api.html#the-two-headline-functions">The two headline functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/api.html#before-and-after-the-model-run">Before and after the model run</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/api.html#input-for-a-model-other-than-lpjml">Input for a model other than LPJmL</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/api.html#other-ways-to-build-the-reduced-grid">Other ways to build the reduced grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/api.html#reusing-a-trained-metric">Reusing a trained metric</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/api.html#the-model-s-other-inputs">The model’s other inputs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/api.html#writing-the-reduced-grid-yourself">Writing the reduced grid yourself</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/api.html#building-blocks">Building blocks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/api.html#result-objects">Result objects</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../reference/toplevel.html">Data, timeseries, I/O &amp; plotting</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/toplevel.html#module-climclusterpy.data">Data loading &amp; the grid registry</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/toplevel.html#how-much-the-package-reports">How much the package reports</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/toplevel.html#coordinates">Coordinates</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/toplevel.html#module-climclusterpy.timeseries">Per-cluster timeseries</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/toplevel.html#module-climclusterpy.io">File input/output</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/toplevel.html#module-climclusterpy.preprocessing">Preprocessing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/toplevel.html#module-climclusterpy.viz">Plotting</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../reference/features.html">Feature engineering</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/features.html#ecological-summaries">Ecological summaries</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/features.html#vegetation-model-traits">Vegetation-model traits</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/features.html#standardization-filtering">Standardization &amp; filtering</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../reference/clustering.html">Clustering &amp; metric learning</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/clustering.html#hierarchical-clustering">Hierarchical clustering</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/clustering.html#module-climclusterpy.clustering.lmnn">LMNN metric learning</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../reference/supervision.html">Supervision labels</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/supervision.html#koppengeiger-climate-zones">Köppen–Geiger climate zones</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/supervision.html#vegetation-model-output-traits">Vegetation-model output traits</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/supervision.html#ecoregion-polygons">Ecoregion polygons</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/supervision.html#daily-input-helpers">Daily-input helpers</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../reference/grid.html">Grid building &amp; reconstruction</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/grid.html#where-each-reduced-cell-is-placed">Where each reduced cell is placed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/grid.html#writing-the-reduced-grid">Writing the reduced grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/grid.html#reconstruction">Reconstruction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/grid.html#lpjml-clm-conversion">LPJmL CLM conversion</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../reference/cli.html">Command-line interface (<code class="docutils literal notranslate"><span class="pre">climclu</span></code>)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/cli.html#the-two-headline-commands">The two headline commands</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/cli.html#building-blocks">Building blocks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/cli.html#options-shared-by-every-action-command">Options shared by every action command</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/cli.html#errors-and-exit-codes">Errors and exit codes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../reference/index.html#which-function-do-i-need">Which function do I need?</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Explanation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../explanation/index.html">Explanation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../explanation/overview.html">Overview</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/overview.html#design-philosophy">Design Philosophy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/overview.html#workflow-summary">Workflow Summary</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/overview.html#key-innovations">Key Innovations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/overview.html#use-cases">Use Cases</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/overview.html#limitations">Limitations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/overview.html#future-directions">Future Directions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/overview.html#references">References</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../explanation/methods.html">Scientific Methods</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/methods.html#data-acquisition-and-preprocessing">Data Acquisition and Preprocessing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/methods.html#ecoregion-assignment">Ecoregion Assignment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/methods.html#ecological-feature-summarization">Ecological Feature Summarization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/methods.html#feature-standardization-and-filtering">Feature Standardization and Filtering</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/methods.html#large-margin-nearest-neighbor-lmnn-metric-learning">Large Margin Nearest Neighbor (LMNN) Metric Learning</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/methods.html#hierarchical-clustering">Hierarchical Clustering</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/methods.html#representative-cell-selection">Representative Cell Selection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/methods.html#evaluation-metrics">Evaluation Metrics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/methods.html#netcdf-processing">NetCDF Processing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/methods.html#computational-implementation">Computational Implementation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../explanation/index.html#reconstruction-correctness">Reconstruction correctness</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">climclusterpy</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">climclusterpy.io.lpjml</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for climclusterpy.io.lpjml</h1><div class="highlight"><pre>
+<span></span><span class="sd">"""LPJmL's own binary input formats: read a header and a grid, cut a file down to some cells.</span>
+
+<span class="sd">LPJmL reads most cell-indexed inputs not by coordinate but by **position**: record ``i`` of every</span>
+<span class="sd">``.clm`` file is cell ``i`` of the run's grid file. So cutting an input for a reduced grid means</span>
+<span class="sd">copying, for each cell of the reduced grid in its order, the record of its source cell -- found by</span>
+<span class="sd">coordinate in the *full* run's grid file, because the two orders are unrelated (the global</span>
+<span class="sd">``grid.bin`` is ordered differently from the package's grids, and a positional join between them</span>
+<span class="sd">is silently wrong).</span>
+
+<span class="sd">Three layouts are handled, all copied byte for byte (nothing is decoded or rescaled):</span>
+
+<span class="sd">* ``clm`` -- a binary with an ``LPJ...`` header (versions 1-4), one record per cell per year</span>
+<span class="sd">  (order ``cellyear``); the header is kept with only ``firstcell``/``ncell`` changed;</span>
+<span class="sd">* ``meta`` -- a ``.clm.json`` description beside a data file; the data is cut and the description</span>
+<span class="sd">  rewritten with the new cell count;</span>
+<span class="sd">* ``raw`` -- one fixed-width record per cell and nothing else (LPJmL's soil-code files).</span>
+<span class="sd">"""</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">struct</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"cell_index_in_grid"</span><span class="p">,</span> <span class="s2">"read_lpjml_grid"</span><span class="p">,</span> <span class="s2">"read_lpjml_header"</span><span class="p">]</span>
+
+<span class="c1">#: LPJmL datatype codes (``include/types.h``).</span>
+<span class="n">DATATYPES</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">int16</span><span class="p">,</span> <span class="mi">2</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">int32</span><span class="p">,</span> <span class="mi">3</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">,</span> <span class="mi">4</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">}</span>
+<span class="n">_DATATYPE_NAMES</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"byte"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">"short"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">"int"</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s2">"float"</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="s2">"double"</span><span class="p">:</span> <span class="mi">4</span><span class="p">}</span>
+<span class="n">_ORDERS</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">:</span> <span class="s2">"cellyear"</span><span class="p">,</span> <span class="mi">2</span><span class="p">:</span> <span class="s2">"yearcell"</span><span class="p">,</span> <span class="mi">3</span><span class="p">:</span> <span class="s2">"cellindex"</span><span class="p">,</span> <span class="mi">4</span><span class="p">:</span> <span class="s2">"cellseq"</span><span class="p">}</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_id_length</span><span class="p">(</span><span class="n">head</span><span class="p">:</span> <span class="nb">bytes</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">while</span> <span class="n">n</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">head</span><span class="p">)</span> <span class="ow">and</span> <span class="n">n</span> <span class="o">&lt;</span> <span class="mi">16</span> <span class="ow">and</span> <span class="p">(</span><span class="mi">65</span> <span class="o">&lt;=</span> <span class="n">head</span><span class="p">[</span><span class="n">n</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="mi">90</span> <span class="ow">or</span> <span class="n">head</span><span class="p">[</span><span class="n">n</span><span class="p">]</span> <span class="o">==</span> <span class="mi">95</span><span class="p">):</span>
+        <span class="n">n</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="k">if</span> <span class="n">n</span> <span class="o">&lt;</span> <span class="mi">3</span> <span class="ow">or</span> <span class="n">head</span><span class="p">[:</span><span class="mi">3</span><span class="p">]</span> <span class="o">!=</span> <span class="sa">b</span><span class="s2">"LPJ"</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"not an LPJmL binary: it does not start with an LPJ... header id"</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">n</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">read_lpjml_header</span><span class="p">(</span><span class="n">path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">dict</span><span class="p">,</span> <span class="nb">int</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">"""The header of an LPJmL ``.clm`` file, and its size in bytes.</span>
+
+<span class="sd">    Returns a dict with ``id, version, byteorder, order, firstyear, nyear, firstcell, ncell,</span>
+<span class="sd">    nbands, cellsize_lon, scalar, cellsize_lat, datatype, nstep, timestep``; fields a version-1</span>
+<span class="sd">    to -3 header does not carry hold LPJmL's defaults.</span>
+<span class="sd">    """</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s2">"rb"</span><span class="p">)</span> <span class="k">as</span> <span class="n">fh</span><span class="p">:</span>
+        <span class="n">head</span> <span class="o">=</span> <span class="n">fh</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="mi">96</span><span class="p">)</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="n">_id_length</span><span class="p">(</span><span class="n">head</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">byteorder</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">"&lt;"</span><span class="p">,</span> <span class="s2">"&gt;"</span><span class="p">):</span>
+        <span class="n">version</span> <span class="o">=</span> <span class="n">struct</span><span class="o">.</span><span class="n">unpack</span><span class="p">(</span><span class="n">byteorder</span> <span class="o">+</span> <span class="s2">"i"</span><span class="p">,</span> <span class="n">head</span><span class="p">[</span><span class="n">n</span> <span class="p">:</span> <span class="n">n</span> <span class="o">+</span> <span class="mi">4</span><span class="p">])[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">if</span> <span class="mi">1</span> <span class="o">&lt;=</span> <span class="n">version</span> <span class="o">&lt;=</span> <span class="mi">4</span><span class="p">:</span>
+            <span class="k">break</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">path</span><span class="si">}</span><span class="s2">: unknown LPJmL header version"</span><span class="p">)</span>
+    <span class="n">fmt</span> <span class="o">=</span> <span class="n">byteorder</span> <span class="o">+</span> <span class="s2">"6i"</span> <span class="o">+</span> <span class="p">(</span><span class="s2">"ff"</span> <span class="k">if</span> <span class="n">version</span> <span class="o">&gt;=</span> <span class="mi">2</span> <span class="k">else</span> <span class="s2">""</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="s2">"fi"</span> <span class="k">if</span> <span class="n">version</span> <span class="o">&gt;=</span> <span class="mi">3</span> <span class="k">else</span> <span class="s2">""</span><span class="p">)</span>
+    <span class="n">fmt</span> <span class="o">+=</span> <span class="s2">"ii"</span> <span class="k">if</span> <span class="n">version</span> <span class="o">==</span> <span class="mi">4</span> <span class="k">else</span> <span class="s2">""</span>
+    <span class="n">values</span> <span class="o">=</span> <span class="n">struct</span><span class="o">.</span><span class="n">unpack</span><span class="p">(</span><span class="n">fmt</span><span class="p">,</span> <span class="n">head</span><span class="p">[</span><span class="n">n</span> <span class="o">+</span> <span class="mi">4</span> <span class="p">:</span> <span class="n">n</span> <span class="o">+</span> <span class="mi">4</span> <span class="o">+</span> <span class="n">struct</span><span class="o">.</span><span class="n">calcsize</span><span class="p">(</span><span class="n">fmt</span><span class="p">)])</span>
+    <span class="n">header</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span>
+        <span class="nb">zip</span><span class="p">(</span>
+            <span class="p">(</span><span class="s2">"order"</span><span class="p">,</span> <span class="s2">"firstyear"</span><span class="p">,</span> <span class="s2">"nyear"</span><span class="p">,</span> <span class="s2">"firstcell"</span><span class="p">,</span> <span class="s2">"ncell"</span><span class="p">,</span> <span class="s2">"nbands"</span><span class="p">),</span> <span class="n">values</span><span class="p">[:</span><span class="mi">6</span><span class="p">],</span> <span class="n">strict</span><span class="o">=</span><span class="kc">True</span>
+        <span class="p">)</span>
+    <span class="p">)</span>
+    <span class="n">header</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
+        <span class="nb">id</span><span class="o">=</span><span class="n">head</span><span class="p">[:</span><span class="n">n</span><span class="p">]</span><span class="o">.</span><span class="n">decode</span><span class="p">(),</span>
+        <span class="n">version</span><span class="o">=</span><span class="n">version</span><span class="p">,</span>
+        <span class="n">byteorder</span><span class="o">=</span><span class="n">byteorder</span><span class="p">,</span>
+        <span class="n">cellsize_lon</span><span class="o">=</span><span class="n">values</span><span class="p">[</span><span class="mi">6</span><span class="p">]</span> <span class="k">if</span> <span class="n">version</span> <span class="o">&gt;=</span> <span class="mi">2</span> <span class="k">else</span> <span class="mf">0.5</span><span class="p">,</span>
+        <span class="c1"># A version-1 grid is int16 hundredths of a degree: LPJmL's own default.</span>
+        <span class="n">scalar</span><span class="o">=</span><span class="n">values</span><span class="p">[</span><span class="mi">7</span><span class="p">]</span> <span class="k">if</span> <span class="n">version</span> <span class="o">&gt;=</span> <span class="mi">2</span> <span class="k">else</span> <span class="p">(</span><span class="mf">0.01</span> <span class="k">if</span> <span class="n">head</span><span class="p">[:</span><span class="n">n</span><span class="p">]</span> <span class="o">==</span> <span class="sa">b</span><span class="s2">"LPJGRID"</span> <span class="k">else</span> <span class="mf">1.0</span><span class="p">),</span>
+        <span class="n">cellsize_lat</span><span class="o">=</span><span class="n">values</span><span class="p">[</span><span class="mi">8</span><span class="p">]</span> <span class="k">if</span> <span class="n">version</span> <span class="o">&gt;=</span> <span class="mi">3</span> <span class="k">else</span> <span class="p">(</span><span class="n">values</span><span class="p">[</span><span class="mi">6</span><span class="p">]</span> <span class="k">if</span> <span class="n">version</span> <span class="o">&gt;=</span> <span class="mi">2</span> <span class="k">else</span> <span class="mf">0.5</span><span class="p">),</span>
+        <span class="n">datatype</span><span class="o">=</span><span class="n">values</span><span class="p">[</span><span class="mi">9</span><span class="p">]</span> <span class="k">if</span> <span class="n">version</span> <span class="o">&gt;=</span> <span class="mi">3</span> <span class="k">else</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="n">nstep</span><span class="o">=</span><span class="n">values</span><span class="p">[</span><span class="mi">10</span><span class="p">]</span> <span class="k">if</span> <span class="n">version</span> <span class="o">==</span> <span class="mi">4</span> <span class="k">else</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="n">timestep</span><span class="o">=</span><span class="n">values</span><span class="p">[</span><span class="mi">11</span><span class="p">]</span> <span class="k">if</span> <span class="n">version</span> <span class="o">==</span> <span class="mi">4</span> <span class="k">else</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">header</span><span class="p">,</span> <span class="n">n</span> <span class="o">+</span> <span class="mi">4</span> <span class="o">+</span> <span class="n">struct</span><span class="o">.</span><span class="n">calcsize</span><span class="p">(</span><span class="n">fmt</span><span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_meta</span><span class="p">(</span><span class="n">path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">dict</span><span class="p">,</span> <span class="n">Path</span><span class="p">]:</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">path</span><span class="p">)</span> <span class="k">as</span> <span class="n">fh</span><span class="p">:</span>
+        <span class="n">meta</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">fh</span><span class="p">)</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">path</span><span class="p">)</span><span class="o">.</span><span class="n">parent</span> <span class="o">/</span> <span class="n">meta</span><span class="p">[</span><span class="s2">"filename"</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">meta</span><span class="p">,</span> <span class="n">data</span>
+
+
+<div class="viewcode-block" id="read_lpjml_grid">
+<a class="viewcode-back" href="../../../reference/toplevel.html#climclusterpy.io.read_lpjml_grid">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">read_lpjml_grid</span><span class="p">(</span><span class="n">path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""The cells of an LPJmL grid file, in the file's order: ``longitude, latitude``.</span>
+
+<span class="sd">    Takes a ``.clm`` grid (``LPJGRID`` header) or a ``.clm.json`` description of one.</span>
+<span class="sd">    """</span>
+    <span class="n">path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">fspath</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">path</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">".json"</span><span class="p">):</span>
+        <span class="n">meta</span><span class="p">,</span> <span class="n">data</span> <span class="o">=</span> <span class="n">_meta</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+        <span class="n">dtype</span> <span class="o">=</span> <span class="n">DATATYPES</span><span class="p">[</span><span class="n">_DATATYPE_NAMES</span><span class="p">[</span><span class="n">meta</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"datatype"</span><span class="p">,</span> <span class="s2">"short"</span><span class="p">)]]</span>
+        <span class="n">byteorder</span> <span class="o">=</span> <span class="s2">"&gt;"</span> <span class="k">if</span> <span class="n">meta</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"bigendian"</span><span class="p">)</span> <span class="k">else</span> <span class="s2">"&lt;"</span>
+        <span class="n">values</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">fromfile</span><span class="p">(</span>
+            <span class="n">data</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">(</span><span class="n">dtype</span><span class="p">)</span><span class="o">.</span><span class="n">newbyteorder</span><span class="p">(</span><span class="n">byteorder</span><span class="p">),</span> <span class="n">offset</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">meta</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"offset"</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+        <span class="p">)</span>
+        <span class="n">scalar</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">meta</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"scalar"</span><span class="p">,</span> <span class="mf">0.01</span> <span class="k">if</span> <span class="n">dtype</span> <span class="o">==</span> <span class="n">np</span><span class="o">.</span><span class="n">int16</span> <span class="k">else</span> <span class="mf">1.0</span><span class="p">))</span>
+        <span class="n">ncell</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">meta</span><span class="p">[</span><span class="s2">"ncell"</span><span class="p">])</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">header</span><span class="p">,</span> <span class="n">offset</span> <span class="o">=</span> <span class="n">read_lpjml_header</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+        <span class="n">dtype</span> <span class="o">=</span> <span class="n">DATATYPES</span><span class="p">[</span><span class="n">header</span><span class="p">[</span><span class="s2">"datatype"</span><span class="p">]]</span>
+        <span class="n">values</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">fromfile</span><span class="p">(</span>
+            <span class="n">path</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">(</span><span class="n">dtype</span><span class="p">)</span><span class="o">.</span><span class="n">newbyteorder</span><span class="p">(</span><span class="n">header</span><span class="p">[</span><span class="s2">"byteorder"</span><span class="p">]),</span> <span class="n">offset</span><span class="o">=</span><span class="n">offset</span>
+        <span class="p">)</span>
+        <span class="n">scalar</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">header</span><span class="p">[</span><span class="s2">"scalar"</span><span class="p">])</span> <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">(</span><span class="n">dtype</span><span class="p">)</span><span class="o">.</span><span class="n">kind</span> <span class="ow">in</span> <span class="s2">"iu"</span> <span class="k">else</span> <span class="mf">1.0</span>
+        <span class="n">ncell</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">header</span><span class="p">[</span><span class="s2">"ncell"</span><span class="p">])</span>
+    <span class="k">if</span> <span class="n">values</span><span class="o">.</span><span class="n">size</span> <span class="o">!=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">ncell</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">path</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">values</span><span class="o">.</span><span class="n">size</span><span class="si">}</span><span class="s2"> values for </span><span class="si">{</span><span class="n">ncell</span><span class="si">}</span><span class="s2"> cells (expected 2 per cell)."</span><span class="p">)</span>
+    <span class="n">pairs</span> <span class="o">=</span> <span class="n">values</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">ncell</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">(</span><span class="n">dtype</span><span class="p">)</span><span class="o">.</span><span class="n">kind</span> <span class="ow">in</span> <span class="s2">"iu"</span><span class="p">:</span>
+        <span class="n">pairs</span> <span class="o">*=</span> <span class="n">scalar</span>
+    <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">"longitude"</span><span class="p">:</span> <span class="n">pairs</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="s2">"latitude"</span><span class="p">:</span> <span class="n">pairs</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]})</span></div>
+
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_keys</span><span class="p">(</span><span class="n">longitudes</span><span class="p">,</span> <span class="n">latitudes</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Integer keys at 1e-4 degree, longitudes folded into [-180, 180)."""</span>
+    <span class="n">lon</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">longitudes</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
+    <span class="n">lon</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">lon</span> <span class="o">&gt;=</span> <span class="mf">180.0</span><span class="p">,</span> <span class="n">lon</span> <span class="o">-</span> <span class="mf">360.0</span><span class="p">,</span> <span class="n">lon</span><span class="p">)</span>
+    <span class="n">lat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">latitudes</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">lon</span> <span class="o">*</span> <span class="mf">1e4</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">int64</span><span class="p">)</span> <span class="o">*</span> <span class="mi">10_000_000</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">lat</span> <span class="o">*</span> <span class="mf">1e4</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">int64</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="cell_index_in_grid">
+<a class="viewcode-back" href="../../../reference/toplevel.html#climclusterpy.io.cell_index_in_grid">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">cell_index_in_grid</span><span class="p">(</span><span class="n">grid_file</span><span class="p">,</span> <span class="n">latitudes</span><span class="p">,</span> <span class="n">longitudes</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Position of each cell ``(latitudes[i], longitudes[i])`` in an LPJmL grid file.</span>
+
+<span class="sd">    This is what a positional join needs: record ``k`` of every ``.clm`` input written for that</span>
+<span class="sd">    grid belongs to the cell at index ``k``. Cells are matched by coordinate (to 1e-4 degree),</span>
+<span class="sd">    never by the order of any other table, because LPJmL's global grid files and the package's</span>
+<span class="sd">    grids order their cells differently.</span>
+
+<span class="sd">    Raises</span>
+<span class="sd">    ------</span>
+<span class="sd">    ValueError</span>
+<span class="sd">        If a cell is not in the grid file, or the grid file lists a cell twice.</span>
+<span class="sd">    """</span>
+    <span class="n">grid</span> <span class="o">=</span> <span class="n">read_lpjml_grid</span><span class="p">(</span><span class="n">grid_file</span><span class="p">)</span>
+    <span class="n">keys</span> <span class="o">=</span> <span class="n">_keys</span><span class="p">(</span><span class="n">grid</span><span class="p">[</span><span class="s2">"longitude"</span><span class="p">],</span> <span class="n">grid</span><span class="p">[</span><span class="s2">"latitude"</span><span class="p">])</span>
+    <span class="n">order</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">keys</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s2">"stable"</span><span class="p">)</span>
+    <span class="n">sorted_keys</span> <span class="o">=</span> <span class="n">keys</span><span class="p">[</span><span class="n">order</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">sorted_keys</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span> <span class="o">==</span> <span class="n">sorted_keys</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]):</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">grid_file</span><span class="si">}</span><span class="s2"> lists the same cell more than once."</span><span class="p">)</span>
+    <span class="n">wanted</span> <span class="o">=</span> <span class="n">_keys</span><span class="p">(</span><span class="n">longitudes</span><span class="p">,</span> <span class="n">latitudes</span><span class="p">)</span>
+    <span class="n">pos</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">searchsorted</span><span class="p">(</span><span class="n">sorted_keys</span><span class="p">,</span> <span class="n">wanted</span><span class="p">),</span> <span class="mi">0</span><span class="p">,</span> <span class="n">sorted_keys</span><span class="o">.</span><span class="n">size</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">found</span> <span class="o">=</span> <span class="n">sorted_keys</span><span class="p">[</span><span class="n">pos</span><span class="p">]</span> <span class="o">==</span> <span class="n">wanted</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">found</span><span class="o">.</span><span class="n">all</span><span class="p">():</span>
+        <span class="n">missing</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">flatnonzero</span><span class="p">(</span><span class="o">~</span><span class="n">found</span><span class="p">)</span>
+        <span class="n">lat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">latitudes</span><span class="p">)[</span><span class="n">missing</span><span class="p">[:</span><span class="mi">5</span><span class="p">]]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+        <span class="n">lon</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">longitudes</span><span class="p">)[</span><span class="n">missing</span><span class="p">[:</span><span class="mi">5</span><span class="p">]]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">missing</span><span class="o">.</span><span class="n">size</span><span class="si">}</span><span class="s2"> cell(s) are not in </span><span class="si">{</span><span class="n">grid_file</span><span class="si">}</span><span class="s2">, e.g. (lat, lon) "</span>
+            <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="nb">list</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">lat</span><span class="p">,</span><span class="w"> </span><span class="n">lon</span><span class="p">,</span><span class="w"> </span><span class="n">strict</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span><span class="si">}</span><span class="s2">."</span>
+        <span class="p">)</span>
+    <span class="k">return</span> <span class="n">order</span><span class="p">[</span><span class="n">pos</span><span class="p">]</span></div>
+
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_cut_records</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">dst</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">offset</span><span class="p">,</span> <span class="n">n_source</span><span class="p">,</span> <span class="n">nyear</span><span class="p">,</span> <span class="n">record_values</span><span class="p">,</span> <span class="n">header_bytes</span><span class="o">=</span><span class="sa">b</span><span class="s2">""</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Copy, year by year, the records at ``index`` of a cellyear file. Bytes only."""</span>
+    <span class="n">size</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">getsize</span><span class="p">(</span><span class="n">src</span><span class="p">)</span> <span class="o">-</span> <span class="n">offset</span>
+    <span class="n">n_values</span> <span class="o">=</span> <span class="n">nyear</span> <span class="o">*</span> <span class="n">n_source</span> <span class="o">*</span> <span class="n">record_values</span>
+    <span class="n">width</span><span class="p">,</span> <span class="n">rest</span> <span class="o">=</span> <span class="nb">divmod</span><span class="p">(</span><span class="n">size</span><span class="p">,</span> <span class="n">n_values</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">rest</span> <span class="ow">or</span> <span class="n">width</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">8</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">src</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">size</span><span class="si">}</span><span class="s2"> data bytes do not divide into </span><span class="si">{</span><span class="n">nyear</span><span class="si">}</span><span class="s2"> year(s) x </span><span class="si">{</span><span class="n">n_source</span><span class="si">}</span><span class="s2"> cells x "</span>
+            <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">record_values</span><span class="si">}</span><span class="s2"> values."</span>
+        <span class="p">)</span>
+    <span class="n">record</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">(</span><span class="sa">f</span><span class="s2">"V</span><span class="si">{</span><span class="n">width</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">record_values</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">memmap</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">record</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">"r"</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="n">offset</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="n">nyear</span><span class="p">,</span> <span class="n">n_source</span><span class="p">))</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">dst</span><span class="p">,</span> <span class="s2">"wb"</span><span class="p">)</span> <span class="k">as</span> <span class="n">out</span><span class="p">:</span>
+        <span class="n">out</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">header_bytes</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">year</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nyear</span><span class="p">):</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">ascontiguousarray</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">year</span><span class="p">][</span><span class="n">index</span><span class="p">])</span><span class="o">.</span><span class="n">tofile</span><span class="p">(</span><span class="n">out</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">width</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_with_cell_count</span><span class="p">(</span><span class="n">header_bytes</span><span class="p">:</span> <span class="nb">bytes</span><span class="p">,</span> <span class="n">id_length</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">byteorder</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">n</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bytes</span><span class="p">:</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="nb">bytearray</span><span class="p">(</span><span class="n">header_bytes</span><span class="p">)</span>
+    <span class="n">start</span> <span class="o">=</span> <span class="n">id_length</span> <span class="o">+</span> <span class="mi">4</span> <span class="o">+</span> <span class="mi">3</span> <span class="o">*</span> <span class="mi">4</span>  <span class="c1"># after id, version, order, firstyear, nyear</span>
+    <span class="n">out</span><span class="p">[</span><span class="n">start</span> <span class="p">:</span> <span class="n">start</span> <span class="o">+</span> <span class="mi">8</span><span class="p">]</span> <span class="o">=</span> <span class="n">struct</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">byteorder</span> <span class="o">+</span> <span class="s2">"2i"</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>  <span class="c1"># firstcell, ncell</span>
+    <span class="k">return</span> <span class="nb">bytes</span><span class="p">(</span><span class="n">out</span><span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">cut_clm</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">dst</span><span class="p">,</span> <span class="n">index</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">n_source</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Write ``dst``: the records of ``src`` at ``index``, its header kept, cell count changed."""</span>
+    <span class="n">header</span><span class="p">,</span> <span class="n">offset</span> <span class="o">=</span> <span class="n">read_lpjml_header</span><span class="p">(</span><span class="n">src</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">_ORDERS</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">header</span><span class="p">[</span><span class="s2">"order"</span><span class="p">])</span> <span class="o">!=</span> <span class="s2">"cellyear"</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">src</span><span class="si">}</span><span class="s2">: order </span><span class="si">{</span><span class="n">_ORDERS</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">header</span><span class="p">[</span><span class="s1">'order'</span><span class="p">],</span><span class="w"> </span><span class="n">header</span><span class="p">[</span><span class="s1">'order'</span><span class="p">])</span><span class="si">!r}</span><span class="s2"> -- only cellyear "</span>
+            <span class="s2">"files can be cut."</span>
+        <span class="p">)</span>
+    <span class="k">if</span> <span class="n">header</span><span class="p">[</span><span class="s2">"firstcell"</span><span class="p">]</span> <span class="o">!=</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">header</span><span class="p">[</span><span class="s2">"ncell"</span><span class="p">]</span> <span class="o">!=</span> <span class="n">n_source</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">src</span><span class="si">}</span><span class="s2"> covers cells </span><span class="si">{</span><span class="n">header</span><span class="p">[</span><span class="s1">'firstcell'</span><span class="p">]</span><span class="si">}</span><span class="s2">..</span><span class="si">{</span><span class="n">header</span><span class="p">[</span><span class="s1">'firstcell'</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">header</span><span class="p">[</span><span class="s1">'ncell'</span><span class="p">]</span><span class="si">}</span><span class="s2"> "</span>
+            <span class="sa">f</span><span class="s2">"but the source grid has </span><span class="si">{</span><span class="n">n_source</span><span class="si">}</span><span class="s2">: it does not belong to that grid."</span>
+        <span class="p">)</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="s2">"rb"</span><span class="p">)</span> <span class="k">as</span> <span class="n">fh</span><span class="p">:</span>
+        <span class="n">header_bytes</span> <span class="o">=</span> <span class="n">fh</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">offset</span><span class="p">)</span>
+    <span class="n">_cut_records</span><span class="p">(</span>
+        <span class="n">src</span><span class="p">,</span>
+        <span class="n">dst</span><span class="p">,</span>
+        <span class="n">index</span><span class="p">,</span>
+        <span class="n">offset</span><span class="o">=</span><span class="n">offset</span><span class="p">,</span>
+        <span class="n">n_source</span><span class="o">=</span><span class="n">n_source</span><span class="p">,</span>
+        <span class="n">nyear</span><span class="o">=</span><span class="n">header</span><span class="p">[</span><span class="s2">"nyear"</span><span class="p">],</span>
+        <span class="n">record_values</span><span class="o">=</span><span class="n">header</span><span class="p">[</span><span class="s2">"nbands"</span><span class="p">]</span> <span class="o">*</span> <span class="n">header</span><span class="p">[</span><span class="s2">"nstep"</span><span class="p">],</span>
+        <span class="n">header_bytes</span><span class="o">=</span><span class="n">_with_cell_count</span><span class="p">(</span>
+            <span class="n">header_bytes</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">header</span><span class="p">[</span><span class="s2">"id"</span><span class="p">]),</span> <span class="n">header</span><span class="p">[</span><span class="s2">"byteorder"</span><span class="p">],</span> <span class="nb">len</span><span class="p">(</span><span class="n">index</span><span class="p">)</span>
+        <span class="p">),</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="p">{</span><span class="s2">"format"</span><span class="p">:</span> <span class="s2">"clm"</span><span class="p">,</span> <span class="s2">"header_version"</span><span class="p">:</span> <span class="n">header</span><span class="p">[</span><span class="s2">"version"</span><span class="p">]}</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">cut_meta</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">dst</span><span class="p">,</span> <span class="n">index</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">n_source</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Cut the data file a ``.clm.json`` describes and write the description beside it."""</span>
+    <span class="n">meta</span><span class="p">,</span> <span class="n">data</span> <span class="o">=</span> <span class="n">_meta</span><span class="p">(</span><span class="n">src</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">meta</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"order"</span><span class="p">,</span> <span class="s2">"cellyear"</span><span class="p">)</span> <span class="o">!=</span> <span class="s2">"cellyear"</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">src</span><span class="si">}</span><span class="s2">: order </span><span class="si">{</span><span class="n">meta</span><span class="p">[</span><span class="s1">'order'</span><span class="p">]</span><span class="si">!r}</span><span class="s2"> -- only cellyear files can be cut."</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">int</span><span class="p">(</span><span class="n">meta</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"firstcell"</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span> <span class="o">!=</span> <span class="mi">0</span> <span class="ow">or</span> <span class="nb">int</span><span class="p">(</span><span class="n">meta</span><span class="p">[</span><span class="s2">"ncell"</span><span class="p">])</span> <span class="o">!=</span> <span class="n">n_source</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">src</span><span class="si">}</span><span class="s2"> describes </span><span class="si">{</span><span class="n">meta</span><span class="p">[</span><span class="s1">'ncell'</span><span class="p">]</span><span class="si">}</span><span class="s2"> cells; the source grid has </span><span class="si">{</span><span class="n">n_source</span><span class="si">}</span><span class="s2">."</span><span class="p">)</span>
+    <span class="n">offset</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">meta</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"offset"</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="s2">"rb"</span><span class="p">)</span> <span class="k">as</span> <span class="n">fh</span><span class="p">:</span>
+        <span class="n">header_bytes</span> <span class="o">=</span> <span class="n">fh</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">offset</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">header_bytes</span><span class="p">[:</span><span class="mi">3</span><span class="p">]</span> <span class="o">==</span> <span class="sa">b</span><span class="s2">"LPJ"</span><span class="p">:</span>
+        <span class="n">header</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">read_lpjml_header</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+        <span class="n">header_bytes</span> <span class="o">=</span> <span class="n">_with_cell_count</span><span class="p">(</span>
+            <span class="n">header_bytes</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">header</span><span class="p">[</span><span class="s2">"id"</span><span class="p">]),</span> <span class="n">header</span><span class="p">[</span><span class="s2">"byteorder"</span><span class="p">],</span> <span class="nb">len</span><span class="p">(</span><span class="n">index</span><span class="p">)</span>
+        <span class="p">)</span>
+    <span class="n">dst</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">dst</span><span class="p">)</span>
+    <span class="n">data_dst</span> <span class="o">=</span> <span class="n">dst</span><span class="o">.</span><span class="n">parent</span> <span class="o">/</span> <span class="n">Path</span><span class="p">(</span><span class="n">meta</span><span class="p">[</span><span class="s2">"filename"</span><span class="p">])</span><span class="o">.</span><span class="n">name</span>
+    <span class="n">_cut_records</span><span class="p">(</span>
+        <span class="n">data</span><span class="p">,</span>
+        <span class="n">data_dst</span><span class="p">,</span>
+        <span class="n">index</span><span class="p">,</span>
+        <span class="n">offset</span><span class="o">=</span><span class="n">offset</span><span class="p">,</span>
+        <span class="n">n_source</span><span class="o">=</span><span class="n">n_source</span><span class="p">,</span>
+        <span class="n">nyear</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">meta</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"nyear"</span><span class="p">,</span> <span class="mi">1</span><span class="p">)),</span>
+        <span class="n">record_values</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">meta</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"nbands"</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span> <span class="o">*</span> <span class="nb">int</span><span class="p">(</span><span class="n">meta</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"nstep"</span><span class="p">,</span> <span class="mi">1</span><span class="p">)),</span>
+        <span class="n">header_bytes</span><span class="o">=</span><span class="n">header_bytes</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">meta</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="n">data_dst</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">ncell</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">index</span><span class="p">),</span> <span class="n">firstcell</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">meta</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">"grid"</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>  <span class="c1"># described the full grid, which no longer applies</span>
+    <span class="n">dst</span><span class="o">.</span><span class="n">write_text</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">meta</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
+    <span class="k">return</span> <span class="p">{</span><span class="s2">"format"</span><span class="p">:</span> <span class="s2">"meta"</span><span class="p">,</span> <span class="s2">"data_file"</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">data_dst</span><span class="p">)}</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">cut_raw</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">dst</span><span class="p">,</span> <span class="n">index</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">n_source</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Cut a header-less file of one fixed-width record per cell."""</span>
+    <span class="n">size</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">getsize</span><span class="p">(</span><span class="n">src</span><span class="p">)</span>
+    <span class="n">width</span><span class="p">,</span> <span class="n">rest</span> <span class="o">=</span> <span class="nb">divmod</span><span class="p">(</span><span class="n">size</span><span class="p">,</span> <span class="n">n_source</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">rest</span> <span class="ow">or</span> <span class="n">width</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">src</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">size</span><span class="si">}</span><span class="s2"> bytes is not one record per cell of </span><span class="si">{</span><span class="n">n_source</span><span class="si">}</span><span class="s2"> cells."</span><span class="p">)</span>
+    <span class="n">_cut_records</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">dst</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">n_source</span><span class="o">=</span><span class="n">n_source</span><span class="p">,</span> <span class="n">nyear</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">record_values</span><span class="o">=</span><span class="n">width</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">{</span><span class="s2">"format"</span><span class="p">:</span> <span class="s2">"raw"</span><span class="p">,</span> <span class="s2">"record_bytes"</span><span class="p">:</span> <span class="n">width</span><span class="p">}</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, Jamir Priesner.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

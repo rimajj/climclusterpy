@@ -1,0 +1,69 @@
+Tutorial 2 — LMNN metric-learning clustering
+============================================
+
+**Capability 2: choose the clustering mode.** Here you cluster the same synthetic grid in
+``locally_weighted=True``, where a supervised distance metric is learned before clustering so that
+cells sharing a supervision class are drawn together. This tutorial needs the ``[lmnn]``
+extra (``pip install 'climclusterpy[lmnn]'``); if it is missing the script prints an
+install hint and exits cleanly.
+
+Provide a supervision signal
+----------------------------
+
+LMNN needs a per-cell class label aligned row-for-row with the features. In production
+this comes from :func:`~climclusterpy.compute_supervision` (see
+:doc:`supervision`); to keep this tutorial self-contained it derives three latitude bands
+directly from the cell metadata:
+
+.. code-block:: python
+
+   import numpy as np
+
+   lat = meta["latitude"].to_numpy()
+   y = np.digitize(lat, np.quantile(lat, [1 / 3, 2 / 3]))   # 0/1/2, aligned to X rows
+
+Learn a metric and cluster
+--------------------------
+
+Passing ``locally_weighted=True`` with the supervision labels learns a distance metric, then
+clusters in the learned space. This example asks for the global (linear) Mahalanobis metric,
+the quickest to train:
+
+.. code-block:: python
+
+   from climclusterpy import cluster_matrix
+
+   result = cluster_matrix(
+       X, n_clusters=6, locally_weighted=True,
+       supervision=y, standardize=True, lmnn_mode="global",
+   )
+   result.diagnostics       # LMNN training info
+
+Leave ``lmnn_mode`` out for the default ``"lowrank"`` — a low-rank metric for every cell,
+the configuration of the published results — or pass ``"local"`` or ``"enhanced"`` for the
+diagonal per-cell variants; see :doc:`../explanation/methods` for what each does.
+
+The complete script
+-------------------
+
+.. literalinclude:: ../../../examples/example_2_cluster_lmnn.py
+   :language: python
+   :caption: examples/example_2_cluster_lmnn.py
+
+Run it
+------
+
+.. code-block:: console
+
+   $ pip install 'climclusterpy[lmnn]'
+   $ python examples/example_2_cluster_lmnn.py
+   Supervision: 3 classes over 64 cells
+   LMNN clustering -> 6 clusters (mode=lmnn)
+   ...
+   OK: example 2 (LMNN clustering) complete.
+
+Next steps
+----------
+
+* Build a real supervision signal (Köppen–Geiger / output / ecoregions): :doc:`supervision`.
+* The metric-learning mathematics: :doc:`../explanation/methods`.

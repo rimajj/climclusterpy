@@ -1,0 +1,1159 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>climclusterpy.features.climate &mdash; climclusterpy 0.5</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/custom.css?v=f2cc2102" />
+
+  
+    <link rel="shortcut icon" href="../../../_static/logo.svg"/>
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=1dd76d02"></script>
+      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            climclusterpy
+              <img src="../../../_static/logo.svg" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorials/index.html">Tutorials</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../tutorials/one_call_roundtrip.html">Tutorial 0 — the whole workflow in two calls</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/one_call_roundtrip.html#the-idea">The idea</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/one_call_roundtrip.html#call-1-build-the-reduced-grid">Call 1 — build the reduced grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/one_call_roundtrip.html#call-2-rebuild-the-original-grid">Call 2 — rebuild the original grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/one_call_roundtrip.html#the-complete-script">The complete script</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/one_call_roundtrip.html#run-it">Run it</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/one_call_roundtrip.html#next-steps">Next steps</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../tutorials/euclidean_clustering.html">Tutorial 1 — Euclidean clustering</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/euclidean_clustering.html#load-data-and-build-a-feature-matrix">Load data and build a feature matrix</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/euclidean_clustering.html#cluster">Cluster</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/euclidean_clustering.html#the-complete-script">The complete script</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/euclidean_clustering.html#run-it">Run it</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/euclidean_clustering.html#next-steps">Next steps</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../tutorials/lmnn_clustering.html">Tutorial 2 — LMNN metric-learning clustering</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/lmnn_clustering.html#provide-a-supervision-signal">Provide a supervision signal</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/lmnn_clustering.html#learn-a-metric-and-cluster">Learn a metric and cluster</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/lmnn_clustering.html#the-complete-script">The complete script</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/lmnn_clustering.html#run-it">Run it</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/lmnn_clustering.html#next-steps">Next steps</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../tutorials/supervision.html">Tutorial 3 — Supervision signals</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/supervision.html#koppengeiger-from-monthly-climatology">Köppen–Geiger from monthly climatology</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/supervision.html#model-output-trait-clustering">Model-output (trait) clustering</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/supervision.html#the-complete-script">The complete script</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/supervision.html#run-it">Run it</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/supervision.html#ecoregion-supervision">Ecoregion supervision</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../tutorials/reconstruction.html">Tutorial 4 — Reconstruct the original grid</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/reconstruction.html#the-round-trip">The round trip</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/reconstruction.html#verify">Verify</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/reconstruction.html#the-complete-script">The complete script</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/reconstruction.html#run-it">Run it</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/reconstruction.html#next-steps">Next steps</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../tutorials/index.html#a-note-on-the-synthetic-data">A note on the synthetic data</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">How-to guides</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../howto/index.html">How-to guides</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../howto/install.html">Install climclusterpy</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/install.html#base-install">Base install</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/install.html#optional-extras">Optional extras</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/install.html#installing-the-geospatial-extras-with-conda">Installing the geospatial extras with conda</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/install.html#pytorch-cpu-vs-gpu">PyTorch (CPU vs. GPU)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/install.html#environment-variables">Environment variables</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/install.html#building-the-documentation">Building the documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../howto/inputs.html">Prepare the input files</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/inputs.html#check-your-input-first">Check your input first</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/inputs.html#the-files">The files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/inputs.html#grid-and-coordinates">Grid and coordinates</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/inputs.html#which-cells-exist-the-soil-code">Which cells exist: the soil code</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/inputs.html#the-time-axis">The time axis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/inputs.html#missing-values">Missing values</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/inputs.html#another-vegetation-model-s-input">Another vegetation model’s input</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/inputs.html#output-files">Output files</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../howto/clustering.html">Cluster a feature matrix (choose a mode)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/clustering.html#euclidean-mode-no-supervision">Euclidean mode (no supervision)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/clustering.html#lmnn-mode-supervised-metric-learning">LMNN mode (supervised metric learning)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/clustering.html#lower-level-control">Lower-level control</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../howto/supervision.html">Build an LMNN supervision signal</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/supervision.html#from-climate-koppengeiger">From climate — Köppen–Geiger</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/supervision.html#from-model-output-traits">From model output — traits</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/supervision.html#from-a-shapefile-ecoregions2017">From a shapefile — Ecoregions2017</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/supervision.html#using-the-signal">Using the signal</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/supervision.html#in-one-call">In one call</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/supervision.html#saved-results-are-reused-only-for-the-same-inputs">Saved results are reused only for the same inputs</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../howto/cell_selection.html">Choosing the cells a cluster is simulated on</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/cell_selection.html#the-patch-budget">The patch budget</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/cell_selection.html#what-the-drawn-cells-carry">What the drawn cells carry</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/cell_selection.html#reproducibility">Reproducibility</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/cell_selection.html#looking-at-a-draw-without-building-a-grid">Looking at a draw without building a grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/cell_selection.html#back-to-the-full-grid">Back to the full grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/cell_selection.html#a-model-that-reads-its-own-inputs-the-grid-only-then-cut-the-rest">A model that reads its own inputs: the grid only, then cut the rest</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../howto/reconstruct.html">Reconstruct the original grid</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/reconstruct.html#the-usual-call">The usual call</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/reconstruct.html#picking-up-where-you-left-off">Picking up where you left off</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/reconstruct.html#without-a-result-or-run-folder">Without a result or run folder</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/reconstruct.html#required-mapping-files">Required mapping files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/reconstruct.html#reconstruction-paths-kind">Reconstruction paths (<code class="docutils literal notranslate"><span class="pre">kind</span></code>)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/reconstruct.html#verifying-the-result">Verifying the result</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../reference/index.html">Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../reference/api.html">Public API — <code class="xref py py-mod docutils literal notranslate"><span class="pre">climclusterpy</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/api.html#the-two-headline-functions">The two headline functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/api.html#before-and-after-the-model-run">Before and after the model run</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/api.html#input-for-a-model-other-than-lpjml">Input for a model other than LPJmL</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/api.html#other-ways-to-build-the-reduced-grid">Other ways to build the reduced grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/api.html#reusing-a-trained-metric">Reusing a trained metric</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/api.html#the-model-s-other-inputs">The model’s other inputs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/api.html#writing-the-reduced-grid-yourself">Writing the reduced grid yourself</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/api.html#building-blocks">Building blocks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/api.html#result-objects">Result objects</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../reference/toplevel.html">Data, timeseries, I/O &amp; plotting</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/toplevel.html#module-climclusterpy.data">Data loading &amp; the grid registry</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/toplevel.html#how-much-the-package-reports">How much the package reports</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/toplevel.html#coordinates">Coordinates</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/toplevel.html#module-climclusterpy.timeseries">Per-cluster timeseries</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/toplevel.html#module-climclusterpy.io">File input/output</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/toplevel.html#module-climclusterpy.preprocessing">Preprocessing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/toplevel.html#module-climclusterpy.viz">Plotting</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../reference/features.html">Feature engineering</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/features.html#ecological-summaries">Ecological summaries</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/features.html#vegetation-model-traits">Vegetation-model traits</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/features.html#standardization-filtering">Standardization &amp; filtering</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../reference/clustering.html">Clustering &amp; metric learning</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/clustering.html#hierarchical-clustering">Hierarchical clustering</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/clustering.html#module-climclusterpy.clustering.lmnn">LMNN metric learning</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../reference/supervision.html">Supervision labels</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/supervision.html#koppengeiger-climate-zones">Köppen–Geiger climate zones</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/supervision.html#vegetation-model-output-traits">Vegetation-model output traits</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/supervision.html#ecoregion-polygons">Ecoregion polygons</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/supervision.html#daily-input-helpers">Daily-input helpers</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../reference/grid.html">Grid building &amp; reconstruction</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/grid.html#where-each-reduced-cell-is-placed">Where each reduced cell is placed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/grid.html#writing-the-reduced-grid">Writing the reduced grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/grid.html#reconstruction">Reconstruction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/grid.html#lpjml-clm-conversion">LPJmL CLM conversion</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../reference/cli.html">Command-line interface (<code class="docutils literal notranslate"><span class="pre">climclu</span></code>)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/cli.html#the-two-headline-commands">The two headline commands</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/cli.html#building-blocks">Building blocks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/cli.html#options-shared-by-every-action-command">Options shared by every action command</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/cli.html#errors-and-exit-codes">Errors and exit codes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../reference/index.html#which-function-do-i-need">Which function do I need?</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Explanation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../explanation/index.html">Explanation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../explanation/overview.html">Overview</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/overview.html#design-philosophy">Design Philosophy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/overview.html#workflow-summary">Workflow Summary</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/overview.html#key-innovations">Key Innovations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/overview.html#use-cases">Use Cases</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/overview.html#limitations">Limitations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/overview.html#future-directions">Future Directions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/overview.html#references">References</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../explanation/methods.html">Scientific Methods</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/methods.html#data-acquisition-and-preprocessing">Data Acquisition and Preprocessing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/methods.html#ecoregion-assignment">Ecoregion Assignment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/methods.html#ecological-feature-summarization">Ecological Feature Summarization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/methods.html#feature-standardization-and-filtering">Feature Standardization and Filtering</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/methods.html#large-margin-nearest-neighbor-lmnn-metric-learning">Large Margin Nearest Neighbor (LMNN) Metric Learning</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/methods.html#hierarchical-clustering">Hierarchical Clustering</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/methods.html#representative-cell-selection">Representative Cell Selection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/methods.html#evaluation-metrics">Evaluation Metrics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/methods.html#netcdf-processing">NetCDF Processing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/methods.html#computational-implementation">Computational Implementation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../explanation/index.html#reconstruction-correctness">Reconstruction correctness</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">climclusterpy</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">climclusterpy.features.climate</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for climclusterpy.features.climate</h1><div class="highlight"><pre>
+<span></span><span class="sd">"""Climate features: per-cell summaries of temperature, precipitation and radiation.</span>
+
+<span class="sd">Raw time series are a poor clustering input — two cells with identical means can have</span>
+<span class="sd">completely different seasonality, and the series are far too long to cluster directly.</span>
+<span class="sd">This module reduces each cell's climate to interpretable summary statistics (annual</span>
+<span class="sd">means and variability, seasonality, extremes, monthly climatology) that ecologists</span>
+<span class="sd">recognise, plus the daily→monthly reduction that bioclimatic classifications need.</span>
+
+<span class="sd">Water-balance features live in :mod:`climclusterpy.features.hydro`, soil in</span>
+<span class="sd">:mod:`climclusterpy.features.soil`, and the derived diagnostic families in</span>
+<span class="sd">:mod:`climclusterpy.features.diagnostics`.</span>
+<span class="sd">"""</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">itertools</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">xarray</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">xr</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">climclusterpy.data.registry</span><span class="w"> </span><span class="kn">import</span> <span class="n">DataRegistry</span>
+
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">"DAYS_PER_MONTH"</span><span class="p">,</span>
+    <span class="s2">"monthly_climatology_from_daily"</span><span class="p">,</span>
+    <span class="s2">"resolve_variable_dispatch_names"</span><span class="p">,</span>
+    <span class="s2">"summarize_climate_features"</span><span class="p">,</span>
+    <span class="s2">"to_celsius"</span><span class="p">,</span>
+<span class="p">]</span>
+
+<span class="c1">#: Days per month for a non-leap year — monthly totals are derived from monthly</span>
+<span class="c1">#: means with these weights.</span>
+<span class="n">DAYS_PER_MONTH</span> <span class="o">=</span> <span class="p">[</span><span class="mi">31</span><span class="p">,</span> <span class="mi">28</span><span class="p">,</span> <span class="mi">31</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">31</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">31</span><span class="p">,</span> <span class="mi">31</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">31</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">31</span><span class="p">]</span>
+
+<span class="c1">#: Aliases recognised for each known logical climate variable, matched against a</span>
+<span class="c1">#: dataset's own dict key and the names of its data variables (e.g. 'temperature' and</span>
+<span class="c1">#: 'tas' both resolve to the logical name 'tas').</span>
+<span class="n">_VAR_ALIASES</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">"tas"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"tas"</span><span class="p">,</span> <span class="s2">"temperature"</span><span class="p">,</span> <span class="s2">"temp"</span><span class="p">],</span>
+    <span class="s2">"pr"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"pr"</span><span class="p">,</span> <span class="s2">"precip"</span><span class="p">,</span> <span class="s2">"precipitation"</span><span class="p">],</span>
+    <span class="s2">"rsds"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"rsds"</span><span class="p">,</span> <span class="s2">"short_wave"</span><span class="p">,</span> <span class="s2">"shortwave"</span><span class="p">,</span> <span class="s2">"rsd"</span><span class="p">],</span>
+    <span class="s2">"rlds"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"rlds"</span><span class="p">,</span> <span class="s2">"long_wave"</span><span class="p">,</span> <span class="s2">"longwave"</span><span class="p">,</span> <span class="s2">"rld"</span><span class="p">],</span>
+    <span class="s2">"hurs"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"hurs"</span><span class="p">,</span> <span class="s2">"humid"</span><span class="p">,</span> <span class="s2">"rh"</span><span class="p">,</span> <span class="s2">"relative_humidity"</span><span class="p">],</span>
+<span class="p">}</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">resolve_variable_dispatch_names</span><span class="p">(</span><span class="n">datasets</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">xr</span><span class="o">.</span><span class="n">Dataset</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">"""For each dataset key, the name :func:`summarize_climate_features` dispatches it under.</span>
+
+<span class="sd">    A key that matches a known climate variable (by the alias rules in ``_VAR_ALIASES``,</span>
+<span class="sd">    checked against the key itself and its data variable names) maps to that variable's</span>
+<span class="sd">    logical short code (``tas``/``pr``/``rsds``/``rlds``/``hurs``), so it keeps that</span>
+<span class="sd">    variable's special unit handling no matter what the caller named it. Everything else</span>
+<span class="sd">    maps to its own key, unchanged -- a custom climate variable from a non-LPJmL input.</span>
+
+<span class="sd">    Used both by ``summarize_climate_features`` itself and by callers that need to know,</span>
+<span class="sd">    ahead of time, which name a given dataset key will be requested under (e.g. to resolve</span>
+<span class="sd">    a ``climate_variables=`` default for a generic input).</span>
+<span class="sd">    """</span>
+    <span class="n">matched_key_for</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>  <span class="c1"># logical name -&gt; the dataset key that filled it</span>
+    <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">ds</span> <span class="ow">in</span> <span class="n">datasets</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="n">dvars</span> <span class="o">=</span> <span class="p">[</span><span class="n">v</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">ds</span><span class="o">.</span><span class="n">data_vars</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">logical</span><span class="p">,</span> <span class="n">aliases</span> <span class="ow">in</span> <span class="n">_VAR_ALIASES</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">logical</span> <span class="ow">in</span> <span class="n">matched_key_for</span><span class="p">:</span>
+                <span class="k">continue</span>
+            <span class="k">if</span> <span class="n">logical</span> <span class="ow">in</span> <span class="nb">str</span><span class="p">(</span><span class="n">key</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">or</span> <span class="nb">any</span><span class="p">(</span>
+                <span class="n">a</span> <span class="ow">in</span> <span class="nb">str</span><span class="p">(</span><span class="n">key</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">or</span> <span class="nb">any</span><span class="p">(</span><span class="n">a</span> <span class="ow">in</span> <span class="n">dv</span> <span class="k">for</span> <span class="n">dv</span> <span class="ow">in</span> <span class="n">dvars</span><span class="p">)</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">aliases</span>
+            <span class="p">):</span>
+                <span class="n">matched_key_for</span><span class="p">[</span><span class="n">logical</span><span class="p">]</span> <span class="o">=</span> <span class="n">key</span>
+    <span class="n">key_to_logical</span> <span class="o">=</span> <span class="p">{</span><span class="n">key</span><span class="p">:</span> <span class="n">logical</span> <span class="k">for</span> <span class="n">logical</span><span class="p">,</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">matched_key_for</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
+    <span class="k">return</span> <span class="p">{</span><span class="n">key</span><span class="p">:</span> <span class="n">key_to_logical</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">key</span><span class="p">)</span> <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">datasets</span><span class="p">}</span>
+
+
+<span class="c1"># Above this mean value the series cannot be °C for any Earth-like climate, so it</span>
+<span class="c1"># is Kelvin. Cheaper and more robust than trusting a `units` attribute, which is</span>
+<span class="c1"># frequently missing or wrong in model output.</span>
+<span class="n">_KELVIN_MEAN_THRESHOLD</span> <span class="o">=</span> <span class="mf">200.0</span>
+
+
+<div class="viewcode-block" id="to_celsius">
+<a class="viewcode-back" href="../../../reference/supervision.html#climclusterpy.features.to_celsius">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">to_celsius</span><span class="p">(</span><span class="n">da</span><span class="p">:</span> <span class="n">xr</span><span class="o">.</span><span class="n">DataArray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">xr</span><span class="o">.</span><span class="n">DataArray</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Return the temperature series in °C, converting from Kelvin if needed.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    da : xarray.DataArray</span>
+<span class="sd">        Temperature series in either °C or K.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    xarray.DataArray</span>
+<span class="sd">        The same series in °C.</span>
+<span class="sd">    """</span>
+    <span class="n">arr</span> <span class="o">=</span> <span class="n">da</span>
+    <span class="c1"># compute() loads a lazy (dask) mean and is a no-op on an array already in memory.</span>
+    <span class="n">mean_val</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">arr</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">compute</span><span class="p">())</span>
+
+    <span class="k">if</span> <span class="n">mean_val</span> <span class="o">&gt;</span> <span class="n">_KELVIN_MEAN_THRESHOLD</span><span class="p">:</span>
+        <span class="n">arr</span> <span class="o">=</span> <span class="n">arr</span> <span class="o">-</span> <span class="mf">273.15</span>
+    <span class="k">return</span> <span class="n">arr</span></div>
+
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_calendar_parts</span><span class="p">(</span><span class="n">time_values</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""``(months, years, days)`` of a time axis, or None when it carries no dates.</span>
+
+<span class="sd">    Handles numpy ``datetime64`` (what xarray decodes a standard calendar to) as well as</span>
+<span class="sd">    ``cftime`` objects (what it decodes a ``noleap``/``360_day`` calendar to).</span>
+<span class="sd">    """</span>
+    <span class="n">values</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">time_values</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">values</span><span class="o">.</span><span class="n">size</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">None</span>
+    <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">issubdtype</span><span class="p">(</span><span class="n">values</span><span class="o">.</span><span class="n">dtype</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">datetime64</span><span class="p">):</span>
+        <span class="n">idx</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DatetimeIndex</span><span class="p">(</span><span class="n">values</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">idx</span><span class="o">.</span><span class="n">month</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">(),</span> <span class="n">idx</span><span class="o">.</span><span class="n">year</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">(),</span> <span class="n">idx</span><span class="o">.</span><span class="n">day</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
+    <span class="k">if</span> <span class="nb">all</span><span class="p">(</span><span class="nb">hasattr</span><span class="p">(</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">a</span><span class="p">)</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">"month"</span><span class="p">,</span> <span class="s2">"year"</span><span class="p">,</span> <span class="s2">"day"</span><span class="p">)):</span>
+        <span class="k">return</span> <span class="p">(</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">t</span><span class="o">.</span><span class="n">month</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">values</span><span class="p">]),</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">t</span><span class="o">.</span><span class="n">year</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">values</span><span class="p">]),</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">t</span><span class="o">.</span><span class="n">day</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">values</span><span class="p">]),</span>
+        <span class="p">)</span>
+    <span class="k">return</span> <span class="kc">None</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_monthly_climatology_by_date</span><span class="p">(</span><span class="n">da</span><span class="p">:</span> <span class="n">xr</span><span class="o">.</span><span class="n">DataArray</span><span class="p">,</span> <span class="n">da_flat</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""``(n_cells, 12)`` mean of each calendar month, from monthly data with dates; else None.</span>
+
+<span class="sd">    Returns None when the time axis carries no dates, or when some calendar month has no</span>
+<span class="sd">    time step at all (the caller then reports that the climatology is incomplete).</span>
+<span class="sd">    """</span>
+    <span class="k">if</span> <span class="s2">"time"</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">da</span><span class="o">.</span><span class="n">coords</span> <span class="ow">or</span> <span class="n">da</span><span class="o">.</span><span class="n">sizes</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"time"</span><span class="p">)</span> <span class="o">!=</span> <span class="n">da_flat</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span>
+        <span class="k">return</span> <span class="kc">None</span>
+    <span class="n">parts</span> <span class="o">=</span> <span class="n">_calendar_parts</span><span class="p">(</span><span class="n">da</span><span class="p">[</span><span class="s2">"time"</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">parts</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">None</span>
+    <span class="n">months</span> <span class="o">=</span> <span class="n">parts</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">all</span><span class="p">((</span><span class="n">months</span> <span class="o">==</span> <span class="n">m</span><span class="p">)</span><span class="o">.</span><span class="n">any</span><span class="p">()</span> <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">13</span><span class="p">)):</span>
+        <span class="k">return</span> <span class="kc">None</span>
+    <span class="k">with</span> <span class="n">warnings</span><span class="o">.</span><span class="n">catch_warnings</span><span class="p">():</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">simplefilter</span><span class="p">(</span><span class="s2">"ignore"</span><span class="p">,</span> <span class="ne">RuntimeWarning</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">stack</span><span class="p">(</span>
+            <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">nanmean</span><span class="p">(</span><span class="n">da_flat</span><span class="p">[:,</span> <span class="n">months</span> <span class="o">==</span> <span class="n">m</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">13</span><span class="p">)],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span>
+        <span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_time_step_days</span><span class="p">(</span><span class="n">da</span><span class="p">:</span> <span class="n">xr</span><span class="o">.</span><span class="n">DataArray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Median spacing of the time axis in days, or None when it carries no dates."""</span>
+    <span class="k">if</span> <span class="s2">"time"</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">da</span><span class="o">.</span><span class="n">coords</span> <span class="ow">or</span> <span class="n">da</span><span class="o">.</span><span class="n">sizes</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"time"</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">None</span>
+    <span class="n">values</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">da</span><span class="p">[</span><span class="s2">"time"</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">issubdtype</span><span class="p">(</span><span class="n">values</span><span class="o">.</span><span class="n">dtype</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">datetime64</span><span class="p">):</span>
+            <span class="n">diffs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">values</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">"timedelta64[s]"</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span> <span class="o">/</span> <span class="mf">86400.0</span>
+        <span class="k">elif</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="s2">"month"</span><span class="p">):</span>
+            <span class="n">diffs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+                <span class="p">[(</span><span class="n">b</span> <span class="o">-</span> <span class="n">a</span><span class="p">)</span><span class="o">.</span><span class="n">total_seconds</span><span class="p">()</span> <span class="o">/</span> <span class="mf">86400.0</span> <span class="k">for</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="ow">in</span> <span class="n">itertools</span><span class="o">.</span><span class="n">pairwise</span><span class="p">(</span><span class="n">values</span><span class="p">)]</span>
+            <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span>
+    <span class="k">except</span> <span class="p">(</span><span class="ne">TypeError</span><span class="p">,</span> <span class="ne">AttributeError</span><span class="p">):</span>
+        <span class="k">return</span> <span class="kc">None</span>
+    <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">diffs</span><span class="p">))</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_is_daily</span><span class="p">(</span><span class="n">da</span><span class="p">:</span> <span class="n">xr</span><span class="o">.</span><span class="n">DataArray</span><span class="p">,</span> <span class="n">n_timesteps</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">fallback_threshold</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""True for daily data: from the dates when there are any, else from the step count."""</span>
+    <span class="n">step</span> <span class="o">=</span> <span class="n">_time_step_days</span><span class="p">(</span><span class="n">da</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">step</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">step</span> <span class="o">&lt;</span> <span class="mf">2.0</span>
+    <span class="k">return</span> <span class="n">n_timesteps</span> <span class="o">&gt;</span> <span class="n">fallback_threshold</span>
+
+
+<div class="viewcode-block" id="monthly_climatology_from_daily">
+<a class="viewcode-back" href="../../../reference/supervision.html#climclusterpy.features.monthly_climatology_from_daily">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">monthly_climatology_from_daily</span><span class="p">(</span>
+    <span class="n">temp_da</span><span class="p">:</span> <span class="n">xr</span><span class="o">.</span><span class="n">DataArray</span><span class="p">,</span> <span class="n">prec_da</span><span class="p">:</span> <span class="n">xr</span><span class="o">.</span><span class="n">DataArray</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">xr</span><span class="o">.</span><span class="n">DataArray</span><span class="p">,</span> <span class="n">xr</span><span class="o">.</span><span class="n">DataArray</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">"""Reduce daily temperature and precipitation to 12-month climatologies.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    temp_da : xarray.DataArray</span>
+<span class="sd">        Daily mean temperature with a ``time`` dimension (°C).</span>
+<span class="sd">    prec_da : xarray.DataArray</span>
+<span class="sd">        Daily precipitation with a ``time`` dimension (mm/day).</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    temp_clim : xarray.DataArray</span>
+<span class="sd">        Mean temperature per calendar month, dims ``(month, ...)`` with</span>
+<span class="sd">        ``month`` in 1–12 (°C).</span>
+<span class="sd">    prec_clim : xarray.DataArray</span>
+<span class="sd">        Mean precipitation *total* per calendar month, dims ``(month, ...)``</span>
+<span class="sd">        (mm/month).</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    Precipitation needs two steps, not one. Grouping daily values by calendar</span>
+<span class="sd">    month and summing would add up every year's rain into one figure; resampling</span>
+<span class="sd">    to monthly totals first and only then averaging across years gives the</span>
+<span class="sd">    per-month total the classification rules are defined on.</span>
+<span class="sd">    """</span>
+    <span class="n">temp_clim</span> <span class="o">=</span> <span class="n">temp_da</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">"time.month"</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="s2">"time"</span><span class="p">)</span>
+
+    <span class="n">prec_monthly_total</span> <span class="o">=</span> <span class="n">prec_da</span><span class="o">.</span><span class="n">resample</span><span class="p">(</span><span class="n">time</span><span class="o">=</span><span class="s2">"1ME"</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="s2">"time"</span><span class="p">)</span>
+    <span class="n">prec_clim</span> <span class="o">=</span> <span class="n">prec_monthly_total</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">"time.month"</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="s2">"time"</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">temp_clim</span><span class="p">,</span> <span class="n">prec_clim</span></div>
+
+
+
+<div class="viewcode-block" id="summarize_climate_features">
+<a class="viewcode-back" href="../../../reference/features.html#climclusterpy.features.summarize_climate_features">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">summarize_climate_features</span><span class="p">(</span>
+    <span class="n">datasets</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">xr</span><span class="o">.</span><span class="n">Dataset</span><span class="p">],</span>
+    <span class="n">registry</span><span class="p">:</span> <span class="n">DataRegistry</span><span class="p">,</span>
+    <span class="n">variables</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">include_monthly_climatology</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="n">variable_aggregations</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""</span>
+<span class="sd">    Compute ecological summary statistics for climate variables.</span>
+
+<span class="sd">    For each grid cell, computes interpretable summaries that capture</span>
+<span class="sd">    annual means, seasonal patterns, and extremes.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        datasets: Dict mapping variable names to xarray Datasets</span>
+<span class="sd">                  Expected keys: 'tas', 'pr', 'rsds', 'rlds', 'hurs'</span>
+<span class="sd">        registry: DataRegistry containing valid cell mask and coordinates</span>
+<span class="sd">        variables: List of variables to summarize (default: all climate vars + SPEI)</span>
+<span class="sd">        include_monthly_climatology: If True (default), include 12 monthly climatology</span>
+<span class="sd">            features for temperature (tas_month_01..tas_month_12) and precipitation</span>
+<span class="sd">            (pr_month_01..pr_month_12). These are needed for Köppen-Geiger classification.</span>
+<span class="sd">        variable_aggregations: For a variable the package doesn't specially know (anything</span>
+<span class="sd">            outside tas/pr/rsds/rlds/hurs/spei), whether its monthly climatology should be a</span>
+<span class="sd">            mean or a sum (default: mean). Ignored for the known variables, which keep their</span>
+<span class="sd">            own fixed recipe (temperature/radiation/humidity: mean; precipitation: sum).</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">        DataFrame with columns:</span>
+<span class="sd">        - cell_id, latitude, longitude</span>
+<span class="sd">        - tas_mean_annual, tas_month_01..tas_month_12, tas_range, tas_std, tas_seasonality</span>
+<span class="sd">        - pr_mean_annual, pr_month_01..pr_month_12, pr_cv_monthly, pr_wetdays_freq, pr_max_monthly</span>
+<span class="sd">        - rsds_mean_annual, rsds_seasonal_amplitude, rsds_std</span>
+<span class="sd">        - rlds_mean_annual, rlds_seasonal_amplitude, rlds_std</span>
+<span class="sd">        - hurs_mean_annual, hurs_std, hurs_dry_min</span>
+<span class="sd">        - spei_3_mean, spei_6_mean, spei_12_mean (drought indices at 3/6/12 month scales)</span>
+<span class="sd">    """</span>
+    <span class="c1"># Imported here rather than at module level: `diagnostics` imports DAYS_PER_MONTH</span>
+    <span class="c1"># from this module (so a top-level import would be circular), and `hydro` pulls in</span>
+    <span class="c1"># the optional `pyet` PET backend only when SPEI is actually requested.</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">climclusterpy.features.diagnostics</span><span class="w"> </span><span class="kn">import</span> <span class="n">compute_kg_diagnostic_features</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">climclusterpy.features.hydro</span><span class="w"> </span><span class="kn">import</span> <span class="n">summarize_spei_features</span>
+
+    <span class="k">if</span> <span class="n">variables</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">variables</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"tas"</span><span class="p">,</span> <span class="s2">"pr"</span><span class="p">,</span> <span class="s2">"rsds"</span><span class="p">,</span> <span class="s2">"rlds"</span><span class="p">,</span> <span class="s2">"hurs"</span><span class="p">,</span> <span class="s2">"spei"</span><span class="p">]</span>
+
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"[FeatureSummary] Summarizing climate features for </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">variables</span><span class="p">)</span><span class="si">}</span><span class="s2"> variables"</span><span class="p">)</span>
+
+    <span class="c1"># Get valid cell coordinates</span>
+    <span class="n">valid_lats</span><span class="p">,</span> <span class="n">valid_lons</span> <span class="o">=</span> <span class="n">registry</span><span class="o">.</span><span class="n">get_valid_lat_lon</span><span class="p">()</span>
+    <span class="n">n_cells</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">valid_lats</span><span class="p">)</span>
+
+    <span class="c1"># Initialize output structure</span>
+    <span class="n">features</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">"cell_id"</span><span class="p">:</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">n_cells</span><span class="p">)),</span>
+        <span class="s2">"latitude"</span><span class="p">:</span> <span class="n">valid_lats</span><span class="p">,</span>
+        <span class="s2">"longitude"</span><span class="p">:</span> <span class="n">valid_lons</span><span class="p">,</span>
+    <span class="p">}</span>
+
+    <span class="c1"># Map each dataset to the name summarize_climate_features dispatches on: the known</span>
+    <span class="c1"># logical short code (tas/pr/rsds/rlds/hurs) when it matches, else the dataset's own</span>
+    <span class="c1"># key -- so a custom variable ("wind", "vpd", ...) is still usable in `variables`,</span>
+    <span class="c1"># and a known one keeps its special unit handling even under a descriptive key like</span>
+    <span class="c1"># "temperature" rather than "tas".</span>
+    <span class="n">dispatch_names</span> <span class="o">=</span> <span class="n">resolve_variable_dispatch_names</span><span class="p">(</span><span class="n">datasets</span><span class="p">)</span>
+    <span class="n">found</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">xr</span><span class="o">.</span><span class="n">Dataset</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">ds</span> <span class="ow">in</span> <span class="n">datasets</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="n">found</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="n">dispatch_names</span><span class="p">[</span><span class="n">key</span><span class="p">],</span> <span class="n">ds</span><span class="p">)</span>
+
+    <span class="c1"># Process each variable</span>
+    <span class="k">for</span> <span class="n">var_name</span> <span class="ow">in</span> <span class="n">variables</span><span class="p">:</span>
+        <span class="c1"># SPEI needs special handling - computed from multiple variables</span>
+        <span class="k">if</span> <span class="n">var_name</span> <span class="o">==</span> <span class="s2">"spei"</span><span class="p">:</span>
+            <span class="c1"># Check if we have the required variables</span>
+            <span class="k">if</span> <span class="s2">"tas"</span> <span class="ow">in</span> <span class="n">found</span> <span class="ow">and</span> <span class="s2">"pr"</span> <span class="ow">in</span> <span class="n">found</span> <span class="ow">and</span> <span class="s2">"rsds"</span> <span class="ow">in</span> <span class="n">found</span><span class="p">:</span>
+                <span class="n">features</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">summarize_spei_features</span><span class="p">(</span><span class="n">found</span><span class="p">,</span> <span class="n">registry</span><span class="p">))</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">missing</span> <span class="o">=</span> <span class="p">[</span><span class="n">v</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">"tas"</span><span class="p">,</span> <span class="s2">"pr"</span><span class="p">,</span> <span class="s2">"rsds"</span><span class="p">]</span> <span class="k">if</span> <span class="n">v</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">found</span><span class="p">]</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">"[FeatureSummary] WARNING: Cannot compute SPEI - missing variables: </span><span class="si">{</span><span class="n">missing</span><span class="si">}</span><span class="s2">"</span>
+                <span class="p">)</span>
+            <span class="k">continue</span>
+
+        <span class="k">if</span> <span class="n">var_name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">found</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="sa">f</span><span class="s2">"[FeatureSummary] WARNING: Variable '</span><span class="si">{</span><span class="n">var_name</span><span class="si">}</span><span class="s2">' not found, skipping"</span><span class="p">)</span>
+            <span class="k">continue</span>
+
+        <span class="n">ds</span> <span class="o">=</span> <span class="n">found</span><span class="p">[</span><span class="n">var_name</span><span class="p">]</span>
+
+        <span class="c1"># Extract the data variable (assume single data var or same name as key)</span>
+        <span class="k">if</span> <span class="n">var_name</span> <span class="ow">in</span> <span class="n">ds</span><span class="o">.</span><span class="n">data_vars</span><span class="p">:</span>
+            <span class="n">da</span> <span class="o">=</span> <span class="n">ds</span><span class="p">[</span><span class="n">var_name</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># Fallback: use first data variable</span>
+            <span class="n">data_vars</span> <span class="o">=</span> <span class="p">[</span><span class="n">v</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">ds</span><span class="o">.</span><span class="n">data_vars</span> <span class="k">if</span> <span class="n">v</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">"lat"</span><span class="p">,</span> <span class="s2">"lon"</span><span class="p">,</span> <span class="s2">"time"</span><span class="p">]]</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">data_vars</span><span class="p">:</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">"[FeatureSummary] WARNING: No data variables found for '</span><span class="si">{</span><span class="n">var_name</span><span class="si">}</span><span class="s2">', skipping"</span>
+                <span class="p">)</span>
+                <span class="k">continue</span>
+            <span class="n">da</span> <span class="o">=</span> <span class="n">ds</span><span class="p">[</span><span class="n">data_vars</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span>
+
+        <span class="c1"># Flatten to valid cells with chunked parallel processing</span>
+        <span class="c1"># This avoids loading huge arrays into memory and uses float32</span>
+        <span class="n">da_flat</span> <span class="o">=</span> <span class="n">registry</span><span class="o">.</span><span class="n">flatten_on_valid</span><span class="p">(</span><span class="n">da</span><span class="p">)</span>
+
+        <span class="c1"># da_flat is already float32 from registry.flatten_on_valid</span>
+        <span class="c1"># No need to convert again - just ensure it's a numpy array</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">da_flat</span><span class="p">,</span> <span class="s2">"compute"</span><span class="p">):</span>
+            <span class="c1"># If it's still a dask array, compute it now</span>
+            <span class="n">da_flat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">da_flat</span><span class="o">.</span><span class="n">compute</span><span class="p">(),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">da_flat</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
+            <span class="n">da_flat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">da_flat</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">var_name</span> <span class="o">==</span> <span class="s2">"tas"</span><span class="p">:</span>
+            <span class="c1"># Every temperature threshold downstream (Köppen–Geiger classes, growing-season</span>
+            <span class="c1"># diagnostics) is in °C. Kelvin is recognised by its magnitude, not by the units</span>
+            <span class="c1"># attribute, which model output often gets wrong or leaves out.</span>
+            <span class="k">if</span> <span class="nb">float</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">nanmean</span><span class="p">(</span><span class="n">da_flat</span><span class="p">))</span> <span class="o">&gt;</span> <span class="n">_KELVIN_MEAN_THRESHOLD</span><span class="p">:</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"[FeatureSummary] '</span><span class="si">{</span><span class="n">var_name</span><span class="si">}</span><span class="s2">' looks like Kelvin; converting to °C"</span><span class="p">)</span>
+                <span class="n">da_flat</span> <span class="o">=</span> <span class="n">da_flat</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">(</span><span class="mf">273.15</span><span class="p">)</span>
+            <span class="n">features</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
+                <span class="n">_summarize_temperature</span><span class="p">(</span><span class="n">da</span><span class="p">,</span> <span class="n">da_flat</span><span class="p">,</span> <span class="n">var_name</span><span class="p">,</span> <span class="n">include_monthly_climatology</span><span class="p">)</span>
+            <span class="p">)</span>
+        <span class="k">elif</span> <span class="n">var_name</span> <span class="o">==</span> <span class="s2">"pr"</span><span class="p">:</span>
+            <span class="n">features</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
+                <span class="n">_summarize_precipitation</span><span class="p">(</span><span class="n">da</span><span class="p">,</span> <span class="n">da_flat</span><span class="p">,</span> <span class="n">var_name</span><span class="p">,</span> <span class="n">include_monthly_climatology</span><span class="p">)</span>
+            <span class="p">)</span>
+        <span class="k">elif</span> <span class="n">var_name</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">"rsds"</span><span class="p">,</span> <span class="s2">"rlds"</span><span class="p">]:</span>
+            <span class="n">features</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">_summarize_radiation</span><span class="p">(</span><span class="n">da</span><span class="p">,</span> <span class="n">da_flat</span><span class="p">,</span> <span class="n">var_name</span><span class="p">))</span>
+        <span class="k">elif</span> <span class="n">var_name</span> <span class="o">==</span> <span class="s2">"hurs"</span><span class="p">:</span>
+            <span class="n">features</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">_summarize_humidity</span><span class="p">(</span><span class="n">da</span><span class="p">,</span> <span class="n">da_flat</span><span class="p">,</span> <span class="n">var_name</span><span class="p">))</span>
+        <span class="k">elif</span> <span class="n">da_flat</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="c1"># Generic, but static (no time dimension left after flattening): just mean/std.</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"[FeatureSummary] Using generic static summary for '</span><span class="si">{</span><span class="n">var_name</span><span class="si">}</span><span class="s2">'"</span><span class="p">)</span>
+            <span class="n">features</span><span class="p">[</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">var_name</span><span class="si">}</span><span class="s2">_mean"</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmean</span><span class="p">(</span><span class="n">da_flat</span><span class="p">)</span>
+            <span class="n">features</span><span class="p">[</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">var_name</span><span class="si">}</span><span class="s2">_std"</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nanstd</span><span class="p">(</span><span class="n">da_flat</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">aggregation</span> <span class="o">=</span> <span class="p">(</span><span class="n">variable_aggregations</span> <span class="ow">or</span> <span class="p">{})</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">var_name</span><span class="p">,</span> <span class="s2">"mean"</span><span class="p">)</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">"[FeatureSummary] Using generic summary for '</span><span class="si">{</span><span class="n">var_name</span><span class="si">}</span><span class="s2">' (aggregation=</span><span class="si">{</span><span class="n">aggregation</span><span class="si">}</span><span class="s2">)"</span>
+            <span class="p">)</span>
+            <span class="n">features</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
+                <span class="n">_summarize_generic</span><span class="p">(</span><span class="n">da</span><span class="p">,</span> <span class="n">da_flat</span><span class="p">,</span> <span class="n">var_name</span><span class="p">,</span> <span class="n">aggregation</span><span class="p">,</span> <span class="n">include_monthly_climatology</span><span class="p">)</span>
+            <span class="p">)</span>
+
+    <span class="c1"># ── KG-diagnostic scalar features ────────────────────────────────────────</span>
+    <span class="c1"># These are computed from the monthly climatology arrays that were just built</span>
+    <span class="c1"># by _summarize_temperature and _summarize_precipitation.  Reconstruct the</span>
+    <span class="c1"># (n_cells, 12) arrays directly from the feature dict so we don't need to</span>
+    <span class="c1"># change the helper signatures.</span>
+    <span class="n">tas_month_cols</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s2">"tas_month_</span><span class="si">{</span><span class="n">m</span><span class="si">:</span><span class="s2">02d</span><span class="si">}</span><span class="s2">"</span> <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">13</span><span class="p">)]</span>
+    <span class="n">pr_month_cols</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s2">"pr_month_</span><span class="si">{</span><span class="n">m</span><span class="si">:</span><span class="s2">02d</span><span class="si">}</span><span class="s2">"</span> <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">13</span><span class="p">)]</span>
+
+    <span class="n">has_tas_months</span> <span class="o">=</span> <span class="nb">all</span><span class="p">(</span><span class="n">c</span> <span class="ow">in</span> <span class="n">features</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">tas_month_cols</span><span class="p">)</span>
+    <span class="n">has_pr_months</span> <span class="o">=</span> <span class="nb">all</span><span class="p">(</span><span class="n">c</span> <span class="ow">in</span> <span class="n">features</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">pr_month_cols</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">has_tas_months</span> <span class="ow">and</span> <span class="n">has_pr_months</span> <span class="ow">and</span> <span class="n">include_monthly_climatology</span><span class="p">:</span>
+        <span class="n">monthly_T</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">column_stack</span><span class="p">([</span><span class="n">features</span><span class="p">[</span><span class="n">c</span><span class="p">]</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">tas_month_cols</span><span class="p">])</span>  <span class="c1"># (n, 12)</span>
+        <span class="n">monthly_P</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">column_stack</span><span class="p">([</span><span class="n">features</span><span class="p">[</span><span class="n">c</span><span class="p">]</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">pr_month_cols</span><span class="p">])</span>  <span class="c1"># (n, 12)</span>
+        <span class="n">lats</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">valid_lats</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+        <span class="n">kg_feats</span> <span class="o">=</span> <span class="n">compute_kg_diagnostic_features</span><span class="p">(</span><span class="n">monthly_T</span><span class="p">,</span> <span class="n">monthly_P</span><span class="p">,</span> <span class="n">lats</span><span class="p">)</span>
+        <span class="n">features</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">kg_feats</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">"[FeatureSummary] Added </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">kg_feats</span><span class="p">)</span><span class="si">}</span><span class="s2"> KG-diagnostic features: </span><span class="si">{</span><span class="nb">list</span><span class="p">(</span><span class="n">kg_feats</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span>
+        <span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+            <span class="s2">"[FeatureSummary] Skipping KG-diagnostic features "</span>
+            <span class="sa">f</span><span class="s2">"(has_tas_months=</span><span class="si">{</span><span class="n">has_tas_months</span><span class="si">}</span><span class="s2">, has_pr_months=</span><span class="si">{</span><span class="n">has_pr_months</span><span class="si">}</span><span class="s2">, "</span>
+            <span class="sa">f</span><span class="s2">"include_monthly_climatology=</span><span class="si">{</span><span class="n">include_monthly_climatology</span><span class="si">}</span><span class="s2">)"</span>
+        <span class="p">)</span>
+    <span class="c1"># ─────────────────────────────────────────────────────────────────────────</span>
+
+    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">features</span><span class="p">)</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"[FeatureSummary] Created </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span><span class="si">}</span><span class="s2"> climate features for </span><span class="si">{</span><span class="n">n_cells</span><span class="si">}</span><span class="s2"> cells"</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">df</span></div>
+
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_summarize_generic</span><span class="p">(</span>
+    <span class="n">da</span><span class="p">:</span> <span class="n">xr</span><span class="o">.</span><span class="n">DataArray</span><span class="p">,</span>
+    <span class="n">da_flat</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">var_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">aggregation</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"mean"</span><span class="p">,</span>
+    <span class="n">include_monthly_climatology</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Per-cell summary for a climate variable the package doesn't specially know.</span>
+
+<span class="sd">    Unlike the dedicated tas/pr/rsds/rlds/hurs summarizers, there is no built-in unit</span>
+<span class="sd">    handling here -- the caller's own units are used as-is. Produces an annual aggregate</span>
+<span class="sd">    (mean or sum, per ``aggregation``), its std, and -- when a clean monthly climatology can</span>
+<span class="sd">    be built -- 12 monthly columns using the same aggregation and a seasonality (std across</span>
+<span class="sd">    those 12 months). Standardization across cells happens later, uniformly, in</span>
+<span class="sd">    :func:`climclusterpy.features.filtering.standardize_features`.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        da: Original xarray DataArray (used for its time coordinate).</span>
+<span class="sd">        da_flat: Pre-flattened array of shape (n_cells, n_timesteps).</span>
+<span class="sd">        var_name: Variable name prefix for feature names.</span>
+<span class="sd">        aggregation: ``"mean"`` or ``"sum"`` -- how daily values roll up into a month, and</span>
+<span class="sd">            how a month's value represents the year.</span>
+<span class="sd">        include_monthly_climatology: If True, include the 12 monthly columns.</span>
+<span class="sd">    """</span>
+    <span class="n">agg_fn</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nansum</span> <span class="k">if</span> <span class="n">aggregation</span> <span class="o">==</span> <span class="s2">"sum"</span> <span class="k">else</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmean</span>
+    <span class="n">annual_key</span> <span class="o">=</span> <span class="s2">"sum_annual"</span> <span class="k">if</span> <span class="n">aggregation</span> <span class="o">==</span> <span class="s2">"sum"</span> <span class="k">else</span> <span class="s2">"mean_annual"</span>
+
+    <span class="n">features</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">var_name</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">annual_key</span><span class="si">}</span><span class="s2">"</span><span class="p">:</span> <span class="n">agg_fn</span><span class="p">(</span><span class="n">da_flat</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span>
+        <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">var_name</span><span class="si">}</span><span class="s2">_std"</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">nanstd</span><span class="p">(</span><span class="n">da_flat</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span>
+    <span class="p">}</span>
+
+    <span class="n">n_cells</span><span class="p">,</span> <span class="n">n_timesteps</span> <span class="o">=</span> <span class="n">da_flat</span><span class="o">.</span><span class="n">shape</span>
+    <span class="n">monthly</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="k">if</span> <span class="n">include_monthly_climatology</span> <span class="ow">and</span> <span class="n">n_timesteps</span> <span class="o">&gt;=</span> <span class="mi">12</span><span class="p">:</span>
+        <span class="n">is_daily</span> <span class="o">=</span> <span class="n">_is_daily</span><span class="p">(</span><span class="n">da</span><span class="p">,</span> <span class="n">n_timesteps</span><span class="p">,</span> <span class="n">fallback_threshold</span><span class="o">=</span><span class="mi">365</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">is_daily</span> <span class="ow">and</span> <span class="s2">"time"</span> <span class="ow">in</span> <span class="n">da</span><span class="o">.</span><span class="n">dims</span><span class="p">:</span>
+            <span class="n">parts</span> <span class="o">=</span> <span class="n">_calendar_parts</span><span class="p">(</span><span class="n">da</span><span class="p">[</span><span class="s2">"time"</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">parts</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">months</span><span class="p">,</span> <span class="n">_years</span><span class="p">,</span> <span class="n">days</span> <span class="o">=</span> <span class="n">parts</span>
+                <span class="n">is_no_leap_calendar</span> <span class="o">=</span> <span class="s2">"noleap"</span> <span class="ow">in</span> <span class="nb">str</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">da</span><span class="p">[</span><span class="s2">"time"</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+                <span class="n">keep</span> <span class="o">=</span> <span class="p">(</span>
+                    <span class="n">np</span><span class="o">.</span><span class="n">ones_like</span><span class="p">(</span><span class="n">months</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">bool</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="n">is_no_leap_calendar</span>
+                    <span class="k">else</span> <span class="o">~</span><span class="p">((</span><span class="n">months</span> <span class="o">==</span> <span class="mi">2</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">days</span> <span class="o">==</span> <span class="mi">29</span><span class="p">))</span>
+                <span class="p">)</span>
+                <span class="n">months_kept</span> <span class="o">=</span> <span class="n">months</span><span class="p">[</span><span class="n">keep</span><span class="p">]</span>
+                <span class="n">da_flat_kept</span> <span class="o">=</span> <span class="n">da_flat</span><span class="p">[:,</span> <span class="n">keep</span><span class="p">]</span>
+                <span class="n">monthly</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">((</span><span class="n">n_cells</span><span class="p">,</span> <span class="mi">12</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+                <span class="k">with</span> <span class="n">warnings</span><span class="o">.</span><span class="n">catch_warnings</span><span class="p">():</span>
+                    <span class="n">warnings</span><span class="o">.</span><span class="n">simplefilter</span><span class="p">(</span><span class="s2">"ignore"</span><span class="p">,</span> <span class="ne">RuntimeWarning</span><span class="p">)</span>
+                    <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">12</span><span class="p">):</span>
+                        <span class="n">month_mask</span> <span class="o">=</span> <span class="n">months_kept</span> <span class="o">==</span> <span class="p">(</span><span class="n">m</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+                        <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">month_mask</span><span class="p">):</span>
+                            <span class="n">monthly</span><span class="p">[:,</span> <span class="n">m</span><span class="p">]</span> <span class="o">=</span> <span class="n">agg_fn</span><span class="p">(</span><span class="n">da_flat_kept</span><span class="p">[:,</span> <span class="n">month_mask</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="ow">not</span> <span class="n">is_daily</span><span class="p">:</span>
+            <span class="c1"># Already monthly: each step is one month's aggregate, so the per-month mean</span>
+            <span class="c1"># across years is wanted regardless of `aggregation` -- same recipe the</span>
+            <span class="c1"># temperature/precipitation summarizers use for dated monthly data.</span>
+            <span class="n">by_date</span> <span class="o">=</span> <span class="n">_monthly_climatology_by_date</span><span class="p">(</span><span class="n">da</span><span class="p">,</span> <span class="n">da_flat</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">by_date</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">monthly</span> <span class="o">=</span> <span class="n">by_date</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">n_years</span> <span class="o">=</span> <span class="n">n_timesteps</span> <span class="o">//</span> <span class="mi">12</span>
+                <span class="k">if</span> <span class="n">n_years</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">n_timesteps</span> <span class="o">%</span> <span class="mi">12</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="n">reshaped</span> <span class="o">=</span> <span class="n">da_flat</span><span class="p">[:,</span> <span class="p">:</span> <span class="n">n_years</span> <span class="o">*</span> <span class="mi">12</span><span class="p">]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">n_cells</span><span class="p">,</span> <span class="n">n_years</span><span class="p">,</span> <span class="mi">12</span><span class="p">)</span>
+                    <span class="n">monthly</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmean</span><span class="p">(</span><span class="n">reshaped</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+                        <span class="sa">f</span><span class="s2">"'</span><span class="si">{</span><span class="n">var_name</span><span class="si">}</span><span class="s2">': </span><span class="si">{</span><span class="n">n_timesteps</span><span class="si">}</span><span class="s2"> monthly time steps are not whole years "</span>
+                        <span class="sa">f</span><span class="s2">"(</span><span class="si">{</span><span class="n">n_timesteps</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="mi">12</span><span class="si">}</span><span class="s2"> months left over), so its 12 monthly-climatology "</span>
+                        <span class="s2">"features are left out. Trim the input to whole years to keep them."</span><span class="p">,</span>
+                        <span class="ne">UserWarning</span><span class="p">,</span>
+                        <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+                    <span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">monthly</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">features</span><span class="p">[</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">var_name</span><span class="si">}</span><span class="s2">_seasonality"</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nanstd</span><span class="p">(</span><span class="n">monthly</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">12</span><span class="p">):</span>
+            <span class="n">features</span><span class="p">[</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">var_name</span><span class="si">}</span><span class="s2">_month_</span><span class="si">{</span><span class="n">m</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="si">:</span><span class="s2">02d</span><span class="si">}</span><span class="s2">"</span><span class="p">]</span> <span class="o">=</span> <span class="n">monthly</span><span class="p">[:,</span> <span class="n">m</span><span class="p">]</span>
+
+    <span class="k">return</span> <span class="n">features</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_summarize_temperature</span><span class="p">(</span>
+    <span class="n">da</span><span class="p">:</span> <span class="n">xr</span><span class="o">.</span><span class="n">DataArray</span><span class="p">,</span>
+    <span class="n">da_flat</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">var_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">include_monthly_climatology</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""</span>
+<span class="sd">    Temperature summaries:</span>
+<span class="sd">    - Mean annual temperature</span>
+<span class="sd">    - Annual range (max - min)</span>
+<span class="sd">    - Annual standard deviation</span>
+<span class="sd">    - Seasonality (monthly std)</span>
+<span class="sd">    - Monthly climatology (12 monthly means, optional, for Köppen-Geiger).</span>
+
+<span class="sd">    All computations use the pre-flattened valid-cell array for efficiency.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        da: Original xarray DataArray (used for time coordinate when resampling daily to monthly)</span>
+<span class="sd">        da_flat: Pre-flattened array of shape (n_cells, n_timesteps)</span>
+<span class="sd">        var_name: Variable name prefix for feature names (e.g., 'tas')</span>
+<span class="sd">        include_monthly_climatology: If True, include 12 monthly mean features</span>
+<span class="sd">            (tas_month_01 through tas_month_12) needed for Köppen-Geiger classification</span>
+<span class="sd">    """</span>
+    <span class="n">features</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="c1"># All computations on da_flat (n_cells × n_timesteps) - much faster than xarray groupby</span>
+
+    <span class="c1"># Mean annual</span>
+    <span class="n">features</span><span class="p">[</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">var_name</span><span class="si">}</span><span class="s2">_mean_annual"</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmean</span><span class="p">(</span><span class="n">da_flat</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="c1"># Annual std</span>
+    <span class="n">features</span><span class="p">[</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">var_name</span><span class="si">}</span><span class="s2">_std"</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nanstd</span><span class="p">(</span><span class="n">da_flat</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="c1"># Annual range</span>
+    <span class="n">features</span><span class="p">[</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">var_name</span><span class="si">}</span><span class="s2">_range"</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmax</span><span class="p">(</span><span class="n">da_flat</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmin</span><span class="p">(</span><span class="n">da_flat</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="c1"># Seasonality: compute monthly climatology efficiently from flattened data</span>
+    <span class="n">monthly_means</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">n_cells</span> <span class="o">=</span> <span class="n">da_flat</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">n_timesteps</span> <span class="o">=</span> <span class="n">da_flat</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+
+    <span class="k">if</span> <span class="n">n_timesteps</span> <span class="o">&gt;=</span> <span class="mi">12</span><span class="p">:</span>
+        <span class="c1"># Check if data is daily (more than 365 timesteps per year suggests daily data)</span>
+        <span class="c1"># Daily data: ~365 * n_years timesteps; Monthly data: 12 * n_years timesteps</span>
+        <span class="c1"># From the dates when there are any: a count alone mistakes 31+ years of monthly</span>
+        <span class="c1"># data for daily data.</span>
+        <span class="n">is_daily</span> <span class="o">=</span> <span class="n">_is_daily</span><span class="p">(</span><span class="n">da</span><span class="p">,</span> <span class="n">n_timesteps</span><span class="p">,</span> <span class="n">fallback_threshold</span><span class="o">=</span><span class="mi">365</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">is_daily</span><span class="p">:</span>
+            <span class="c1"># Daily data: need to resample to monthly using the time coordinate</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">"[</span><span class="si">{</span><span class="n">var_name</span><span class="si">}</span><span class="s2">] Detected daily data (</span><span class="si">{</span><span class="n">n_timesteps</span><span class="si">}</span><span class="s2"> timesteps), resampling to monthly..."</span>
+            <span class="p">)</span>
+
+            <span class="c1"># Use xarray's time coordinate to group by month</span>
+            <span class="c1"># da should have a 'time' dimension</span>
+            <span class="n">time_coord</span> <span class="o">=</span> <span class="n">da</span><span class="p">[</span><span class="s2">"time"</span><span class="p">]</span><span class="o">.</span><span class="n">values</span> <span class="k">if</span> <span class="s2">"time"</span> <span class="ow">in</span> <span class="n">da</span><span class="o">.</span><span class="n">dims</span> <span class="k">else</span> <span class="kc">None</span>
+
+            <span class="k">if</span> <span class="n">time_coord</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">parts</span> <span class="o">=</span> <span class="n">_calendar_parts</span><span class="p">(</span><span class="n">time_coord</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">parts</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                        <span class="sa">f</span><span class="s2">"'</span><span class="si">{</span><span class="n">var_name</span><span class="si">}</span><span class="s2">' has </span><span class="si">{</span><span class="n">n_timesteps</span><span class="si">}</span><span class="s2"> time steps, which looks like daily data, "</span>
+                        <span class="sa">f</span><span class="s2">"but its time coordinate holds </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">time_coord</span><span class="p">)</span><span class="o">.</span><span class="n">dtype</span><span class="si">}</span><span class="s2"> values, not "</span>
+                        <span class="s2">"dates, so days cannot be assigned to months. Give the time axis CF "</span>
+                        <span class="s2">"'units' and 'calendar' attributes (e.g. 'days since 1901-01-01', "</span>
+                        <span class="s2">"'noleap') so it decodes to dates, or provide monthly data."</span>
+                    <span class="p">)</span>
+                <span class="n">months</span><span class="p">,</span> <span class="n">years</span><span class="p">,</span> <span class="n">days</span> <span class="o">=</span> <span class="n">parts</span>
+
+                <span class="k">if</span> <span class="n">months</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="c1"># Check if this is a no-leap calendar (365 days per year)</span>
+                    <span class="c1"># If so, we don't need to filter leap days</span>
+                    <span class="n">is_no_leap_calendar</span> <span class="o">=</span> <span class="p">(</span>
+                        <span class="s2">"noleap"</span> <span class="ow">in</span> <span class="nb">str</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">time_coord</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+                        <span class="ow">or</span> <span class="s2">"365"</span> <span class="ow">in</span> <span class="nb">str</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">time_coord</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+                    <span class="p">)</span>
+
+                    <span class="k">if</span> <span class="ow">not</span> <span class="n">is_no_leap_calendar</span><span class="p">:</span>
+                        <span class="c1"># Exclude Feb 29 (leap days) for standard calendars</span>
+                        <span class="n">non_leap_mask</span> <span class="o">=</span> <span class="o">~</span><span class="p">((</span><span class="n">months</span> <span class="o">==</span> <span class="mi">2</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">days</span> <span class="o">==</span> <span class="mi">29</span><span class="p">))</span>
+                        <span class="n">da_flat_filtered</span> <span class="o">=</span> <span class="n">da_flat</span><span class="p">[:,</span> <span class="n">non_leap_mask</span><span class="p">]</span>
+                        <span class="n">months_filtered</span> <span class="o">=</span> <span class="n">months</span><span class="p">[</span><span class="n">non_leap_mask</span><span class="p">]</span>
+                        <span class="n">years_filtered</span> <span class="o">=</span> <span class="n">years</span><span class="p">[</span><span class="n">non_leap_mask</span><span class="p">]</span>
+                        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"[</span><span class="si">{</span><span class="n">var_name</span><span class="si">}</span><span class="s2">] Filtered </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="o">~</span><span class="n">non_leap_mask</span><span class="p">)</span><span class="si">}</span><span class="s2"> leap days"</span><span class="p">)</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="c1"># No leap calendar - use all data</span>
+                        <span class="n">da_flat_filtered</span> <span class="o">=</span> <span class="n">da_flat</span>
+                        <span class="n">months_filtered</span> <span class="o">=</span> <span class="n">months</span>
+                        <span class="n">years_filtered</span> <span class="o">=</span> <span class="n">years</span>
+                        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+                            <span class="sa">f</span><span class="s2">"[</span><span class="si">{</span><span class="n">var_name</span><span class="si">}</span><span class="s2">] No-leap calendar detected, using all </span><span class="si">{</span><span class="n">n_timesteps</span><span class="si">}</span><span class="s2"> days"</span>
+                        <span class="p">)</span>
+
+                    <span class="c1"># Count unique years</span>
+                    <span class="n">unique_years</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">years_filtered</span><span class="p">)</span>
+                    <span class="n">n_years</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">unique_years</span><span class="p">)</span>
+
+                    <span class="k">if</span> <span class="n">n_years</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                        <span class="c1"># Compute monthly climatology by averaging all days of each month across all years</span>
+                        <span class="n">monthly_means</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n_cells</span><span class="p">,</span> <span class="mi">12</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+                        <span class="n">monthly_counts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int32</span><span class="p">)</span>
+
+                        <span class="k">for</span> <span class="n">month_idx</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">12</span><span class="p">):</span>
+                            <span class="n">month_mask</span> <span class="o">=</span> <span class="n">months_filtered</span> <span class="o">==</span> <span class="p">(</span><span class="n">month_idx</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>  <span class="c1"># months are 1-indexed</span>
+                            <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">month_mask</span><span class="p">):</span>
+                                <span class="n">month_data</span> <span class="o">=</span> <span class="n">da_flat_filtered</span><span class="p">[:,</span> <span class="n">month_mask</span><span class="p">]</span>
+                                <span class="n">monthly_means</span><span class="p">[:,</span> <span class="n">month_idx</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmean</span><span class="p">(</span><span class="n">month_data</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+                                <span class="n">monthly_counts</span><span class="p">[</span><span class="n">month_idx</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">month_mask</span><span class="p">)</span>
+
+                        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+                            <span class="sa">f</span><span class="s2">"[</span><span class="si">{</span><span class="n">var_name</span><span class="si">}</span><span class="s2">] Computed monthly climatology from </span><span class="si">{</span><span class="n">n_years</span><span class="si">}</span><span class="s2"> years (</span><span class="si">{</span><span class="n">n_timesteps</span><span class="si">}</span><span class="s2"> days)"</span>
+                        <span class="p">)</span>
+                        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"[</span><span class="si">{</span><span class="n">var_name</span><span class="si">}</span><span class="s2">] Days per month: </span><span class="si">{</span><span class="nb">list</span><span class="p">(</span><span class="n">monthly_counts</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+                            <span class="sa">f</span><span class="s2">"[</span><span class="si">{</span><span class="n">var_name</span><span class="si">}</span><span class="s2">] WARNING: Not enough data for monthly climatology"</span>
+                        <span class="p">)</span>
+                        <span class="n">monthly_means</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">"[</span><span class="si">{</span><span class="n">var_name</span><span class="si">}</span><span class="s2">] WARNING: No time coordinate found, cannot compute monthly climatology"</span>
+                <span class="p">)</span>
+                <span class="n">monthly_means</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># Monthly data: original logic</span>
+            <span class="n">n_months_total</span> <span class="o">=</span> <span class="n">n_timesteps</span>
+            <span class="n">n_years</span> <span class="o">=</span> <span class="n">n_months_total</span> <span class="o">//</span> <span class="mi">12</span>
+
+            <span class="n">by_month</span> <span class="o">=</span> <span class="n">_monthly_climatology_by_date</span><span class="p">(</span><span class="n">da</span><span class="p">,</span> <span class="n">da_flat</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">by_month</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="c1"># The dates say which month each step is, so the series may start in any</span>
+                <span class="c1"># month and need not cover whole years.</span>
+                <span class="n">monthly_means</span> <span class="o">=</span> <span class="n">by_month</span>
+            <span class="k">elif</span> <span class="n">n_years</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">n_months_total</span> <span class="o">%</span> <span class="mi">12</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="c1"># No dates: assume the series starts in January.</span>
+                <span class="n">reshaped</span> <span class="o">=</span> <span class="n">da_flat</span><span class="p">[:,</span> <span class="p">:</span> <span class="n">n_years</span> <span class="o">*</span> <span class="mi">12</span><span class="p">]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">n_cells</span><span class="p">,</span> <span class="n">n_years</span><span class="p">,</span> <span class="mi">12</span><span class="p">)</span>
+                <span class="n">monthly_means</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmean</span><span class="p">(</span><span class="n">reshaped</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># (n_cells, 12)</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">"[</span><span class="si">{</span><span class="n">var_name</span><span class="si">}</span><span class="s2">] Computed monthly climatology from </span><span class="si">{</span><span class="n">n_years</span><span class="si">}</span><span class="s2"> years of monthly data"</span>
+                <span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">"'</span><span class="si">{</span><span class="n">var_name</span><span class="si">}</span><span class="s2">': </span><span class="si">{</span><span class="n">n_timesteps</span><span class="si">}</span><span class="s2"> monthly time steps are not whole years "</span>
+                    <span class="sa">f</span><span class="s2">"(</span><span class="si">{</span><span class="n">n_months_total</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="mi">12</span><span class="si">}</span><span class="s2"> months left over), so its 12 monthly-climatology "</span>
+                    <span class="s2">"features -- and the Köppen–Geiger diagnostics built from them -- are left "</span>
+                    <span class="s2">"out. Trim the input to whole years to keep them."</span><span class="p">,</span>
+                    <span class="ne">UserWarning</span><span class="p">,</span>
+                    <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+                <span class="p">)</span>
+
+        <span class="c1"># Seasonality = std across the 12 monthly means</span>
+        <span class="k">if</span> <span class="n">monthly_means</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">features</span><span class="p">[</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">var_name</span><span class="si">}</span><span class="s2">_seasonality"</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nanstd</span><span class="p">(</span><span class="n">monthly_means</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">features</span><span class="p">[</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">var_name</span><span class="si">}</span><span class="s2">_seasonality"</span><span class="p">]</span> <span class="o">=</span> <span class="n">features</span><span class="p">[</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">var_name</span><span class="si">}</span><span class="s2">_std"</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="c1"># Not enough timesteps</span>
+        <span class="n">features</span><span class="p">[</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">var_name</span><span class="si">}</span><span class="s2">_seasonality"</span><span class="p">]</span> <span class="o">=</span> <span class="n">features</span><span class="p">[</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">var_name</span><span class="si">}</span><span class="s2">_std"</span><span class="p">]</span>
+
+    <span class="c1"># Include monthly climatology features for Köppen-Geiger classification</span>
+    <span class="k">if</span> <span class="n">include_monthly_climatology</span> <span class="ow">and</span> <span class="n">monthly_means</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"[</span><span class="si">{</span><span class="n">var_name</span><span class="si">}</span><span class="s2">] Adding 12 monthly climatology features"</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">month_idx</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">12</span><span class="p">):</span>
+            <span class="n">month_num</span> <span class="o">=</span> <span class="n">month_idx</span> <span class="o">+</span> <span class="mi">1</span>  <span class="c1"># 1-indexed month</span>
+            <span class="n">features</span><span class="p">[</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">var_name</span><span class="si">}</span><span class="s2">_month_</span><span class="si">{</span><span class="n">month_num</span><span class="si">:</span><span class="s2">02d</span><span class="si">}</span><span class="s2">"</span><span class="p">]</span> <span class="o">=</span> <span class="n">monthly_means</span><span class="p">[:,</span> <span class="n">month_idx</span><span class="p">]</span>
+    <span class="k">elif</span> <span class="n">include_monthly_climatology</span> <span class="ow">and</span> <span class="n">monthly_means</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">"[</span><span class="si">{</span><span class="n">var_name</span><span class="si">}</span><span class="s2">] WARNING: include_monthly_climatology=True but monthly_means is None!"</span>
+        <span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"[</span><span class="si">{</span><span class="n">var_name</span><span class="si">}</span><span class="s2">]   da_flat.shape = </span><span class="si">{</span><span class="n">da_flat</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">features</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_summarize_precipitation</span><span class="p">(</span>
+    <span class="n">da</span><span class="p">:</span> <span class="n">xr</span><span class="o">.</span><span class="n">DataArray</span><span class="p">,</span>
+    <span class="n">da_flat</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">var_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">include_monthly_climatology</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""</span>
+<span class="sd">    Precipitation summaries:</span>
+<span class="sd">    - Mean annual precipitation</span>
+<span class="sd">    - Monthly seasonality (coefficient of variation)</span>
+<span class="sd">    - Wet-day frequency (days &gt;1 mm/month)</span>
+<span class="sd">    - Maximum monthly precipitation</span>
+<span class="sd">    - Monthly climatology (12 monthly totals, optional, for Köppen-Geiger).</span>
+
+<span class="sd">    All computations use the pre-flattened valid-cell array for efficiency.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        da: Original xarray DataArray (not currently used but kept for API consistency)</span>
+<span class="sd">        da_flat: Pre-flattened array of shape (n_cells, n_timesteps)</span>
+<span class="sd">        var_name: Variable name prefix for feature names (e.g., 'pr')</span>
+<span class="sd">        include_monthly_climatology: If True, include 12 monthly sum features</span>
+<span class="sd">            (pr_month_01 through pr_month_12) needed for Köppen-Geiger classification.</span>
+<span class="sd">            These are mean monthly totals in mm/month.</span>
+<span class="sd">    """</span>
+    <span class="n">features</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="c1"># All vectorized numpy operations on da_flat</span>
+
+    <span class="c1"># Mean annual</span>
+    <span class="n">mean_vals</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmean</span><span class="p">(</span><span class="n">da_flat</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">features</span><span class="p">[</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">var_name</span><span class="si">}</span><span class="s2">_mean_annual"</span><span class="p">]</span> <span class="o">=</span> <span class="n">mean_vals</span>
+
+    <span class="c1"># CV (coefficient of variation): std / mean</span>
+    <span class="n">std_vals</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nanstd</span><span class="p">(</span><span class="n">da_flat</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="c1"># Avoid division by zero</span>
+    <span class="n">cv</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">mean_vals</span><span class="p">)</span>
+    <span class="n">mask</span> <span class="o">=</span> <span class="n">mean_vals</span> <span class="o">&gt;</span> <span class="mi">0</span>
+    <span class="n">cv</span><span class="p">[</span><span class="n">mask</span><span class="p">]</span> <span class="o">=</span> <span class="n">std_vals</span><span class="p">[</span><span class="n">mask</span><span class="p">]</span> <span class="o">/</span> <span class="n">mean_vals</span><span class="p">[</span><span class="n">mask</span><span class="p">]</span>
+    <span class="n">features</span><span class="p">[</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">var_name</span><span class="si">}</span><span class="s2">_cv_monthly"</span><span class="p">]</span> <span class="o">=</span> <span class="n">cv</span>
+
+    <span class="c1"># Wet-day frequency (proportion of timesteps &gt; threshold)</span>
+    <span class="n">threshold</span> <span class="o">=</span> <span class="mf">1.0</span>  <span class="c1"># mm</span>
+    <span class="n">wet_days</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmean</span><span class="p">(</span><span class="n">da_flat</span> <span class="o">&gt;</span> <span class="n">threshold</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">features</span><span class="p">[</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">var_name</span><span class="si">}</span><span class="s2">_wetdays_freq"</span><span class="p">]</span> <span class="o">=</span> <span class="n">wet_days</span>
+
+    <span class="c1"># Maximum monthly precipitation</span>
+    <span class="n">features</span><span class="p">[</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">var_name</span><span class="si">}</span><span class="s2">_max_monthly"</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmax</span><span class="p">(</span><span class="n">da_flat</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="c1"># Compute monthly climatology for Köppen-Geiger classification</span>
+    <span class="c1"># For precipitation, we need monthly totals (mm/month)</span>
+    <span class="n">monthly_sums</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="k">if</span> <span class="n">include_monthly_climatology</span> <span class="ow">and</span> <span class="n">da_flat</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">12</span><span class="p">:</span>
+        <span class="n">n_cells</span> <span class="o">=</span> <span class="n">da_flat</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">n_timesteps</span> <span class="o">=</span> <span class="n">da_flat</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+
+        <span class="c1"># Detect if data is daily (more than 2 years of daily data)</span>
+        <span class="n">is_daily</span> <span class="o">=</span> <span class="n">_is_daily</span><span class="p">(</span><span class="n">da</span><span class="p">,</span> <span class="n">n_timesteps</span><span class="p">,</span> <span class="n">fallback_threshold</span><span class="o">=</span><span class="mi">365</span> <span class="o">*</span> <span class="mi">2</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">is_daily</span><span class="p">:</span>
+            <span class="c1"># Daily data: need to resample to monthly first, removing leap days</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">"[</span><span class="si">{</span><span class="n">var_name</span><span class="si">}</span><span class="s2">] Detected daily data (</span><span class="si">{</span><span class="n">n_timesteps</span><span class="si">}</span><span class="s2"> timesteps), resampling to monthly"</span>
+            <span class="p">)</span>
+
+            <span class="c1"># Get time coordinate from original DataArray for leap day detection</span>
+            <span class="n">time_coord</span> <span class="o">=</span> <span class="n">da</span><span class="o">.</span><span class="n">coords</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"time"</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">time_coord</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="c1"># Remove leap days (Feb 29) to get exactly 365 days per year</span>
+                <span class="n">time_vals</span> <span class="o">=</span> <span class="n">time_coord</span><span class="o">.</span><span class="n">values</span>
+
+                <span class="c1"># Identify non-leap-day indices</span>
+                <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">time_vals</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="s2">"month"</span><span class="p">):</span>
+                    <span class="c1"># cftime or datetime objects</span>
+                    <span class="n">non_leap_mask</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+                        <span class="p">[</span>
+                            <span class="ow">not</span> <span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="s2">"month"</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span> <span class="ow">and</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="s2">"day"</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">==</span> <span class="mi">29</span><span class="p">)</span>
+                            <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">time_vals</span>
+                        <span class="p">]</span>
+                    <span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="c1"># pandas timestamps or numpy datetime64</span>
+                    <span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+
+                    <span class="n">time_pd</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">time_vals</span><span class="p">)</span>
+                    <span class="n">non_leap_mask</span> <span class="o">=</span> <span class="o">~</span><span class="p">((</span><span class="n">time_pd</span><span class="o">.</span><span class="n">month</span> <span class="o">==</span> <span class="mi">2</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">time_pd</span><span class="o">.</span><span class="n">day</span> <span class="o">==</span> <span class="mi">29</span><span class="p">))</span>
+
+                <span class="c1"># Apply mask to remove leap days</span>
+                <span class="n">da_flat_no_leap</span> <span class="o">=</span> <span class="n">da_flat</span><span class="p">[:,</span> <span class="n">non_leap_mask</span><span class="p">]</span>
+                <span class="n">n_days_no_leap</span> <span class="o">=</span> <span class="n">da_flat_no_leap</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+                <span class="n">n_years</span> <span class="o">=</span> <span class="n">n_days_no_leap</span> <span class="o">//</span> <span class="mi">365</span>
+
+                <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">"[</span><span class="si">{</span><span class="n">var_name</span><span class="si">}</span><span class="s2">] After removing leap days: </span><span class="si">{</span><span class="n">n_days_no_leap</span><span class="si">}</span><span class="s2"> days, </span><span class="si">{</span><span class="n">n_years</span><span class="si">}</span><span class="s2"> complete years"</span>
+                <span class="p">)</span>
+
+                <span class="k">if</span> <span class="n">n_years</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="c1"># Trim to complete years</span>
+                    <span class="n">da_flat_trimmed</span> <span class="o">=</span> <span class="n">da_flat_no_leap</span><span class="p">[:,</span> <span class="p">:</span> <span class="n">n_years</span> <span class="o">*</span> <span class="mi">365</span><span class="p">]</span>
+
+                    <span class="c1"># Reshape to (n_cells, n_years, 365)</span>
+                    <span class="n">reshaped_daily</span> <span class="o">=</span> <span class="n">da_flat_trimmed</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">n_cells</span><span class="p">,</span> <span class="n">n_years</span><span class="p">,</span> <span class="mi">365</span><span class="p">)</span>
+
+                    <span class="c1"># Aggregate daily to monthly using DAYS_PER_MONTH</span>
+                    <span class="c1"># For precipitation: sum days in each month to get monthly totals</span>
+                    <span class="n">monthly_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n_cells</span><span class="p">,</span> <span class="n">n_years</span><span class="p">,</span> <span class="mi">12</span><span class="p">))</span>
+                    <span class="n">day_idx</span> <span class="o">=</span> <span class="mi">0</span>
+                    <span class="k">for</span> <span class="n">month_idx</span><span class="p">,</span> <span class="n">days_in_month</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">DAYS_PER_MONTH</span><span class="p">):</span>
+                        <span class="n">month_slice</span> <span class="o">=</span> <span class="n">reshaped_daily</span><span class="p">[:,</span> <span class="p">:,</span> <span class="n">day_idx</span> <span class="p">:</span> <span class="n">day_idx</span> <span class="o">+</span> <span class="n">days_in_month</span><span class="p">]</span>
+                        <span class="c1"># Sum daily values to get monthly total</span>
+                        <span class="n">monthly_data</span><span class="p">[:,</span> <span class="p">:,</span> <span class="n">month_idx</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nansum</span><span class="p">(</span><span class="n">month_slice</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+                        <span class="n">day_idx</span> <span class="o">+=</span> <span class="n">days_in_month</span>
+
+                    <span class="c1"># Compute mean monthly sums across years</span>
+                    <span class="n">monthly_sums</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmean</span><span class="p">(</span><span class="n">monthly_data</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># (n_cells, 12)</span>
+                    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"[</span><span class="si">{</span><span class="n">var_name</span><span class="si">}</span><span class="s2">] Computed monthly climatology from daily data"</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">"[</span><span class="si">{</span><span class="n">var_name</span><span class="si">}</span><span class="s2">] WARNING: Daily data detected but no time coordinate found"</span>
+                <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># Monthly data: original logic</span>
+            <span class="n">n_months_total</span> <span class="o">=</span> <span class="n">n_timesteps</span>
+            <span class="n">n_years</span> <span class="o">=</span> <span class="n">n_months_total</span> <span class="o">//</span> <span class="mi">12</span>
+
+            <span class="n">by_month</span> <span class="o">=</span> <span class="n">_monthly_climatology_by_date</span><span class="p">(</span><span class="n">da</span><span class="p">,</span> <span class="n">da_flat</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">by_month</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">monthly_sums</span> <span class="o">=</span> <span class="n">by_month</span>
+            <span class="k">elif</span> <span class="n">n_years</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">n_months_total</span> <span class="o">%</span> <span class="mi">12</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="c1"># No dates: assume the series starts in January.</span>
+                <span class="c1"># Reshape to (n_cells, n_years, 12)</span>
+                <span class="n">reshaped</span> <span class="o">=</span> <span class="n">da_flat</span><span class="p">[:,</span> <span class="p">:</span> <span class="n">n_years</span> <span class="o">*</span> <span class="mi">12</span><span class="p">]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">n_cells</span><span class="p">,</span> <span class="n">n_years</span><span class="p">,</span> <span class="mi">12</span><span class="p">)</span>
+                <span class="c1"># For precipitation: compute monthly sum per year, then average across years</span>
+                <span class="c1"># If data is already monthly, values are monthly totals; take mean across years</span>
+                <span class="c1"># This gives mean monthly precipitation for each month (mm/month)</span>
+                <span class="n">monthly_sums</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmean</span><span class="p">(</span><span class="n">reshaped</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># (n_cells, 12)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">"'</span><span class="si">{</span><span class="n">var_name</span><span class="si">}</span><span class="s2">': </span><span class="si">{</span><span class="n">n_timesteps</span><span class="si">}</span><span class="s2"> monthly time steps are not whole years "</span>
+                    <span class="sa">f</span><span class="s2">"(</span><span class="si">{</span><span class="n">n_months_total</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="mi">12</span><span class="si">}</span><span class="s2"> months left over), so its 12 monthly-climatology "</span>
+                    <span class="s2">"features -- and the Köppen–Geiger diagnostics built from them -- are left "</span>
+                    <span class="s2">"out. Trim the input to whole years to keep them."</span><span class="p">,</span>
+                    <span class="ne">UserWarning</span><span class="p">,</span>
+                    <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+                <span class="p">)</span>
+
+        <span class="c1"># Add monthly features if we computed them successfully</span>
+        <span class="k">if</span> <span class="n">monthly_sums</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"[</span><span class="si">{</span><span class="n">var_name</span><span class="si">}</span><span class="s2">] Adding 12 monthly climatology features"</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">month_idx</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">12</span><span class="p">):</span>
+                <span class="n">month_num</span> <span class="o">=</span> <span class="n">month_idx</span> <span class="o">+</span> <span class="mi">1</span>  <span class="c1"># 1-indexed month</span>
+                <span class="n">features</span><span class="p">[</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">var_name</span><span class="si">}</span><span class="s2">_month_</span><span class="si">{</span><span class="n">month_num</span><span class="si">:</span><span class="s2">02d</span><span class="si">}</span><span class="s2">"</span><span class="p">]</span> <span class="o">=</span> <span class="n">monthly_sums</span><span class="p">[:,</span> <span class="n">month_idx</span><span class="p">]</span>
+    <span class="k">elif</span> <span class="n">include_monthly_climatology</span><span class="p">:</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">"[</span><span class="si">{</span><span class="n">var_name</span><span class="si">}</span><span class="s2">] WARNING: include_monthly_climatology=True but da_flat.shape[1] &lt; 12"</span>
+        <span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"[</span><span class="si">{</span><span class="n">var_name</span><span class="si">}</span><span class="s2">]   da_flat.shape = </span><span class="si">{</span><span class="n">da_flat</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">features</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_summarize_radiation</span><span class="p">(</span><span class="n">da</span><span class="p">:</span> <span class="n">xr</span><span class="o">.</span><span class="n">DataArray</span><span class="p">,</span> <span class="n">da_flat</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">var_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""</span>
+<span class="sd">    Radiation summaries (shortwave/longwave):</span>
+<span class="sd">    - Mean annual radiation</span>
+<span class="sd">    - Seasonal amplitude (max - min monthly mean)</span>
+<span class="sd">    - Annual std.</span>
+<span class="sd">    """</span>
+    <span class="n">features</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="c1"># Mean annual</span>
+    <span class="n">features</span><span class="p">[</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">var_name</span><span class="si">}</span><span class="s2">_mean_annual"</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmean</span><span class="p">(</span><span class="n">da_flat</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="c1"># Annual std</span>
+    <span class="n">features</span><span class="p">[</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">var_name</span><span class="si">}</span><span class="s2">_std"</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nanstd</span><span class="p">(</span><span class="n">da_flat</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="c1"># Seasonal amplitude (simplified as range)</span>
+    <span class="n">features</span><span class="p">[</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">var_name</span><span class="si">}</span><span class="s2">_seasonal_amplitude"</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmax</span><span class="p">(</span><span class="n">da_flat</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmin</span><span class="p">(</span>
+        <span class="n">da_flat</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span>
+    <span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">features</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_summarize_humidity</span><span class="p">(</span><span class="n">da</span><span class="p">:</span> <span class="n">xr</span><span class="o">.</span><span class="n">DataArray</span><span class="p">,</span> <span class="n">da_flat</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">var_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""</span>
+<span class="sd">    Relative humidity summaries:</span>
+<span class="sd">    - Mean annual RH</span>
+<span class="sd">    - Annual std</span>
+<span class="sd">    - Dry-season minimum (lowest value).</span>
+<span class="sd">    """</span>
+    <span class="n">features</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="c1"># Mean annual</span>
+    <span class="n">features</span><span class="p">[</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">var_name</span><span class="si">}</span><span class="s2">_mean_annual"</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmean</span><span class="p">(</span><span class="n">da_flat</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="c1"># Annual std</span>
+    <span class="n">features</span><span class="p">[</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">var_name</span><span class="si">}</span><span class="s2">_std"</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nanstd</span><span class="p">(</span><span class="n">da_flat</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="c1"># Dry-season minimum</span>
+    <span class="n">features</span><span class="p">[</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">var_name</span><span class="si">}</span><span class="s2">_dry_min"</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmin</span><span class="p">(</span><span class="n">da_flat</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">features</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, Jamir Priesner.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

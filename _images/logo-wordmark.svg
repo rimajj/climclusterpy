@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 438 90" width="438" height="90" role="img" aria-label="climclusterpy">
+  <title>climclusterpy</title>
+  <g>
+    <rect x="19.08" y="1.08" width="15.84" height="15.84" rx="3.168" fill="#8EC5E8"/>
+    <circle cx="27" cy="9" r="5.2272" fill="#FFFFFF" stroke="#12324A" stroke-width="1.7424"/>
+    <rect x="37.08" y="1.08" width="15.84" height="15.84" rx="3.168" fill="#8EC5E8"/>
+    <rect x="55.08" y="1.08" width="15.84" height="15.84" rx="3.168" fill="#2A7F8E"/>
+    <rect x="1.08" y="19.08" width="15.84" height="15.84" rx="3.168" fill="#5DAA68"/>
+    <rect x="19.08" y="19.08" width="15.84" height="15.84" rx="3.168" fill="#5DAA68"/>
+    <rect x="37.08" y="19.08" width="15.84" height="15.84" rx="3.168" fill="#5DAA68"/>
+    <rect x="55.08" y="19.08" width="15.84" height="15.84" rx="3.168" fill="#2A7F8E"/>
+    <circle cx="63" cy="27" r="5.2272" fill="#FFFFFF" stroke="#12324A" stroke-width="1.7424"/>
+    <rect x="73.08" y="19.08" width="15.84" height="15.84" rx="3.168" fill="#2A7F8E"/>
+    <rect x="1.08" y="37.08" width="15.84" height="15.84" rx="3.168" fill="#5DAA68"/>
+    <rect x="19.08" y="37.08" width="15.84" height="15.84" rx="3.168" fill="#5DAA68"/>
+    <circle cx="27" cy="45" r="5.2272" fill="#FFFFFF" stroke="#12324A" stroke-width="1.7424"/>
+    <rect x="37.08" y="37.08" width="15.84" height="15.84" rx="3.168" fill="#1E6B45"/>
+    <rect x="55.08" y="37.08" width="15.84" height="15.84" rx="3.168" fill="#E9B949"/>
+    <rect x="73.08" y="37.08" width="15.84" height="15.84" rx="3.168" fill="#E9B949"/>
+    <rect x="1.08" y="55.08" width="15.84" height="15.84" rx="3.168" fill="#1E6B45"/>
+    <rect x="19.08" y="55.08" width="15.84" height="15.84" rx="3.168" fill="#1E6B45"/>
+    <rect x="37.08" y="55.08" width="15.84" height="15.84" rx="3.168" fill="#1E6B45"/>
+    <rect x="55.08" y="55.08" width="15.84" height="15.84" rx="3.168" fill="#E9B949"/>
+    <rect x="73.08" y="55.08" width="15.84" height="15.84" rx="3.168" fill="#E9B949"/>
+    <circle cx="81" cy="63" r="5.2272" fill="#FFFFFF" stroke="#12324A" stroke-width="1.7424"/>
+    <rect x="19.08" y="73.08" width="15.84" height="15.84" rx="3.168" fill="#1E6B45"/>
+    <rect x="37.08" y="73.08" width="15.84" height="15.84" rx="3.168" fill="#1E6B45"/>
+    <circle cx="45" cy="81" r="5.2272" fill="#FFFFFF" stroke="#12324A" stroke-width="1.7424"/>
+    <rect x="55.08" y="73.08" width="15.84" height="15.84" rx="3.168" fill="#1E6B45"/>
+  </g>
+  <text x="108" y="59" font-size="44" font-weight="700" font-family="'Inter','Helvetica Neue',Helvetica,Arial,sans-serif" fill="#12324A">clim<tspan fill="#2A7F8E">cluster</tspan><tspan font-weight="400" fill="#5C6B77">py</tspan></text>
+</svg>

@@ -1,0 +1,53 @@
+Feature engineering
+===================
+
+.. py:module:: climclusterpy.features
+
+Transform loaded climate + soil data into the interpretable feature matrix that
+clustering consumes: ecological summaries, then standardization / de-correlation / PCA
+filtering. The mathematics behind each step is in
+:doc:`../explanation/methods`.
+
+.. note::
+
+   :func:`~climclusterpy.features.summarize_climate_features` derives optional SPEI /
+   potential-evapotranspiration drought diagnostics via the ``pyet`` package, which is
+   not part of the core install: add the ``[features]`` extra (or ``[all]``) for it. The
+   rest of the feature pipeline runs on the core install.
+
+Ecological summaries
+--------------------
+
+.. autofunction:: climclusterpy.features.summarize_climate_features
+
+.. autofunction:: climclusterpy.features.summarize_soil_features
+
+.. autofunction:: climclusterpy.features.combine_features
+
+.. autofunction:: climclusterpy.features.compute_kg_diagnostic_features
+
+.. autofunction:: climclusterpy.features.compute_all_ecology_diagnostic_features
+
+.. autodata:: climclusterpy.features.ECOLOGY_DIAGNOSTIC_FEATURES
+   :no-value:
+
+.. autofunction:: climclusterpy.features.encode_soil_code
+
+.. autodata:: climclusterpy.features.DAYS_PER_MONTH
+   :no-value:
+
+Vegetation-model traits
+-----------------------
+
+.. autofunction:: climclusterpy.features.build_trait_features_df
+
+Standardization & filtering
+---------------------------
+
+.. autofunction:: climclusterpy.features.standardize_features
+
+.. autofunction:: climclusterpy.features.remove_correlated_features
+
+.. autofunction:: climclusterpy.features.diagnostic_pca_filter
+
+.. autofunction:: climclusterpy.features.apply_block_pca_compression

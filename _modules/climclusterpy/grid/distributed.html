@@ -1,0 +1,607 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>climclusterpy.grid.distributed &mdash; climclusterpy 0.5</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/custom.css?v=f2cc2102" />
+
+  
+    <link rel="shortcut icon" href="../../../_static/logo.svg"/>
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=1dd76d02"></script>
+      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            climclusterpy
+              <img src="../../../_static/logo.svg" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorials/index.html">Tutorials</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../tutorials/one_call_roundtrip.html">Tutorial 0 — the whole workflow in two calls</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/one_call_roundtrip.html#the-idea">The idea</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/one_call_roundtrip.html#call-1-build-the-reduced-grid">Call 1 — build the reduced grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/one_call_roundtrip.html#call-2-rebuild-the-original-grid">Call 2 — rebuild the original grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/one_call_roundtrip.html#the-complete-script">The complete script</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/one_call_roundtrip.html#run-it">Run it</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/one_call_roundtrip.html#next-steps">Next steps</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../tutorials/euclidean_clustering.html">Tutorial 1 — Euclidean clustering</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/euclidean_clustering.html#load-data-and-build-a-feature-matrix">Load data and build a feature matrix</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/euclidean_clustering.html#cluster">Cluster</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/euclidean_clustering.html#the-complete-script">The complete script</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/euclidean_clustering.html#run-it">Run it</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/euclidean_clustering.html#next-steps">Next steps</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../tutorials/lmnn_clustering.html">Tutorial 2 — LMNN metric-learning clustering</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/lmnn_clustering.html#provide-a-supervision-signal">Provide a supervision signal</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/lmnn_clustering.html#learn-a-metric-and-cluster">Learn a metric and cluster</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/lmnn_clustering.html#the-complete-script">The complete script</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/lmnn_clustering.html#run-it">Run it</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/lmnn_clustering.html#next-steps">Next steps</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../tutorials/supervision.html">Tutorial 3 — Supervision signals</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/supervision.html#koppengeiger-from-monthly-climatology">Köppen–Geiger from monthly climatology</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/supervision.html#model-output-trait-clustering">Model-output (trait) clustering</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/supervision.html#the-complete-script">The complete script</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/supervision.html#run-it">Run it</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/supervision.html#ecoregion-supervision">Ecoregion supervision</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../tutorials/reconstruction.html">Tutorial 4 — Reconstruct the original grid</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/reconstruction.html#the-round-trip">The round trip</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/reconstruction.html#verify">Verify</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/reconstruction.html#the-complete-script">The complete script</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/reconstruction.html#run-it">Run it</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/reconstruction.html#next-steps">Next steps</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../tutorials/index.html#a-note-on-the-synthetic-data">A note on the synthetic data</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">How-to guides</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../howto/index.html">How-to guides</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../howto/install.html">Install climclusterpy</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/install.html#base-install">Base install</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/install.html#optional-extras">Optional extras</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/install.html#installing-the-geospatial-extras-with-conda">Installing the geospatial extras with conda</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/install.html#pytorch-cpu-vs-gpu">PyTorch (CPU vs. GPU)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/install.html#environment-variables">Environment variables</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/install.html#building-the-documentation">Building the documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../howto/inputs.html">Prepare the input files</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/inputs.html#check-your-input-first">Check your input first</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/inputs.html#the-files">The files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/inputs.html#grid-and-coordinates">Grid and coordinates</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/inputs.html#which-cells-exist-the-soil-code">Which cells exist: the soil code</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/inputs.html#the-time-axis">The time axis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/inputs.html#missing-values">Missing values</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/inputs.html#another-vegetation-model-s-input">Another vegetation model’s input</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/inputs.html#output-files">Output files</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../howto/clustering.html">Cluster a feature matrix (choose a mode)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/clustering.html#euclidean-mode-no-supervision">Euclidean mode (no supervision)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/clustering.html#lmnn-mode-supervised-metric-learning">LMNN mode (supervised metric learning)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/clustering.html#lower-level-control">Lower-level control</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../howto/supervision.html">Build an LMNN supervision signal</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/supervision.html#from-climate-koppengeiger">From climate — Köppen–Geiger</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/supervision.html#from-model-output-traits">From model output — traits</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/supervision.html#from-a-shapefile-ecoregions2017">From a shapefile — Ecoregions2017</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/supervision.html#using-the-signal">Using the signal</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/supervision.html#in-one-call">In one call</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/supervision.html#saved-results-are-reused-only-for-the-same-inputs">Saved results are reused only for the same inputs</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../howto/cell_selection.html">Choosing the cells a cluster is simulated on</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/cell_selection.html#the-patch-budget">The patch budget</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/cell_selection.html#what-the-drawn-cells-carry">What the drawn cells carry</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/cell_selection.html#reproducibility">Reproducibility</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/cell_selection.html#looking-at-a-draw-without-building-a-grid">Looking at a draw without building a grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/cell_selection.html#back-to-the-full-grid">Back to the full grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/cell_selection.html#a-model-that-reads-its-own-inputs-the-grid-only-then-cut-the-rest">A model that reads its own inputs: the grid only, then cut the rest</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../howto/reconstruct.html">Reconstruct the original grid</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/reconstruct.html#the-usual-call">The usual call</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/reconstruct.html#picking-up-where-you-left-off">Picking up where you left off</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/reconstruct.html#without-a-result-or-run-folder">Without a result or run folder</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/reconstruct.html#required-mapping-files">Required mapping files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/reconstruct.html#reconstruction-paths-kind">Reconstruction paths (<code class="docutils literal notranslate"><span class="pre">kind</span></code>)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/reconstruct.html#verifying-the-result">Verifying the result</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../reference/index.html">Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../reference/api.html">Public API — <code class="xref py py-mod docutils literal notranslate"><span class="pre">climclusterpy</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/api.html#the-two-headline-functions">The two headline functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/api.html#before-and-after-the-model-run">Before and after the model run</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/api.html#input-for-a-model-other-than-lpjml">Input for a model other than LPJmL</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/api.html#other-ways-to-build-the-reduced-grid">Other ways to build the reduced grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/api.html#reusing-a-trained-metric">Reusing a trained metric</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/api.html#the-model-s-other-inputs">The model’s other inputs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/api.html#writing-the-reduced-grid-yourself">Writing the reduced grid yourself</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/api.html#building-blocks">Building blocks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/api.html#result-objects">Result objects</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../reference/toplevel.html">Data, timeseries, I/O &amp; plotting</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/toplevel.html#module-climclusterpy.data">Data loading &amp; the grid registry</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/toplevel.html#how-much-the-package-reports">How much the package reports</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/toplevel.html#coordinates">Coordinates</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/toplevel.html#module-climclusterpy.timeseries">Per-cluster timeseries</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/toplevel.html#module-climclusterpy.io">File input/output</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/toplevel.html#module-climclusterpy.preprocessing">Preprocessing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/toplevel.html#module-climclusterpy.viz">Plotting</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../reference/features.html">Feature engineering</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/features.html#ecological-summaries">Ecological summaries</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/features.html#vegetation-model-traits">Vegetation-model traits</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/features.html#standardization-filtering">Standardization &amp; filtering</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../reference/clustering.html">Clustering &amp; metric learning</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/clustering.html#hierarchical-clustering">Hierarchical clustering</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/clustering.html#module-climclusterpy.clustering.lmnn">LMNN metric learning</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../reference/supervision.html">Supervision labels</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/supervision.html#koppengeiger-climate-zones">Köppen–Geiger climate zones</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/supervision.html#vegetation-model-output-traits">Vegetation-model output traits</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/supervision.html#ecoregion-polygons">Ecoregion polygons</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/supervision.html#daily-input-helpers">Daily-input helpers</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../reference/grid.html">Grid building &amp; reconstruction</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/grid.html#where-each-reduced-cell-is-placed">Where each reduced cell is placed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/grid.html#writing-the-reduced-grid">Writing the reduced grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/grid.html#reconstruction">Reconstruction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/grid.html#lpjml-clm-conversion">LPJmL CLM conversion</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../reference/cli.html">Command-line interface (<code class="docutils literal notranslate"><span class="pre">climclu</span></code>)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/cli.html#the-two-headline-commands">The two headline commands</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/cli.html#building-blocks">Building blocks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/cli.html#options-shared-by-every-action-command">Options shared by every action command</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/cli.html#errors-and-exit-codes">Errors and exit codes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../reference/index.html#which-function-do-i-need">Which function do I need?</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Explanation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../explanation/index.html">Explanation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../explanation/overview.html">Overview</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/overview.html#design-philosophy">Design Philosophy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/overview.html#workflow-summary">Workflow Summary</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/overview.html#key-innovations">Key Innovations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/overview.html#use-cases">Use Cases</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/overview.html#limitations">Limitations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/overview.html#future-directions">Future Directions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/overview.html#references">References</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../explanation/methods.html">Scientific Methods</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/methods.html#data-acquisition-and-preprocessing">Data Acquisition and Preprocessing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/methods.html#ecoregion-assignment">Ecoregion Assignment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/methods.html#ecological-feature-summarization">Ecological Feature Summarization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/methods.html#feature-standardization-and-filtering">Feature Standardization and Filtering</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/methods.html#large-margin-nearest-neighbor-lmnn-metric-learning">Large Margin Nearest Neighbor (LMNN) Metric Learning</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/methods.html#hierarchical-clustering">Hierarchical Clustering</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/methods.html#representative-cell-selection">Representative Cell Selection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/methods.html#evaluation-metrics">Evaluation Metrics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/methods.html#netcdf-processing">NetCDF Processing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/methods.html#computational-implementation">Computational Implementation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../explanation/index.html#reconstruction-correctness">Reconstruction correctness</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">climclusterpy</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">climclusterpy.grid.distributed</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for climclusterpy.grid.distributed</h1><div class="highlight"><pre>
+<span></span><span class="sd">"""Writing a *distributed* reduced grid: several real cells per cluster, each where it lies.</span>
+
+<span class="sd">The counterpart to :mod:`climclusterpy.grid.build` and :mod:`climclusterpy.grid.native` for</span>
+<span class="sd">the ``"distributed"`` cell choice. Those two write **one** cell per cluster on a packed grid;</span>
+<span class="sd">this writes every chosen cell of every cluster at **its own position on the source grid**, so</span>
+<span class="sd">no representative has to be computed and no cell is displaced:</span>
+
+<span class="sd">* each chosen cell goes to its original ``(latitude, longitude)`` slot on the source lattice;</span>
+<span class="sd">* a cell chosen more than once (a cluster smaller than ``cells_per_cluster``) is written again</span>
+<span class="sd">  at the next free longitude of the **same latitude row**, and a full row gets extra columns</span>
+<span class="sd">  east of the grid at the same spacing. Latitude is what reaches the vegetation (day length);</span>
+<span class="sd">  longitude is inert when radiation comes from a forcing file, so a repeat keeps the one</span>
+<span class="sd">  coordinate that matters and moves the one that does not;</span>
+<span class="sd">* the axes are the source grid's own, so the step the CLM converter writes into its header —</span>
+<span class="sd">  what the model reads back as its resolution, and what scales every area-weighted total — is</span>
+<span class="sd">  the source cell size.</span>
+
+<span class="sd">The workflow code this was moved out of handled a full row by re-spacing the whole longitude</span>
+<span class="sd">axis over 360°, which silently changes the declared resolution — what scales every</span>
+<span class="sd">area-weighted total — and every cell's longitude. Here the extension keeps the source step, and</span>
+<span class="sd">a row that would need to run past 180° east is an error, because a wrong resolution is not a</span>
+<span class="sd">warning.</span>
+
+<span class="sd">The projection back is :func:`climclusterpy.grid.reconstruct.reconstruct_from_distributed`,</span>
+<span class="sd">driven by the ``cluster_distributed_mapping_{K}.csv`` written here.</span>
+<span class="sd">"""</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">xarray</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">xr</span>
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"write_distributed_grid"</span><span class="p">]</span>
+
+<span class="c1">#: Written into every distributed NetCDF so the model-run side can read what a cell stands for.</span>
+<span class="n">DISTRIBUTED_FLAG_ATTR</span> <span class="o">=</span> <span class="s2">"climclusterpy_cell_selection"</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">distributed_filename</span><span class="p">(</span>
+    <span class="n">variable</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">n_clusters</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+    <span class="n">n_cells</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+    <span class="o">*</span><span class="p">,</span>
+    <span class="n">aggregation_type</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"clustering"</span><span class="p">,</span>
+    <span class="n">cluster_method</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""``{var}_{K}_clusters_{agg}_ncells_{n}_distributed[_{method}].nc`` — one naming rule."""</span>
+    <span class="n">suffix</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"_</span><span class="si">{</span><span class="n">cluster_method</span><span class="si">}</span><span class="s2">"</span> <span class="k">if</span> <span class="n">cluster_method</span> <span class="k">else</span> <span class="s2">""</span>
+    <span class="k">return</span> <span class="p">(</span>
+        <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">variable</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">n_clusters</span><span class="si">}</span><span class="s2">_clusters_</span><span class="si">{</span><span class="n">aggregation_type</span><span class="si">}</span><span class="s2">_ncells_</span><span class="si">{</span><span class="n">n_cells</span><span class="si">}</span><span class="s2">"</span>
+        <span class="sa">f</span><span class="s2">"_distributed</span><span class="si">{</span><span class="n">suffix</span><span class="si">}</span><span class="s2">.nc"</span>
+    <span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_place_slots</span><span class="p">(</span><span class="n">ds_ts</span><span class="p">:</span> <span class="n">xr</span><span class="o">.</span><span class="n">Dataset</span><span class="p">,</span> <span class="n">registry</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]],</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">"""``([(slot, lat_idx, lon_idx), ...], lon_axis)`` — one entry per chosen slot.</span>
+
+<span class="sd">    ``lon_axis`` is the source longitude axis, extended eastwards **at the source spacing**</span>
+<span class="sd">    when a latitude row holds more slots than the source grid has longitudes (a small regional</span>
+<span class="sd">    grid with small, repeated clusters). The step stays the source cell size, so the resolution</span>
+<span class="sd">    the model reads is unchanged; only the extra columns' (inert) longitudes are new.</span>
+<span class="sd">    """</span>
+    <span class="n">orig</span> <span class="o">=</span> <span class="n">registry</span><span class="o">.</span><span class="n">get_original_grid</span><span class="p">()</span>
+    <span class="n">orig_lons</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">orig</span><span class="o">.</span><span class="n">longitudes</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+    <span class="n">ids</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">orig</span><span class="o">.</span><span class="n">cell_ids</span><span class="p">)</span>
+    <span class="n">step</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">orig_lons</span><span class="p">))))</span> <span class="k">if</span> <span class="n">orig_lons</span><span class="o">.</span><span class="n">size</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="k">else</span> <span class="mf">1.0</span>
+
+    <span class="n">rows</span><span class="p">,</span> <span class="n">cols</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nonzero</span><span class="p">(</span><span class="n">ids</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="n">cell_id_to_pos</span> <span class="o">=</span> <span class="p">{</span><span class="nb">int</span><span class="p">(</span><span class="n">ids</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]):</span> <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">i</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="n">j</span><span class="p">))</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">rows</span><span class="p">,</span> <span class="n">cols</span><span class="p">)}</span>
+
+    <span class="n">n_cols</span> <span class="o">=</span> <span class="n">orig_lons</span><span class="o">.</span><span class="n">size</span>
+    <span class="n">slot_ids</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">ds_ts</span><span class="p">[</span><span class="s2">"cell_id"</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">slot</span><span class="p">,</span> <span class="n">cid</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">slot_ids</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">cid</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">cell_id_to_pos</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">"Chosen cell </span><span class="si">{</span><span class="n">cid</span><span class="si">}</span><span class="s2"> (slot </span><span class="si">{</span><span class="n">slot</span><span class="si">}</span><span class="s2">) is not a valid cell of the original grid; the "</span>
+                <span class="s2">"timeseries dataset and the registry describe different grids."</span>
+            <span class="p">)</span>
+
+    <span class="c1"># Two passes. First every chosen cell takes its own position (its first slot does); only</span>
+    <span class="c1"># then do the repeats look for free columns. In one pass a repeat placed early could take</span>
+    <span class="c1"># the own position of a cell drawn later and push that cell off it -- measured on a</span>
+    <span class="c1"># crowded synthetic row, where most drawn cells ended up away from their own coordinates.</span>
+    <span class="n">occupied</span><span class="p">:</span> <span class="nb">set</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]]</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+    <span class="n">placed</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">repeats</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">slot</span><span class="p">,</span> <span class="n">cid</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">slot_ids</span><span class="p">):</span>
+        <span class="n">pos</span> <span class="o">=</span> <span class="n">cell_id_to_pos</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">cid</span><span class="p">)]</span>
+        <span class="k">if</span> <span class="n">pos</span> <span class="ow">in</span> <span class="n">occupied</span><span class="p">:</span>
+            <span class="n">repeats</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">slot</span><span class="p">)</span>
+            <span class="k">continue</span>
+        <span class="n">occupied</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">pos</span><span class="p">)</span>
+        <span class="n">placed</span><span class="p">[</span><span class="n">slot</span><span class="p">]</span> <span class="o">=</span> <span class="n">pos</span>
+    <span class="k">for</span> <span class="n">slot</span> <span class="ow">in</span> <span class="n">repeats</span><span class="p">:</span>
+        <span class="n">lat_idx</span> <span class="o">=</span> <span class="n">cell_id_to_pos</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">slot_ids</span><span class="p">[</span><span class="n">slot</span><span class="p">])][</span><span class="mi">0</span><span class="p">]</span>
+        <span class="c1"># Same latitude row, first free longitude -- extending the axis if needed.</span>
+        <span class="n">lon_idx</span> <span class="o">=</span> <span class="nb">next</span><span class="p">((</span><span class="n">j</span> <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_cols</span><span class="p">)</span> <span class="k">if</span> <span class="p">(</span><span class="n">lat_idx</span><span class="p">,</span> <span class="n">j</span><span class="p">)</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">occupied</span><span class="p">),</span> <span class="n">n_cols</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">lon_idx</span> <span class="o">==</span> <span class="n">n_cols</span><span class="p">:</span>
+            <span class="n">n_cols</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="n">occupied</span><span class="o">.</span><span class="n">add</span><span class="p">((</span><span class="n">lat_idx</span><span class="p">,</span> <span class="n">lon_idx</span><span class="p">))</span>
+        <span class="n">placed</span><span class="p">[</span><span class="n">slot</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">lat_idx</span><span class="p">,</span> <span class="n">lon_idx</span><span class="p">)</span>
+    <span class="n">positions</span> <span class="o">=</span> <span class="p">[(</span><span class="n">slot</span><span class="p">,</span> <span class="o">*</span><span class="n">placed</span><span class="p">[</span><span class="n">slot</span><span class="p">])</span> <span class="k">for</span> <span class="n">slot</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">slot_ids</span><span class="p">))]</span>
+
+    <span class="n">lon_axis</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span>
+        <span class="p">[</span><span class="n">orig_lons</span><span class="p">,</span> <span class="n">orig_lons</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">step</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n_cols</span> <span class="o">-</span> <span class="n">orig_lons</span><span class="o">.</span><span class="n">size</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)]</span>
+    <span class="p">)</span>
+    <span class="k">if</span> <span class="n">lon_axis</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mf">180.0</span> <span class="ow">or</span> <span class="n">n_cols</span> <span class="o">*</span> <span class="n">step</span> <span class="o">&gt;</span> <span class="mf">360.0</span> <span class="o">+</span> <span class="mf">1e-9</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">"A latitude row needs </span><span class="si">{</span><span class="n">n_cols</span><span class="si">}</span><span class="s2"> columns at the source spacing of </span><span class="si">{</span><span class="n">step</span><span class="si">:</span><span class="s2">g</span><span class="si">}</span><span class="s2"> deg, which "</span>
+            <span class="s2">"runs past 180 deg east — the limit the CLM tools accept. Re-spacing the axis to fit "</span>
+            <span class="s2">"would change the resolution the model reads, so this is refused. Use fewer "</span>
+            <span class="s2">"cells_per_cluster."</span>
+        <span class="p">)</span>
+    <span class="k">return</span> <span class="n">positions</span><span class="p">,</span> <span class="n">lon_axis</span>
+
+
+<div class="viewcode-block" id="write_distributed_grid">
+<a class="viewcode-back" href="../../../reference/grid.html#climclusterpy.grid.write_distributed_grid">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">write_distributed_grid</span><span class="p">(</span>
+    <span class="n">timeseries_dataset</span><span class="p">:</span> <span class="n">xr</span><span class="o">.</span><span class="n">Dataset</span><span class="p">,</span>
+    <span class="n">registry</span><span class="p">,</span>
+    <span class="n">output_dir</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="o">*</span><span class="p">,</span>
+    <span class="n">n_clusters</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+    <span class="n">artifacts_dir</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">aggregation_type</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"clustering"</span><span class="p">,</span>
+    <span class="n">cluster_method</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">extra_attrs</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">overwrite</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="n">time_chunk</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">2000</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">"""Write one NetCDF per forcing variable, every chosen cell at its own grid position.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    timeseries_dataset : xarray.Dataset</span>
+<span class="sd">        What :func:`climclusterpy.timeseries.extract_distributed_cells`</span>
+<span class="sd">        returns: dimension ``cell`` (one entry per chosen slot) carrying ``cluster_label``,</span>
+<span class="sd">        ``cell_id``, ``latitude``, ``longitude``, the forcing variables and the soil fields.</span>
+<span class="sd">    registry : DataRegistry</span>
+<span class="sd">        The original grid; its lattice becomes the written grid's axes.</span>
+<span class="sd">    output_dir : str</span>
+<span class="sd">        Where the NetCDFs go.</span>
+<span class="sd">    n_clusters : int</span>
+<span class="sd">        Number of clusters, for the file names.</span>
+<span class="sd">    artifacts_dir : str, optional</span>
+<span class="sd">        Where ``cluster_distributed_mapping_{K}.csv`` goes; defaults to ``output_dir``.</span>
+<span class="sd">    aggregation_type, cluster_method : str, optional</span>
+<span class="sd">        Carried into the file names (see :func:`distributed_filename`).</span>
+<span class="sd">    extra_attrs : dict, optional</span>
+<span class="sd">        Global attributes written into every file (the public API records the patch</span>
+<span class="sd">        arithmetic here).</span>
+<span class="sd">    overwrite : bool, optional</span>
+<span class="sd">        When False, a variable whose NetCDF already exists and is non-empty is skipped.</span>
+<span class="sd">    time_chunk : int, optional</span>
+<span class="sd">        Time steps per write batch; bounds peak memory on long forcing series.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    dict</span>
+<span class="sd">        Variable name to written path, plus ``"__distributed_mapping__"``.</span>
+
+<span class="sd">    Raises</span>
+<span class="sd">    ------</span>
+<span class="sd">    ValueError</span>
+<span class="sd">        If a chosen cell is not on the registry's grid, or a latitude row is over-full.</span>
+<span class="sd">    """</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">netCDF4</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">nc4</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">cftime</span><span class="w"> </span><span class="kn">import</span> <span class="n">date2num</span>
+
+    <span class="n">ds_ts</span> <span class="o">=</span> <span class="n">timeseries_dataset</span>
+    <span class="n">artifacts_dir</span> <span class="o">=</span> <span class="n">artifacts_dir</span> <span class="k">if</span> <span class="n">artifacts_dir</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">output_dir</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">output_dir</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">artifacts_dir</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="n">positions</span><span class="p">,</span> <span class="n">orig_lons</span> <span class="o">=</span> <span class="n">_place_slots</span><span class="p">(</span><span class="n">ds_ts</span><span class="p">,</span> <span class="n">registry</span><span class="p">)</span>
+    <span class="n">orig_lats</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">registry</span><span class="o">.</span><span class="n">get_original_grid</span><span class="p">()</span><span class="o">.</span><span class="n">latitudes</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+    <span class="n">slot_idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">positions</span><span class="p">])</span>
+    <span class="n">lat_idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">positions</span><span class="p">])</span>
+    <span class="n">lon_idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">p</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">positions</span><span class="p">])</span>
+
+    <span class="n">mapping</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+        <span class="p">{</span>
+            <span class="s2">"cell_index"</span><span class="p">:</span> <span class="n">slot_idx</span><span class="p">,</span>
+            <span class="s2">"cluster_label"</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">ds_ts</span><span class="p">[</span><span class="s2">"cluster_label"</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">)[</span><span class="n">slot_idx</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">),</span>
+            <span class="s2">"cell_id"</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">ds_ts</span><span class="p">[</span><span class="s2">"cell_id"</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">)[</span><span class="n">slot_idx</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">),</span>
+            <span class="s2">"original_latitude"</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">ds_ts</span><span class="p">[</span><span class="s2">"latitude"</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">)[</span><span class="n">slot_idx</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">),</span>
+            <span class="s2">"original_longitude"</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">ds_ts</span><span class="p">[</span><span class="s2">"longitude"</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">)[</span><span class="n">slot_idx</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">),</span>
+            <span class="s2">"grid_latitude_index"</span><span class="p">:</span> <span class="n">lat_idx</span><span class="p">,</span>
+            <span class="s2">"grid_longitude_index"</span><span class="p">:</span> <span class="n">lon_idx</span><span class="p">,</span>
+            <span class="s2">"grid_latitude"</span><span class="p">:</span> <span class="n">orig_lats</span><span class="p">[</span><span class="n">lat_idx</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">),</span>
+            <span class="s2">"grid_longitude"</span><span class="p">:</span> <span class="n">orig_lons</span><span class="p">[</span><span class="n">lon_idx</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">),</span>
+        <span class="p">}</span>
+    <span class="p">)</span>
+    <span class="n">mapping_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">artifacts_dir</span><span class="p">,</span> <span class="sa">f</span><span class="s2">"cluster_distributed_mapping_</span><span class="si">{</span><span class="n">n_clusters</span><span class="si">}</span><span class="s2">.csv"</span><span class="p">)</span>
+    <span class="n">mapping</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">mapping_path</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+    <span class="n">exclude</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"cell_id"</span><span class="p">,</span> <span class="s2">"latitude"</span><span class="p">,</span> <span class="s2">"longitude"</span><span class="p">,</span> <span class="s2">"cluster_label"</span><span class="p">,</span> <span class="s2">"cell_index"</span><span class="p">,</span> <span class="s2">"_slot_to_unique"</span><span class="p">}</span>
+    <span class="n">variables</span> <span class="o">=</span> <span class="p">[</span><span class="n">v</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">ds_ts</span><span class="o">.</span><span class="n">data_vars</span> <span class="k">if</span> <span class="n">v</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">exclude</span><span class="p">]</span>
+    <span class="n">is_dedup</span> <span class="o">=</span> <span class="nb">bool</span><span class="p">(</span><span class="n">ds_ts</span><span class="o">.</span><span class="n">attrs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"_distributed_dedup"</span><span class="p">,</span> <span class="kc">False</span><span class="p">))</span>
+    <span class="n">slot_to_unique</span> <span class="o">=</span> <span class="n">ds_ts</span><span class="p">[</span><span class="s2">"_slot_to_unique"</span><span class="p">]</span><span class="o">.</span><span class="n">values</span> <span class="k">if</span> <span class="s2">"_slot_to_unique"</span> <span class="ow">in</span> <span class="n">ds_ts</span> <span class="k">else</span> <span class="kc">None</span>
+
+    <span class="n">n_cells</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">ds_ts</span><span class="o">.</span><span class="n">sizes</span><span class="p">[</span><span class="s2">"cell"</span><span class="p">])</span>
+    <span class="n">files</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">var</span> <span class="ow">in</span> <span class="n">variables</span><span class="p">:</span>
+        <span class="n">da</span> <span class="o">=</span> <span class="n">ds_ts</span><span class="p">[</span><span class="n">var</span><span class="p">]</span>
+        <span class="n">has_time</span> <span class="o">=</span> <span class="s2">"time"</span> <span class="ow">in</span> <span class="n">da</span><span class="o">.</span><span class="n">dims</span>
+        <span class="k">if</span> <span class="n">var</span> <span class="o">==</span> <span class="s2">"soil_code"</span><span class="p">:</span>
+            <span class="n">dtype</span><span class="p">,</span> <span class="n">fill</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">int32</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">int32</span><span class="p">(</span><span class="o">-</span><span class="mi">9999</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">dtype</span><span class="p">,</span> <span class="n">fill</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">(</span><span class="o">-</span><span class="mf">1e32</span><span class="p">)</span>
+
+        <span class="n">path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+            <span class="n">output_dir</span><span class="p">,</span>
+            <span class="n">distributed_filename</span><span class="p">(</span>
+                <span class="n">var</span><span class="p">,</span>
+                <span class="n">n_clusters</span><span class="p">,</span>
+                <span class="n">n_cells</span><span class="p">,</span>
+                <span class="n">aggregation_type</span><span class="o">=</span><span class="n">aggregation_type</span><span class="p">,</span>
+                <span class="n">cluster_method</span><span class="o">=</span><span class="n">cluster_method</span><span class="p">,</span>
+            <span class="p">),</span>
+        <span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">overwrite</span> <span class="ow">and</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">path</span><span class="p">)</span> <span class="ow">and</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">getsize</span><span class="p">(</span><span class="n">path</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">files</span><span class="p">[</span><span class="n">var</span><span class="p">]</span> <span class="o">=</span> <span class="n">path</span>
+            <span class="k">continue</span>
+
+        <span class="c1"># netCDF4 directly, not xarray: the grid is mostly fill, and writing only the</span>
+        <span class="c1"># populated cells in time chunks never allocates the full (time, lat, lon) array.</span>
+        <span class="n">ncf</span> <span class="o">=</span> <span class="n">nc4</span><span class="o">.</span><span class="n">Dataset</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s2">"w"</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">"NETCDF4_CLASSIC"</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">ncf</span><span class="o">.</span><span class="n">createDimension</span><span class="p">(</span><span class="s2">"latitude"</span><span class="p">,</span> <span class="n">orig_lats</span><span class="o">.</span><span class="n">size</span><span class="p">)</span>
+            <span class="n">ncf</span><span class="o">.</span><span class="n">createDimension</span><span class="p">(</span><span class="s2">"longitude"</span><span class="p">,</span> <span class="n">orig_lons</span><span class="o">.</span><span class="n">size</span><span class="p">)</span>
+            <span class="n">ncf</span><span class="o">.</span><span class="n">setncattr</span><span class="p">(</span><span class="n">DISTRIBUTED_FLAG_ATTR</span><span class="p">,</span> <span class="s2">"distributed"</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="p">(</span><span class="n">extra_attrs</span> <span class="ow">or</span> <span class="p">{})</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="n">ncf</span><span class="o">.</span><span class="n">setncattr</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">has_time</span><span class="p">:</span>
+                <span class="n">time_vals</span> <span class="o">=</span> <span class="n">ds_ts</span><span class="p">[</span><span class="s2">"time"</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+                <span class="n">n_time</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">time_vals</span><span class="p">)</span>
+                <span class="n">ncf</span><span class="o">.</span><span class="n">createDimension</span><span class="p">(</span><span class="s2">"time"</span><span class="p">,</span> <span class="n">n_time</span><span class="p">)</span>
+                <span class="c1"># Compressed, one time step per chunk: the grid is almost all fill (1 675 of</span>
+                <span class="c1"># 201 600 cells at K = 67 x 25 on the half-degree globe), so an uncompressed</span>
+                <span class="c1"># daily 1901-2019 variable would be ~35 GB of fill; and the CLM converter</span>
+                <span class="c1"># reads a time step at a time, so a one-step chunk is never decompressed twice.</span>
+                <span class="n">out</span> <span class="o">=</span> <span class="n">ncf</span><span class="o">.</span><span class="n">createVariable</span><span class="p">(</span>
+                    <span class="n">var</span><span class="p">,</span>
+                    <span class="n">dtype</span><span class="p">,</span>
+                    <span class="p">(</span><span class="s2">"time"</span><span class="p">,</span> <span class="s2">"latitude"</span><span class="p">,</span> <span class="s2">"longitude"</span><span class="p">),</span>
+                    <span class="n">fill_value</span><span class="o">=</span><span class="n">fill</span><span class="p">,</span>
+                    <span class="n">zlib</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                    <span class="n">complevel</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
+                    <span class="n">shuffle</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                    <span class="n">chunksizes</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">orig_lats</span><span class="o">.</span><span class="n">size</span><span class="p">,</span> <span class="n">orig_lons</span><span class="o">.</span><span class="n">size</span><span class="p">),</span>
+                <span class="p">)</span>
+                <span class="n">tvar</span> <span class="o">=</span> <span class="n">ncf</span><span class="o">.</span><span class="n">createVariable</span><span class="p">(</span><span class="s2">"time"</span><span class="p">,</span> <span class="s2">"f8"</span><span class="p">,</span> <span class="p">(</span><span class="s2">"time"</span><span class="p">,))</span>
+                <span class="n">units</span> <span class="o">=</span> <span class="s2">"days since 1901-01-01"</span>
+                <span class="n">cal</span> <span class="o">=</span> <span class="n">ds_ts</span><span class="p">[</span><span class="s2">"time"</span><span class="p">]</span><span class="o">.</span><span class="n">encoding</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"calendar"</span><span class="p">)</span> <span class="ow">or</span> <span class="n">ds_ts</span><span class="p">[</span><span class="s2">"time"</span><span class="p">]</span><span class="o">.</span><span class="n">attrs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"calendar"</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">cal</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="n">cal</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">time_vals</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="s2">"calendar"</span><span class="p">,</span> <span class="s2">"standard"</span><span class="p">)</span>
+                <span class="n">tvar</span><span class="o">.</span><span class="n">units</span><span class="p">,</span> <span class="n">tvar</span><span class="o">.</span><span class="n">calendar</span> <span class="o">=</span> <span class="n">units</span><span class="p">,</span> <span class="n">cal</span>
+                <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">issubdtype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">time_vals</span><span class="p">)</span><span class="o">.</span><span class="n">dtype</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">number</span><span class="p">):</span>
+                    <span class="n">tvar</span><span class="p">[:]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">time_vals</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">"f8"</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">tvar</span><span class="p">[:]</span> <span class="o">=</span> <span class="n">date2num</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">time_vals</span><span class="p">),</span> <span class="n">units</span><span class="o">=</span><span class="n">units</span><span class="p">,</span> <span class="n">calendar</span><span class="o">=</span><span class="n">cal</span><span class="p">)</span>
+                <span class="n">var_is_dedup</span> <span class="o">=</span> <span class="n">is_dedup</span> <span class="ow">and</span> <span class="s2">"unique_cell"</span> <span class="ow">in</span> <span class="n">da</span><span class="o">.</span><span class="n">dims</span>
+                <span class="k">for</span> <span class="n">t0</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">n_time</span><span class="p">,</span> <span class="n">time_chunk</span><span class="p">):</span>
+                    <span class="n">t1</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">t0</span> <span class="o">+</span> <span class="n">time_chunk</span><span class="p">,</span> <span class="n">n_time</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="n">var_is_dedup</span><span class="p">:</span>
+                        <span class="n">chunk</span> <span class="o">=</span> <span class="n">da</span><span class="o">.</span><span class="n">isel</span><span class="p">(</span><span class="n">time</span><span class="o">=</span><span class="nb">slice</span><span class="p">(</span><span class="n">t0</span><span class="p">,</span> <span class="n">t1</span><span class="p">))</span><span class="o">.</span><span class="n">values</span><span class="p">[:,</span> <span class="n">slot_to_unique</span><span class="p">[</span><span class="n">slot_idx</span><span class="p">]]</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">chunk</span> <span class="o">=</span> <span class="n">da</span><span class="o">.</span><span class="n">isel</span><span class="p">(</span>
+                            <span class="n">time</span><span class="o">=</span><span class="nb">slice</span><span class="p">(</span><span class="n">t0</span><span class="p">,</span> <span class="n">t1</span><span class="p">),</span> <span class="n">cell</span><span class="o">=</span><span class="n">xr</span><span class="o">.</span><span class="n">DataArray</span><span class="p">(</span><span class="n">slot_idx</span><span class="p">,</span> <span class="n">dims</span><span class="o">=</span><span class="s2">"_pts"</span><span class="p">)</span>
+                        <span class="p">)</span><span class="o">.</span><span class="n">values</span>
+                    <span class="n">buf</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">((</span><span class="n">t1</span> <span class="o">-</span> <span class="n">t0</span><span class="p">,</span> <span class="n">orig_lats</span><span class="o">.</span><span class="n">size</span><span class="p">,</span> <span class="n">orig_lons</span><span class="o">.</span><span class="n">size</span><span class="p">),</span> <span class="n">fill</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">)</span>
+                    <span class="n">buf</span><span class="p">[:,</span> <span class="n">lat_idx</span><span class="p">,</span> <span class="n">lon_idx</span><span class="p">]</span> <span class="o">=</span> <span class="n">chunk</span>
+                    <span class="n">out</span><span class="p">[</span><span class="n">t0</span><span class="p">:</span><span class="n">t1</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">buf</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">out</span> <span class="o">=</span> <span class="n">ncf</span><span class="o">.</span><span class="n">createVariable</span><span class="p">(</span>
+                    <span class="n">var</span><span class="p">,</span> <span class="n">dtype</span><span class="p">,</span> <span class="p">(</span><span class="s2">"latitude"</span><span class="p">,</span> <span class="s2">"longitude"</span><span class="p">),</span> <span class="n">fill_value</span><span class="o">=</span><span class="n">fill</span><span class="p">,</span> <span class="n">zlib</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">complevel</span><span class="o">=</span><span class="mi">4</span>
+                <span class="p">)</span>
+                <span class="n">grid</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">((</span><span class="n">orig_lats</span><span class="o">.</span><span class="n">size</span><span class="p">,</span> <span class="n">orig_lons</span><span class="o">.</span><span class="n">size</span><span class="p">),</span> <span class="n">fill</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">)</span>
+                <span class="n">values</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">da</span><span class="o">.</span><span class="n">values</span><span class="p">)[</span><span class="n">slot_idx</span><span class="p">]</span>
+                <span class="k">if</span> <span class="n">var</span> <span class="o">==</span> <span class="s2">"soil_code"</span><span class="p">:</span>
+                    <span class="n">ok</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">isfinite</span><span class="p">(</span><span class="n">values</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">))</span>
+                    <span class="n">grid</span><span class="p">[</span><span class="n">lat_idx</span><span class="p">[</span><span class="n">ok</span><span class="p">],</span> <span class="n">lon_idx</span><span class="p">[</span><span class="n">ok</span><span class="p">]]</span> <span class="o">=</span> <span class="n">values</span><span class="p">[</span><span class="n">ok</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">int32</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">grid</span><span class="p">[</span><span class="n">lat_idx</span><span class="p">,</span> <span class="n">lon_idx</span><span class="p">]</span> <span class="o">=</span> <span class="n">values</span>
+                <span class="n">out</span><span class="p">[:,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">grid</span>
+            <span class="c1"># Coordinates AFTER the data variable: cdf2clm converts the FIRST variable in the</span>
+            <span class="c1"># file unless told otherwise, and a 1-D latitude first makes it fail with "Invalid</span>
+            <span class="c1"># number 1 of dimensions" (found on a real 48-cell grid, not by the unit tests).</span>
+            <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">values</span><span class="p">,</span> <span class="n">units</span> <span class="ow">in</span> <span class="p">(</span>
+                <span class="p">(</span><span class="s2">"latitude"</span><span class="p">,</span> <span class="n">orig_lats</span><span class="p">,</span> <span class="s2">"degrees_north"</span><span class="p">),</span>
+                <span class="p">(</span><span class="s2">"longitude"</span><span class="p">,</span> <span class="n">orig_lons</span><span class="p">,</span> <span class="s2">"degrees_east"</span><span class="p">),</span>
+            <span class="p">):</span>
+                <span class="n">coord</span> <span class="o">=</span> <span class="n">ncf</span><span class="o">.</span><span class="n">createVariable</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="s2">"f8"</span><span class="p">,</span> <span class="p">(</span><span class="n">name</span><span class="p">,))</span>
+                <span class="n">coord</span><span class="p">[:]</span> <span class="o">=</span> <span class="n">values</span>
+                <span class="n">coord</span><span class="o">.</span><span class="n">units</span> <span class="o">=</span> <span class="n">units</span>
+            <span class="n">ncf</span><span class="o">.</span><span class="n">sync</span><span class="p">()</span>
+        <span class="k">finally</span><span class="p">:</span>
+            <span class="n">ncf</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        <span class="n">files</span><span class="p">[</span><span class="n">var</span><span class="p">]</span> <span class="o">=</span> <span class="n">path</span>
+
+    <span class="n">files</span><span class="p">[</span><span class="s2">"__distributed_mapping__"</span><span class="p">]</span> <span class="o">=</span> <span class="n">mapping_path</span>
+    <span class="k">return</span> <span class="n">files</span></div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, Jamir Priesner.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

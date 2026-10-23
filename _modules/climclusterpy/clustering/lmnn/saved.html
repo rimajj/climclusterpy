@@ -1,0 +1,710 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>climclusterpy.clustering.lmnn.saved &mdash; climclusterpy 0.5</title>
+      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/custom.css?v=f2cc2102" />
+
+  
+    <link rel="shortcut icon" href="../../../../_static/logo.svg"/>
+      <script src="../../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../../_static/documentation_options.js?v=1dd76d02"></script>
+      <script src="../../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../../index.html" class="icon icon-home">
+            climclusterpy
+              <img src="../../../../_static/logo.svg" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../tutorials/index.html">Tutorials</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../tutorials/one_call_roundtrip.html">Tutorial 0 — the whole workflow in two calls</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../tutorials/one_call_roundtrip.html#the-idea">The idea</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../tutorials/one_call_roundtrip.html#call-1-build-the-reduced-grid">Call 1 — build the reduced grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../tutorials/one_call_roundtrip.html#call-2-rebuild-the-original-grid">Call 2 — rebuild the original grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../tutorials/one_call_roundtrip.html#the-complete-script">The complete script</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../tutorials/one_call_roundtrip.html#run-it">Run it</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../tutorials/one_call_roundtrip.html#next-steps">Next steps</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../tutorials/euclidean_clustering.html">Tutorial 1 — Euclidean clustering</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../tutorials/euclidean_clustering.html#load-data-and-build-a-feature-matrix">Load data and build a feature matrix</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../tutorials/euclidean_clustering.html#cluster">Cluster</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../tutorials/euclidean_clustering.html#the-complete-script">The complete script</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../tutorials/euclidean_clustering.html#run-it">Run it</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../tutorials/euclidean_clustering.html#next-steps">Next steps</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../tutorials/lmnn_clustering.html">Tutorial 2 — LMNN metric-learning clustering</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../tutorials/lmnn_clustering.html#provide-a-supervision-signal">Provide a supervision signal</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../tutorials/lmnn_clustering.html#learn-a-metric-and-cluster">Learn a metric and cluster</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../tutorials/lmnn_clustering.html#the-complete-script">The complete script</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../tutorials/lmnn_clustering.html#run-it">Run it</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../tutorials/lmnn_clustering.html#next-steps">Next steps</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../tutorials/supervision.html">Tutorial 3 — Supervision signals</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../tutorials/supervision.html#koppengeiger-from-monthly-climatology">Köppen–Geiger from monthly climatology</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../tutorials/supervision.html#model-output-trait-clustering">Model-output (trait) clustering</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../tutorials/supervision.html#the-complete-script">The complete script</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../tutorials/supervision.html#run-it">Run it</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../tutorials/supervision.html#ecoregion-supervision">Ecoregion supervision</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../tutorials/reconstruction.html">Tutorial 4 — Reconstruct the original grid</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../tutorials/reconstruction.html#the-round-trip">The round trip</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../tutorials/reconstruction.html#verify">Verify</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../tutorials/reconstruction.html#the-complete-script">The complete script</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../tutorials/reconstruction.html#run-it">Run it</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../tutorials/reconstruction.html#next-steps">Next steps</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../tutorials/index.html#a-note-on-the-synthetic-data">A note on the synthetic data</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">How-to guides</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../howto/index.html">How-to guides</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../howto/install.html">Install climclusterpy</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../howto/install.html#base-install">Base install</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../howto/install.html#optional-extras">Optional extras</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../howto/install.html#installing-the-geospatial-extras-with-conda">Installing the geospatial extras with conda</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../howto/install.html#pytorch-cpu-vs-gpu">PyTorch (CPU vs. GPU)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../howto/install.html#environment-variables">Environment variables</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../howto/install.html#building-the-documentation">Building the documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../howto/inputs.html">Prepare the input files</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../howto/inputs.html#check-your-input-first">Check your input first</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../howto/inputs.html#the-files">The files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../howto/inputs.html#grid-and-coordinates">Grid and coordinates</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../howto/inputs.html#which-cells-exist-the-soil-code">Which cells exist: the soil code</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../howto/inputs.html#the-time-axis">The time axis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../howto/inputs.html#missing-values">Missing values</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../howto/inputs.html#another-vegetation-model-s-input">Another vegetation model’s input</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../howto/inputs.html#output-files">Output files</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../howto/clustering.html">Cluster a feature matrix (choose a mode)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../howto/clustering.html#euclidean-mode-no-supervision">Euclidean mode (no supervision)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../howto/clustering.html#lmnn-mode-supervised-metric-learning">LMNN mode (supervised metric learning)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../howto/clustering.html#lower-level-control">Lower-level control</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../howto/supervision.html">Build an LMNN supervision signal</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../howto/supervision.html#from-climate-koppengeiger">From climate — Köppen–Geiger</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../howto/supervision.html#from-model-output-traits">From model output — traits</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../howto/supervision.html#from-a-shapefile-ecoregions2017">From a shapefile — Ecoregions2017</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../howto/supervision.html#using-the-signal">Using the signal</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../howto/supervision.html#in-one-call">In one call</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../howto/supervision.html#saved-results-are-reused-only-for-the-same-inputs">Saved results are reused only for the same inputs</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../howto/cell_selection.html">Choosing the cells a cluster is simulated on</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../howto/cell_selection.html#the-patch-budget">The patch budget</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../howto/cell_selection.html#what-the-drawn-cells-carry">What the drawn cells carry</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../howto/cell_selection.html#reproducibility">Reproducibility</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../howto/cell_selection.html#looking-at-a-draw-without-building-a-grid">Looking at a draw without building a grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../howto/cell_selection.html#back-to-the-full-grid">Back to the full grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../howto/cell_selection.html#a-model-that-reads-its-own-inputs-the-grid-only-then-cut-the-rest">A model that reads its own inputs: the grid only, then cut the rest</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../howto/reconstruct.html">Reconstruct the original grid</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../howto/reconstruct.html#the-usual-call">The usual call</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../howto/reconstruct.html#picking-up-where-you-left-off">Picking up where you left off</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../howto/reconstruct.html#without-a-result-or-run-folder">Without a result or run folder</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../howto/reconstruct.html#required-mapping-files">Required mapping files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../howto/reconstruct.html#reconstruction-paths-kind">Reconstruction paths (<code class="docutils literal notranslate"><span class="pre">kind</span></code>)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../howto/reconstruct.html#verifying-the-result">Verifying the result</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../reference/index.html">Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../reference/api.html">Public API — <code class="xref py py-mod docutils literal notranslate"><span class="pre">climclusterpy</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/api.html#the-two-headline-functions">The two headline functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/api.html#before-and-after-the-model-run">Before and after the model run</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/api.html#input-for-a-model-other-than-lpjml">Input for a model other than LPJmL</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/api.html#other-ways-to-build-the-reduced-grid">Other ways to build the reduced grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/api.html#reusing-a-trained-metric">Reusing a trained metric</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/api.html#the-model-s-other-inputs">The model’s other inputs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/api.html#writing-the-reduced-grid-yourself">Writing the reduced grid yourself</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/api.html#building-blocks">Building blocks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/api.html#result-objects">Result objects</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../reference/toplevel.html">Data, timeseries, I/O &amp; plotting</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/toplevel.html#module-climclusterpy.data">Data loading &amp; the grid registry</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/toplevel.html#how-much-the-package-reports">How much the package reports</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/toplevel.html#coordinates">Coordinates</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/toplevel.html#module-climclusterpy.timeseries">Per-cluster timeseries</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/toplevel.html#module-climclusterpy.io">File input/output</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/toplevel.html#module-climclusterpy.preprocessing">Preprocessing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/toplevel.html#module-climclusterpy.viz">Plotting</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../reference/features.html">Feature engineering</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/features.html#ecological-summaries">Ecological summaries</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/features.html#vegetation-model-traits">Vegetation-model traits</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/features.html#standardization-filtering">Standardization &amp; filtering</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../reference/clustering.html">Clustering &amp; metric learning</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/clustering.html#hierarchical-clustering">Hierarchical clustering</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/clustering.html#module-climclusterpy.clustering.lmnn">LMNN metric learning</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../reference/supervision.html">Supervision labels</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/supervision.html#koppengeiger-climate-zones">Köppen–Geiger climate zones</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/supervision.html#vegetation-model-output-traits">Vegetation-model output traits</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/supervision.html#ecoregion-polygons">Ecoregion polygons</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/supervision.html#daily-input-helpers">Daily-input helpers</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../reference/grid.html">Grid building &amp; reconstruction</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/grid.html#where-each-reduced-cell-is-placed">Where each reduced cell is placed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/grid.html#writing-the-reduced-grid">Writing the reduced grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/grid.html#reconstruction">Reconstruction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/grid.html#lpjml-clm-conversion">LPJmL CLM conversion</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../reference/cli.html">Command-line interface (<code class="docutils literal notranslate"><span class="pre">climclu</span></code>)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/cli.html#the-two-headline-commands">The two headline commands</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/cli.html#building-blocks">Building blocks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/cli.html#options-shared-by-every-action-command">Options shared by every action command</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/cli.html#errors-and-exit-codes">Errors and exit codes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../reference/index.html#which-function-do-i-need">Which function do I need?</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Explanation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../explanation/index.html">Explanation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../explanation/overview.html">Overview</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../explanation/overview.html#design-philosophy">Design Philosophy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../explanation/overview.html#workflow-summary">Workflow Summary</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../explanation/overview.html#key-innovations">Key Innovations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../explanation/overview.html#use-cases">Use Cases</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../explanation/overview.html#limitations">Limitations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../explanation/overview.html#future-directions">Future Directions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../explanation/overview.html#references">References</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../explanation/methods.html">Scientific Methods</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../explanation/methods.html#data-acquisition-and-preprocessing">Data Acquisition and Preprocessing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../explanation/methods.html#ecoregion-assignment">Ecoregion Assignment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../explanation/methods.html#ecological-feature-summarization">Ecological Feature Summarization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../explanation/methods.html#feature-standardization-and-filtering">Feature Standardization and Filtering</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../explanation/methods.html#large-margin-nearest-neighbor-lmnn-metric-learning">Large Margin Nearest Neighbor (LMNN) Metric Learning</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../explanation/methods.html#hierarchical-clustering">Hierarchical Clustering</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../explanation/methods.html#representative-cell-selection">Representative Cell Selection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../explanation/methods.html#evaluation-metrics">Evaluation Metrics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../explanation/methods.html#netcdf-processing">NetCDF Processing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../explanation/methods.html#computational-implementation">Computational Implementation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../explanation/index.html#reconstruction-correctness">Reconstruction correctness</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">climclusterpy</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">climclusterpy.clustering.lmnn.saved</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for climclusterpy.clustering.lmnn.saved</h1><div class="highlight"><pre>
+<span></span><span class="sd">"""A learned distance metric as a thing you can save, load and apply again without retraining.</span>
+
+<span class="sd">Training a per-cell metric on the global grid takes about half an hour on a GPU and, without a</span>
+<span class="sd">seed, does not reproduce: two trainings on identical inputs give different clusterings. So the</span>
+<span class="sd">trained metric is an artifact worth keeping, and reusing it -- another number of clusters, another</span>
+<span class="sd">region of the same grid, the same grid after a code change -- must not mean training again.</span>
+
+<span class="sd">:class:`LearnedMetric` wraps the three kinds the package trains:</span>
+
+<span class="sd">* ``"lowrank"`` -- a per-cell low-rank Mahalanobis metric (``lmnn_mode="lowrank"``, the published</span>
+<span class="sd">  configuration), a :class:`~climclusterpy.clustering.lmnn.local.LocalMahalanobisMLP`;</span>
+<span class="sd">* ``"diagonal"`` -- per-cell feature weights (``lmnn_mode="local"`` or ``"enhanced"``), a</span>
+<span class="sd">  :class:`~climclusterpy.clustering.lmnn.local.LocalWeightNetwork`;</span>
+<span class="sd">* ``"global"`` -- one linear transform ``L`` for the whole grid (``lmnn_mode="global"``).</span>
+
+<span class="sd">:meth:`LearnedMetric.save` writes a folder with ``metric.json`` (kind, sizes, the feature columns</span>
+<span class="sd">it expects, in order) and the weights as a plain tensor file, which :func:`load_metric` reads back</span>
+<span class="sd">without executing any pickled code. :func:`load_metric` also reads the ``model.pth`` files the</span>
+<span class="sd">package's research runs wrote with ``torch.save(model)``, including those saved before the module</span>
+<span class="sd">holding the model class was renamed in 0.2.0 -- but those *are* pickles, and loading a pickle</span>
+<span class="sd">runs code, so load only files you trust.</span>
+<span class="sd">"""</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">importlib</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">zipfile</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">dataclasses</span><span class="w"> </span><span class="kn">import</span> <span class="n">dataclass</span><span class="p">,</span> <span class="n">field</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+<span class="c1">#: ``metric.json`` ``format`` value; bump the suffix on an incompatible change.</span>
+<span class="n">FORMAT</span> <span class="o">=</span> <span class="s2">"climclusterpy-learned-metric/1"</span>
+<span class="n">METRIC_JSON</span> <span class="o">=</span> <span class="s2">"metric.json"</span>
+<span class="n">WEIGHTS_FILE</span> <span class="o">=</span> <span class="s2">"weights.pt"</span>
+<span class="n">TRANSFORM_FILE</span> <span class="o">=</span> <span class="s2">"transform.npy"</span>
+
+<span class="c1">#: Module paths that older saved models name for their class, and where the class lives now.</span>
+<span class="c1">#: Additive only: each entry keeps the artifacts written before that rename loadable.</span>
+<span class="n">LEGACY_MODULES</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="c1"># 0.2.0 split clustering/lmnn_local.py into the clustering/lmnn/ package.</span>
+    <span class="s2">"climclusterpy.clustering.lmnn_local"</span><span class="p">:</span> <span class="s2">"climclusterpy.clustering.lmnn.local"</span><span class="p">,</span>
+<span class="p">}</span>
+
+
+<div class="viewcode-block" id="LearnedMetric">
+<a class="viewcode-back" href="../../../../reference/api.html#climclusterpy.LearnedMetric">[docs]</a>
+<span class="nd">@dataclass</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">LearnedMetric</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""A trained distance metric, ready to apply to a feature matrix.</span>
+
+<span class="sd">    Attributes</span>
+<span class="sd">    ----------</span>
+<span class="sd">    kind : str</span>
+<span class="sd">        ``"lowrank"``, ``"diagonal"`` or ``"global"`` (see the module docstring).</span>
+<span class="sd">    n_features : int</span>
+<span class="sd">        Width of the feature matrix the metric applies to.</span>
+<span class="sd">    model : torch.nn.Module or None</span>
+<span class="sd">        The per-cell network (``"lowrank"``/``"diagonal"``); ``None`` for ``"global"``.</span>
+<span class="sd">    transform : numpy.ndarray or None</span>
+<span class="sd">        ``"global"`` only: the linear map ``L``; distances are Euclidean on ``X @ L.T``.</span>
+<span class="sd">    rank : int or None</span>
+<span class="sd">        ``"lowrank"`` only: the rank of each cell's metric factor.</span>
+<span class="sd">    feature_names : tuple of str or None</span>
+<span class="sd">        The feature columns the metric was trained on, in order, when known. A metric saved by</span>
+<span class="sd">        :func:`~climclusterpy.api.create_clusters` records them; a bare ``model.pth`` does not.</span>
+<span class="sd">    source : str or None</span>
+<span class="sd">        Where it was loaded from.</span>
+<span class="sd">    provenance : dict</span>
+<span class="sd">        What the loader found out about the file (format, legacy module names it needed, the</span>
+<span class="sd">        research ``meta.json`` next to it, ...), for the run record.</span>
+<span class="sd">    """</span>
+
+    <span class="n">kind</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">n_features</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">model</span><span class="p">:</span> <span class="nb">object</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">transform</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">rank</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">feature_names</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">source</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">provenance</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">dict</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="n">rank</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">", rank=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">rank</span><span class="si">}</span><span class="s2">"</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">rank</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="s2">""</span>
+        <span class="n">names</span> <span class="o">=</span> <span class="s2">""</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">feature_names</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="s2">", feature names recorded"</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">"LearnedMetric(kind=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">kind</span><span class="si">!r}</span><span class="s2">, n_features=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">n_features</span><span class="si">}{</span><span class="n">rank</span><span class="si">}{</span><span class="n">names</span><span class="si">}</span><span class="s2">)"</span>
+
+    <span class="c1"># ------------------------------------------------------------------ apply</span>
+<div class="viewcode-block" id="LearnedMetric.check_features">
+<a class="viewcode-back" href="../../../../reference/api.html#climclusterpy.LearnedMetric.check_features">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">check_features</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">feature_columns</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">n_features</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Refuse a feature matrix the metric was not trained on.</span>
+
+<span class="sd">        The width must match. When both the metric and the caller name the columns, the names</span>
+<span class="sd">        and their order must match too: a learned metric weights *positions*, so the same width</span>
+<span class="sd">        with the columns in another order is a well-formed, silently wrong distance.</span>
+<span class="sd">        """</span>
+        <span class="n">width</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">feature_columns</span><span class="p">)</span> <span class="k">if</span> <span class="n">feature_columns</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">n_features</span>
+        <span class="k">if</span> <span class="n">width</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="nb">int</span><span class="p">(</span><span class="n">width</span><span class="p">)</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_features</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">"The learned metric applies to </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">n_features</span><span class="si">}</span><span class="s2"> features; the feature matrix "</span>
+                <span class="sa">f</span><span class="s2">"has </span><span class="si">{</span><span class="n">width</span><span class="si">}</span><span class="s2">. A metric is tied to the exact feature set it was trained on."</span>
+            <span class="p">)</span>
+        <span class="k">if</span> <span class="n">feature_columns</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">feature_names</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">given</span> <span class="o">=</span> <span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">c</span><span class="p">)</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">feature_columns</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">given</span> <span class="o">!=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">feature_names</span><span class="p">):</span>
+                <span class="n">missing</span> <span class="o">=</span> <span class="p">[</span><span class="n">c</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">feature_names</span> <span class="k">if</span> <span class="n">c</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">given</span><span class="p">]</span>
+                <span class="n">extra</span> <span class="o">=</span> <span class="p">[</span><span class="n">c</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">given</span> <span class="k">if</span> <span class="n">c</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">feature_names</span><span class="p">]</span>
+                <span class="n">detail</span> <span class="o">=</span> <span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">"missing </span><span class="si">{</span><span class="n">missing</span><span class="si">}</span><span class="s2">, unexpected </span><span class="si">{</span><span class="n">extra</span><span class="si">}</span><span class="s2">"</span>
+                    <span class="k">if</span> <span class="n">missing</span> <span class="ow">or</span> <span class="n">extra</span>
+                    <span class="k">else</span> <span class="s2">"the same names in another order"</span>
+                <span class="p">)</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                    <span class="s2">"The feature columns do not match the ones the learned metric was trained "</span>
+                    <span class="sa">f</span><span class="s2">"on (</span><span class="si">{</span><span class="n">detail</span><span class="si">}</span><span class="s2">). Expected, in order: </span><span class="si">{</span><span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">feature_names</span><span class="p">)</span><span class="si">}</span><span class="s2">."</span>
+                <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="LearnedMetric.transformed">
+<a class="viewcode-back" href="../../../../reference/api.html#climclusterpy.LearnedMetric.transformed">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">transformed</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""``"global"`` only: the features in the metric space, ``X @ L.T``."""</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">kind</span> <span class="o">!=</span> <span class="s2">"global"</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"A </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">kind</span><span class="si">!r}</span><span class="s2"> metric has no single linear transform."</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span> <span class="o">@</span> <span class="bp">self</span><span class="o">.</span><span class="n">transform</span><span class="o">.</span><span class="n">T</span></div>
+
+
+<div class="viewcode-block" id="LearnedMetric.distance_matrix">
+<a class="viewcode-back" href="../../../../reference/api.html#climclusterpy.LearnedMetric.distance_matrix">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">distance_matrix</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">device</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""The dense ``(n_cells, n_cells)`` distance matrix of ``X`` under this metric.</span>
+
+<span class="sd">        ``device`` is the torch device for the per-cell kinds (default: CUDA when available,</span>
+<span class="sd">        else CPU). The value matters for reproduction: the same model evaluated on a GPU and on</span>
+<span class="sd">        a CPU differs in the last bits of float32 arithmetic, which can move a near-tied merge</span>
+<span class="sd">        in the dendrogram. Evaluate on the device class the reference was computed on.</span>
+<span class="sd">        """</span>
+        <span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">check_features</span><span class="p">(</span><span class="n">n_features</span><span class="o">=</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">kind</span> <span class="o">==</span> <span class="s2">"global"</span><span class="p">:</span>
+            <span class="kn">from</span><span class="w"> </span><span class="nn">scipy.spatial.distance</span><span class="w"> </span><span class="kn">import</span> <span class="n">pdist</span><span class="p">,</span> <span class="n">squareform</span>
+
+            <span class="k">return</span> <span class="n">squareform</span><span class="p">(</span><span class="n">pdist</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">transformed</span><span class="p">(</span><span class="n">X</span><span class="p">)))</span>
+        <span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
+
+        <span class="k">if</span> <span class="n">device</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">device</span> <span class="o">=</span> <span class="s2">"cuda"</span> <span class="k">if</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">is_available</span><span class="p">()</span> <span class="k">else</span> <span class="s2">"cpu"</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">kind</span> <span class="o">==</span> <span class="s2">"lowrank"</span><span class="p">:</span>
+            <span class="kn">from</span><span class="w"> </span><span class="nn">.local</span><span class="w"> </span><span class="kn">import</span> <span class="n">compute_local_mahalanobis_distance_matrix</span>
+
+            <span class="k">return</span> <span class="n">compute_local_mahalanobis_distance_matrix</span><span class="p">(</span>
+                <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+            <span class="p">)</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">.local</span><span class="w"> </span><span class="kn">import</span> <span class="n">compute_distance_matrix_local</span>
+
+        <span class="k">return</span> <span class="n">compute_distance_matrix_local</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">),</span> <span class="n">device</span><span class="p">)</span></div>
+
+
+    <span class="c1"># ------------------------------------------------------------------ save</span>
+<div class="viewcode-block" id="LearnedMetric.save">
+<a class="viewcode-back" href="../../../../reference/api.html#climclusterpy.LearnedMetric.save">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">directory</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Write the metric to ``directory`` (created if missing); return the directory.</span>
+
+<span class="sd">        Writes ``metric.json`` and either ``weights.pt`` (the network's tensors, no pickled</span>
+<span class="sd">        code) or ``transform.npy``. :func:`load_metric` reads it back exactly.</span>
+<span class="sd">        """</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">directory</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">record</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">"format"</span><span class="p">:</span> <span class="n">FORMAT</span><span class="p">,</span>
+            <span class="s2">"kind"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">kind</span><span class="p">,</span>
+            <span class="s2">"n_features"</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n_features</span><span class="p">),</span>
+            <span class="s2">"rank"</span><span class="p">:</span> <span class="kc">None</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">rank</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rank</span><span class="p">),</span>
+            <span class="s2">"feature_names"</span><span class="p">:</span> <span class="kc">None</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">feature_names</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">feature_names</span><span class="p">),</span>
+            <span class="s2">"architecture"</span><span class="p">:</span> <span class="n">_architecture</span><span class="p">(</span><span class="bp">self</span><span class="p">),</span>
+            <span class="s2">"provenance"</span><span class="p">:</span> <span class="n">_json_safe</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">provenance</span><span class="p">),</span>
+        <span class="p">}</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">kind</span> <span class="o">==</span> <span class="s2">"global"</span><span class="p">:</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">directory</span><span class="p">,</span> <span class="n">TRANSFORM_FILE</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">transform</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
+
+            <span class="n">state</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">v</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">cpu</span><span class="p">()</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">state_dict</span><span class="p">()</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
+            <span class="n">torch</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">directory</span><span class="p">,</span> <span class="n">WEIGHTS_FILE</span><span class="p">))</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">directory</span><span class="p">,</span> <span class="n">METRIC_JSON</span><span class="p">),</span> <span class="s2">"w"</span><span class="p">)</span> <span class="k">as</span> <span class="n">fh</span><span class="p">:</span>
+            <span class="n">json</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">record</span><span class="p">,</span> <span class="n">fh</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">directory</span></div>
+</div>
+
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">from_model</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">feature_names</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">provenance</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">LearnedMetric</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Wrap a trained per-cell network, as :func:`train_lmnn` returns it."""</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">.local</span><span class="w"> </span><span class="kn">import</span> <span class="n">LocalMahalanobisMLP</span><span class="p">,</span> <span class="n">LocalWeightNetwork</span>
+
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">LocalMahalanobisMLP</span><span class="p">):</span>
+        <span class="n">kind</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="n">rank</span> <span class="o">=</span> <span class="s2">"lowrank"</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">d</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">r</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">LocalWeightNetwork</span><span class="p">):</span>
+        <span class="n">kind</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="n">rank</span> <span class="o">=</span> <span class="s2">"diagonal"</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">n_features</span><span class="p">),</span> <span class="kc">None</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">"Not a metric network the package trains: </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">model</span><span class="p">)</span><span class="o">.</span><span class="vm">__module__</span><span class="si">}</span><span class="s2">."</span>
+            <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">model</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">. Expected LocalMahalanobisMLP or LocalWeightNetwork."</span>
+        <span class="p">)</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">LearnedMetric</span><span class="p">(</span>
+        <span class="n">kind</span><span class="o">=</span><span class="n">kind</span><span class="p">,</span>
+        <span class="n">n_features</span><span class="o">=</span><span class="n">d</span><span class="p">,</span>
+        <span class="n">model</span><span class="o">=</span><span class="n">model</span><span class="p">,</span>
+        <span class="n">rank</span><span class="o">=</span><span class="n">rank</span><span class="p">,</span>
+        <span class="n">feature_names</span><span class="o">=</span><span class="kc">None</span> <span class="k">if</span> <span class="n">feature_names</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="nb">tuple</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">c</span><span class="p">)</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">feature_names</span><span class="p">),</span>
+        <span class="n">provenance</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">provenance</span> <span class="ow">or</span> <span class="p">{}),</span>
+    <span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">from_transform</span><span class="p">(</span><span class="n">transform</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">feature_names</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">provenance</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">LearnedMetric</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Wrap a global-mode linear transform ``L`` (shape ``(k, n_features)``)."""</span>
+    <span class="n">L</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">transform</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">L</span><span class="o">.</span><span class="n">ndim</span> <span class="o">!=</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"A global transform is 2-D (k, n_features); got shape </span><span class="si">{</span><span class="n">L</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">."</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">LearnedMetric</span><span class="p">(</span>
+        <span class="n">kind</span><span class="o">=</span><span class="s2">"global"</span><span class="p">,</span>
+        <span class="n">n_features</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">L</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span>
+        <span class="n">transform</span><span class="o">=</span><span class="n">L</span><span class="p">,</span>
+        <span class="n">feature_names</span><span class="o">=</span><span class="kc">None</span> <span class="k">if</span> <span class="n">feature_names</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="nb">tuple</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">c</span><span class="p">)</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">feature_names</span><span class="p">),</span>
+        <span class="n">provenance</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">provenance</span> <span class="ow">or</span> <span class="p">{}),</span>
+    <span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_architecture</span><span class="p">(</span><span class="n">metric</span><span class="p">:</span> <span class="n">LearnedMetric</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">metric</span><span class="o">.</span><span class="n">kind</span> <span class="o">==</span> <span class="s2">"global"</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">{</span><span class="s2">"transform_shape"</span><span class="p">:</span> <span class="nb">list</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">metric</span><span class="o">.</span><span class="n">transform</span><span class="p">)</span><span class="o">.</span><span class="n">shape</span><span class="p">)}</span>
+    <span class="k">if</span> <span class="n">metric</span><span class="o">.</span><span class="n">kind</span> <span class="o">==</span> <span class="s2">"lowrank"</span><span class="p">:</span>
+        <span class="n">first</span> <span class="o">=</span> <span class="n">metric</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">net</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s2">"class"</span><span class="p">:</span> <span class="s2">"LocalMahalanobisMLP"</span><span class="p">,</span>
+            <span class="s2">"d"</span><span class="p">:</span> <span class="n">metric</span><span class="o">.</span><span class="n">n_features</span><span class="p">,</span>
+            <span class="s2">"r"</span><span class="p">:</span> <span class="n">metric</span><span class="o">.</span><span class="n">rank</span><span class="p">,</span>
+            <span class="s2">"hidden"</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">first</span><span class="o">.</span><span class="n">out_features</span><span class="p">),</span>
+        <span class="p">}</span>
+    <span class="n">linears</span> <span class="o">=</span> <span class="p">[</span><span class="n">m</span> <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">metric</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">mlp</span> <span class="k">if</span> <span class="n">m</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">==</span> <span class="s2">"Linear"</span><span class="p">]</span>
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="s2">"class"</span><span class="p">:</span> <span class="s2">"LocalWeightNetwork"</span><span class="p">,</span>
+        <span class="s2">"n_features"</span><span class="p">:</span> <span class="n">metric</span><span class="o">.</span><span class="n">n_features</span><span class="p">,</span>
+        <span class="s2">"hidden_dims"</span><span class="p">:</span> <span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">out_features</span><span class="p">)</span> <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">linears</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]],</span>
+        <span class="s2">"dropout"</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="n">metric</span><span class="o">.</span><span class="n">model</span><span class="p">,</span> <span class="s2">"dropout_p"</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)),</span>
+        <span class="s2">"normalize_weights"</span><span class="p">:</span> <span class="nb">bool</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="n">metric</span><span class="o">.</span><span class="n">model</span><span class="p">,</span> <span class="s2">"normalize_weights"</span><span class="p">,</span> <span class="kc">True</span><span class="p">)),</span>
+    <span class="p">}</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_json_safe</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">{</span><span class="nb">str</span><span class="p">(</span><span class="n">k</span><span class="p">):</span> <span class="n">_json_safe</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">value</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">list</span> <span class="o">|</span> <span class="nb">tuple</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">_json_safe</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">value</span><span class="p">]</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">generic</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">value</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">str</span> <span class="o">|</span> <span class="nb">int</span> <span class="o">|</span> <span class="nb">float</span> <span class="o">|</span> <span class="nb">bool</span><span class="p">)</span> <span class="ow">or</span> <span class="n">value</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">value</span>
+    <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_build_network</span><span class="p">(</span><span class="n">arch</span><span class="p">:</span> <span class="nb">dict</span><span class="p">):</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">.local</span><span class="w"> </span><span class="kn">import</span> <span class="n">LocalMahalanobisMLP</span><span class="p">,</span> <span class="n">LocalWeightNetwork</span>
+
+    <span class="k">if</span> <span class="n">arch</span><span class="p">[</span><span class="s2">"class"</span><span class="p">]</span> <span class="o">==</span> <span class="s2">"LocalMahalanobisMLP"</span><span class="p">:</span>
+        <span class="n">d</span><span class="p">,</span> <span class="n">hidden</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">arch</span><span class="p">[</span><span class="s2">"d"</span><span class="p">]),</span> <span class="nb">int</span><span class="p">(</span><span class="n">arch</span><span class="p">[</span><span class="s2">"hidden"</span><span class="p">])</span>
+        <span class="c1"># The constructor takes a width *factor* and floors d * factor; (hidden + 0.5) / d</span>
+        <span class="c1"># floors back to exactly `hidden` whatever the float rounding.</span>
+        <span class="k">return</span> <span class="n">LocalMahalanobisMLP</span><span class="p">(</span><span class="n">d</span><span class="o">=</span><span class="n">d</span><span class="p">,</span> <span class="n">r</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">arch</span><span class="p">[</span><span class="s2">"r"</span><span class="p">]),</span> <span class="n">hidden_width_factor</span><span class="o">=</span><span class="p">(</span><span class="n">hidden</span> <span class="o">+</span> <span class="mf">0.5</span><span class="p">)</span> <span class="o">/</span> <span class="n">d</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">arch</span><span class="p">[</span><span class="s2">"class"</span><span class="p">]</span> <span class="o">==</span> <span class="s2">"LocalWeightNetwork"</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">LocalWeightNetwork</span><span class="p">(</span>
+            <span class="n">n_features</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">arch</span><span class="p">[</span><span class="s2">"n_features"</span><span class="p">]),</span>
+            <span class="n">hidden_dims</span><span class="o">=</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">h</span><span class="p">)</span> <span class="k">for</span> <span class="n">h</span> <span class="ow">in</span> <span class="n">arch</span><span class="p">[</span><span class="s2">"hidden_dims"</span><span class="p">]],</span>
+            <span class="n">dropout</span><span class="o">=</span><span class="nb">float</span><span class="p">(</span><span class="n">arch</span><span class="p">[</span><span class="s2">"dropout"</span><span class="p">]),</span>
+            <span class="n">normalize_weights</span><span class="o">=</span><span class="nb">bool</span><span class="p">(</span><span class="n">arch</span><span class="p">[</span><span class="s2">"normalize_weights"</span><span class="p">]),</span>
+        <span class="p">)</span>
+    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Unknown network class in metric.json: </span><span class="si">{</span><span class="n">arch</span><span class="p">[</span><span class="s1">'class'</span><span class="p">]</span><span class="si">!r}</span><span class="s2">."</span><span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_legacy_modules_named</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">"""Which renamed module paths a ``torch.save``d pickle names, read without unpickling it."""</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">with</span> <span class="n">zipfile</span><span class="o">.</span><span class="n">ZipFile</span><span class="p">(</span><span class="n">path</span><span class="p">)</span> <span class="k">as</span> <span class="n">z</span><span class="p">:</span>
+            <span class="n">entries</span> <span class="o">=</span> <span class="p">[</span><span class="n">n</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">z</span><span class="o">.</span><span class="n">namelist</span><span class="p">()</span> <span class="k">if</span> <span class="n">n</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">"data.pkl"</span><span class="p">)]</span>
+            <span class="n">blob</span> <span class="o">=</span> <span class="n">z</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">entries</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="k">if</span> <span class="n">entries</span> <span class="k">else</span> <span class="sa">b</span><span class="s2">""</span>
+    <span class="k">except</span> <span class="p">(</span><span class="n">zipfile</span><span class="o">.</span><span class="n">BadZipFile</span><span class="p">,</span> <span class="ne">OSError</span><span class="p">,</span> <span class="ne">KeyError</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">[]</span>
+    <span class="k">return</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">old</span> <span class="k">for</span> <span class="n">old</span> <span class="ow">in</span> <span class="n">LEGACY_MODULES</span> <span class="k">if</span> <span class="n">old</span><span class="o">.</span><span class="n">encode</span><span class="p">()</span> <span class="ow">in</span> <span class="n">blob</span><span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_install_legacy_modules</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Let old pickles resolve their class: point each old module path at today's module.</span>
+
+<span class="sd">    The alias is the same module object, not a copy, so an unpickled class *is* today's class.</span>
+<span class="sd">    A real module of the old name, should one ever exist again, is never shadowed.</span>
+<span class="sd">    """</span>
+    <span class="k">for</span> <span class="n">old</span><span class="p">,</span> <span class="n">new</span> <span class="ow">in</span> <span class="n">LEGACY_MODULES</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="k">if</span> <span class="n">old</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">sys</span><span class="o">.</span><span class="n">modules</span><span class="p">:</span>
+            <span class="n">sys</span><span class="o">.</span><span class="n">modules</span><span class="p">[</span><span class="n">old</span><span class="p">]</span> <span class="o">=</span> <span class="n">importlib</span><span class="o">.</span><span class="n">import_module</span><span class="p">(</span><span class="n">new</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="load_metric">
+<a class="viewcode-back" href="../../../../reference/api.html#climclusterpy.load_metric">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">load_metric</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">device</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"cpu"</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">LearnedMetric</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Load a learned distance metric saved earlier, to apply it without training again.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    path : str</span>
+<span class="sd">        One of:</span>
+
+<span class="sd">        * a folder written by :meth:`LearnedMetric.save` -- which is what</span>
+<span class="sd">          :func:`~climclusterpy.api.create_clusters` writes to ``&lt;output_dir&gt;/learned_metric``</span>
+<span class="sd">          whenever it trains a metric. Loaded without executing pickled code;</span>
+<span class="sd">        * a ``model.pth`` written with ``torch.save(model)`` (the research runs' deploy</span>
+<span class="sd">          folders), or the folder holding one. This **is** a pickle: loading it runs code, so</span>
+<span class="sd">          load only files you trust. Files saved before 0.2.0 renamed the model's module load</span>
+<span class="sd">          too. A ``meta.json`` beside it is read into :attr:`LearnedMetric.provenance`.</span>
+<span class="sd">    device : str, optional</span>
+<span class="sd">        Where the network's tensors are loaded (default ``"cpu"``); the distance computation</span>
+<span class="sd">        picks its own device, see :meth:`LearnedMetric.distance_matrix`.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    LearnedMetric</span>
+
+<span class="sd">    Raises</span>
+<span class="sd">    ------</span>
+<span class="sd">    FileNotFoundError</span>
+<span class="sd">        If ``path`` holds neither ``metric.json`` nor ``model.pth``.</span>
+<span class="sd">    ImportError</span>
+<span class="sd">        For a network metric without ``torch`` (the ``[lmnn]`` extra).</span>
+<span class="sd">    TypeError</span>
+<span class="sd">        If a ``model.pth`` holds something other than a metric network the package trains.</span>
+<span class="sd">    """</span>
+    <span class="n">path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">fspath</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">METRIC_JSON</span><span class="p">)):</span>
+            <span class="k">return</span> <span class="n">_load_saved</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">device</span><span class="p">)</span>
+        <span class="n">pth</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s2">"model.pth"</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">pth</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">FileNotFoundError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">path</span><span class="si">}</span><span class="s2"> holds neither </span><span class="si">{</span><span class="n">METRIC_JSON</span><span class="si">}</span><span class="s2"> (a saved LearnedMetric) nor model.pth."</span>
+            <span class="p">)</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="n">pth</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">FileNotFoundError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"No saved metric at </span><span class="si">{</span><span class="n">path</span><span class="si">}</span><span class="s2">."</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">path</span><span class="p">)</span> <span class="o">==</span> <span class="n">METRIC_JSON</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">_load_saved</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">path</span><span class="p">)</span> <span class="ow">or</span> <span class="s2">"."</span><span class="p">,</span> <span class="n">device</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">_load_pickle</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">device</span><span class="p">)</span></div>
+
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_load_saved</span><span class="p">(</span><span class="n">directory</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">device</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">LearnedMetric</span><span class="p">:</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">directory</span><span class="p">,</span> <span class="n">METRIC_JSON</span><span class="p">))</span> <span class="k">as</span> <span class="n">fh</span><span class="p">:</span>
+        <span class="n">record</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">fh</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">record</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"format"</span><span class="p">)</span> <span class="o">!=</span> <span class="n">FORMAT</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">directory</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">METRIC_JSON</span><span class="si">}</span><span class="s2"> has format </span><span class="si">{</span><span class="n">record</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'format'</span><span class="p">)</span><span class="si">!r}</span><span class="s2">; this version of "</span>
+            <span class="sa">f</span><span class="s2">"climclusterpy reads </span><span class="si">{</span><span class="n">FORMAT</span><span class="si">!r}</span><span class="s2">."</span>
+        <span class="p">)</span>
+    <span class="n">names</span> <span class="o">=</span> <span class="n">record</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"feature_names"</span><span class="p">)</span>
+    <span class="n">provenance</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"source_format"</span><span class="p">:</span> <span class="n">FORMAT</span><span class="p">,</span> <span class="s2">"when_saved"</span><span class="p">:</span> <span class="n">record</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"provenance"</span><span class="p">)</span> <span class="ow">or</span> <span class="p">{}}</span>
+    <span class="k">if</span> <span class="n">record</span><span class="p">[</span><span class="s2">"kind"</span><span class="p">]</span> <span class="o">==</span> <span class="s2">"global"</span><span class="p">:</span>
+        <span class="n">metric</span> <span class="o">=</span> <span class="n">from_transform</span><span class="p">(</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">directory</span><span class="p">,</span> <span class="n">TRANSFORM_FILE</span><span class="p">)),</span>
+            <span class="n">feature_names</span><span class="o">=</span><span class="n">names</span><span class="p">,</span>
+            <span class="n">provenance</span><span class="o">=</span><span class="n">provenance</span><span class="p">,</span>
+        <span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
+        <span class="k">except</span> <span class="ne">ImportError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ImportError</span><span class="p">(</span>
+                <span class="s2">"Loading a per-cell learned metric needs torch: install the [lmnn] extra."</span>
+            <span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">e</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="n">_build_network</span><span class="p">(</span><span class="n">record</span><span class="p">[</span><span class="s2">"architecture"</span><span class="p">])</span>
+        <span class="n">state</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">load</span><span class="p">(</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">directory</span><span class="p">,</span> <span class="n">WEIGHTS_FILE</span><span class="p">),</span> <span class="n">map_location</span><span class="o">=</span><span class="n">device</span><span class="p">,</span> <span class="n">weights_only</span><span class="o">=</span><span class="kc">True</span>
+        <span class="p">)</span>
+        <span class="n">model</span><span class="o">.</span><span class="n">load_state_dict</span><span class="p">(</span><span class="n">state</span><span class="p">)</span>
+        <span class="n">metric</span> <span class="o">=</span> <span class="n">from_model</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">feature_names</span><span class="o">=</span><span class="n">names</span><span class="p">,</span> <span class="n">provenance</span><span class="o">=</span><span class="n">provenance</span><span class="p">)</span>
+    <span class="n">metric</span><span class="o">.</span><span class="n">source</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">directory</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">metric</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_load_pickle</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">device</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">LearnedMetric</span><span class="p">:</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
+    <span class="k">except</span> <span class="ne">ImportError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ImportError</span><span class="p">(</span><span class="s2">"Loading a model.pth needs torch: install the [lmnn] extra."</span><span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">e</span>
+    <span class="n">legacy</span> <span class="o">=</span> <span class="n">_legacy_modules_named</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+    <span class="n">_install_legacy_modules</span><span class="p">()</span>
+    <span class="c1"># weights_only=False because the file is a pickled model object, not a tensor file.</span>
+    <span class="n">obj</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">map_location</span><span class="o">=</span><span class="n">device</span><span class="p">,</span> <span class="n">weights_only</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">provenance</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">"source_format"</span><span class="p">:</span> <span class="s2">"torch.save(model) pickle"</span><span class="p">,</span>
+        <span class="s2">"class"</span><span class="p">:</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span><span class="o">.</span><span class="vm">__module__</span><span class="si">}</span><span class="s2">.</span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span>
+        <span class="s2">"renamed_modules_needed"</span><span class="p">:</span> <span class="n">legacy</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="n">meta</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">path</span><span class="p">),</span> <span class="s2">"meta.json"</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">meta</span><span class="p">):</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">meta</span><span class="p">)</span> <span class="k">as</span> <span class="n">fh</span><span class="p">:</span>
+            <span class="n">provenance</span><span class="p">[</span><span class="s2">"meta_json"</span><span class="p">]</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">fh</span><span class="p">)</span>
+    <span class="n">metric</span> <span class="o">=</span> <span class="n">from_model</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">provenance</span><span class="o">=</span><span class="n">provenance</span><span class="p">)</span>
+    <span class="n">metric</span><span class="o">.</span><span class="n">source</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">metric</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, Jamir Priesner.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

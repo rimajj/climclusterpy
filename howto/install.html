@@ -1,0 +1,498 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Install climclusterpy &mdash; climclusterpy 0.5</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=f2cc2102" />
+
+  
+    <link rel="shortcut icon" href="../_static/logo.svg"/>
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=1dd76d02"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Prepare the input files" href="inputs.html" />
+    <link rel="prev" title="How-to guides" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            climclusterpy
+              <img src="../_static/logo.svg" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">Tutorials</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/one_call_roundtrip.html">Tutorial 0 — the whole workflow in two calls</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/one_call_roundtrip.html#the-idea">The idea</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/one_call_roundtrip.html#call-1-build-the-reduced-grid">Call 1 — build the reduced grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/one_call_roundtrip.html#call-2-rebuild-the-original-grid">Call 2 — rebuild the original grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/one_call_roundtrip.html#the-complete-script">The complete script</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/one_call_roundtrip.html#run-it">Run it</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/one_call_roundtrip.html#next-steps">Next steps</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/euclidean_clustering.html">Tutorial 1 — Euclidean clustering</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/euclidean_clustering.html#load-data-and-build-a-feature-matrix">Load data and build a feature matrix</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/euclidean_clustering.html#cluster">Cluster</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/euclidean_clustering.html#the-complete-script">The complete script</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/euclidean_clustering.html#run-it">Run it</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/euclidean_clustering.html#next-steps">Next steps</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/lmnn_clustering.html">Tutorial 2 — LMNN metric-learning clustering</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/lmnn_clustering.html#provide-a-supervision-signal">Provide a supervision signal</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/lmnn_clustering.html#learn-a-metric-and-cluster">Learn a metric and cluster</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/lmnn_clustering.html#the-complete-script">The complete script</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/lmnn_clustering.html#run-it">Run it</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/lmnn_clustering.html#next-steps">Next steps</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/supervision.html">Tutorial 3 — Supervision signals</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/supervision.html#koppengeiger-from-monthly-climatology">Köppen–Geiger from monthly climatology</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/supervision.html#model-output-trait-clustering">Model-output (trait) clustering</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/supervision.html#the-complete-script">The complete script</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/supervision.html#run-it">Run it</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/supervision.html#ecoregion-supervision">Ecoregion supervision</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/reconstruction.html">Tutorial 4 — Reconstruct the original grid</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/reconstruction.html#the-round-trip">The round trip</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/reconstruction.html#verify">Verify</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/reconstruction.html#the-complete-script">The complete script</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/reconstruction.html#run-it">Run it</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/reconstruction.html#next-steps">Next steps</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/index.html#a-note-on-the-synthetic-data">A note on the synthetic data</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">How-to guides</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">How-to guides</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Install climclusterpy</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#base-install">Base install</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#optional-extras">Optional extras</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#installing-the-geospatial-extras-with-conda">Installing the geospatial extras with conda</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pytorch-cpu-vs-gpu">PyTorch (CPU vs. GPU)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#environment-variables">Environment variables</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#building-the-documentation">Building the documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="inputs.html">Prepare the input files</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="inputs.html#check-your-input-first">Check your input first</a></li>
+<li class="toctree-l3"><a class="reference internal" href="inputs.html#the-files">The files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="inputs.html#grid-and-coordinates">Grid and coordinates</a></li>
+<li class="toctree-l3"><a class="reference internal" href="inputs.html#which-cells-exist-the-soil-code">Which cells exist: the soil code</a></li>
+<li class="toctree-l3"><a class="reference internal" href="inputs.html#the-time-axis">The time axis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="inputs.html#missing-values">Missing values</a></li>
+<li class="toctree-l3"><a class="reference internal" href="inputs.html#another-vegetation-model-s-input">Another vegetation model’s input</a></li>
+<li class="toctree-l3"><a class="reference internal" href="inputs.html#output-files">Output files</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="clustering.html">Cluster a feature matrix (choose a mode)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="clustering.html#euclidean-mode-no-supervision">Euclidean mode (no supervision)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="clustering.html#lmnn-mode-supervised-metric-learning">LMNN mode (supervised metric learning)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="clustering.html#lower-level-control">Lower-level control</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="supervision.html">Build an LMNN supervision signal</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="supervision.html#from-climate-koppengeiger">From climate — Köppen–Geiger</a></li>
+<li class="toctree-l3"><a class="reference internal" href="supervision.html#from-model-output-traits">From model output — traits</a></li>
+<li class="toctree-l3"><a class="reference internal" href="supervision.html#from-a-shapefile-ecoregions2017">From a shapefile — Ecoregions2017</a></li>
+<li class="toctree-l3"><a class="reference internal" href="supervision.html#using-the-signal">Using the signal</a></li>
+<li class="toctree-l3"><a class="reference internal" href="supervision.html#in-one-call">In one call</a></li>
+<li class="toctree-l3"><a class="reference internal" href="supervision.html#saved-results-are-reused-only-for-the-same-inputs">Saved results are reused only for the same inputs</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="cell_selection.html">Choosing the cells a cluster is simulated on</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cell_selection.html#the-patch-budget">The patch budget</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cell_selection.html#what-the-drawn-cells-carry">What the drawn cells carry</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cell_selection.html#reproducibility">Reproducibility</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cell_selection.html#looking-at-a-draw-without-building-a-grid">Looking at a draw without building a grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cell_selection.html#back-to-the-full-grid">Back to the full grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cell_selection.html#a-model-that-reads-its-own-inputs-the-grid-only-then-cut-the-rest">A model that reads its own inputs: the grid only, then cut the rest</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="reconstruct.html">Reconstruct the original grid</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="reconstruct.html#the-usual-call">The usual call</a></li>
+<li class="toctree-l3"><a class="reference internal" href="reconstruct.html#picking-up-where-you-left-off">Picking up where you left off</a></li>
+<li class="toctree-l3"><a class="reference internal" href="reconstruct.html#without-a-result-or-run-folder">Without a result or run folder</a></li>
+<li class="toctree-l3"><a class="reference internal" href="reconstruct.html#required-mapping-files">Required mapping files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="reconstruct.html#reconstruction-paths-kind">Reconstruction paths (<code class="docutils literal notranslate"><span class="pre">kind</span></code>)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="reconstruct.html#verifying-the-result">Verifying the result</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../reference/index.html">Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../reference/api.html">Public API — <code class="xref py py-mod docutils literal notranslate"><span class="pre">climclusterpy</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../reference/api.html#the-two-headline-functions">The two headline functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/api.html#before-and-after-the-model-run">Before and after the model run</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/api.html#input-for-a-model-other-than-lpjml">Input for a model other than LPJmL</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/api.html#other-ways-to-build-the-reduced-grid">Other ways to build the reduced grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/api.html#reusing-a-trained-metric">Reusing a trained metric</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/api.html#the-model-s-other-inputs">The model’s other inputs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/api.html#writing-the-reduced-grid-yourself">Writing the reduced grid yourself</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/api.html#building-blocks">Building blocks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/api.html#result-objects">Result objects</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/toplevel.html">Data, timeseries, I/O &amp; plotting</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../reference/toplevel.html#module-climclusterpy.data">Data loading &amp; the grid registry</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/toplevel.html#how-much-the-package-reports">How much the package reports</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/toplevel.html#coordinates">Coordinates</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/toplevel.html#module-climclusterpy.timeseries">Per-cluster timeseries</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/toplevel.html#module-climclusterpy.io">File input/output</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/toplevel.html#module-climclusterpy.preprocessing">Preprocessing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/toplevel.html#module-climclusterpy.viz">Plotting</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/features.html">Feature engineering</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../reference/features.html#ecological-summaries">Ecological summaries</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/features.html#vegetation-model-traits">Vegetation-model traits</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/features.html#standardization-filtering">Standardization &amp; filtering</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/clustering.html">Clustering &amp; metric learning</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../reference/clustering.html#hierarchical-clustering">Hierarchical clustering</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/clustering.html#module-climclusterpy.clustering.lmnn">LMNN metric learning</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/supervision.html">Supervision labels</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../reference/supervision.html#koppengeiger-climate-zones">Köppen–Geiger climate zones</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/supervision.html#vegetation-model-output-traits">Vegetation-model output traits</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/supervision.html#ecoregion-polygons">Ecoregion polygons</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/supervision.html#daily-input-helpers">Daily-input helpers</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/grid.html">Grid building &amp; reconstruction</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../reference/grid.html#where-each-reduced-cell-is-placed">Where each reduced cell is placed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/grid.html#writing-the-reduced-grid">Writing the reduced grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/grid.html#reconstruction">Reconstruction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/grid.html#lpjml-clm-conversion">LPJmL CLM conversion</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/cli.html">Command-line interface (<code class="docutils literal notranslate"><span class="pre">climclu</span></code>)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../reference/cli.html#the-two-headline-commands">The two headline commands</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/cli.html#building-blocks">Building blocks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/cli.html#options-shared-by-every-action-command">Options shared by every action command</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/cli.html#errors-and-exit-codes">Errors and exit codes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/index.html#which-function-do-i-need">Which function do I need?</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Explanation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../explanation/index.html">Explanation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../explanation/overview.html">Overview</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../explanation/overview.html#design-philosophy">Design Philosophy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../explanation/overview.html#workflow-summary">Workflow Summary</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../explanation/overview.html#key-innovations">Key Innovations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../explanation/overview.html#use-cases">Use Cases</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../explanation/overview.html#limitations">Limitations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../explanation/overview.html#future-directions">Future Directions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../explanation/overview.html#references">References</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../explanation/methods.html">Scientific Methods</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../explanation/methods.html#data-acquisition-and-preprocessing">Data Acquisition and Preprocessing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../explanation/methods.html#ecoregion-assignment">Ecoregion Assignment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../explanation/methods.html#ecological-feature-summarization">Ecological Feature Summarization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../explanation/methods.html#feature-standardization-and-filtering">Feature Standardization and Filtering</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../explanation/methods.html#large-margin-nearest-neighbor-lmnn-metric-learning">Large Margin Nearest Neighbor (LMNN) Metric Learning</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../explanation/methods.html#hierarchical-clustering">Hierarchical Clustering</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../explanation/methods.html#representative-cell-selection">Representative Cell Selection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../explanation/methods.html#evaluation-metrics">Evaluation Metrics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../explanation/methods.html#netcdf-processing">NetCDF Processing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../explanation/methods.html#computational-implementation">Computational Implementation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../explanation/index.html#reconstruction-correctness">Reconstruction correctness</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">climclusterpy</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">How-to guides</a></li>
+      <li class="breadcrumb-item active">Install climclusterpy</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://gitlab.pik-potsdam.de/lpjmlfit_analysis/climclusterpy/blob/main/docs/src/howto/install.rst" class="fa fa-gitlab"> Edit on GitLab</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="install-climclusterpy">
+<h1>Install climclusterpy<a class="headerlink" href="#install-climclusterpy" title="Link to this heading"></a></h1>
+<p><code class="docutils literal notranslate"><span class="pre">climclusterpy</span></code> requires <strong>Python ≥ 3.11</strong>. It follows a <strong>light-core + extras</strong> model:
+the base install carries only lightweight dependencies and covers Euclidean clustering,
+Köppen–Geiger supervision, and reconstruction. Heavy or install-fragile dependencies
+(PyTorch, GeoPandas, Cartopy) live behind optional extras you add only when you need them.</p>
+<section id="base-install">
+<h2>Base install<a class="headerlink" href="#base-install" title="Link to this heading"></a></h2>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p><code class="docutils literal notranslate"><span class="pre">climclusterpy</span></code> is <strong>not on PyPI yet</strong>, so <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">climclusterpy</span></code> will not find
+it. Install it from its GitLab repository, as below.</p>
+</div>
+<p>Straight from the repository (pip clones it, so you need to be able to reach
+<code class="docutils literal notranslate"><span class="pre">gitlab.pik-potsdam.de</span></code> and, if the project is not public to you, have read access):</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>pip<span class="w"> </span>install<span class="w"> </span><span class="s2">"climclusterpy @ git+https://gitlab.pik-potsdam.de/lpjmlfit_analysis/climclusterpy.git"</span>
+</pre></div>
+</div>
+<p>Or clone it and install the checkout in editable mode, which is the better choice if you
+want to read or change the code:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>git<span class="w"> </span>clone<span class="w"> </span>https://gitlab.pik-potsdam.de/lpjmlfit_analysis/climclusterpy.git
+<span class="gp">$ </span><span class="nb">cd</span><span class="w"> </span>climclusterpy
+<span class="gp">$ </span>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>.
+</pre></div>
+</div>
+<p>Verify:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>python<span class="w"> </span>-c<span class="w"> </span><span class="s2">"import climclusterpy; print(climclusterpy.__version__)"</span>
+<span class="gp">$ </span>climclu<span class="w"> </span>--help
+</pre></div>
+</div>
+<p>Both succeed with <strong>no</strong> heavy dependencies installed — <code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">climclusterpy</span></code> is lazy,
+so PyTorch / GeoPandas / Cartopy are never imported until a feature that needs them is
+called.</p>
+</section>
+<section id="optional-extras">
+<h2>Optional extras<a class="headerlink" href="#optional-extras" title="Link to this heading"></a></h2>
+<p>These are exactly the extras <code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code> defines:</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 16.0%" />
+<col style="width: 34.0%" />
+<col style="width: 50.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Extra</p></th>
+<th class="head"><p>Adds</p></th>
+<th class="head"><p>Enables</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">[lmnn]</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">torch</span></code></p></td>
+<td><p>LMNN metric-learning clustering (<code class="docutils literal notranslate"><span class="pre">locally_weighted=True</span></code>), every mode.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">[ecoregions]</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">geopandas</span></code></p></td>
+<td><p>Ecoregion supervision, or regions, from a shapefile</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">[viz]</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">cartopy</span></code></p></td>
+<td><p>Map plotting helpers</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">[features]</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">pyet</span></code></p></td>
+<td><p>SPEI drought and potential-evapotranspiration features
+(<code class="docutils literal notranslate"><span class="pre">climate_variables=[...,</span> <span class="pre">&quot;spei&quot;]</span></code>)</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">[all]</span></code></p></td>
+<td><p>everything in the four extras above</p></td>
+<td><p>Every optional capability</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">[test]</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">pytest</span></code>, <code class="docutils literal notranslate"><span class="pre">pytest-cov</span></code></p></td>
+<td><p>Running the test suite</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">[docs]</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">sphinx</span></code>, <code class="docutils literal notranslate"><span class="pre">sphinx-rtd-theme</span></code></p></td>
+<td><p>Building this documentation</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">[dev]</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">pytest</span></code>, <code class="docutils literal notranslate"><span class="pre">pytest-cov</span></code>, <code class="docutils literal notranslate"><span class="pre">ruff</span></code>, <code class="docutils literal notranslate"><span class="pre">build</span></code>, <code class="docutils literal notranslate"><span class="pre">twine</span></code>, <code class="docutils literal notranslate"><span class="pre">pre-commit</span></code></p></td>
+<td><p>Development and release tooling</p></td>
+</tr>
+</tbody>
+</table>
+<p>Install one or several, from the repository or from a checkout:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>pip<span class="w"> </span>install<span class="w"> </span><span class="s2">"climclusterpy[lmnn] @ git+https://gitlab.pik-potsdam.de/lpjmlfit_analysis/climclusterpy.git"</span>
+<span class="gp">$ </span>pip<span class="w"> </span>install<span class="w"> </span><span class="s2">"climclusterpy[lmnn,features] @ git+https://gitlab.pik-potsdam.de/lpjmlfit_analysis/climclusterpy.git"</span>
+<span class="gp">$ </span>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span><span class="s1">'.[all]'</span><span class="w">          </span><span class="c1"># from a checkout</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Attempting an LMNN or ecoregion operation without the matching extra raises a clear
+<code class="docutils literal notranslate"><span class="pre">ImportError</span></code> naming the extra to install — it never fails silently.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The SPEI / potential-evapotranspiration drought features in
+<a class="reference internal" href="../reference/features.html#climclusterpy.features.summarize_climate_features" title="climclusterpy.features.summarize_climate_features"><code class="xref py py-func docutils literal notranslate"><span class="pre">summarize_climate_features()</span></code></a> use the <code class="docutils literal notranslate"><span class="pre">pyet</span></code> package,
+which the <code class="docutils literal notranslate"><span class="pre">[features]</span></code> extra (and <code class="docutils literal notranslate"><span class="pre">[all]</span></code>) installs. They are not computed by
+default: <a class="reference internal" href="../reference/api.html#climclusterpy.create_clusters" title="climclusterpy.create_clusters"><code class="xref py py-func docutils literal notranslate"><span class="pre">create_clusters()</span></code></a> summarizes <code class="docutils literal notranslate"><span class="pre">tas</span></code>, <code class="docutils literal notranslate"><span class="pre">pr</span></code>, <code class="docutils literal notranslate"><span class="pre">rsds</span></code>,
+<code class="docutils literal notranslate"><span class="pre">rlds</span></code> and <code class="docutils literal notranslate"><span class="pre">hurs</span></code> unless you add <code class="docutils literal notranslate"><span class="pre">&quot;spei&quot;</span></code> to <code class="docutils literal notranslate"><span class="pre">climate_variables</span></code>.</p>
+</div>
+</section>
+<section id="installing-the-geospatial-extras-with-conda">
+<h2>Installing the geospatial extras with conda<a class="headerlink" href="#installing-the-geospatial-extras-with-conda" title="Link to this heading"></a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">cartopy</span></code> (<code class="docutils literal notranslate"><span class="pre">[viz]</span></code>) and <code class="docutils literal notranslate"><span class="pre">geopandas</span></code> (<code class="docutils literal notranslate"><span class="pre">[ecoregions]</span></code>) depend on native GEOS / PROJ
+/ GDAL libraries and are often fragile to install with pip alone. If a pip install of
+those extras fails, install the native packages from <code class="docutils literal notranslate"><span class="pre">conda-forge</span></code> first, then pip the
+rest:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>conda<span class="w"> </span>install<span class="w"> </span>-c<span class="w"> </span>conda-forge<span class="w"> </span>cartopy<span class="w"> </span>geopandas
+<span class="gp">$ </span>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span><span class="s1">'.[lmnn,features]'</span>
+</pre></div>
+</div>
+</section>
+<section id="pytorch-cpu-vs-gpu">
+<h2>PyTorch (CPU vs. GPU)<a class="headerlink" href="#pytorch-cpu-vs-gpu" title="Link to this heading"></a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">[lmnn]</span></code> extra pulls a default PyTorch build. To pin a CPU-only or a specific CUDA
+build, install <code class="docutils literal notranslate"><span class="pre">torch</span></code> from the PyTorch index first, then the extra:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>pip<span class="w"> </span>install<span class="w"> </span>torch<span class="w"> </span>--index-url<span class="w"> </span>https://download.pytorch.org/whl/cpu
+<span class="gp">$ </span>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span><span class="s1">'.[lmnn]'</span>
+</pre></div>
+</div>
+<p>The full metric-learning pipeline runs perfectly well on CPU.</p>
+</section>
+<section id="environment-variables">
+<span id="id1"></span><h2>Environment variables<a class="headerlink" href="#environment-variables" title="Link to this heading"></a></h2>
+<p>None of these is needed. They tune how much data is read or held in memory at a time;
+everything that changes what is computed is a function argument instead. A value that
+cannot be read (a word where a number is expected, a negative size) stops the run with an
+error naming the variable.</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 38.0%" />
+<col style="width: 12.0%" />
+<col style="width: 50.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Variable</p></th>
+<th class="head"><p>Default</p></th>
+<th class="head"><p>What it sets</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">CLIMCLUSTERPY_CHUNK_TIME</span></code></p></td>
+<td><p>500</p></td>
+<td><p>Time steps per chunk when an input NetCDF is opened. Smaller uses less memory per
+step of work. Averages over time are summed chunk by chunk, so another chunk length
+can move them in the last floating-point digit, never more.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">CLIMCLUSTERPY_DISTRIBUTED_TIME_CHUNK</span></code></p></td>
+<td><p>2000</p></td>
+<td><p>Time steps read at once when the cells of a <code class="docutils literal notranslate"><span class="pre">representative=&quot;distributed&quot;</span></code> grid
+are extracted.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">CLIMCLUSTERPY_DISTRIBUTED_EXPAND_THRESHOLD_GB</span></code></p></td>
+<td><p>50</p></td>
+<td><p>Size (GB) of one extracted variable above which a cell drawn into several patches
+is held in memory once and copied out only when the files are written.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">CLIMCLUSTERPY_DIRECT_READ</span></code></p></td>
+<td><p>1</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0</span></code> turns off reading distributed cells straight from the input files and reads
+them through xarray instead. Both give identical results; the direct read is faster.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">CLIMCLUSTERPY_DEBUG</span></code></p></td>
+<td><p>0</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">1</span></code> makes the <code class="docutils literal notranslate"><span class="pre">climclu</span></code> command print the full Python traceback instead of a
+one-line error. Any value other than empty, <code class="docutils literal notranslate"><span class="pre">0</span></code>, <code class="docutils literal notranslate"><span class="pre">false</span></code>, <code class="docutils literal notranslate"><span class="pre">no</span></code> or <code class="docutils literal notranslate"><span class="pre">off</span></code>
+turns it on.</p></td>
+</tr>
+</tbody>
+</table>
+<p>Yes/no variables accept <code class="docutils literal notranslate"><span class="pre">1</span></code>/<code class="docutils literal notranslate"><span class="pre">0</span></code>, <code class="docutils literal notranslate"><span class="pre">true</span></code>/<code class="docutils literal notranslate"><span class="pre">false</span></code>, <code class="docutils literal notranslate"><span class="pre">yes</span></code>/<code class="docutils literal notranslate"><span class="pre">no</span></code> and <code class="docutils literal notranslate"><span class="pre">on</span></code>/<code class="docutils literal notranslate"><span class="pre">off</span></code>.</p>
+<p>One variable belongs to LPJmL rather than to climclusterpy: <code class="docutils literal notranslate"><span class="pre">LPJROOT</span></code>. When it is set,
+<a class="reference internal" href="../reference/grid.html#climclusterpy.io.convert_netcdf_to_clm" title="climclusterpy.io.convert_netcdf_to_clm"><code class="xref py py-func docutils literal notranslate"><span class="pre">convert_netcdf_to_clm()</span></code></a> looks for the <code class="docutils literal notranslate"><span class="pre">cdf2clm</span></code> and <code class="docutils literal notranslate"><span class="pre">cdf2soil</span></code>
+tools in <code class="docutils literal notranslate"><span class="pre">$LPJROOT/bin</span></code> before the <code class="docutils literal notranslate"><span class="pre">PATH</span></code> (or pass <code class="docutils literal notranslate"><span class="pre">tools_dir=</span></code>).</p>
+<div class="versionchanged">
+<p><span class="versionmodified changed">Changed in version 0.4.0: </span>The variables gained the <code class="docutils literal notranslate"><span class="pre">CLIMCLUSTERPY_</span></code> prefix (they were <code class="docutils literal notranslate"><span class="pre">CHUNK_TIME</span></code>,
+<code class="docutils literal notranslate"><span class="pre">DISTRIBUTED_TIME_CHUNK</span></code>, <code class="docutils literal notranslate"><span class="pre">DISTRIBUTED_EXPAND_THRESHOLD_GB</span></code> and <code class="docutils literal notranslate"><span class="pre">CCP_DIRECT_READ</span></code>);
+an old name that is still set is ignored with a warning. <code class="docutils literal notranslate"><span class="pre">MAX_TIME_STEPS</span></code>, which
+silently shortened the climate series used for clustering, is gone: to cluster on a
+shorter period, select it from the input before passing it in.</p>
+</div>
+</section>
+<section id="building-the-documentation">
+<h2>Building the documentation<a class="headerlink" href="#building-the-documentation" title="Link to this heading"></a></h2>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span><span class="s1">'.[docs]'</span>
+<span class="gp">$ </span>sphinx-build<span class="w"> </span>-W<span class="w"> </span>docs/src<span class="w"> </span>docs/_build/html
+</pre></div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="How-to guides" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="inputs.html" class="btn btn-neutral float-right" title="Prepare the input files" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, Jamir Priesner.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

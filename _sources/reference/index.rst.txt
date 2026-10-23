@@ -1,0 +1,132 @@
+Reference
+=========
+
+Technical reference for the ``climclusterpy`` public API and command-line interface,
+generated from the source.
+
+Start with :doc:`api`: the two headline functions
+(:func:`~climclusterpy.create_clusters`, :func:`~climclusterpy.reconstruct_original_grid`),
+the functions around a long model run (:func:`~climclusterpy.check_inputs`,
+:func:`~climclusterpy.load_clusters`), two other ways to build the reduced grid
+(:func:`~climclusterpy.create_regions`, :func:`~climclusterpy.draw_cells`), two building
+blocks for driving the steps yourself (:func:`~climclusterpy.cluster_matrix`,
+:func:`~climclusterpy.compute_supervision`) and the result objects they return. The
+remaining pages document the lower-level functions those are built on — data loading and
+coordinates, timeseries, file input/output, plotting, features, clustering, supervision
+labels, grid building and reconstruction — and the ``climclu`` command line.
+
+**What is public.** What ``climclusterpy`` itself lists in ``__all__``, and what each of its
+concept packages — ``climclusterpy.data``, ``.features``, ``.supervision``, ``.clustering``,
+``.clustering.lmnn``, ``.grid``, ``.timeseries``, ``.io``, ``.preprocessing``, ``.viz`` —
+lists in its own ``__all__``: ``from climclusterpy.features import
+remove_correlated_features``. The modules inside those packages
+(``climclusterpy.features.filtering``, ``climclusterpy.clustering.lmnn.local``,
+``climclusterpy.api``, …) are internal and may move between releases. The pages below name
+every function by its public path.
+
+.. toctree::
+   :maxdepth: 2
+
+   api
+   toplevel
+   features
+   clustering
+   supervision
+   grid
+   cli
+
+Which function do I need?
+-------------------------
+
+Several functions do similar-sounding things. This table says which is which.
+
+.. list-table:: Making the partition
+   :header-rows: 1
+   :widths: 28 72
+
+   * - Function
+     - Use it when
+   * - :func:`~climclusterpy.create_clusters`
+     - You have climate and soil input files and want a model-ready reduced grid. It builds
+       the features, optionally learns a distance, clusters, picks the simulated cells and
+       writes everything. **The usual starting point.**
+   * - :func:`~climclusterpy.create_regions`
+     - You already have a map to use as the partition (Köppen–Geiger classes computed from
+       your climate, an ecoregion shapefile, your own label table). Same output as
+       :func:`~climclusterpy.create_clusters`, but no distance is learned and nothing is
+       clustered; the number of regions is whatever the map contains.
+   * - :func:`~climclusterpy.cluster_matrix`
+     - You have your own per-cell feature matrix and only want cluster labels. It writes no
+       grid and reads no input files.
+
+.. list-table:: Placing the reduced cells (see :doc:`grid`)
+   :header-rows: 1
+   :widths: 28 72
+
+   * - Function
+     - Use it when
+   * - :func:`~climclusterpy.build_reduced_grid`
+     - **Recommended.** You have a per-cluster timeseries dataset and want the reduced grid
+       written with every cell at the coordinates of the cell whose climate it carries, on
+       the source grid's own lattice, checked after writing.
+   * - :func:`~climclusterpy.grid.create_native_grid_from_dataset`
+     - The placement step of :func:`~climclusterpy.build_reduced_grid` alone: you want the
+       coordinates and will write the files yourself.
+   * - :func:`~climclusterpy.grid.create_regular_grid_from_dataset`
+     - The older layout, which places each cell at its cluster's centre latitude
+       (``placement="cluster_center"``, the medoid/centroid default before 0.3.0). That can
+       put a cell's climate far from its true latitude (up to 107° on real global cluster
+       sets), and latitude sets day length in the model. Use it only to reproduce an earlier
+       grid, or when the latitudes do not lie on a regular lattice.
+
+.. list-table:: Per-cluster mean timeseries
+   :header-rows: 1
+   :widths: 28 72
+
+   * - Function
+     - Use it when
+   * - :func:`~climclusterpy.timeseries.compute_mean_timeseries`
+     - One variable: you pass one dataset (dimensions ``latitude``, ``longitude``,
+       ``time``) and a label dataset, and get that variable's mean per cluster.
+   * - :func:`~climclusterpy.timeseries.build_cluster_mean_timeseries`
+     - All climate inputs at once: you pass the loaded climate dictionary, the grid
+       description and the labels CSV, and get the mean of precipitation, temperature,
+       both radiations and (if present) humidity per cluster.
+
+.. list-table:: Coordinates
+   :header-rows: 1
+   :widths: 28 72
+
+   * - Function
+     - Use it when
+   * - :func:`~climclusterpy.data.standardize_coordinates`
+     - You have a plain array or pandas Series of latitudes or longitudes (for example a
+       column of your own table) and want it rounded to 5 decimals and stored as 32-bit
+       floats, as the package stores them, so it joins exactly.
+   * - :func:`~climclusterpy.data.standardize_dataset_coordinates`
+     - You have an xarray Dataset: renames ``lat``/``lon`` (and the other accepted names) to
+       ``latitude``/``longitude``, rounds and casts them the same way, and converts
+       longitudes from 0–360° to −180–180°.
+   * - :func:`~climclusterpy.io.enforce_precision`
+     - You only want a Dataset's coordinates rounded (default 5 decimals), keeping their
+       names, dtype and longitude range.
+   * - :func:`~climclusterpy.preprocessing.align_coords`
+     - You want a Dataset moved onto another grid: it standardizes the coordinates, then
+       takes the nearest value at each target latitude/longitude.
+
+.. list-table:: Reconstruction
+   :header-rows: 1
+   :widths: 28 72
+
+   * - Function
+     - Use it when
+   * - :func:`~climclusterpy.reconstruct_original_grid`
+     - **The usual call.** You have the result of :func:`~climclusterpy.create_clusters`
+       (or its output folder, via :func:`~climclusterpy.load_clusters`) and one or more
+       model-output files; it finds every mapping file itself and writes one reconstructed
+       NetCDF per input.
+   * - :func:`~climclusterpy.reconstruct_original_grid` with ``registry=``,
+       ``id_mapping_csv=`` and ``compact_map_csv=``
+     - You have no result object or run folder, only the mapping CSVs and a grid
+       description (:class:`~climclusterpy.DataRegistry`). Pass them instead of
+       ``clusters=``.

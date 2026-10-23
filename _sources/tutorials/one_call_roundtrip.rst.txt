@@ -1,0 +1,129 @@
+Tutorial 0 — the whole workflow in two calls
+============================================
+
+**Start here.** This tutorial does the entire job: reduce a climate grid to *K* clusters,
+run a (simulated) vegetation model on the reduced grid, and rebuild the original
+resolution from its output. Two function calls, core install only.
+
+The idea
+--------
+
+Running a land-surface model on a full global grid is expensive. If cells that behave
+alike are grouped, the model only has to run once per group — on an *artificial grid* with
+one cell per cluster — and the full-resolution field can be reconstructed afterwards by
+giving every original cell its cluster's value.
+
+``climclusterpy`` does the two ends of that:
+
+.. code-block:: python
+
+   from climclusterpy import create_clusters, reconstruct_original_grid
+
+   clusters = create_clusters("/data/climate_input", n_clusters=2000)
+   # ... run your model on clusters.netcdf_files ...
+   full = reconstruct_original_grid("vegc_output.nc", clusters=clusters)
+
+Call 1 — build the reduced grid
+-------------------------------
+
+:func:`~climclusterpy.create_clusters` takes a directory holding one NetCDF per input
+(``temperature.nc``, ``precipitation.nc``, ``short_wave_radiation.nc``,
+``long_wave_radiation.nc``, ``soil_code.nc``, ``soil_depth.nc``) — or a
+:class:`~climclusterpy.data.DataPaths`, or a mapping — and does everything in
+between:
+
+1. load the input and build the valid-cell registry;
+2. summarize each cell into ecological features (annual means, seasonality, Köppen
+   diagnostics, soil), then standardize, de-correlate, and PCA-filter them;
+3. cluster the cells;
+4. pick the cell that best represents each cluster;
+5. write the reduced-grid NetCDFs **plus the two mapping CSVs** that record which
+   original cells each reduced cell stands for.
+
+.. code-block:: python
+
+   clusters = create_clusters(
+       input_dir,
+       n_clusters=6,
+       output_dir="./clusters",
+   )
+   clusters.cluster_files      # the NetCDFs your model reads
+   clusters.labels             # cell_id, latitude, longitude, cluster_label
+   clusters.id_mapping_csv     # reduced cell -> original cells
+   clusters.compact_map_csv    # row map for correct lon slicing at large K
+
+Supervised (locally-weighted) mode
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Plain Euclidean distance treats every feature as equally important. Pass
+``locally_weighted=True`` to learn a distance metric first, so directions in feature space
+that separate *ecologically* different cells count for more (needs the ``[lmnn]`` extra):
+
+.. code-block:: python
+
+   clusters = create_clusters(
+       input_dir,
+       n_clusters=2000,
+       locally_weighted=True,
+       supervision_data="/data/model_output/trait_grids",   # or a per-cell CSV
+       supervision=["sla", "wooddens", "height", "biomass"],
+   )
+
+``supervision_data`` may be a directory of per-trait NetCDFs or a prepared per-cell CSV —
+the form is detected automatically. Supervising on your model's *own output traits* is the
+strongest signal available: it groups cells by the very quantity the reduced grid has to
+reproduce. Omit ``supervision_data`` and Köppen–Geiger classes are derived from the climate
+input instead, so the supervised mode needs no extra data at all.
+
+With a learned metric available, each cluster's representative defaults to its **medoid**
+(the member with the smallest total distance to the others, measured in that metric) rather
+than the member nearest the cluster mean.
+
+Call 2 — rebuild the original grid
+----------------------------------
+
+:func:`~climclusterpy.reconstruct_original_grid` takes the model output and the
+``clusters`` object — which already carries the registry and both mapping CSVs, so no file
+paths need juggling:
+
+.. code-block:: python
+
+   full = reconstruct_original_grid("vegc_run.nc", clusters=clusters)
+   full.path      # the reconstructed NetCDF
+   full.files     # {source: reconstructed} for every input
+
+It accepts a single file, a list, or a whole directory of model output. Cells are placed by
+**ID**, never by coordinate matching, so the round trip stays exact even when the reduced
+grid reorders or drops cells; cells outside the valid mask stay ``NaN``.
+
+The complete script
+-------------------
+
+.. literalinclude:: ../../../examples/example_0_one_call_roundtrip.py
+   :language: python
+   :caption: examples/example_0_one_call_roundtrip.py
+
+Run it
+------
+
+.. code-block:: console
+
+   $ python examples/example_0_one_call_roundtrip.py
+   create_clusters -> 6 clusters (euclidean mode, centroid representative)
+     6 cluster NetCDFs in /tmp/.../clusters
+     labels for 64 original cells -> .../cluster_labels_with_coords_nr_of_clusters_6.csv
+     id mapping:  cluster_id_mapping_6.csv
+     compact map: cluster_compact_map_6.csv
+   reconstruct_original_grid -> /tmp/.../reconstructed/vegc_run_reconstructed.nc
+   OK: all 64 original cells recovered their cluster's value.
+
+Next steps
+----------
+
+* Prepare your own input files, and see what a run writes: :doc:`../howto/inputs`.
+* Reconstruct in a later session, after a model run of several days:
+  :doc:`../howto/reconstruct`.
+* Drive the steps yourself with the building blocks: :doc:`euclidean_clustering`,
+  :doc:`lmnn_clustering`, :doc:`supervision`, :doc:`reconstruction`.
+* Choose a mode and tune it: :doc:`../howto/clustering`.
+* Understand the method: :doc:`../explanation/methods`.

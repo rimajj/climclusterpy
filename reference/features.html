@@ -1,0 +1,692 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Feature engineering &mdash; climclusterpy 0.5</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=f2cc2102" />
+
+  
+    <link rel="shortcut icon" href="../_static/logo.svg"/>
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=1dd76d02"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Clustering &amp; metric learning" href="clustering.html" />
+    <link rel="prev" title="Data, timeseries, I/O &amp; plotting" href="toplevel.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            climclusterpy
+              <img src="../_static/logo.svg" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">Tutorials</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/one_call_roundtrip.html">Tutorial 0 — the whole workflow in two calls</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/one_call_roundtrip.html#the-idea">The idea</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/one_call_roundtrip.html#call-1-build-the-reduced-grid">Call 1 — build the reduced grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/one_call_roundtrip.html#call-2-rebuild-the-original-grid">Call 2 — rebuild the original grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/one_call_roundtrip.html#the-complete-script">The complete script</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/one_call_roundtrip.html#run-it">Run it</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/one_call_roundtrip.html#next-steps">Next steps</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/euclidean_clustering.html">Tutorial 1 — Euclidean clustering</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/euclidean_clustering.html#load-data-and-build-a-feature-matrix">Load data and build a feature matrix</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/euclidean_clustering.html#cluster">Cluster</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/euclidean_clustering.html#the-complete-script">The complete script</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/euclidean_clustering.html#run-it">Run it</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/euclidean_clustering.html#next-steps">Next steps</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/lmnn_clustering.html">Tutorial 2 — LMNN metric-learning clustering</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/lmnn_clustering.html#provide-a-supervision-signal">Provide a supervision signal</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/lmnn_clustering.html#learn-a-metric-and-cluster">Learn a metric and cluster</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/lmnn_clustering.html#the-complete-script">The complete script</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/lmnn_clustering.html#run-it">Run it</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/lmnn_clustering.html#next-steps">Next steps</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/supervision.html">Tutorial 3 — Supervision signals</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/supervision.html#koppengeiger-from-monthly-climatology">Köppen–Geiger from monthly climatology</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/supervision.html#model-output-trait-clustering">Model-output (trait) clustering</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/supervision.html#the-complete-script">The complete script</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/supervision.html#run-it">Run it</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/supervision.html#ecoregion-supervision">Ecoregion supervision</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/reconstruction.html">Tutorial 4 — Reconstruct the original grid</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/reconstruction.html#the-round-trip">The round trip</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/reconstruction.html#verify">Verify</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/reconstruction.html#the-complete-script">The complete script</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/reconstruction.html#run-it">Run it</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/reconstruction.html#next-steps">Next steps</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/index.html#a-note-on-the-synthetic-data">A note on the synthetic data</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">How-to guides</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../howto/index.html">How-to guides</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../howto/install.html">Install climclusterpy</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../howto/install.html#base-install">Base install</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/install.html#optional-extras">Optional extras</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/install.html#installing-the-geospatial-extras-with-conda">Installing the geospatial extras with conda</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/install.html#pytorch-cpu-vs-gpu">PyTorch (CPU vs. GPU)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/install.html#environment-variables">Environment variables</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/install.html#building-the-documentation">Building the documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../howto/inputs.html">Prepare the input files</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../howto/inputs.html#check-your-input-first">Check your input first</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/inputs.html#the-files">The files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/inputs.html#grid-and-coordinates">Grid and coordinates</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/inputs.html#which-cells-exist-the-soil-code">Which cells exist: the soil code</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/inputs.html#the-time-axis">The time axis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/inputs.html#missing-values">Missing values</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/inputs.html#another-vegetation-model-s-input">Another vegetation model’s input</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/inputs.html#output-files">Output files</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../howto/clustering.html">Cluster a feature matrix (choose a mode)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../howto/clustering.html#euclidean-mode-no-supervision">Euclidean mode (no supervision)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/clustering.html#lmnn-mode-supervised-metric-learning">LMNN mode (supervised metric learning)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/clustering.html#lower-level-control">Lower-level control</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../howto/supervision.html">Build an LMNN supervision signal</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../howto/supervision.html#from-climate-koppengeiger">From climate — Köppen–Geiger</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/supervision.html#from-model-output-traits">From model output — traits</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/supervision.html#from-a-shapefile-ecoregions2017">From a shapefile — Ecoregions2017</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/supervision.html#using-the-signal">Using the signal</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/supervision.html#in-one-call">In one call</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/supervision.html#saved-results-are-reused-only-for-the-same-inputs">Saved results are reused only for the same inputs</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../howto/cell_selection.html">Choosing the cells a cluster is simulated on</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../howto/cell_selection.html#the-patch-budget">The patch budget</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/cell_selection.html#what-the-drawn-cells-carry">What the drawn cells carry</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/cell_selection.html#reproducibility">Reproducibility</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/cell_selection.html#looking-at-a-draw-without-building-a-grid">Looking at a draw without building a grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/cell_selection.html#back-to-the-full-grid">Back to the full grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/cell_selection.html#a-model-that-reads-its-own-inputs-the-grid-only-then-cut-the-rest">A model that reads its own inputs: the grid only, then cut the rest</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../howto/reconstruct.html">Reconstruct the original grid</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../howto/reconstruct.html#the-usual-call">The usual call</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/reconstruct.html#picking-up-where-you-left-off">Picking up where you left off</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/reconstruct.html#without-a-result-or-run-folder">Without a result or run folder</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/reconstruct.html#required-mapping-files">Required mapping files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/reconstruct.html#reconstruction-paths-kind">Reconstruction paths (<code class="docutils literal notranslate"><span class="pre">kind</span></code>)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/reconstruct.html#verifying-the-result">Verifying the result</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="api.html">Public API — <code class="xref py py-mod docutils literal notranslate"><span class="pre">climclusterpy</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api.html#the-two-headline-functions">The two headline functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api.html#before-and-after-the-model-run">Before and after the model run</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api.html#input-for-a-model-other-than-lpjml">Input for a model other than LPJmL</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api.html#other-ways-to-build-the-reduced-grid">Other ways to build the reduced grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api.html#reusing-a-trained-metric">Reusing a trained metric</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api.html#the-model-s-other-inputs">The model’s other inputs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api.html#writing-the-reduced-grid-yourself">Writing the reduced grid yourself</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api.html#building-blocks">Building blocks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api.html#result-objects">Result objects</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="toplevel.html">Data, timeseries, I/O &amp; plotting</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="toplevel.html#module-climclusterpy.data">Data loading &amp; the grid registry</a></li>
+<li class="toctree-l3"><a class="reference internal" href="toplevel.html#how-much-the-package-reports">How much the package reports</a></li>
+<li class="toctree-l3"><a class="reference internal" href="toplevel.html#coordinates">Coordinates</a></li>
+<li class="toctree-l3"><a class="reference internal" href="toplevel.html#module-climclusterpy.timeseries">Per-cluster timeseries</a></li>
+<li class="toctree-l3"><a class="reference internal" href="toplevel.html#module-climclusterpy.io">File input/output</a></li>
+<li class="toctree-l3"><a class="reference internal" href="toplevel.html#module-climclusterpy.preprocessing">Preprocessing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="toplevel.html#module-climclusterpy.viz">Plotting</a></li>
+</ul>
+</li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Feature engineering</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#ecological-summaries">Ecological summaries</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#vegetation-model-traits">Vegetation-model traits</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#standardization-filtering">Standardization &amp; filtering</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="clustering.html">Clustering &amp; metric learning</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="clustering.html#hierarchical-clustering">Hierarchical clustering</a></li>
+<li class="toctree-l3"><a class="reference internal" href="clustering.html#module-climclusterpy.clustering.lmnn">LMNN metric learning</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="supervision.html">Supervision labels</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="supervision.html#koppengeiger-climate-zones">Köppen–Geiger climate zones</a></li>
+<li class="toctree-l3"><a class="reference internal" href="supervision.html#vegetation-model-output-traits">Vegetation-model output traits</a></li>
+<li class="toctree-l3"><a class="reference internal" href="supervision.html#ecoregion-polygons">Ecoregion polygons</a></li>
+<li class="toctree-l3"><a class="reference internal" href="supervision.html#daily-input-helpers">Daily-input helpers</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="grid.html">Grid building &amp; reconstruction</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="grid.html#where-each-reduced-cell-is-placed">Where each reduced cell is placed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="grid.html#writing-the-reduced-grid">Writing the reduced grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="grid.html#reconstruction">Reconstruction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="grid.html#lpjml-clm-conversion">LPJmL CLM conversion</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="cli.html">Command-line interface (<code class="docutils literal notranslate"><span class="pre">climclu</span></code>)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cli.html#the-two-headline-commands">The two headline commands</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cli.html#building-blocks">Building blocks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cli.html#options-shared-by-every-action-command">Options shared by every action command</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cli.html#errors-and-exit-codes">Errors and exit codes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#which-function-do-i-need">Which function do I need?</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Explanation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../explanation/index.html">Explanation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../explanation/overview.html">Overview</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../explanation/overview.html#design-philosophy">Design Philosophy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../explanation/overview.html#workflow-summary">Workflow Summary</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../explanation/overview.html#key-innovations">Key Innovations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../explanation/overview.html#use-cases">Use Cases</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../explanation/overview.html#limitations">Limitations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../explanation/overview.html#future-directions">Future Directions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../explanation/overview.html#references">References</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../explanation/methods.html">Scientific Methods</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../explanation/methods.html#data-acquisition-and-preprocessing">Data Acquisition and Preprocessing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../explanation/methods.html#ecoregion-assignment">Ecoregion Assignment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../explanation/methods.html#ecological-feature-summarization">Ecological Feature Summarization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../explanation/methods.html#feature-standardization-and-filtering">Feature Standardization and Filtering</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../explanation/methods.html#large-margin-nearest-neighbor-lmnn-metric-learning">Large Margin Nearest Neighbor (LMNN) Metric Learning</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../explanation/methods.html#hierarchical-clustering">Hierarchical Clustering</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../explanation/methods.html#representative-cell-selection">Representative Cell Selection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../explanation/methods.html#evaluation-metrics">Evaluation Metrics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../explanation/methods.html#netcdf-processing">NetCDF Processing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../explanation/methods.html#computational-implementation">Computational Implementation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../explanation/index.html#reconstruction-correctness">Reconstruction correctness</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">climclusterpy</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Reference</a></li>
+      <li class="breadcrumb-item active">Feature engineering</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://gitlab.pik-potsdam.de/lpjmlfit_analysis/climclusterpy/blob/main/docs/src/reference/features.rst" class="fa fa-gitlab"> Edit on GitLab</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-climclusterpy.features">
+<span id="feature-engineering"></span><h1>Feature engineering<a class="headerlink" href="#module-climclusterpy.features" title="Link to this heading"></a></h1>
+<p>Transform loaded climate + soil data into the interpretable feature matrix that
+clustering consumes: ecological summaries, then standardization / de-correlation / PCA
+filtering. The mathematics behind each step is in
+<a class="reference internal" href="../explanation/methods.html"><span class="doc">Scientific Methods</span></a>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><a class="reference internal" href="#climclusterpy.features.summarize_climate_features" title="climclusterpy.features.summarize_climate_features"><code class="xref py py-func docutils literal notranslate"><span class="pre">summarize_climate_features()</span></code></a> derives optional SPEI /
+potential-evapotranspiration drought diagnostics via the <code class="docutils literal notranslate"><span class="pre">pyet</span></code> package, which is
+not part of the core install: add the <code class="docutils literal notranslate"><span class="pre">[features]</span></code> extra (or <code class="docutils literal notranslate"><span class="pre">[all]</span></code>) for it. The
+rest of the feature pipeline runs on the core install.</p>
+</div>
+<section id="ecological-summaries">
+<h2>Ecological summaries<a class="headerlink" href="#ecological-summaries" title="Link to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="climclusterpy.features.summarize_climate_features">
+<span class="sig-name descname"><span class="pre">summarize_climate_features</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">datasets</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">registry</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">variables</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_monthly_climatology</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">variable_aggregations</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/climclusterpy/features/climate.html#summarize_climate_features"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#climclusterpy.features.summarize_climate_features" title="Link to this definition"></a></dt>
+<dd><p>Compute ecological summary statistics for climate variables.</p>
+<p>For each grid cell, computes interpretable summaries that capture
+annual means, seasonal patterns, and extremes.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>datasets</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.15)"><em>dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.Dataset.html#xarray.Dataset" title="(in xarray v2026.9.0)"><em>Dataset</em></a><em>]</em>) – Dict mapping variable names to xarray Datasets
+Expected keys: ‘tas’, ‘pr’, ‘rsds’, ‘rlds’, ‘hurs’</p></li>
+<li><p><strong>registry</strong> (<a class="reference internal" href="toplevel.html#climclusterpy.data.DataRegistry" title="climclusterpy.data.registry.DataRegistry"><em>DataRegistry</em></a>) – DataRegistry containing valid cell mask and coordinates</p></li>
+<li><p><strong>variables</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.15)"><em>list</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><em>str</em></a><em>] </em><em>| </em><em>None</em>) – List of variables to summarize (default: all climate vars + SPEI)</p></li>
+<li><p><strong>include_monthly_climatology</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)"><em>bool</em></a>) – If True (default), include 12 monthly climatology
+features for temperature (tas_month_01..tas_month_12) and precipitation
+(pr_month_01..pr_month_12). These are needed for Köppen-Geiger classification.</p></li>
+<li><p><strong>variable_aggregations</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.15)"><em>dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><em>str</em></a><em>] </em><em>| </em><em>None</em>) – For a variable the package doesn’t specially know (anything
+outside tas/pr/rsds/rlds/hurs/spei), whether its monthly climatology should be a
+mean or a sum (default: mean). Ignored for the known variables, which keep their
+own fixed recipe (temperature/radiation/humidity: mean; precipitation: sum).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><code class="xref py py-class docutils literal notranslate"><span class="pre">DataFrame</span> <span class="pre">with</span> <span class="pre">columns</span></code></p></li>
+<li><p><code class="xref py py-class docutils literal notranslate"><span class="pre">-</span> <span class="pre">cell_id</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">latitude</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">longitude</span></code></p></li>
+<li><p><code class="xref py py-class docutils literal notranslate"><span class="pre">-</span> <span class="pre">tas_mean_annual</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">tas_month_01..tas_month_12</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">tas_range</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">tas_std</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">tas_seasonality</span></code></p></li>
+<li><p><code class="xref py py-class docutils literal notranslate"><span class="pre">-</span> <span class="pre">pr_mean_annual</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">pr_month_01..pr_month_12</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">pr_cv_monthly</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">pr_wetdays_freq</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">pr_max_monthly</span></code></p></li>
+<li><p><code class="xref py py-class docutils literal notranslate"><span class="pre">-</span> <span class="pre">rsds_mean_annual</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">rsds_seasonal_amplitude</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">rsds_std</span></code></p></li>
+<li><p><code class="xref py py-class docutils literal notranslate"><span class="pre">-</span> <span class="pre">rlds_mean_annual</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">rlds_seasonal_amplitude</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">rlds_std</span></code></p></li>
+<li><p><code class="xref py py-class docutils literal notranslate"><span class="pre">-</span> <span class="pre">hurs_mean_annual</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">hurs_std</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">hurs_dry_min</span></code></p></li>
+<li><p><code class="xref py py-class docutils literal notranslate"><span class="pre">-</span> <span class="pre">spei_3_mean</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">spei_6_mean</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">spei_12_mean</span> <span class="pre">(drought</span> <span class="pre">indices</span> <span class="pre">at</span> <span class="pre">3/6/12</span> <span class="pre">month</span> <span class="pre">scales)</span></code></p></li>
+</ul>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><em>DataFrame</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="climclusterpy.features.summarize_soil_features">
+<span class="sig-name descname"><span class="pre">summarize_soil_features</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">datasets</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">registry</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">soil_vars</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">encoder_cache_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">categorical_vars</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">frozenset({'soil_code'})</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/climclusterpy/features/soil.html#summarize_soil_features"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#climclusterpy.features.summarize_soil_features" title="Link to this definition"></a></dt>
+<dd><p>Extract static (soil, or any other non-climate) features.</p>
+<p>Each field in <code class="docutils literal notranslate"><span class="pre">soil_vars</span></code> is either continuous (kept as a numeric feature) or
+categorical (one-hot encoded into binary columns named <code class="docutils literal notranslate"><span class="pre">&lt;var_name&gt;_&lt;value&gt;</span></code>, so that
+metric-learning algorithms are not misled by the arbitrary ordinal structure of a raw
+integer code). By default only <code class="docutils literal notranslate"><span class="pre">soil_code</span></code> is treated as categorical – everything
+else, including any field outside the original soil_code/soil_depth pair, is continuous
+unless named in <code class="docutils literal notranslate"><span class="pre">categorical_vars</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>datasets</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.15)"><em>dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.Dataset.html#xarray.Dataset" title="(in xarray v2026.9.0)"><em>Dataset</em></a><em>]</em>) – Dict mapping variable names to xarray Datasets.
+Expected keys: <code class="docutils literal notranslate"><span class="pre">'soil_depth'</span></code>, <code class="docutils literal notranslate"><span class="pre">'soil_code'</span></code> (or any other static
+field name, for a non-LPJmL input).</p></li>
+<li><p><strong>registry</strong> (<a class="reference internal" href="toplevel.html#climclusterpy.data.DataRegistry" title="climclusterpy.data.registry.DataRegistry"><em>DataRegistry</em></a>) – DataRegistry containing valid cell mask.</p></li>
+<li><p><strong>soil_vars</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.15)"><em>list</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><em>str</em></a><em>] </em><em>| </em><em>None</em>) – List of static variables to process
+(default: <code class="docutils literal notranslate"><span class="pre">['soil_depth',</span> <span class="pre">'soil_code']</span></code>).</p></li>
+<li><p><strong>encoder_cache_path</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><em>str</em></a><em> | </em><em>None</em>) – Optional path at which to save/reload the fitted
+<code class="docutils literal notranslate"><span class="pre">OneHotEncoder</span></code> for each categorical field. Pass a stable path
+(e.g. inside the feature cache directory) so the encoder is
+reloaded consistently on subsequent runs. When more than one
+categorical field is given, each gets its own cache file (the
+field name is inserted before the file extension).</p></li>
+<li><p><strong>categorical_vars</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#frozenset" title="(in Python v3.15)"><em>frozenset</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><em>str</em></a><em>] </em><em>| </em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#set" title="(in Python v3.15)"><em>set</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><em>str</em></a><em>]</em>) – Which of <code class="docutils literal notranslate"><span class="pre">soil_vars</span></code> are categorical (one-hot encoded)
+rather than continuous. Default: <code class="docutils literal notranslate"><span class="pre">{&quot;soil_code&quot;}</span></code>, matching the
+original LPJmL-specific behavior.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><code class="xref py py-class docutils literal notranslate"><span class="pre">DataFrame</span> <span class="pre">with</span> <span class="pre">columns</span></code></p></li>
+<li><p><code class="xref py py-class docutils literal notranslate"><span class="pre">-</span> <span class="pre">``cell_id``</span></code>, <code class="docutils literal notranslate"><span class="pre">latitude</span></code>, <code class="docutils literal notranslate"><span class="pre">longitude</span></code></p></li>
+<li><p><code class="xref py py-class docutils literal notranslate"><span class="pre">-</span> <span class="pre">one</span> <span class="pre">continuous</span> <span class="pre">column</span> <span class="pre">per</span> <span class="pre">continuous</span> <span class="pre">field</span></code></p></li>
+<li><p><code class="xref py py-class docutils literal notranslate"><span class="pre">-</span> <span class="pre">``&lt;var_name&gt;_&lt;value&gt;`</span></code> (binary`, <code class="xref py py-class docutils literal notranslate"><span class="pre">one</span> <span class="pre">column</span> <span class="pre">per</span> <span class="pre">unique</span> <span class="pre">category)</span> <span class="pre">per</span> <span class="pre">categorical</span> <span class="pre">field</span></code></p></li>
+</ul>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><em>DataFrame</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="climclusterpy.features.combine_features">
+<span class="sig-name descname"><span class="pre">combine_features</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">climate_df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">soil_df</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/climclusterpy/features/assemble.html#combine_features"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#climclusterpy.features.combine_features" title="Link to this definition"></a></dt>
+<dd><p>Merge climate and soil features on cell_id.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>climate_df</strong> (<em>DataFrame</em>) – DataFrame from summarize_climate_features()</p></li>
+<li><p><strong>soil_df</strong> (<em>DataFrame</em>) – DataFrame from summarize_soil_features()</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Merged</span> <span class="pre">DataFrame</span> <span class="pre">with</span> <span class="pre">all</span> <span class="pre">features</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="climclusterpy.features.compute_kg_diagnostic_features">
+<span class="sig-name descname"><span class="pre">compute_kg_diagnostic_features</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">monthly_T</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">monthly_P</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">latitudes</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/climclusterpy/features/diagnostics.html#compute_kg_diagnostic_features"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#climclusterpy.features.compute_kg_diagnostic_features" title="Link to this definition"></a></dt>
+<dd><p>Compute KG-diagnostic scalar features from 12-month climatological means.</p>
+<p>These features capture the exact quantities used by the Köppen-Geiger
+classification rule (temperature extremes, precipitation seasonality,
+aridity) as continuous scalars.  They are prefixed with <code class="docutils literal notranslate"><span class="pre">kg_diag_</span></code> so
+that the filtering pipeline can identify and protect them.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>monthly_T</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">np.ndarray</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">shape</span> <span class="pre">(n_cells</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">12)</span></code>) – Mean temperature (°C) for each of the 12 calendar months.</p></li>
+<li><p><strong>monthly_P</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">np.ndarray</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">shape</span> <span class="pre">(n_cells</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">12)</span></code>) – Mean precipitation (mm/month) for each of the 12 calendar months.</p></li>
+<li><p><strong>latitudes</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">np.ndarray</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">shape</span> <span class="pre">(n_cells,)</span></code>) – Cell latitudes in decimal degrees (negative = Southern Hemisphere).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span> <span class="pre">mapping</span> <span class="pre">``kg_diag_*`</span></code> feature names` to <code class="xref py py-class docutils literal notranslate"><span class="pre">1-D</span> <span class="pre">arrays</span></code> of <code class="xref py py-class docutils literal notranslate"><span class="pre">length</span> <span class="pre">n_cells.</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="climclusterpy.features.compute_all_ecology_diagnostic_features">
+<span class="sig-name descname"><span class="pre">compute_all_ecology_diagnostic_features</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">monthly_T</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">monthly_P</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">monthly_q</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rsds_mean</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pr_wetdays_freq</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pr_mean_annual</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/climclusterpy/features/diagnostics.html#compute_all_ecology_diagnostic_features"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#climclusterpy.features.compute_all_ecology_diagnostic_features" title="Link to this definition"></a></dt>
+<dd><p>Compute all 13 ecology_diagnostic features from cached summary data.</p>
+<p>This is the top-level entry point for augmenting an existing feature set.
+All inputs are available from the existing raw feature CSV — no raw NetCDF
+data or daily time series are required.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>monthly_T</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">(n_cells</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">12)</span> <span class="pre">Monthly</span> <span class="pre">mean</span> <span class="pre">temperature</span> <span class="pre">[°C]</span></code>)</p></li>
+<li><p><strong>monthly_P</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">(n_cells</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">12)</span> <span class="pre">Monthly</span> <span class="pre">mean</span> <span class="pre">precipitation</span> <span class="pre">[mm/month]</span></code>)</p></li>
+<li><p><strong>monthly_q</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">(n_cells,)</span>&#160;&#160;&#160; <span class="pre">Annual</span> <span class="pre">mean</span> <span class="pre">specific</span> <span class="pre">humidity</span> <span class="pre">[kg/kg]</span></code>)</p></li>
+<li><p><strong>rsds_mean</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">(n_cells,)</span>&#160;&#160;&#160; <span class="pre">Annual</span> <span class="pre">mean</span> <span class="pre">shortwave</span> <span class="pre">radiation</span> <span class="pre">[W/m²]</span></code>)</p></li>
+<li><p><strong>pr_wetdays_freq</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">(n_cells,)</span>&#160;&#160;&#160; <span class="pre">Fraction</span></code> of <code class="xref py py-class docutils literal notranslate"><span class="pre">days</span> <span class="pre">that</span> <span class="pre">are</span> <span class="pre">wet</span> <span class="pre">(&gt;1mm)</span></code>)</p></li>
+<li><p><strong>pr_mean_annual</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">(n_cells,)</span>&#160;&#160;&#160; <span class="pre">Mean</span> <span class="pre">annual</span> <span class="pre">precipitation</span> <span class="pre">[mm/day]</span></code>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span> <span class="pre">mapping</span> <span class="pre">eco_diag_*</span> <span class="pre">feature</span> <span class="pre">names</span></code> to <code class="xref py py-class docutils literal notranslate"><span class="pre">(n_cells,)</span> <span class="pre">arrays</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="climclusterpy.features.ECOLOGY_DIAGNOSTIC_FEATURES">
+<span class="sig-name descname"><span class="pre">ECOLOGY_DIAGNOSTIC_FEATURES</span></span><a class="headerlink" href="#climclusterpy.features.ECOLOGY_DIAGNOSTIC_FEATURES" title="Link to this definition"></a></dt>
+<dd><p>Built-in mutable sequence.</p>
+<p>If no argument is given, the constructor creates a new empty list.
+The argument must be an iterable if specified.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="climclusterpy.features.encode_soil_code">
+<span class="sig-name descname"><span class="pre">encode_soil_code</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">soil_code_values</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">encoder_cache_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/climclusterpy/features/soil.html#encode_soil_code"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#climclusterpy.features.encode_soil_code" title="Link to this definition"></a></dt>
+<dd><p>One-hot encode an array of integer soil codes (see <code class="xref py py-func docutils literal notranslate"><span class="pre">encode_categorical()</span></code>).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>soil_code_values</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.5)"><em>ndarray</em></a>)</p></li>
+<li><p><strong>encoder_cache_path</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><em>str</em></a><em> | </em><em>None</em>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#tuple" title="(in Python v3.15)">tuple</a>[<em>DataFrame</em>, <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.OneHotEncoder.html#sklearn.preprocessing.OneHotEncoder" title="(in scikit-learn v1.9)"><em>OneHotEncoder</em></a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="climclusterpy.features.DAYS_PER_MONTH">
+<span class="sig-name descname"><span class="pre">DAYS_PER_MONTH</span></span><a class="headerlink" href="#climclusterpy.features.DAYS_PER_MONTH" title="Link to this definition"></a></dt>
+<dd><p>Built-in mutable sequence.</p>
+<p>If no argument is given, the constructor creates a new empty list.
+The argument must be an iterable if specified.</p>
+</dd></dl>
+
+</section>
+<section id="vegetation-model-traits">
+<h2>Vegetation-model traits<a class="headerlink" href="#vegetation-model-traits" title="Link to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="climclusterpy.features.build_trait_features_df">
+<span class="sig-name descname"><span class="pre">build_trait_features_df</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">supervision_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">registry</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">traits</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">('sla',</span> <span class="pre">'wooddens',</span> <span class="pre">'height',</span> <span class="pre">'vegc')</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_dominant_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/climclusterpy/features/trait_ingest.html#build_trait_features_df"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#climclusterpy.features.build_trait_features_df" title="Link to this definition"></a></dt>
+<dd><p>Build a per-cell trait table from model output, in whichever form it arrives.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>supervision_data</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>) – Either a directory of per-trait NetCDF files, or a prepared per-cell CSV.
+The form is detected from the path (a <code class="docutils literal notranslate"><span class="pre">.csv</span></code> file vs a directory).</p></li>
+<li><p><strong>registry</strong> (<a class="reference internal" href="toplevel.html#climclusterpy.data.DataRegistry" title="climclusterpy.data.DataRegistry"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataRegistry</span></code></a>) – Registry for the grid being clustered. Defines which cells are valid and in
+what order, so the returned rows align with the clustering feature matrix.</p></li>
+<li><p><strong>traits</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">sequence</span></code> of <a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <em>optional</em>) – Continuous traits to read. Defaults to <code class="xref py py-data docutils literal notranslate"><span class="pre">DEFAULT_TRAITS</span></code>. Common
+aliases are accepted (<code class="docutils literal notranslate"><span class="pre">biomass</span></code> matches a <code class="docutils literal notranslate"><span class="pre">vegc</span></code> file, and so on).</p></li>
+<li><p><strong>include_dominant_type</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a>, <em>optional</em>) – Also read the categorical <code class="docutils literal notranslate"><span class="pre">dominant_type</span></code> when present (default
+<code class="docutils literal notranslate"><span class="pre">True</span></code>). It is optional in the input: a run without it still produces
+usable continuous supervision.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Columns <code class="docutils literal notranslate"><span class="pre">cell_id,</span> <span class="pre">latitude,</span> <span class="pre">longitude</span></code>, one column per trait, and
+<code class="docutils literal notranslate"><span class="pre">dominant_type</span></code> when available. One row per valid grid cell, in registry
+order.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a></p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><a class="reference external" href="https://docs.python.org/3/builtins/exceptions.html#FileNotFoundError" title="(in Python v3.15)"><strong>FileNotFoundError</strong></a> – If <code class="docutils literal notranslate"><span class="pre">supervision_data</span></code> does not exist, or a requested trait has no file.</p></li>
+<li><p><a class="reference external" href="https://docs.python.org/3/builtins/exceptions.html#ValueError" title="(in Python v3.15)"><strong>ValueError</strong></a> – If a trait column/variable cannot be identified, or the input does not
+    cover every valid cell.</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">traits</span> <span class="o">=</span> <span class="n">build_trait_features_df</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="s2">"/path/to/model_output/trait_grids"</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">registry</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">traits</span><span class="o">=</span><span class="p">[</span><span class="s2">"sla"</span><span class="p">,</span> <span class="s2">"wooddens"</span><span class="p">,</span> <span class="s2">"height"</span><span class="p">,</span> <span class="s2">"biomass"</span><span class="p">],</span>
+<span class="gp">... </span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</section>
+<section id="standardization-filtering">
+<h2>Standardization &amp; filtering<a class="headerlink" href="#standardization-filtering" title="Link to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="climclusterpy.features.standardize_features">
+<span class="sig-name descname"><span class="pre">standardize_features</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">feature_cols</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/climclusterpy/features/filtering.html#standardize_features"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#climclusterpy.features.standardize_features" title="Link to this definition"></a></dt>
+<dd><p>Standardize features to zero mean, unit variance.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df</strong> (<em>DataFrame</em>) – DataFrame with features</p></li>
+<li><p><strong>feature_cols</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.15)"><em>list</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><em>str</em></a><em>]</em>) – List of column names to standardize</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>df_scaled</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">DataFrame</span> <span class="pre">with</span> <span class="pre">standardized</span> <span class="pre">features</span> <span class="pre">(replaces</span> <span class="pre">original</span> <span class="pre">columns)</span></code>)</p></li>
+<li><p><strong>scaler</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Fitted</span> <span class="pre">StandardScaler</span> <span class="pre">for</span> <span class="pre">inverse</span> <span class="pre">transform</span></code>)</p></li>
+</ul>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#tuple" title="(in Python v3.15)">tuple</a>[<em>DataFrame</em>, <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.StandardScaler.html#sklearn.preprocessing.StandardScaler" title="(in scikit-learn v1.9)"><em>StandardScaler</em></a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="climclusterpy.features.remove_correlated_features">
+<span class="sig-name descname"><span class="pre">remove_correlated_features</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">feature_cols</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.9</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'spearman'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">protected_cols</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/climclusterpy/features/filtering.html#remove_correlated_features"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#climclusterpy.features.remove_correlated_features" title="Link to this definition"></a></dt>
+<dd><p>Remove highly correlated features whose <code class="docutils literal notranslate"><span class="pre">|rho|</span></code> exceeds <code class="docutils literal notranslate"><span class="pre">threshold</span></code>.</p>
+<p>When two features are correlated above threshold, keeps the one with
+lower mean absolute correlation to all other features.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df</strong> (<em>DataFrame</em>) – DataFrame with features</p></li>
+<li><p><strong>feature_cols</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.15)"><em>list</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><em>str</em></a><em>]</em>) – List of column names to analyze</p></li>
+<li><p><strong>threshold</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.15)"><em>float</em></a>) – Correlation threshold (default 0.9)</p></li>
+<li><p><strong>method</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><em>str</em></a>) – ‘spearman’ or ‘pearson’</p></li>
+<li><p><strong>protected_cols</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.15)"><em>list</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><em>str</em></a><em>] </em><em>| </em><em>None</em>) – Columns to pass through without analysis.  When
+<code class="docutils literal notranslate"><span class="pre">None</span></code> (default), any column in <em>feature_cols</em> whose name starts
+with one of the <code class="xref py py-data docutils literal notranslate"><span class="pre">_AUTO_PROTECTED_PREFIXES</span></code> (<code class="docutils literal notranslate"><span class="pre">tas_month_*</span></code>,
+<code class="docutils literal notranslate"><span class="pre">pr_month_*</span></code>, <code class="docutils literal notranslate"><span class="pre">kg_diag_*</span></code>, <code class="docutils literal notranslate"><span class="pre">soil_*</span></code>) is automatically
+protected.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>df_filtered</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">DataFrame</span> <span class="pre">with</span> <span class="pre">redundant</span> <span class="pre">features</span> <span class="pre">removed</span></code>)</p></li>
+<li><p><strong>removed_features</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code> of <code class="xref py py-class docutils literal notranslate"><span class="pre">feature</span> <span class="pre">names</span> <span class="pre">that</span> <span class="pre">were</span> <span class="pre">dropped</span></code>)</p></li>
+<li><p><strong>corr_matrix</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Correlation</span> <span class="pre">matrix</span> <span class="pre">(before</span> <span class="pre">filtering</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">on</span> <span class="pre">analysed</span> <span class="pre">cols)</span></code>)</p></li>
+</ul>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#tuple" title="(in Python v3.15)">tuple</a>[<em>DataFrame</em>, <a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.15)">list</a>[<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)">str</a>], <em>DataFrame</em>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="climclusterpy.features.diagnostic_pca_filter">
+<span class="sig-name descname"><span class="pre">diagnostic_pca_filter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">feature_cols</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">variance_threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.95</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">contrib_threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.01</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">protected_cols</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/climclusterpy/features/filtering.html#diagnostic_pca_filter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#climclusterpy.features.diagnostic_pca_filter" title="Link to this definition"></a></dt>
+<dd><p>Use PCA to identify and remove low-contribution features.</p>
+<p>Does NOT project data — only uses PCA for feature selection.</p>
+<p>Process:</p>
+<ol class="arabic simple">
+<li><p>Compute PCA on analysable features (not protected).</p></li>
+<li><p>Find the minimum <code class="docutils literal notranslate"><span class="pre">N</span></code> components explaining at least
+<code class="docutils literal notranslate"><span class="pre">variance_threshold</span></code> (e.g. 95%).</p></li>
+<li><p>For each feature, compute its total absolute contribution across the
+first <code class="docutils literal notranslate"><span class="pre">N</span></code> components.</p></li>
+<li><p>Remove features with contribution below <code class="docutils literal notranslate"><span class="pre">contrib_threshold</span></code> (e.g. 1%).</p></li>
+</ol>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df</strong> (<em>DataFrame</em>) – DataFrame with features</p></li>
+<li><p><strong>feature_cols</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.15)"><em>list</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><em>str</em></a><em>]</em>) – List of column names to analyze</p></li>
+<li><p><strong>variance_threshold</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.15)"><em>float</em></a>) – Cumulative variance to retain (default 0.95)</p></li>
+<li><p><strong>contrib_threshold</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.15)"><em>float</em></a>) – Minimum feature contribution to keep (default 0.01)</p></li>
+<li><p><strong>protected_cols</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.15)"><em>list</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><em>str</em></a><em>] </em><em>| </em><em>None</em>) – Columns to pass through without analysis.  When
+<code class="docutils literal notranslate"><span class="pre">None</span></code> (default), any column in <em>feature_cols</em> whose name starts
+with one of the <code class="xref py py-data docutils literal notranslate"><span class="pre">_AUTO_PROTECTED_PREFIXES</span></code> (<code class="docutils literal notranslate"><span class="pre">tas_month_*</span></code>,
+<code class="docutils literal notranslate"><span class="pre">pr_month_*</span></code>, <code class="docutils literal notranslate"><span class="pre">kg_diag_*</span></code>, <code class="docutils literal notranslate"><span class="pre">soil_*</span></code>) is automatically
+protected.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>df_filtered</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">DataFrame</span> <span class="pre">with</span> <span class="pre">low-contribution</span> <span class="pre">features</span> <span class="pre">removed.</span></code>)</p></li>
+<li><p><strong>diagnostics</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span> <span class="pre">with</span> <span class="pre">the</span> <span class="pre">PCA</span> <span class="pre">object</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">component</span> <span class="pre">info</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">contributions</span></code>, and <code class="xref py py-class docutils literal notranslate"><span class="pre">removed/kept</span> <span class="pre">feature</span> <span class="pre">lists.</span></code>)</p></li>
+</ul>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#tuple" title="(in Python v3.15)">tuple</a>[<em>DataFrame</em>, <a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.15)">dict</a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="climclusterpy.features.apply_block_pca_compression">
+<span class="sig-name descname"><span class="pre">apply_block_pca_compression</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tas_monthly_cols</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pr_monthly_cols</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cache_dir</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">variance_threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.99</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">force_recompute</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/climclusterpy/features/filtering.html#apply_block_pca_compression"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#climclusterpy.features.apply_block_pca_compression" title="Link to this definition"></a></dt>
+<dd><p>Replace raw monthly T/P columns with PCA scores (block PCA).</p>
+<p>Fits (or loads from cache) one <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.decomposition.PCA.html#sklearn.decomposition.PCA" title="(in scikit-learn v1.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">sklearn.decomposition.PCA</span></code></a> per
+block – one for the 12 temperature monthly columns, one for the 12
+precipitation monthly columns – retaining enough components to explain
+<em>variance_threshold</em> (default 99 %) of within-block variance.</p>
+<p>The raw monthly columns are dropped from the returned DataFrame and
+replaced by <code class="docutils literal notranslate"><span class="pre">tas_month_PC1</span> <span class="pre">…</span> <span class="pre">tas_month_PCN</span></code> and
+<code class="docutils literal notranslate"><span class="pre">pr_month_PC1</span> <span class="pre">…</span> <span class="pre">pr_month_PCM</span></code>.</p>
+<p>PCA objects are serialised to
+<code class="docutils literal notranslate"><span class="pre">{cache_dir}/block_pca_tas.pkl</span></code> and
+<code class="docutils literal notranslate"><span class="pre">{cache_dir}/block_pca_pr.pkl</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df</strong> (<em>DataFrame</em>) – DataFrame containing (at least) the monthly columns.</p></li>
+<li><p><strong>tas_monthly_cols</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.15)"><em>list</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><em>str</em></a><em>]</em>) – Ordered list of the 12 temperature monthly column
+names (e.g. <code class="docutils literal notranslate"><span class="pre">['tas_month_01',</span> <span class="pre">…,</span> <span class="pre">'tas_month_12']</span></code>).</p></li>
+<li><p><strong>pr_monthly_cols</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.15)"><em>list</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><em>str</em></a><em>]</em>) – Same for precipitation.</p></li>
+<li><p><strong>cache_dir</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><em>str</em></a>) – Directory where PCA cache files are stored/read.</p></li>
+<li><p><strong>variance_threshold</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.15)"><em>float</em></a>) – Fraction of variance to retain per block
+(default 0.99).</p></li>
+<li><p><strong>force_recompute</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)"><em>bool</em></a>) – If <code class="docutils literal notranslate"><span class="pre">True</span></code>, ignore cached PCA objects and refit.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>df_compressed</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">DataFrame</span> <span class="pre">with</span> <span class="pre">raw</span> <span class="pre">monthly</span> <span class="pre">cols</span> <span class="pre">replaced</span> <span class="pre">by</span> <span class="pre">PC</span> <span class="pre">cols.</span></code>)</p></li>
+<li><p><strong>info</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span> <span class="pre">with</span> <span class="pre">the</span> <span class="pre">fitted</span> <span class="pre">PCA</span> <span class="pre">objects</span> <span class="pre">(pca_tas</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">pca_pr)</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">the</span> <span class="pre">per-block</span> <span class="pre">PC</span> <span class="pre">counts</span> <span class="pre">(n_tas_pcs</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">n_pr_pcs)</span></code>, and <code class="xref py py-class docutils literal notranslate"><span class="pre">the</span> <span class="pre">new</span> <span class="pre">PC</span> <span class="pre">column-name</span> <span class="pre">lists</span> <span class="pre">(tas_pc_cols</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">pr_pc_cols).</span></code>)</p></li>
+</ul>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#tuple" title="(in Python v3.15)">tuple</a>[<em>DataFrame</em>, <a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.15)">dict</a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="toplevel.html" class="btn btn-neutral float-left" title="Data, timeseries, I/O &amp; plotting" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="clustering.html" class="btn btn-neutral float-right" title="Clustering &amp; metric learning" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, Jamir Priesner.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

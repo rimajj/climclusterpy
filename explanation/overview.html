@@ -1,0 +1,539 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Overview &mdash; climclusterpy 0.5</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=f2cc2102" />
+
+  
+    <link rel="shortcut icon" href="../_static/logo.svg"/>
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=1dd76d02"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Scientific Methods" href="methods.html" />
+    <link rel="prev" title="Explanation" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            climclusterpy
+              <img src="../_static/logo.svg" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">Tutorials</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/one_call_roundtrip.html">Tutorial 0 — the whole workflow in two calls</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/one_call_roundtrip.html#the-idea">The idea</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/one_call_roundtrip.html#call-1-build-the-reduced-grid">Call 1 — build the reduced grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/one_call_roundtrip.html#call-2-rebuild-the-original-grid">Call 2 — rebuild the original grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/one_call_roundtrip.html#the-complete-script">The complete script</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/one_call_roundtrip.html#run-it">Run it</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/one_call_roundtrip.html#next-steps">Next steps</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/euclidean_clustering.html">Tutorial 1 — Euclidean clustering</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/euclidean_clustering.html#load-data-and-build-a-feature-matrix">Load data and build a feature matrix</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/euclidean_clustering.html#cluster">Cluster</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/euclidean_clustering.html#the-complete-script">The complete script</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/euclidean_clustering.html#run-it">Run it</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/euclidean_clustering.html#next-steps">Next steps</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/lmnn_clustering.html">Tutorial 2 — LMNN metric-learning clustering</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/lmnn_clustering.html#provide-a-supervision-signal">Provide a supervision signal</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/lmnn_clustering.html#learn-a-metric-and-cluster">Learn a metric and cluster</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/lmnn_clustering.html#the-complete-script">The complete script</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/lmnn_clustering.html#run-it">Run it</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/lmnn_clustering.html#next-steps">Next steps</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/supervision.html">Tutorial 3 — Supervision signals</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/supervision.html#koppengeiger-from-monthly-climatology">Köppen–Geiger from monthly climatology</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/supervision.html#model-output-trait-clustering">Model-output (trait) clustering</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/supervision.html#the-complete-script">The complete script</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/supervision.html#run-it">Run it</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/supervision.html#ecoregion-supervision">Ecoregion supervision</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/reconstruction.html">Tutorial 4 — Reconstruct the original grid</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/reconstruction.html#the-round-trip">The round trip</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/reconstruction.html#verify">Verify</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/reconstruction.html#the-complete-script">The complete script</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/reconstruction.html#run-it">Run it</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/reconstruction.html#next-steps">Next steps</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/index.html#a-note-on-the-synthetic-data">A note on the synthetic data</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">How-to guides</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../howto/index.html">How-to guides</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../howto/install.html">Install climclusterpy</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../howto/install.html#base-install">Base install</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/install.html#optional-extras">Optional extras</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/install.html#installing-the-geospatial-extras-with-conda">Installing the geospatial extras with conda</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/install.html#pytorch-cpu-vs-gpu">PyTorch (CPU vs. GPU)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/install.html#environment-variables">Environment variables</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/install.html#building-the-documentation">Building the documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../howto/inputs.html">Prepare the input files</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../howto/inputs.html#check-your-input-first">Check your input first</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/inputs.html#the-files">The files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/inputs.html#grid-and-coordinates">Grid and coordinates</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/inputs.html#which-cells-exist-the-soil-code">Which cells exist: the soil code</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/inputs.html#the-time-axis">The time axis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/inputs.html#missing-values">Missing values</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/inputs.html#another-vegetation-model-s-input">Another vegetation model’s input</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/inputs.html#output-files">Output files</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../howto/clustering.html">Cluster a feature matrix (choose a mode)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../howto/clustering.html#euclidean-mode-no-supervision">Euclidean mode (no supervision)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/clustering.html#lmnn-mode-supervised-metric-learning">LMNN mode (supervised metric learning)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/clustering.html#lower-level-control">Lower-level control</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../howto/supervision.html">Build an LMNN supervision signal</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../howto/supervision.html#from-climate-koppengeiger">From climate — Köppen–Geiger</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/supervision.html#from-model-output-traits">From model output — traits</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/supervision.html#from-a-shapefile-ecoregions2017">From a shapefile — Ecoregions2017</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/supervision.html#using-the-signal">Using the signal</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/supervision.html#in-one-call">In one call</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/supervision.html#saved-results-are-reused-only-for-the-same-inputs">Saved results are reused only for the same inputs</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../howto/cell_selection.html">Choosing the cells a cluster is simulated on</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../howto/cell_selection.html#the-patch-budget">The patch budget</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/cell_selection.html#what-the-drawn-cells-carry">What the drawn cells carry</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/cell_selection.html#reproducibility">Reproducibility</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/cell_selection.html#looking-at-a-draw-without-building-a-grid">Looking at a draw without building a grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/cell_selection.html#back-to-the-full-grid">Back to the full grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/cell_selection.html#a-model-that-reads-its-own-inputs-the-grid-only-then-cut-the-rest">A model that reads its own inputs: the grid only, then cut the rest</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../howto/reconstruct.html">Reconstruct the original grid</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../howto/reconstruct.html#the-usual-call">The usual call</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/reconstruct.html#picking-up-where-you-left-off">Picking up where you left off</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/reconstruct.html#without-a-result-or-run-folder">Without a result or run folder</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/reconstruct.html#required-mapping-files">Required mapping files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/reconstruct.html#reconstruction-paths-kind">Reconstruction paths (<code class="docutils literal notranslate"><span class="pre">kind</span></code>)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/reconstruct.html#verifying-the-result">Verifying the result</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../reference/index.html">Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../reference/api.html">Public API — <code class="xref py py-mod docutils literal notranslate"><span class="pre">climclusterpy</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../reference/api.html#the-two-headline-functions">The two headline functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/api.html#before-and-after-the-model-run">Before and after the model run</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/api.html#input-for-a-model-other-than-lpjml">Input for a model other than LPJmL</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/api.html#other-ways-to-build-the-reduced-grid">Other ways to build the reduced grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/api.html#reusing-a-trained-metric">Reusing a trained metric</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/api.html#the-model-s-other-inputs">The model’s other inputs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/api.html#writing-the-reduced-grid-yourself">Writing the reduced grid yourself</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/api.html#building-blocks">Building blocks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/api.html#result-objects">Result objects</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/toplevel.html">Data, timeseries, I/O &amp; plotting</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../reference/toplevel.html#module-climclusterpy.data">Data loading &amp; the grid registry</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/toplevel.html#how-much-the-package-reports">How much the package reports</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/toplevel.html#coordinates">Coordinates</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/toplevel.html#module-climclusterpy.timeseries">Per-cluster timeseries</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/toplevel.html#module-climclusterpy.io">File input/output</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/toplevel.html#module-climclusterpy.preprocessing">Preprocessing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/toplevel.html#module-climclusterpy.viz">Plotting</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/features.html">Feature engineering</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../reference/features.html#ecological-summaries">Ecological summaries</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/features.html#vegetation-model-traits">Vegetation-model traits</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/features.html#standardization-filtering">Standardization &amp; filtering</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/clustering.html">Clustering &amp; metric learning</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../reference/clustering.html#hierarchical-clustering">Hierarchical clustering</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/clustering.html#module-climclusterpy.clustering.lmnn">LMNN metric learning</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/supervision.html">Supervision labels</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../reference/supervision.html#koppengeiger-climate-zones">Köppen–Geiger climate zones</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/supervision.html#vegetation-model-output-traits">Vegetation-model output traits</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/supervision.html#ecoregion-polygons">Ecoregion polygons</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/supervision.html#daily-input-helpers">Daily-input helpers</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/grid.html">Grid building &amp; reconstruction</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../reference/grid.html#where-each-reduced-cell-is-placed">Where each reduced cell is placed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/grid.html#writing-the-reduced-grid">Writing the reduced grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/grid.html#reconstruction">Reconstruction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/grid.html#lpjml-clm-conversion">LPJmL CLM conversion</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/cli.html">Command-line interface (<code class="docutils literal notranslate"><span class="pre">climclu</span></code>)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../reference/cli.html#the-two-headline-commands">The two headline commands</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/cli.html#building-blocks">Building blocks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/cli.html#options-shared-by-every-action-command">Options shared by every action command</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/cli.html#errors-and-exit-codes">Errors and exit codes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/index.html#which-function-do-i-need">Which function do I need?</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Explanation</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Explanation</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Overview</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#design-philosophy">Design Philosophy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#workflow-summary">Workflow Summary</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#key-innovations">Key Innovations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#use-cases">Use Cases</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#limitations">Limitations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#future-directions">Future Directions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#references">References</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="methods.html">Scientific Methods</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="methods.html#data-acquisition-and-preprocessing">Data Acquisition and Preprocessing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="methods.html#ecoregion-assignment">Ecoregion Assignment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="methods.html#ecological-feature-summarization">Ecological Feature Summarization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="methods.html#feature-standardization-and-filtering">Feature Standardization and Filtering</a></li>
+<li class="toctree-l3"><a class="reference internal" href="methods.html#large-margin-nearest-neighbor-lmnn-metric-learning">Large Margin Nearest Neighbor (LMNN) Metric Learning</a></li>
+<li class="toctree-l3"><a class="reference internal" href="methods.html#hierarchical-clustering">Hierarchical Clustering</a></li>
+<li class="toctree-l3"><a class="reference internal" href="methods.html#representative-cell-selection">Representative Cell Selection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="methods.html#evaluation-metrics">Evaluation Metrics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="methods.html#netcdf-processing">NetCDF Processing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="methods.html#computational-implementation">Computational Implementation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#reconstruction-correctness">Reconstruction correctness</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">climclusterpy</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Explanation</a></li>
+      <li class="breadcrumb-item active">Overview</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://gitlab.pik-potsdam.de/lpjmlfit_analysis/climclusterpy/blob/main/docs/src/explanation/overview.rst" class="fa fa-gitlab"> Edit on GitLab</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="overview">
+<h1>Overview<a class="headerlink" href="#overview" title="Link to this heading"></a></h1>
+<p><code class="docutils literal notranslate"><span class="pre">climclusterpy</span></code> is a comprehensive Python package for performing ecologically-informed spatial clustering of climate and soil data. The package is designed to reduce computational complexity in land surface models while preserving essential spatial heterogeneity patterns.</p>
+<p>The package was developed to address the challenge of downscaling global land surface models by identifying climatically-similar grid cells that can be aggregated without significant loss of ecological information.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This page explains <em>why</em> the package is built the way it is. The workflow below is run
+in one call by <a class="reference internal" href="../reference/api.html#climclusterpy.create_clusters" title="climclusterpy.create_clusters"><code class="xref py py-func docutils literal notranslate"><span class="pre">create_clusters()</span></code></a> and undone by
+<a class="reference internal" href="../reference/api.html#climclusterpy.reconstruct_original_grid" title="climclusterpy.reconstruct_original_grid"><code class="xref py py-func docutils literal notranslate"><span class="pre">reconstruct_original_grid()</span></code></a>; the building blocks
+<a class="reference internal" href="../reference/api.html#climclusterpy.cluster_matrix" title="climclusterpy.cluster_matrix"><code class="xref py py-func docutils literal notranslate"><span class="pre">cluster_matrix()</span></code></a> and <a class="reference internal" href="../reference/api.html#climclusterpy.compute_supervision" title="climclusterpy.compute_supervision"><code class="xref py py-func docutils literal notranslate"><span class="pre">compute_supervision()</span></code></a>,
+and the concept packages below, expose single steps. See the <a class="reference internal" href="../reference/api.html"><span class="doc">Public API — climclusterpy</span></a>
+and the runnable <a class="reference internal" href="../tutorials/index.html"><span class="doc">Tutorials</span></a>.</p>
+</div>
+<section id="design-philosophy">
+<h2>Design Philosophy<a class="headerlink" href="#design-philosophy" title="Link to this heading"></a></h2>
+<p>The package follows several key design principles:</p>
+<p><strong>1. Scientific Rigor</strong></p>
+<p>All algorithms are based on peer-reviewed methods with clear mathematical formulations. The LMNN implementation follows Weinberger &amp; Saul (2009), ecoregion assignments use the Ecoregions2017 framework (Dinerstein et al., 2017), and clustering employs standard hierarchical methods with Ward’s linkage.</p>
+<p><strong>2. Computational Efficiency</strong></p>
+<p>Large-scale climate datasets (often &gt;10 GB) require careful memory management:</p>
+<ul class="simple">
+<li><p><strong>Dask chunking</strong>: Parallel processing with configurable chunk sizes</p></li>
+<li><p><strong>Float32 conversion</strong>: Automatic precision reduction (-50% memory)</p></li>
+<li><p><strong>Valid-cell masking</strong>: Eliminate ocean/missing cells from computation</p></li>
+<li><p><strong>Lazy evaluation</strong>: Only compute what’s needed</p></li>
+<li><p><strong>Caching</strong>: Save intermediate results for rapid iteration</p></li>
+</ul>
+<p><strong>3. Ecological Interpretability</strong></p>
+<p>Rather than using raw time series, the package transforms climate data into interpretable summary statistics:</p>
+<ul class="simple">
+<li><p>Annual means and variability</p></li>
+<li><p>Seasonal patterns (monthly climatology, compressed via whitened block PCA)</p></li>
+<li><p>Extreme values (wet-day frequency, temperature range)</p></li>
+<li><p>Coefficients of variation</p></li>
+<li><p>Köppen–Geiger diagnostic scalars (warmest/coldest month, seasonality ratios, aridity index)</p></li>
+<li><p>Ecology diagnostic features (vapour pressure deficit, growing degree days, frost-free days, PET, moisture balance, dry spells, precipitation intensity)</p></li>
+</ul>
+<p>These features align with how ecologists characterize climate regimes.</p>
+<p><strong>4. Modular Architecture</strong></p>
+<p>The package is organized into logical submodules:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>climclusterpy/
+├── __init__.py    # The public surface — start here
+├── cli.py         # `climclu`, mirroring the public functions
+├── data/          # Loading, coordinates, cell-identity registry
+├── features/      # Ecological summaries, filtering, climatology
+├── supervision/   # Class labels: Köppen–Geiger, ecoregions, model traits
+├── clustering/    # Hierarchical clustering; lmnn/ metric learning
+├── timeseries/    # Cluster mean / representative / distributed extraction
+├── grid/          # Build the reduced grid; reconstruct the original one
+├── io/            # NetCDF read/write; LPJmL CLM conversion and grid files
+├── preprocessing/ # Coordinate alignment, region masking
+└── viz/           # Plotting helpers
+</pre></div>
+</div>
+<p>Each of these packages lists its public names in <code class="docutils literal notranslate"><span class="pre">__all__</span></code>; the modules inside them are
+internal.</p>
+<p>This allows users to:</p>
+<ul class="simple">
+<li><p>Use individual components independently</p></li>
+<li><p>Drive the steps of <a class="reference internal" href="../reference/api.html#climclusterpy.create_clusters" title="climclusterpy.create_clusters"><code class="xref py py-func docutils literal notranslate"><span class="pre">create_clusters()</span></code></a> one by one</p></li>
+<li><p>Extend functionality without modifying core code</p></li>
+</ul>
+</section>
+<section id="workflow-summary">
+<h2>Workflow Summary<a class="headerlink" href="#workflow-summary" title="Link to this heading"></a></h2>
+<p>A typical workflow consists of:</p>
+<ol class="arabic">
+<li><p><strong>Data Loading</strong> (<a class="reference internal" href="../reference/toplevel.html#module-climclusterpy.data" title="climclusterpy.data"><code class="xref py py-mod docutils literal notranslate"><span class="pre">climclusterpy.data</span></code></a>)</p>
+<ul class="simple">
+<li><p>Open NetCDF files with chunking</p></li>
+<li><p>Standardize coordinates</p></li>
+<li><p>Build valid-cell registry</p></li>
+</ul>
+</li>
+<li><p><strong>Ecoregion Assignment</strong> (<a class="reference internal" href="../reference/supervision.html#module-climclusterpy.supervision" title="climclusterpy.supervision"><code class="xref py py-mod docutils literal notranslate"><span class="pre">climclusterpy.supervision</span></code></a>)</p>
+<ul class="simple">
+<li><p>Load ecoregion shapefile</p></li>
+<li><p>Perform spatial join (point-in-polygon)</p></li>
+<li><p>Assign ecoregion labels to cells</p></li>
+</ul>
+</li>
+<li><p><strong>Feature Engineering</strong> (<a class="reference internal" href="../reference/features.html#module-climclusterpy.features" title="climclusterpy.features"><code class="xref py py-mod docutils literal notranslate"><span class="pre">climclusterpy.features</span></code></a>)</p>
+<ul class="simple">
+<li><p>Compute ecological summaries (temperature, precipitation, radiation, humidity)</p></li>
+<li><p>Compute Köppen–Geiger diagnostic scalar features (warmest/coldest month, seasonality, aridity)</p></li>
+<li><p>Compute ecology diagnostic features (VPD, GDD, frost-free days, PET, moisture balance, dry spells, precipitation intensity)</p></li>
+<li><p>Block PCA compression of monthly profiles with whitening</p></li>
+<li><p>Standardize to zero mean, unit variance</p></li>
+<li><p>Remove correlated features (Spearman ρ &gt; 0.9)</p></li>
+<li><p>PCA diagnostic filtering (retain features contributing &gt;1% to 95% variance)</p></li>
+</ul>
+</li>
+<li><p><strong>Clustering Mode Selection</strong> (<a class="reference internal" href="../reference/api.html#climclusterpy.cluster_matrix" title="climclusterpy.cluster_matrix"><code class="xref py py-func docutils literal notranslate"><span class="pre">cluster_matrix()</span></code></a>, <code class="docutils literal notranslate"><span class="pre">locally_weighted=</span></code>)</p>
+<p>Two modes are supported:</p>
+<ul class="simple">
+<li><p><strong>Euclidean</strong> (<code class="docutils literal notranslate"><span class="pre">locally_weighted=False</span></code>): plain agglomerative clustering of the
+(optionally standardized) feature matrix — no supervision needed.</p></li>
+<li><p><strong>LMNN</strong> (<code class="docutils literal notranslate"><span class="pre">locally_weighted=True</span></code>): a supervised distance metric is learned first, then
+hierarchical clustering runs in the learned metric space.</p></li>
+</ul>
+</li>
+<li><p><strong>LMNN Metric Learning</strong> (LMNN mode, <a class="reference internal" href="../reference/clustering.html#module-climclusterpy.clustering.lmnn" title="climclusterpy.clustering.lmnn"><code class="xref py py-mod docutils literal notranslate"><span class="pre">climclusterpy.clustering.lmnn</span></code></a>)</p>
+<ul class="simple">
+<li><p>Train a metric that pulls same-class cells together and pushes different-class
+cells apart, using a supervision signal (see step 2 /
+<a class="reference internal" href="../reference/api.html#climclusterpy.compute_supervision" title="climclusterpy.compute_supervision"><code class="xref py py-func docutils literal notranslate"><span class="pre">compute_supervision()</span></code></a>).</p></li>
+<li><p>Choose a sub-mode: lowrank (the default; a low-rank metric per cell), global (one
+Mahalanobis metric), local (a diagonal metric per cell), or enhanced (local, adapted
+for small classes).</p></li>
+<li><p>Extract feature importance from the learned metric.</p></li>
+</ul>
+</li>
+<li><p><strong>Hierarchical Clustering</strong> (Feature clustering mode, <a class="reference internal" href="../reference/clustering.html#module-climclusterpy.clustering" title="climclusterpy.clustering"><code class="xref py py-mod docutils literal notranslate"><span class="pre">climclusterpy.clustering</span></code></a>)</p>
+<ul class="simple">
+<li><p>Compute Ward’s linkage on LMNN-transformed features or precomputed distances</p></li>
+<li><p>Cut dendrogram to K clusters</p></li>
+</ul>
+</li>
+<li><p><strong>Representative Selection</strong> (<a class="reference internal" href="../reference/toplevel.html#module-climclusterpy.timeseries" title="climclusterpy.timeseries"><code class="xref py py-mod docutils literal notranslate"><span class="pre">climclusterpy.timeseries</span></code></a>)</p>
+<ul class="simple">
+<li><p>For each cluster (or ecoregion), choose the real cell(s) the model is run on</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">representative=</span></code>: <code class="docutils literal notranslate"><span class="pre">&quot;medoid&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;centroid&quot;</span></code> (nearest the cluster mean), <code class="docutils literal notranslate"><span class="pre">&quot;random&quot;</span></code>
+(one member drawn at random) or <code class="docutils literal notranslate"><span class="pre">&quot;distributed&quot;</span></code> (<code class="docutils literal notranslate"><span class="pre">cells_per_cluster</span></code> members drawn at
+random, the <code class="docutils literal notranslate"><span class="pre">npatch</span></code> budget split evenly between them) — see <a class="reference internal" href="../howto/cell_selection.html"><span class="doc">Choosing the cells a cluster is simulated on</span></a></p></li>
+<li><p>Distributed mode writes every chosen cell at its own position on the source grid
+(<a class="reference internal" href="../reference/grid.html#climclusterpy.grid.write_distributed_grid" title="climclusterpy.grid.write_distributed_grid"><code class="xref py py-func docutils literal notranslate"><span class="pre">write_distributed_grid()</span></code></a>)</p></li>
+</ul>
+</li>
+<li><p><strong>NetCDF Export</strong> (<a class="reference internal" href="../reference/grid.html#climclusterpy.grid.build_reduced_grid" title="climclusterpy.grid.build_reduced_grid"><code class="xref py py-func docutils literal notranslate"><span class="pre">build_reduced_grid()</span></code></a>)</p>
+<ul class="simple">
+<li><p>Write cluster/ecoregion timeseries to NetCDF</p></li>
+<li><p>Path structure: <code class="docutils literal notranslate"><span class="pre">{method_type}/{timeseries_type}/</span></code> where method_type is “ecoregions” or “clusters”</p></li>
+<li><p>Include metadata (cluster size, representative coordinates)</p></li>
+</ul>
+</li>
+<li><p><strong>Reconstruction</strong> (<a class="reference internal" href="../reference/api.html#climclusterpy.reconstruct_original_grid" title="climclusterpy.reconstruct_original_grid"><code class="xref py py-func docutils literal notranslate"><span class="pre">reconstruct_original_grid()</span></code></a>)</p>
+<ul class="simple">
+<li><p>Map cluster/ecoregion results back to original grid</p></li>
+<li><p>Validate accuracy</p></li>
+</ul>
+</li>
+<li><p><strong>Analysis</strong> (the <code class="docutils literal notranslate"><span class="pre">climclusterpy-research</span></code> repository)</p></li>
+</ol>
+<blockquote>
+<div><p>Evaluation metrics and diagnostics — ARI/NMI against reference ecoregions, cluster maps,
+feature-importance plots, cell-vs-cluster feature comparisons — live in the separate
+research repository, which installs this package and calls its public API. They are
+kept out of the library so that it holds only what a user needs to build and undo a
+reduced grid.</p>
+</div></blockquote>
+</section>
+<section id="key-innovations">
+<h2>Key Innovations<a class="headerlink" href="#key-innovations" title="Link to this heading"></a></h2>
+<section id="enhanced-lmnn-for-small-and-large-ecoregions">
+<h3>Enhanced LMNN for Small and Large Ecoregions<a class="headerlink" href="#enhanced-lmnn-for-small-and-large-ecoregions" title="Link to this heading"></a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">&quot;enhanced&quot;</span></code> metric-learning mode extends standard LMNN to handle datasets with variable-sized ecoregions (common in ecological data):</p>
+<ul class="simple">
+<li><p><strong>Proportional Adaptive k</strong>: Scales neighborhood size with class size using k_i = min(k_max, max(k_min, floor(beta * n_i)))</p>
+<ul>
+<li><p>Small classes (&lt;5 samples): k_i = k_min to avoid overfitting</p></li>
+<li><p>Large classes (e.g., 500 samples): k_i scales up (e.g., k_i=25 with beta=0.05)</p></li>
+<li><p>Configurable via ADAPTIVE_K_MIN, ADAPTIVE_K_MAX, ADAPTIVE_K_BETA parameters</p></li>
+</ul>
+</li>
+<li><p><strong>Prototype fallback</strong>: Uses class centroids for tiny classes (&lt;5 samples) instead of k-nearest neighbors</p></li>
+<li><p><strong>Ecological jittering</strong>: Oversamples small classes with variable-specific noise</p></li>
+<li><p><strong>k_i statistics</strong>: Tracks k_i distribution across anchors for diagnostic monitoring</p></li>
+</ul>
+<p>This enables learning from imbalanced ecoregion distributions where some regions have &lt;10 grid cells while others span 500+ cells. Proportional adaptive-k allows large ecoregions to maintain internal cohesion through broader neighborhoods while preventing small-class overfitting.</p>
+</section>
+<section id="data-registry-system">
+<h3>Data Registry System<a class="headerlink" href="#data-registry-system" title="Link to this heading"></a></h3>
+<p>The <a class="reference internal" href="../reference/toplevel.html#climclusterpy.data.DataRegistry" title="climclusterpy.data.DataRegistry"><code class="xref py py-class docutils literal notranslate"><span class="pre">climclusterpy.data.DataRegistry</span></code></a> provides a centralized system for managing spatial grids:</p>
+<ul class="simple">
+<li><p>Tracks valid cells (excluding ocean/missing data)</p></li>
+<li><p>Maintains ID mappings between original and artificial grids</p></li>
+<li><p>Provides <a class="reference internal" href="../reference/toplevel.html#climclusterpy.data.DataRegistry.flatten_on_valid" title="climclusterpy.data.DataRegistry.flatten_on_valid"><code class="xref py py-meth docutils literal notranslate"><span class="pre">flatten_on_valid()</span></code></a> for efficient array operations</p></li>
+<li><p>Supports repeated-cell patterns for computational oversampling</p></li>
+</ul>
+<p>This abstraction simplifies coordinate handling across the package.</p>
+</section>
+<section id="caching-strategy">
+<h3>Caching Strategy<a class="headerlink" href="#caching-strategy" title="Link to this heading"></a></h3>
+<p>The package implements aggressive caching of intermediate results:</p>
+<ul class="simple">
+<li><p>Raw features (pre-standardization)</p></li>
+<li><p>Standardized features</p></li>
+<li><p>Correlation-filtered features</p></li>
+<li><p>PCA-filtered features</p></li>
+<li><p>LMNN-transformed features / distance matrices</p></li>
+<li><p>Cluster labels and dendrograms</p></li>
+</ul>
+<p>Files are named with configuration suffixes (e.g., <code class="docutils literal notranslate"><span class="pre">features_filtered_corr0p9_pca0p95_contrib0p01.csv</span></code>) to enable rapid experimentation with different hyperparameters without full pipeline recomputation.</p>
+</section>
+</section>
+<section id="use-cases">
+<h2>Use Cases<a class="headerlink" href="#use-cases" title="Link to this heading"></a></h2>
+<p><strong>Land Surface Modeling</strong></p>
+<p>Reduce spatial resolution for computationally expensive land surface models (e.g., LPJ-ML) by aggregating similar cells while preserving ecosystem diversity.</p>
+<p><strong>Climate Regionalization</strong></p>
+<p>Identify homogeneous climate zones for regional climate studies or downscaling applications.</p>
+<p><strong>Ecoregion Validation</strong></p>
+<p>Validate expert-defined ecoregion boundaries using data-driven clustering and quantify agreement via ARI/NMI metrics.</p>
+<p><strong>Feature Importance Analysis</strong></p>
+<p>Determine which climate variables most strongly distinguish ecoregions via LMNN feature importance.</p>
+</section>
+<section id="limitations">
+<h2>Limitations<a class="headerlink" href="#limitations" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><strong>Spatial autocorrelation</strong>: Clustering does not explicitly account for spatial connectivity (cells are treated as independent)</p></li>
+<li><p><strong>Temporal dynamics</strong>: Summaries capture climatology but not interannual variability or trends</p></li>
+<li><p><strong>Computational cost</strong>: Enhanced LMNN with neural networks is slower than global LMNN for large datasets</p></li>
+<li><p><strong>Categorical soil data</strong>: Soil codes are one-hot encoded, so every pair of different soil types is equally far apart; similarities between textures (a loam is closer to a sandy loam than to clay) are not represented</p></li>
+</ul>
+</section>
+<section id="future-directions">
+<h2>Future Directions<a class="headerlink" href="#future-directions" title="Link to this heading"></a></h2>
+<p>Potential extensions include:</p>
+<ul class="simple">
+<li><p>Spatially-constrained clustering (contiguity constraints)</p></li>
+<li><p>Temporal clustering of interannual variability patterns</p></li>
+<li><p>Integration with vegetation data for biogeographic classification</p></li>
+<li><p>Uncertainty quantification for cluster assignments</p></li>
+<li><p>Online clustering for streaming data</p></li>
+</ul>
+</section>
+<section id="references">
+<h2>References<a class="headerlink" href="#references" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Weinberger, K. Q., &amp; Saul, L. K. (2009). Distance metric learning for large margin nearest neighbor classification. <em>Journal of Machine Learning Research</em>, 10, 207-244.</p></li>
+<li><p>Dinerstein, E., Olson, D., Joshi, A., et al. (2017). An ecoregion-based approach to protecting half the terrestrial realm. <em>BioScience</em>, 67(6), 534-545.</p></li>
+<li><p>Ward, J. H. (1963). Hierarchical grouping to optimize an objective function. <em>Journal of the American Statistical Association</em>, 58(301), 236-244.</p></li>
+</ul>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="Explanation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="methods.html" class="btn btn-neutral float-right" title="Scientific Methods" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, Jamir Priesner.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

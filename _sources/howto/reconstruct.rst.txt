@@ -1,0 +1,119 @@
+Reconstruct the original grid
+=============================
+
+After the vegetation model runs on the reduced cluster/artificial grid, every original
+land cell is given **its cluster's value** and the result is written as a NetCDF on the
+original grid. Placement uses strict ID mapping (no coordinate matching), and it runs on
+the core install (numpy/pandas/xarray).
+
+The usual call
+--------------
+
+With the result of :func:`~climclusterpy.create_clusters` at hand,
+:func:`~climclusterpy.reconstruct_original_grid` needs nothing else:
+
+.. code-block:: python
+
+   from climclusterpy import create_clusters, reconstruct_original_grid
+
+   clusters = create_clusters("/data/climate_input", n_clusters=2000,
+                              output_dir="./clusters_2000")
+   # ... run the vegetation model on clusters.netcdf_files ...
+   full = reconstruct_original_grid("vegc.nc", clusters=clusters)
+   full.path     # the reconstructed NetCDF (full.files when several inputs were given)
+
+Picking up where you left off
+-----------------------------
+
+The model run usually takes days, so the Python session that called ``create_clusters``
+is long gone when its output arrives. :func:`~climclusterpy.load_clusters` rebuilds the
+result from the output folder, which holds everything needed (the mapping files, the
+labels and ``original_grid.nc``):
+
+.. code-block:: python
+
+   from climclusterpy import load_clusters, reconstruct_original_grid
+
+   clusters = load_clusters("./clusters_2000")
+   full = reconstruct_original_grid("vegc.nc", clusters=clusters)
+
+   # the same in one step:
+   full = reconstruct_original_grid("vegc.nc", clusters="./clusters_2000")
+
+The folder may be moved or copied to another machine as a whole: the paths in its run
+record are relative to it. A folder written by a version before 0.3.0 has no run record;
+for it, use the explicit call below.
+
+Without a result or run folder
+------------------------------
+
+Give :func:`~climclusterpy.reconstruct_original_grid` the mapping CSVs and a
+:class:`~climclusterpy.data.DataRegistry` describing the original grid instead. Get the
+registry from the saved grid file, or rebuild it from the same soil-code file the reduced
+grid was built from (which gives every cell the same ``cell_id``):
+
+.. code-block:: python
+
+   from climclusterpy import DataRegistry, reconstruct_original_grid
+
+   registry = DataRegistry.load("clusters_67/original_grid.nc")
+   # or: registry = DataRegistry.from_soil_code("/data/climate_input/soil_code.nc")
+
+   out_path = reconstruct_original_grid(
+       "vegc_clustered.nc",             # output simulated on the cluster grid
+       registry=registry,
+       id_mapping_csv="clusters_67/cluster_id_mapping_67.csv",
+       compact_map_csv="clusters_67/cluster_compact_map_67.csv",
+       output_dir="reconstructed",
+   ).path
+
+Required mapping files
+----------------------
+
+Both are written into the output folder by :func:`~climclusterpy.create_clusters` (and by
+:func:`~climclusterpy.grid.build_reduced_grid` underneath it):
+
+``id_mapping_csv`` — ``cluster_id_mapping_{K}.csv``
+   One row per original (valid) cell: ``original_cell_id``, ``new_cell_id``,
+   ``cluster_index``, ``cluster_label``.
+
+``compact_map_csv`` — ``cluster_compact_map_{K}.csv``
+   Maps each cluster to its position on the artificial grid: ``cluster_label``,
+   ``lat_index``, ``cluster_index_start``, ``cluster_index_end``.
+
+.. warning::
+
+   Use the **compact** map (``cluster_compact_map_{K}.csv``, with
+   ``cluster_index_start``/``cluster_index_end``), not a legacy plain latrow map. When
+   *K* approaches the number of cells, several clusters share a latitude row on the
+   artificial grid; the compact map's exact longitude span is what lets reconstruction
+   read each cluster's own value instead of averaging the whole row.
+
+Reconstruction paths (``kind``)
+-------------------------------
+
+``"output"`` (default)
+   One simulated cell per cluster: model output (dims ``lat``/``lon``, as LPJmL writes
+   them) or a reduced-grid NetCDF this package wrote (dims ``latitude``/``longitude``);
+   all spatial variables are reconstructed.
+   → :func:`~climclusterpy.grid.reconstruct_output_netcdf`.
+
+``"distributed"``
+   Output of a ``representative="distributed"`` grid (several cells per cluster); also pass
+   ``distributed_mapping_csv`` and ``labels_csv``, and optionally ``aggregate="median"``.
+   :func:`~climclusterpy.reconstruct_original_grid` picks this path, and both files, from the
+   ``create_clusters`` result on its own — see :doc:`cell_selection`.
+   → :func:`~climclusterpy.grid.reconstruct_from_distributed`.
+
+Verifying the result
+--------------------
+
+:func:`~climclusterpy.grid.validate_reconstruction_grid` checks that the reconstructed
+grid matches the original (cells that are not land stay ``NaN``). ``registry`` is the
+:class:`~climclusterpy.data.DataRegistry` from above, or ``clusters.registry``:
+
+.. code-block:: python
+
+   from climclusterpy.grid import validate_reconstruction_grid
+
+   assert validate_reconstruction_grid(out_path, registry, var_name="vegc")

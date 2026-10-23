@@ -1,0 +1,86 @@
+climclusterpy
+=============
+
+.. image:: _static/logo-wordmark.svg
+   :alt: climclusterpy
+   :width: 420px
+
+**Ecologically-informed spatial clustering of climate and soil grids.**
+
+``climclusterpy`` groups climatically-similar grid cells so that a land-surface /
+vegetation model (LPJmL-FIT) can run on a small **artificial cluster grid** instead of
+the full grid, and then reconstructs the full original grid from the per-cluster model
+output — cutting simulation cost by the reduction factor you choose.
+
+Two calls do the whole job:
+
+.. code-block:: python
+
+   from climclusterpy import create_clusters, reconstruct_original_grid
+
+   # 1. Reduce the grid: writes model-ready NetCDFs + the mapping CSVs.
+   clusters = create_clusters("/data/climate_input", n_clusters=2000)
+
+   # ... run your vegetation model on clusters.netcdf_files ...
+
+   # 2. Rebuild full resolution from the model's output.
+   full = reconstruct_original_grid("vegc_output.nc", clusters=clusters)
+
+Add ``locally_weighted=True`` to learn a distance metric before clustering, supervised
+either by your model's own output traits or — with no extra data — by Köppen–Geiger
+classes derived from the climate input:
+
+.. code-block:: python
+
+   clusters = create_clusters(
+       "/data/climate_input",
+       n_clusters=2000,
+       locally_weighted=True,
+       supervision_data="/data/model_output/trait_grids",   # or a per-cell CSV
+       supervision=["sla", "wooddens", "height", "biomass"],
+   )
+
+The model run between the two calls usually takes days; ``load_clusters("<output_dir>")``
+gets the result back in a new session (see :doc:`howto/reconstruct`). Not sure which
+function you need? See :doc:`reference/index`.
+
+Underneath, the package also exposes the individual building blocks
+(:func:`~climclusterpy.cluster_matrix`, :func:`~climclusterpy.compute_supervision`, and
+the concept packages such as :mod:`climclusterpy.grid`) for when you want to drive the steps
+yourself.
+Heavy/optional dependencies are only required when you actually use them — see
+:doc:`howto/install`.
+
+Documentation is organised along the `Diátaxis <https://diataxis.fr/>`_ framework:
+
+* :doc:`tutorials/index` — learning-oriented, end-to-end walkthroughs you can run on
+  built-in synthetic data.
+* :doc:`howto/index` — task-oriented recipes (install, prepare the input files, choose a
+  mode, attach a supervision signal, choose the simulated cells, reconstruct — including
+  in a later session, after the model run).
+* :doc:`reference/index` — the public API and CLI, generated from the source.
+* :doc:`explanation/index` — the science and design behind the package.
+
+.. toctree::
+   :hidden:
+   :caption: Tutorials
+
+   tutorials/index
+
+.. toctree::
+   :hidden:
+   :caption: How-to guides
+
+   howto/index
+
+.. toctree::
+   :hidden:
+   :caption: Reference
+
+   reference/index
+
+.. toctree::
+   :hidden:
+   :caption: Explanation
+
+   explanation/index

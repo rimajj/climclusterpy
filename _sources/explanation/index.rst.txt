@@ -1,0 +1,22 @@
+Explanation
+===========
+
+Background on the science and design of ``climclusterpy`` — the *why* behind the code.
+For runnable walkthroughs see :doc:`../tutorials/index`; for task recipes see
+:doc:`../howto/index`.
+
+.. toctree::
+   :maxdepth: 2
+
+   overview
+   methods
+
+Reconstruction correctness
+---------------------------
+
+Reconstruction maps every original land cell back to **its cluster's value** using strict
+ID mapping (no coordinate matching). When the number of clusters approaches the number of
+cells, several clusters can share a single latitude row on the artificial grid, so the
+reconstruction reads the exact longitude span of each cluster from the *compact* row map
+(``cluster_compact_map_{K}.csv``) rather than averaging whole rows. See
+:doc:`../howto/reconstruct` for the mapping files each reconstruction path requires.

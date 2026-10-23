@@ -1,0 +1,1183 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>climclusterpy.data.registry &mdash; climclusterpy 0.5</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/custom.css?v=f2cc2102" />
+
+  
+    <link rel="shortcut icon" href="../../../_static/logo.svg"/>
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=1dd76d02"></script>
+      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            climclusterpy
+              <img src="../../../_static/logo.svg" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorials/index.html">Tutorials</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../tutorials/one_call_roundtrip.html">Tutorial 0 — the whole workflow in two calls</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/one_call_roundtrip.html#the-idea">The idea</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/one_call_roundtrip.html#call-1-build-the-reduced-grid">Call 1 — build the reduced grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/one_call_roundtrip.html#call-2-rebuild-the-original-grid">Call 2 — rebuild the original grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/one_call_roundtrip.html#the-complete-script">The complete script</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/one_call_roundtrip.html#run-it">Run it</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/one_call_roundtrip.html#next-steps">Next steps</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../tutorials/euclidean_clustering.html">Tutorial 1 — Euclidean clustering</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/euclidean_clustering.html#load-data-and-build-a-feature-matrix">Load data and build a feature matrix</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/euclidean_clustering.html#cluster">Cluster</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/euclidean_clustering.html#the-complete-script">The complete script</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/euclidean_clustering.html#run-it">Run it</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/euclidean_clustering.html#next-steps">Next steps</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../tutorials/lmnn_clustering.html">Tutorial 2 — LMNN metric-learning clustering</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/lmnn_clustering.html#provide-a-supervision-signal">Provide a supervision signal</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/lmnn_clustering.html#learn-a-metric-and-cluster">Learn a metric and cluster</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/lmnn_clustering.html#the-complete-script">The complete script</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/lmnn_clustering.html#run-it">Run it</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/lmnn_clustering.html#next-steps">Next steps</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../tutorials/supervision.html">Tutorial 3 — Supervision signals</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/supervision.html#koppengeiger-from-monthly-climatology">Köppen–Geiger from monthly climatology</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/supervision.html#model-output-trait-clustering">Model-output (trait) clustering</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/supervision.html#the-complete-script">The complete script</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/supervision.html#run-it">Run it</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/supervision.html#ecoregion-supervision">Ecoregion supervision</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../tutorials/reconstruction.html">Tutorial 4 — Reconstruct the original grid</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/reconstruction.html#the-round-trip">The round trip</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/reconstruction.html#verify">Verify</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/reconstruction.html#the-complete-script">The complete script</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/reconstruction.html#run-it">Run it</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/reconstruction.html#next-steps">Next steps</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../tutorials/index.html#a-note-on-the-synthetic-data">A note on the synthetic data</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">How-to guides</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../howto/index.html">How-to guides</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../howto/install.html">Install climclusterpy</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/install.html#base-install">Base install</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/install.html#optional-extras">Optional extras</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/install.html#installing-the-geospatial-extras-with-conda">Installing the geospatial extras with conda</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/install.html#pytorch-cpu-vs-gpu">PyTorch (CPU vs. GPU)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/install.html#environment-variables">Environment variables</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/install.html#building-the-documentation">Building the documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../howto/inputs.html">Prepare the input files</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/inputs.html#check-your-input-first">Check your input first</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/inputs.html#the-files">The files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/inputs.html#grid-and-coordinates">Grid and coordinates</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/inputs.html#which-cells-exist-the-soil-code">Which cells exist: the soil code</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/inputs.html#the-time-axis">The time axis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/inputs.html#missing-values">Missing values</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/inputs.html#another-vegetation-model-s-input">Another vegetation model’s input</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/inputs.html#output-files">Output files</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../howto/clustering.html">Cluster a feature matrix (choose a mode)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/clustering.html#euclidean-mode-no-supervision">Euclidean mode (no supervision)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/clustering.html#lmnn-mode-supervised-metric-learning">LMNN mode (supervised metric learning)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/clustering.html#lower-level-control">Lower-level control</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../howto/supervision.html">Build an LMNN supervision signal</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/supervision.html#from-climate-koppengeiger">From climate — Köppen–Geiger</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/supervision.html#from-model-output-traits">From model output — traits</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/supervision.html#from-a-shapefile-ecoregions2017">From a shapefile — Ecoregions2017</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/supervision.html#using-the-signal">Using the signal</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/supervision.html#in-one-call">In one call</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/supervision.html#saved-results-are-reused-only-for-the-same-inputs">Saved results are reused only for the same inputs</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../howto/cell_selection.html">Choosing the cells a cluster is simulated on</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/cell_selection.html#the-patch-budget">The patch budget</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/cell_selection.html#what-the-drawn-cells-carry">What the drawn cells carry</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/cell_selection.html#reproducibility">Reproducibility</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/cell_selection.html#looking-at-a-draw-without-building-a-grid">Looking at a draw without building a grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/cell_selection.html#back-to-the-full-grid">Back to the full grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/cell_selection.html#a-model-that-reads-its-own-inputs-the-grid-only-then-cut-the-rest">A model that reads its own inputs: the grid only, then cut the rest</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../howto/reconstruct.html">Reconstruct the original grid</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/reconstruct.html#the-usual-call">The usual call</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/reconstruct.html#picking-up-where-you-left-off">Picking up where you left off</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/reconstruct.html#without-a-result-or-run-folder">Without a result or run folder</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/reconstruct.html#required-mapping-files">Required mapping files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/reconstruct.html#reconstruction-paths-kind">Reconstruction paths (<code class="docutils literal notranslate"><span class="pre">kind</span></code>)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/reconstruct.html#verifying-the-result">Verifying the result</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../reference/index.html">Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../reference/api.html">Public API — <code class="xref py py-mod docutils literal notranslate"><span class="pre">climclusterpy</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/api.html#the-two-headline-functions">The two headline functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/api.html#before-and-after-the-model-run">Before and after the model run</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/api.html#input-for-a-model-other-than-lpjml">Input for a model other than LPJmL</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/api.html#other-ways-to-build-the-reduced-grid">Other ways to build the reduced grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/api.html#reusing-a-trained-metric">Reusing a trained metric</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/api.html#the-model-s-other-inputs">The model’s other inputs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/api.html#writing-the-reduced-grid-yourself">Writing the reduced grid yourself</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/api.html#building-blocks">Building blocks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/api.html#result-objects">Result objects</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../reference/toplevel.html">Data, timeseries, I/O &amp; plotting</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/toplevel.html#module-climclusterpy.data">Data loading &amp; the grid registry</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/toplevel.html#how-much-the-package-reports">How much the package reports</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/toplevel.html#coordinates">Coordinates</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/toplevel.html#module-climclusterpy.timeseries">Per-cluster timeseries</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/toplevel.html#module-climclusterpy.io">File input/output</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/toplevel.html#module-climclusterpy.preprocessing">Preprocessing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/toplevel.html#module-climclusterpy.viz">Plotting</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../reference/features.html">Feature engineering</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/features.html#ecological-summaries">Ecological summaries</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/features.html#vegetation-model-traits">Vegetation-model traits</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/features.html#standardization-filtering">Standardization &amp; filtering</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../reference/clustering.html">Clustering &amp; metric learning</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/clustering.html#hierarchical-clustering">Hierarchical clustering</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/clustering.html#module-climclusterpy.clustering.lmnn">LMNN metric learning</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../reference/supervision.html">Supervision labels</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/supervision.html#koppengeiger-climate-zones">Köppen–Geiger climate zones</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/supervision.html#vegetation-model-output-traits">Vegetation-model output traits</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/supervision.html#ecoregion-polygons">Ecoregion polygons</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/supervision.html#daily-input-helpers">Daily-input helpers</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../reference/grid.html">Grid building &amp; reconstruction</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/grid.html#where-each-reduced-cell-is-placed">Where each reduced cell is placed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/grid.html#writing-the-reduced-grid">Writing the reduced grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/grid.html#reconstruction">Reconstruction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/grid.html#lpjml-clm-conversion">LPJmL CLM conversion</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../reference/cli.html">Command-line interface (<code class="docutils literal notranslate"><span class="pre">climclu</span></code>)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/cli.html#the-two-headline-commands">The two headline commands</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/cli.html#building-blocks">Building blocks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/cli.html#options-shared-by-every-action-command">Options shared by every action command</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/cli.html#errors-and-exit-codes">Errors and exit codes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../reference/index.html#which-function-do-i-need">Which function do I need?</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Explanation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../explanation/index.html">Explanation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../explanation/overview.html">Overview</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/overview.html#design-philosophy">Design Philosophy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/overview.html#workflow-summary">Workflow Summary</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/overview.html#key-innovations">Key Innovations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/overview.html#use-cases">Use Cases</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/overview.html#limitations">Limitations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/overview.html#future-directions">Future Directions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/overview.html#references">References</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../explanation/methods.html">Scientific Methods</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/methods.html#data-acquisition-and-preprocessing">Data Acquisition and Preprocessing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/methods.html#ecoregion-assignment">Ecoregion Assignment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/methods.html#ecological-feature-summarization">Ecological Feature Summarization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/methods.html#feature-standardization-and-filtering">Feature Standardization and Filtering</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/methods.html#large-margin-nearest-neighbor-lmnn-metric-learning">Large Margin Nearest Neighbor (LMNN) Metric Learning</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/methods.html#hierarchical-clustering">Hierarchical Clustering</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/methods.html#representative-cell-selection">Representative Cell Selection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/methods.html#evaluation-metrics">Evaluation Metrics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/methods.html#netcdf-processing">NetCDF Processing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/methods.html#computational-implementation">Computational Implementation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../explanation/index.html#reconstruction-correctness">Reconstruction correctness</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">climclusterpy</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">climclusterpy.data.registry</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for climclusterpy.data.registry</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
+
+<span class="sd">"""</span>
+<span class="sd">Central data registry for grids, mappings, and dataset alignment.</span>
+
+<span class="sd">Concepts:</span>
+<span class="sd">- OriginalGrid: derived from soil code dataset; assigns a stable original_cell_id per lat/lon.</span>
+<span class="sd">- ArtificialGrid: user-provided grid with new_cell_id; mapping to original cells for repeated cells.</span>
+<span class="sd">- DataRegistry: singleton-ish instance to hold global grids/mappings and provide aligned I/O helpers.</span>
+
+<span class="sd">This module minimizes ad-hoc alignment in other code: consumers fetch aligned data</span>
+<span class="sd">through the registry, ensuring consistent coordinates and IDs.</span>
+<span class="sd">"""</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">dataclasses</span><span class="w"> </span><span class="kn">import</span> <span class="n">dataclass</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">xarray</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">xr</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">.coords</span><span class="w"> </span><span class="kn">import</span> <span class="n">LAT_NAMES</span><span class="p">,</span> <span class="n">LON_NAMES</span>
+
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+
+<span class="sd">"""Registry assumes datasets are already standardized by the loader."""</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_find_coord_names</span><span class="p">(</span><span class="n">ds</span><span class="p">:</span> <span class="n">xr</span><span class="o">.</span><span class="n">Dataset</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">"""Find coordinate names, preferring canonical 'latitude' and 'longitude'.</span>
+
+<span class="sd">    After standardization, all datasets should have canonical names.</span>
+<span class="sd">    Falls back to checking variants for backward compatibility.</span>
+<span class="sd">    """</span>
+    <span class="c1"># Prefer canonical names (should always work after standardization)</span>
+    <span class="k">if</span> <span class="s2">"latitude"</span> <span class="ow">in</span> <span class="n">ds</span><span class="o">.</span><span class="n">coords</span> <span class="ow">and</span> <span class="s2">"longitude"</span> <span class="ow">in</span> <span class="n">ds</span><span class="o">.</span><span class="n">coords</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s2">"latitude"</span><span class="p">,</span> <span class="s2">"longitude"</span>
+
+    <span class="c1"># Fallback for unstandardized datasets</span>
+    <span class="n">lat</span> <span class="o">=</span> <span class="nb">next</span><span class="p">((</span><span class="n">n</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">LAT_NAMES</span> <span class="k">if</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">ds</span><span class="o">.</span><span class="n">coords</span><span class="p">),</span> <span class="kc">None</span><span class="p">)</span>
+    <span class="n">lon</span> <span class="o">=</span> <span class="nb">next</span><span class="p">((</span><span class="n">n</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">LON_NAMES</span> <span class="k">if</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">ds</span><span class="o">.</span><span class="n">coords</span><span class="p">),</span> <span class="kc">None</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">lat</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">lon</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Could not find lat/lon coords. Available: </span><span class="si">{</span><span class="nb">list</span><span class="p">(</span><span class="n">ds</span><span class="o">.</span><span class="n">coords</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">lat</span><span class="p">,</span> <span class="n">lon</span>
+
+
+<div class="viewcode-block" id="OriginalGrid">
+<a class="viewcode-back" href="../../../reference/toplevel.html#climclusterpy.data.OriginalGrid">[docs]</a>
+<span class="nd">@dataclass</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">OriginalGrid</span><span class="p">:</span>
+    <span class="n">latitudes</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span>  <span class="c1"># 1D</span>
+    <span class="n">longitudes</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span>  <span class="c1"># 1D</span>
+    <span class="n">cell_ids</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span>  <span class="c1"># 2D array mapped to (lat, lon) index -&gt; id</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">to_dataset</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">xr</span><span class="o">.</span><span class="n">Dataset</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">xr</span><span class="o">.</span><span class="n">Dataset</span><span class="p">(</span>
+            <span class="n">coords</span><span class="o">=</span><span class="p">{</span><span class="s2">"latitude"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">latitudes</span><span class="p">,</span> <span class="s2">"longitude"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">longitudes</span><span class="p">},</span>
+            <span class="n">data_vars</span><span class="o">=</span><span class="p">{</span><span class="s2">"original_cell_id"</span><span class="p">:</span> <span class="p">((</span><span class="s2">"latitude"</span><span class="p">,</span> <span class="s2">"longitude"</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">cell_ids</span><span class="p">)},</span>
+        <span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="ArtificialGrid">
+<a class="viewcode-back" href="../../../reference/toplevel.html#climclusterpy.data.ArtificialGrid">[docs]</a>
+<span class="nd">@dataclass</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">ArtificialGrid</span><span class="p">:</span>
+    <span class="n">latitudes</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span>
+    <span class="n">longitudes</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span>
+    <span class="c1"># mapping: new_cell_id -&gt; (orig_cell_id)</span>
+    <span class="n">mapping_df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span>  <span class="c1"># columns: [new_cell_id, original_cell_id]</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">to_dataset</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">xr</span><span class="o">.</span><span class="n">Dataset</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">xr</span><span class="o">.</span><span class="n">Dataset</span><span class="p">(</span><span class="n">coords</span><span class="o">=</span><span class="p">{</span><span class="s2">"latitude"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">latitudes</span><span class="p">,</span> <span class="s2">"longitude"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">longitudes</span><span class="p">})</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">mapping</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">mapping_df</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span></div>
+
+
+
+<div class="viewcode-block" id="DataRegistry">
+<a class="viewcode-back" href="../../../reference/toplevel.html#climclusterpy.data.DataRegistry">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">DataRegistry</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Central access point for grids and aligned data.</span>
+
+<span class="sd">    It records which cells of the original grid are land (from the soil-code map) and gives</span>
+<span class="sd">    each one a stable ``cell_id``; reconstruction uses it to put values back in place.</span>
+
+<span class="sd">    Ways to get one:</span>
+
+<span class="sd">    - :func:`~climclusterpy.create_clusters` builds it and puts it on its result</span>
+<span class="sd">      (``clusters.registry``), and saves it as ``original_grid.nc`` in its output folder;</span>
+<span class="sd">    - :meth:`DataRegistry.load` reads such a saved file back;</span>
+<span class="sd">    - :meth:`DataRegistry.from_soil_code` builds it from the soil-code NetCDF of the</span>
+<span class="sd">      original input -- the same file ``create_clusters`` was given.</span>
+
+<span class="sd">    Lower level: ``DataRegistry().init_original_grid_from_soilcode(soil_code_ds)``.</span>
+<span class="sd">    """</span>
+
+    <span class="c1">#: ``format`` attribute of the file :meth:`save` writes, checked by :meth:`load`.</span>
+    <span class="n">FILE_FORMAT</span> <span class="o">=</span> <span class="s2">"climclusterpy original grid"</span>
+
+<div class="viewcode-block" id="DataRegistry.from_soil_code">
+<a class="viewcode-back" href="../../../reference/toplevel.html#climclusterpy.data.DataRegistry.from_soil_code">[docs]</a>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">from_soil_code</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">soil_code</span><span class="p">,</span> <span class="n">var_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"soil_code"</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DataRegistry</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Build the original-grid description from a soil-code NetCDF (path or Dataset).</span>
+
+<span class="sd">        Cells where the soil code is missing are not part of the grid. This is exactly what</span>
+<span class="sd">        :func:`~climclusterpy.create_clusters` does with its ``soil_code`` input, so the same</span>
+<span class="sd">        file gives the same ``cell_id`` for every cell.</span>
+
+<span class="sd">        A cell counts as missing when its value is NaN or equals the variable's ``_FillValue``</span>
+<span class="sd">        / ``missing_value``; when neither is declared, the first of -9999, -999, 9999, -32768</span>
+<span class="sd">        and -1000000 that occurs anywhere in the data is treated as the fill value. A soil code</span>
+<span class="sd">        of 0 is not a soil type -- LPJmL skips such a cell -- so it is left out too (with a</span>
+<span class="sd">        warning; before 0.3.0 it counted as land). The</span>
+<span class="sd">        remaining cells get consecutive ``cell_id`` values 0, 1, 2, … in row-major</span>
+<span class="sd">        (latitude, then longitude) order. If the variable has a ``time`` dimension, only its</span>
+<span class="sd">        first time step is used.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        soil_code : str, os.PathLike or xarray.Dataset</span>
+<span class="sd">            The soil-code input: a path to the NetCDF file, or an already opened Dataset.</span>
+<span class="sd">            A Dataset has its coordinates standardized (see</span>
+<span class="sd">            :func:`~climclusterpy.data.coords.standardize_dataset_coordinates`); a file is</span>
+<span class="sd">            opened the way :func:`~climclusterpy.create_clusters` opens it. In both cases</span>
+<span class="sd">            the variable is found by exact</span>
+<span class="sd">            name, then case-insensitively, then under the aliases ``soiltexture``,</span>
+<span class="sd">            ``soil_tex``, ``soilcode``, then as the only data variable in the file, then by</span>
+<span class="sd">            a ``long_name`` or ``standard_name`` attribute containing ``var_name`` with</span>
+<span class="sd">            underscores read as spaces ("soil code" by default).</span>
+<span class="sd">        var_name : str, optional</span>
+<span class="sd">            Name of the soil-code variable (default ``"soil_code"``).</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        DataRegistry</span>
+<span class="sd">            A registry holding the original grid, its cell ids and its land mask.</span>
+
+<span class="sd">        Raises</span>
+<span class="sd">        ------</span>
+<span class="sd">        FileNotFoundError</span>
+<span class="sd">            If ``soil_code`` is a path that does not exist.</span>
+<span class="sd">        ValueError</span>
+<span class="sd">            If the file cannot be read or no soil-code variable can be identified in it.</span>
+<span class="sd">        """</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">.coords</span><span class="w"> </span><span class="kn">import</span> <span class="n">standardize_dataset_coordinates</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">.loader</span><span class="w"> </span><span class="kn">import</span> <span class="n">_canonicalize_variable</span><span class="p">,</span> <span class="n">_open_dataset</span>
+
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">soil_code</span><span class="p">,</span> <span class="n">xr</span><span class="o">.</span><span class="n">Dataset</span><span class="p">):</span>
+            <span class="n">opened</span> <span class="o">=</span> <span class="n">standardize_dataset_coordinates</span><span class="p">(</span><span class="n">soil_code</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">opened</span> <span class="o">=</span> <span class="n">_open_dataset</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">soil_code</span><span class="p">))</span>
+        <span class="c1"># The same name resolution for a path and an open Dataset, so a file that uses one of</span>
+        <span class="c1"># the older soil variable names works either way.</span>
+        <span class="n">ds</span> <span class="o">=</span> <span class="n">_canonicalize_variable</span><span class="p">(</span>
+            <span class="n">opened</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="n">var_name</span><span class="p">,</span> <span class="n">synonyms</span><span class="o">=</span><span class="p">(</span><span class="s2">"soiltexture"</span><span class="p">,</span> <span class="s2">"soil_tex"</span><span class="p">,</span> <span class="s2">"soilcode"</span><span class="p">)</span>
+        <span class="p">)</span>
+        <span class="k">if</span> <span class="s2">"time"</span> <span class="ow">in</span> <span class="n">ds</span><span class="p">[</span><span class="n">var_name</span><span class="p">]</span><span class="o">.</span><span class="n">dims</span><span class="p">:</span>
+            <span class="n">ds</span> <span class="o">=</span> <span class="n">ds</span><span class="o">.</span><span class="n">isel</span><span class="p">(</span><span class="n">time</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">registry</span> <span class="o">=</span> <span class="bp">cls</span><span class="p">()</span>
+        <span class="n">registry</span><span class="o">.</span><span class="n">init_original_grid_from_soilcode</span><span class="p">(</span><span class="n">ds</span><span class="p">,</span> <span class="n">var_name</span><span class="o">=</span><span class="n">var_name</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">registry</span></div>
+
+
+<div class="viewcode-block" id="DataRegistry.save">
+<a class="viewcode-back" href="../../../reference/toplevel.html#climclusterpy.data.DataRegistry.save">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Write the original grid (coordinates, cell ids, land mask) to a small NetCDF.</span>
+
+<span class="sd">        The file holds ``original_cell_id`` (int64, -1 for cells outside the grid) and</span>
+<span class="sd">        ``valid`` (int8, 1 for land cells) on the ``(latitude, longitude)`` grid. It is the</span>
+<span class="sd">        ``original_grid.nc`` that :func:`~climclusterpy.create_clusters` writes, and</span>
+<span class="sd">        :meth:`load` reads it back.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        path : str or os.PathLike</span>
+<span class="sd">            File to write. An existing file at that path is overwritten.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        str or os.PathLike</span>
+<span class="sd">            ``path``, unchanged.</span>
+
+<span class="sd">        Raises</span>
+<span class="sd">        ------</span>
+<span class="sd">        RuntimeError</span>
+<span class="sd">            If the registry holds no original grid yet.</span>
+<span class="sd">        """</span>
+        <span class="n">orig</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_original_grid</span><span class="p">()</span>
+        <span class="n">ds</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">Dataset</span><span class="p">(</span>
+            <span class="p">{</span>
+                <span class="s2">"original_cell_id"</span><span class="p">:</span> <span class="p">((</span><span class="s2">"latitude"</span><span class="p">,</span> <span class="s2">"longitude"</span><span class="p">),</span> <span class="n">orig</span><span class="o">.</span><span class="n">cell_ids</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">"int64"</span><span class="p">)),</span>
+                <span class="s2">"valid"</span><span class="p">:</span> <span class="p">((</span><span class="s2">"latitude"</span><span class="p">,</span> <span class="s2">"longitude"</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_valid_mask</span><span class="p">()</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">"int8"</span><span class="p">)),</span>
+            <span class="p">},</span>
+            <span class="n">coords</span><span class="o">=</span><span class="p">{</span><span class="s2">"latitude"</span><span class="p">:</span> <span class="n">orig</span><span class="o">.</span><span class="n">latitudes</span><span class="p">,</span> <span class="s2">"longitude"</span><span class="p">:</span> <span class="n">orig</span><span class="o">.</span><span class="n">longitudes</span><span class="p">},</span>
+            <span class="n">attrs</span><span class="o">=</span><span class="p">{</span><span class="s2">"format"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">FILE_FORMAT</span><span class="p">,</span> <span class="s2">"source"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_original_source</span> <span class="ow">or</span> <span class="s2">""</span><span class="p">},</span>
+        <span class="p">)</span>
+        <span class="n">ds</span><span class="o">.</span><span class="n">to_netcdf</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">path</span></div>
+
+
+<div class="viewcode-block" id="DataRegistry.load">
+<a class="viewcode-back" href="../../../reference/toplevel.html#climclusterpy.data.DataRegistry.load">[docs]</a>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">load</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DataRegistry</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Read back a file written by :meth:`save` (``original_grid.nc`` in a run's folder).</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        path : str or os.PathLike</span>
+<span class="sd">            The NetCDF file written by :meth:`save`.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        DataRegistry</span>
+<span class="sd">            A registry with the saved grid, cell ids and land mask.</span>
+
+<span class="sd">        Raises</span>
+<span class="sd">        ------</span>
+<span class="sd">        FileNotFoundError</span>
+<span class="sd">            If ``path`` does not exist.</span>
+<span class="sd">        ValueError</span>
+<span class="sd">            If the file was not written by :meth:`save` (its ``format`` attribute is missing</span>
+<span class="sd">            or different, or it has no ``original_cell_id`` variable). To build a registry</span>
+<span class="sd">            from the soil-code input instead, use :meth:`from_soil_code`.</span>
+<span class="sd">        """</span>
+        <span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">FileNotFoundError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Original-grid file not found: </span><span class="si">{</span><span class="n">path</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+        <span class="k">with</span> <span class="n">xr</span><span class="o">.</span><span class="n">open_dataset</span><span class="p">(</span><span class="n">path</span><span class="p">)</span> <span class="k">as</span> <span class="n">raw</span><span class="p">:</span>
+            <span class="n">ds</span> <span class="o">=</span> <span class="n">raw</span><span class="o">.</span><span class="n">load</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">ds</span><span class="o">.</span><span class="n">attrs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"format"</span><span class="p">)</span> <span class="o">!=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">FILE_FORMAT</span> <span class="ow">or</span> <span class="s2">"original_cell_id"</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">ds</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">path</span><span class="si">}</span><span class="s2"> is not an original-grid file written by DataRegistry.save(). To build "</span>
+                <span class="s2">"one from the soil-code input instead, use DataRegistry.from_soil_code(path)."</span>
+            <span class="p">)</span>
+        <span class="n">registry</span> <span class="o">=</span> <span class="bp">cls</span><span class="p">()</span>
+        <span class="n">registry</span><span class="o">.</span><span class="n">_original</span> <span class="o">=</span> <span class="n">OriginalGrid</span><span class="p">(</span>
+            <span class="n">latitudes</span><span class="o">=</span><span class="n">ds</span><span class="p">[</span><span class="s2">"latitude"</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">,</span>
+            <span class="n">longitudes</span><span class="o">=</span><span class="n">ds</span><span class="p">[</span><span class="s2">"longitude"</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">,</span>
+            <span class="n">cell_ids</span><span class="o">=</span><span class="n">ds</span><span class="p">[</span><span class="s2">"original_cell_id"</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">"int64"</span><span class="p">),</span>
+        <span class="p">)</span>
+        <span class="n">registry</span><span class="o">.</span><span class="n">_valid_mask</span> <span class="o">=</span> <span class="n">ds</span><span class="p">[</span><span class="s2">"valid"</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">bool</span><span class="p">)</span>
+        <span class="n">registry</span><span class="o">.</span><span class="n">_original_source</span> <span class="o">=</span> <span class="n">ds</span><span class="o">.</span><span class="n">attrs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"source"</span><span class="p">)</span> <span class="ow">or</span> <span class="kc">None</span>
+        <span class="k">return</span> <span class="n">registry</span></div>
+
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_original</span><span class="p">:</span> <span class="n">OriginalGrid</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_artificial</span><span class="p">:</span> <span class="n">ArtificialGrid</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="c1"># 2D boolean mask on original grid (latitude, longitude)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_valid_mask</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="c1"># Track provenance of original grid for richer diagnostics</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_original_source</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="c1"># --- original grid ---</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">init_original_grid_from_soilcode</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">soil_ds</span><span class="p">:</span> <span class="n">xr</span><span class="o">.</span><span class="n">Dataset</span><span class="p">,</span> <span class="n">var_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"soil_code"</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">OriginalGrid</span><span class="p">:</span>
+        <span class="n">ds</span> <span class="o">=</span> <span class="n">soil_ds</span>
+        <span class="n">lat_name</span><span class="p">,</span> <span class="n">lon_name</span> <span class="o">=</span> <span class="n">_find_coord_names</span><span class="p">(</span><span class="n">ds</span><span class="p">)</span>
+        <span class="n">lats</span> <span class="o">=</span> <span class="n">ds</span><span class="p">[</span><span class="n">lat_name</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+        <span class="n">lons</span> <span class="o">=</span> <span class="n">ds</span><span class="p">[</span><span class="n">lon_name</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+
+        <span class="c1"># derive a valid mask from soil dataset (non-NaN where soil is defined)</span>
+        <span class="c1"># Allow legacy soil variable names when the canonical var is not present</span>
+        <span class="n">used_var</span> <span class="o">=</span> <span class="n">var_name</span>
+        <span class="k">if</span> <span class="n">var_name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">ds</span><span class="p">:</span>
+            <span class="c1"># common legacy names</span>
+            <span class="n">legacy</span> <span class="o">=</span> <span class="p">(</span><span class="s2">"soiltexture"</span><span class="p">,</span> <span class="s2">"soil_tex"</span><span class="p">,</span> <span class="s2">"soilcode"</span><span class="p">,</span> <span class="s2">"soild"</span><span class="p">)</span>
+            <span class="n">found</span> <span class="o">=</span> <span class="nb">next</span><span class="p">((</span><span class="n">v</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">ds</span><span class="o">.</span><span class="n">data_vars</span> <span class="k">if</span> <span class="n">v</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="n">legacy</span><span class="p">),</span> <span class="kc">None</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">found</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">used_var</span> <span class="o">=</span> <span class="n">found</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">"Expected variable '</span><span class="si">{</span><span class="n">var_name</span><span class="si">}</span><span class="s2">' in soil dataset to derive valid mask"</span>
+                <span class="p">)</span>
+        <span class="n">da</span> <span class="o">=</span> <span class="n">ds</span><span class="p">[</span><span class="n">used_var</span><span class="p">]</span>
+
+        <span class="c1"># Robust sentinel detection: a soil_code variable may use an integer sentinel</span>
+        <span class="c1"># (e.g. -9999) to preserve integer dtype, or it may use NaN for missing values.</span>
+        <span class="c1"># We detect any configured _FillValue or missing_value in encoding/attrs and</span>
+        <span class="c1"># fall back to scanning for common sentinel values in the data. Cells equal</span>
+        <span class="c1"># to the sentinel are treated as invalid.</span>
+        <span class="k">def</span><span class="w"> </span><span class="nf">_detect_sentinel</span><span class="p">(</span><span class="n">dataarray</span><span class="p">):</span>
+            <span class="n">enc</span> <span class="o">=</span> <span class="n">dataarray</span><span class="o">.</span><span class="n">encoding</span>
+            <span class="n">cand</span> <span class="o">=</span> <span class="n">enc</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"_FillValue"</span><span class="p">,</span> <span class="n">enc</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"missing_value"</span><span class="p">))</span>
+            <span class="k">if</span> <span class="n">cand</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">cand</span> <span class="o">=</span> <span class="n">dataarray</span><span class="o">.</span><span class="n">attrs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"_FillValue"</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">cand</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">cand</span> <span class="o">=</span> <span class="n">dataarray</span><span class="o">.</span><span class="n">attrs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"missing_value"</span><span class="p">)</span>
+            <span class="c1"># If still unknown, scan for common sentinels in the array values</span>
+            <span class="k">if</span> <span class="n">cand</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">vals</span> <span class="o">=</span> <span class="n">dataarray</span><span class="o">.</span><span class="n">values</span>
+                <span class="n">cand</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span>
+                    <span class="p">(</span><span class="n">s</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="p">(</span><span class="o">-</span><span class="mi">9999</span><span class="p">,</span> <span class="o">-</span><span class="mi">999</span><span class="p">,</span> <span class="mi">9999</span><span class="p">,</span> <span class="o">-</span><span class="mi">32768</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="o">-</span><span class="mf">1e6</span><span class="p">))</span> <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">vals</span> <span class="o">==</span> <span class="n">s</span><span class="p">)),</span>
+                    <span class="kc">None</span><span class="p">,</span>
+                <span class="p">)</span>
+            <span class="k">return</span> <span class="n">cand</span>
+
+        <span class="nb">sentinel</span> <span class="o">=</span> <span class="n">_detect_sentinel</span><span class="p">(</span><span class="n">da</span><span class="p">)</span>
+
+        <span class="c1"># Build a boolean valid DataArray: True for real data, False for missing/sentinel</span>
+        <span class="n">valid_da</span> <span class="o">=</span> <span class="o">~</span><span class="n">da</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span>
+        <span class="k">if</span> <span class="nb">sentinel</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">valid_da</span> <span class="o">=</span> <span class="n">valid_da</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">da</span> <span class="o">!=</span> <span class="nb">sentinel</span><span class="p">)</span>
+
+        <span class="c1"># Soil code 0 is not a soil type: LPJmL's soil map has no entry for it and the model</span>
+        <span class="c1"># skips such a cell ("Invalid soilcode=0, cell skipped"). A grid that kept it would</span>
+        <span class="c1"># cluster, and write forcing for, cells the model never simulates. Before 0.3.0 a</span>
+        <span class="c1"># code of 0 counted as land.</span>
+        <span class="n">zero_code</span> <span class="o">=</span> <span class="n">valid_da</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">da</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="n">n_zero</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">zero_code</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span>
+        <span class="k">if</span> <span class="n">n_zero</span><span class="p">:</span>
+            <span class="n">valid_da</span> <span class="o">=</span> <span class="n">valid_da</span> <span class="o">&amp;</span> <span class="o">~</span><span class="n">zero_code</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">n_zero</span><span class="si">}</span><span class="s2"> cell(s) have soil code 0, which is no soil type (LPJmL skips them); "</span>
+                <span class="s2">"they are left out of the grid."</span>
+            <span class="p">)</span>
+
+        <span class="c1"># reduce any extra dims beyond spatial</span>
+        <span class="n">reduce_dims</span> <span class="o">=</span> <span class="p">[</span><span class="n">d</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">valid_da</span><span class="o">.</span><span class="n">dims</span> <span class="k">if</span> <span class="n">d</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="n">lat_name</span><span class="p">,</span> <span class="n">lon_name</span><span class="p">)]</span>
+        <span class="k">if</span> <span class="n">reduce_dims</span><span class="p">:</span>
+            <span class="n">valid_da</span> <span class="o">=</span> <span class="n">valid_da</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="n">reduce_dims</span><span class="p">)</span>
+        <span class="n">valid_mask</span> <span class="o">=</span> <span class="n">valid_da</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">lat_name</span><span class="p">,</span> <span class="n">lon_name</span><span class="p">)</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">bool</span><span class="p">)</span>
+
+        <span class="n">source</span> <span class="o">=</span> <span class="n">soil_ds</span><span class="o">.</span><span class="n">encoding</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"source"</span><span class="p">)</span> <span class="ow">or</span> <span class="n">soil_ds</span><span class="o">.</span><span class="n">attrs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"source"</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_finalize_grid</span><span class="p">(</span><span class="n">lats</span><span class="p">,</span> <span class="n">lons</span><span class="p">,</span> <span class="n">valid_mask</span><span class="p">,</span> <span class="n">source</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_finalize_grid</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">lats</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+        <span class="n">lons</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+        <span class="n">valid_mask</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+        <span class="n">source</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">OriginalGrid</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Assign consecutive ``cell_id``s to a boolean ``(lat, lon)`` valid mask.</span>
+
+<span class="sd">        Shared tail of every ``init_original_grid_from_*`` constructor: cells outside</span>
+<span class="sd">        ``valid_mask`` get ``-1``, the rest get 0, 1, 2, … in row-major (latitude, then</span>
+<span class="sd">        longitude) order.</span>
+<span class="sd">        """</span>
+        <span class="n">nlat</span> <span class="o">=</span> <span class="n">lats</span><span class="o">.</span><span class="n">size</span>
+        <span class="n">nlon</span> <span class="o">=</span> <span class="n">lons</span><span class="o">.</span><span class="n">size</span>
+        <span class="n">ids</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">((</span><span class="n">nlat</span><span class="p">,</span> <span class="n">nlon</span><span class="p">),</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int64</span><span class="p">)</span>  <span class="c1"># Initialize with -1 (invalid)</span>
+
+        <span class="n">valid_count</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">valid_mask</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">valid_count</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">ids</span><span class="p">[</span><span class="n">valid_mask</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">valid_count</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int64</span><span class="p">)</span>
+
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">valid_count</span><span class="si">}</span><span class="s2"> valid cells found in original grid."</span><span class="p">)</span>
+
+        <span class="n">grid</span> <span class="o">=</span> <span class="n">OriginalGrid</span><span class="p">(</span><span class="n">latitudes</span><span class="o">=</span><span class="n">lats</span><span class="p">,</span> <span class="n">longitudes</span><span class="o">=</span><span class="n">lons</span><span class="p">,</span> <span class="n">cell_ids</span><span class="o">=</span><span class="n">ids</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_original</span> <span class="o">=</span> <span class="n">grid</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_original_source</span> <span class="o">=</span> <span class="n">source</span>
+
+        <span class="k">if</span> <span class="n">ids</span><span class="o">.</span><span class="n">shape</span> <span class="o">!=</span> <span class="n">valid_mask</span><span class="o">.</span><span class="n">shape</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"Derived valid mask shape does not match original grid shape"</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_valid_mask</span> <span class="o">=</span> <span class="n">valid_mask</span>
+        <span class="k">return</span> <span class="n">grid</span>
+
+<div class="viewcode-block" id="DataRegistry.from_mask">
+<a class="viewcode-back" href="../../../reference/toplevel.html#climclusterpy.data.DataRegistry.from_mask">[docs]</a>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">from_mask</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">mask</span><span class="p">,</span> <span class="n">var_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"mask"</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DataRegistry</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Build the original-grid description from an explicit land-mask NetCDF (path or Dataset).</span>
+
+<span class="sd">        Unlike :meth:`from_soil_code`, this applies no model-specific convention: a cell is land</span>
+<span class="sd">        when the mask variable is truthy and not missing (NaN), full stop. Use this when the</span>
+<span class="sd">        input isn't LPJmL's soil-code map — any other model's own land/sea mask, a shapefile</span>
+<span class="sd">        rasterized upstream, or a hand-built mask.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        mask : str, os.PathLike or xarray.Dataset</span>
+<span class="sd">            The mask input: a path to a NetCDF file, or an already opened Dataset. A nonzero,</span>
+<span class="sd">            non-NaN value means land.</span>
+<span class="sd">        var_name : str, optional</span>
+<span class="sd">            Name of the mask variable (default ``"mask"``); found by exact name, then</span>
+<span class="sd">            case-insensitively, then as the only data variable in the file.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        DataRegistry</span>
+<span class="sd">        """</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">.coords</span><span class="w"> </span><span class="kn">import</span> <span class="n">standardize_dataset_coordinates</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">.loader</span><span class="w"> </span><span class="kn">import</span> <span class="n">_canonicalize_variable</span><span class="p">,</span> <span class="n">_open_dataset</span>
+
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">mask</span><span class="p">,</span> <span class="n">xr</span><span class="o">.</span><span class="n">Dataset</span><span class="p">):</span>
+            <span class="n">opened</span> <span class="o">=</span> <span class="n">standardize_dataset_coordinates</span><span class="p">(</span><span class="n">mask</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">opened</span> <span class="o">=</span> <span class="n">_open_dataset</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">mask</span><span class="p">))</span>
+        <span class="n">ds</span> <span class="o">=</span> <span class="n">_canonicalize_variable</span><span class="p">(</span><span class="n">opened</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="n">var_name</span><span class="p">,</span> <span class="n">synonyms</span><span class="o">=</span><span class="p">())</span>
+        <span class="n">da</span> <span class="o">=</span> <span class="n">ds</span><span class="p">[</span><span class="n">var_name</span><span class="p">]</span>
+        <span class="k">if</span> <span class="s2">"time"</span> <span class="ow">in</span> <span class="n">da</span><span class="o">.</span><span class="n">dims</span><span class="p">:</span>
+            <span class="n">da</span> <span class="o">=</span> <span class="n">da</span><span class="o">.</span><span class="n">isel</span><span class="p">(</span><span class="n">time</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">lat_name</span><span class="p">,</span> <span class="n">lon_name</span> <span class="o">=</span> <span class="n">_find_coord_names</span><span class="p">(</span><span class="n">ds</span><span class="p">)</span>
+        <span class="n">lats</span> <span class="o">=</span> <span class="n">ds</span><span class="p">[</span><span class="n">lat_name</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+        <span class="n">lons</span> <span class="o">=</span> <span class="n">ds</span><span class="p">[</span><span class="n">lon_name</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+
+        <span class="n">valid_da</span> <span class="o">=</span> <span class="p">(</span><span class="o">~</span><span class="n">da</span><span class="o">.</span><span class="n">isnull</span><span class="p">())</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">da</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="n">reduce_dims</span> <span class="o">=</span> <span class="p">[</span><span class="n">d</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">valid_da</span><span class="o">.</span><span class="n">dims</span> <span class="k">if</span> <span class="n">d</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="n">lat_name</span><span class="p">,</span> <span class="n">lon_name</span><span class="p">)]</span>
+        <span class="k">if</span> <span class="n">reduce_dims</span><span class="p">:</span>
+            <span class="n">valid_da</span> <span class="o">=</span> <span class="n">valid_da</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="n">reduce_dims</span><span class="p">)</span>
+        <span class="n">valid_mask</span> <span class="o">=</span> <span class="n">valid_da</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">lat_name</span><span class="p">,</span> <span class="n">lon_name</span><span class="p">)</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">bool</span><span class="p">)</span>
+
+        <span class="n">registry</span> <span class="o">=</span> <span class="bp">cls</span><span class="p">()</span>
+        <span class="n">registry</span><span class="o">.</span><span class="n">_finalize_grid</span><span class="p">(</span><span class="n">lats</span><span class="p">,</span> <span class="n">lons</span><span class="p">,</span> <span class="n">valid_mask</span><span class="p">,</span> <span class="n">source</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">registry</span></div>
+
+
+<div class="viewcode-block" id="DataRegistry.from_complete_data">
+<a class="viewcode-back" href="../../../reference/toplevel.html#climclusterpy.data.DataRegistry.from_complete_data">[docs]</a>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">from_complete_data</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">datasets</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">xr</span><span class="o">.</span><span class="n">Dataset</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">DataRegistry</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Build the original-grid description from "every supplied input has data here".</span>
+
+<span class="sd">        No mask file at all: a cell is land when every dataset in ``datasets`` has a real</span>
+<span class="sd">        (non-NaN) value there (its first time step, for a variable that has a ``time``</span>
+<span class="sd">        dimension). This is the fallback land-mask route for a model with no soil-code-like</span>
+<span class="sd">        input and no separate mask file.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        datasets : dict[str, xarray.Dataset]</span>
+<span class="sd">            Mapping of input name to its (already opened, coordinate-standardized) Dataset.</span>
+<span class="sd">            Must contain at least one entry.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        DataRegistry</span>
+<span class="sd">        """</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">datasets</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"from_complete_data needs at least one dataset to derive a mask from"</span><span class="p">)</span>
+
+        <span class="n">valid_mask</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">lats</span> <span class="o">=</span> <span class="n">lons</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">lat_name</span> <span class="o">=</span> <span class="n">lon_name</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">for</span> <span class="n">ds</span> <span class="ow">in</span> <span class="n">datasets</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+            <span class="n">lat_name</span><span class="p">,</span> <span class="n">lon_name</span> <span class="o">=</span> <span class="n">_find_coord_names</span><span class="p">(</span><span class="n">ds</span><span class="p">)</span>
+            <span class="n">lats</span> <span class="o">=</span> <span class="n">ds</span><span class="p">[</span><span class="n">lat_name</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+            <span class="n">lons</span> <span class="o">=</span> <span class="n">ds</span><span class="p">[</span><span class="n">lon_name</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+            <span class="n">data_vars</span> <span class="o">=</span> <span class="p">[</span><span class="n">v</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">ds</span><span class="o">.</span><span class="n">data_vars</span> <span class="k">if</span> <span class="n">v</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="n">lat_name</span><span class="p">,</span> <span class="n">lon_name</span><span class="p">,</span> <span class="s2">"time"</span><span class="p">)]</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">data_vars</span><span class="p">:</span>
+                <span class="k">continue</span>
+            <span class="n">da</span> <span class="o">=</span> <span class="n">ds</span><span class="p">[</span><span class="n">data_vars</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span>
+            <span class="k">if</span> <span class="s2">"time"</span> <span class="ow">in</span> <span class="n">da</span><span class="o">.</span><span class="n">dims</span><span class="p">:</span>
+                <span class="n">da</span> <span class="o">=</span> <span class="n">da</span><span class="o">.</span><span class="n">isel</span><span class="p">(</span><span class="n">time</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="n">present</span> <span class="o">=</span> <span class="o">~</span><span class="n">da</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span>
+            <span class="n">reduce_dims</span> <span class="o">=</span> <span class="p">[</span><span class="n">d</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">present</span><span class="o">.</span><span class="n">dims</span> <span class="k">if</span> <span class="n">d</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="n">lat_name</span><span class="p">,</span> <span class="n">lon_name</span><span class="p">)]</span>
+            <span class="k">if</span> <span class="n">reduce_dims</span><span class="p">:</span>
+                <span class="n">present</span> <span class="o">=</span> <span class="n">present</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="n">reduce_dims</span><span class="p">)</span>
+            <span class="n">present_mask</span> <span class="o">=</span> <span class="n">present</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">lat_name</span><span class="p">,</span> <span class="n">lon_name</span><span class="p">)</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">bool</span><span class="p">)</span>
+            <span class="n">valid_mask</span> <span class="o">=</span> <span class="n">present_mask</span> <span class="k">if</span> <span class="n">valid_mask</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="p">(</span><span class="n">valid_mask</span> <span class="o">&amp;</span> <span class="n">present_mask</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">valid_mask</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"None of the supplied datasets had a usable data variable"</span><span class="p">)</span>
+
+        <span class="n">registry</span> <span class="o">=</span> <span class="bp">cls</span><span class="p">()</span>
+        <span class="n">registry</span><span class="o">.</span><span class="n">_finalize_grid</span><span class="p">(</span><span class="n">lats</span><span class="p">,</span> <span class="n">lons</span><span class="p">,</span> <span class="n">valid_mask</span><span class="p">,</span> <span class="n">source</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">registry</span></div>
+
+
+<div class="viewcode-block" id="DataRegistry.from_cell_list">
+<a class="viewcode-back" href="../../../reference/toplevel.html#climclusterpy.data.DataRegistry.from_cell_list">[docs]</a>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">from_cell_list</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">cells</span><span class="p">,</span> <span class="n">lat_col</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"lat"</span><span class="p">,</span> <span class="n">lon_col</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"lon"</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DataRegistry</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Build the original-grid description from a plain list of cell coordinates.</span>
+
+<span class="sd">        For a model that names its cells rather than running on a dense raster (e.g. a</span>
+<span class="sd">        LPJ-GUESS-style text gridlist): the grid's latitude/longitude axes are the *unique*</span>
+<span class="sd">        coordinate values appearing in ``cells``, and only the listed cells are marked valid</span>
+<span class="sd">        — everywhere else on that axis grid is left out, exactly like any other sparse mask.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        cells : str, os.PathLike or pandas.DataFrame</span>
+<span class="sd">            A CSV path (or any path ``pandas.read_csv`` can open) or an already-loaded</span>
+<span class="sd">            DataFrame with one row per cell.</span>
+<span class="sd">        lat_col, lon_col : str, optional</span>
+<span class="sd">            Column names holding latitude/longitude (default ``"lat"``/``"lon"``).</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        DataRegistry</span>
+<span class="sd">        """</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">cells</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">):</span>
+            <span class="n">df</span> <span class="o">=</span> <span class="n">cells</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">cells</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">lat_col</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span> <span class="ow">or</span> <span class="n">lon_col</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">"Cell list is missing column(s): need '</span><span class="si">{</span><span class="n">lat_col</span><span class="si">}</span><span class="s2">' and '</span><span class="si">{</span><span class="n">lon_col</span><span class="si">}</span><span class="s2">', got "</span>
+                <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="nb">list</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span>
+            <span class="p">)</span>
+
+        <span class="n">lats</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">lat_col</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">())</span>
+        <span class="n">lons</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">lon_col</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">())</span>
+        <span class="n">lat_index</span> <span class="o">=</span> <span class="p">{</span><span class="n">v</span><span class="p">:</span> <span class="n">i</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">lats</span><span class="p">)}</span>
+        <span class="n">lon_index</span> <span class="o">=</span> <span class="p">{</span><span class="n">v</span><span class="p">:</span> <span class="n">i</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">lons</span><span class="p">)}</span>
+
+        <span class="n">valid_mask</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">lats</span><span class="o">.</span><span class="n">size</span><span class="p">,</span> <span class="n">lons</span><span class="o">.</span><span class="n">size</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">bool</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">lat_val</span><span class="p">,</span> <span class="n">lon_val</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">lat_col</span><span class="p">],</span> <span class="n">df</span><span class="p">[</span><span class="n">lon_col</span><span class="p">]):</span>
+            <span class="n">valid_mask</span><span class="p">[</span><span class="n">lat_index</span><span class="p">[</span><span class="n">lat_val</span><span class="p">],</span> <span class="n">lon_index</span><span class="p">[</span><span class="n">lon_val</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">True</span>
+
+        <span class="n">registry</span> <span class="o">=</span> <span class="bp">cls</span><span class="p">()</span>
+        <span class="n">registry</span><span class="o">.</span><span class="n">_finalize_grid</span><span class="p">(</span><span class="n">lats</span><span class="p">,</span> <span class="n">lons</span><span class="p">,</span> <span class="n">valid_mask</span><span class="p">,</span> <span class="n">source</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">registry</span></div>
+
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_original_grid</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">OriginalGrid</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_original</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
+                <span class="s2">"Original grid not initialized. Call init_original_grid_from_soilcode() first."</span>
+            <span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_original</span>
+
+    <span class="c1"># --- artificial grid ---</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">set_artificial_grid</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">grid_latitudes</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">grid_longitudes</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">mapping_df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ArtificialGrid</span><span class="p">:</span>
+        <span class="c1"># validate mapping contains only original ids present</span>
+        <span class="n">orig</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_original_grid</span><span class="p">()</span>
+        <span class="n">valid_ids</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">orig</span><span class="o">.</span><span class="n">cell_ids</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">set</span><span class="p">(</span><span class="n">mapping_df</span><span class="p">[</span><span class="s2">"original_cell_id"</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span><span class="o">.</span><span class="n">issubset</span><span class="p">(</span><span class="n">valid_ids</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"Mapping contains unknown original_cell_id values"</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="p">{</span><span class="s2">"new_cell_id"</span><span class="p">,</span> <span class="s2">"original_cell_id"</span><span class="p">}</span><span class="o">.</span><span class="n">issubset</span><span class="p">(</span><span class="n">mapping_df</span><span class="o">.</span><span class="n">columns</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"mapping_df must contain columns: new_cell_id, original_cell_id"</span><span class="p">)</span>
+        <span class="n">ag</span> <span class="o">=</span> <span class="n">ArtificialGrid</span><span class="p">(</span>
+            <span class="n">latitudes</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">grid_latitudes</span><span class="p">),</span>
+            <span class="n">longitudes</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">grid_longitudes</span><span class="p">),</span>
+            <span class="n">mapping_df</span><span class="o">=</span><span class="n">mapping_df</span><span class="o">.</span><span class="n">copy</span><span class="p">(),</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_artificial</span> <span class="o">=</span> <span class="n">ag</span>
+        <span class="k">return</span> <span class="n">ag</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_artificial_grid</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ArtificialGrid</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_artificial</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">"Artificial grid not set. Call set_artificial_grid() first."</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_artificial</span>
+
+    <span class="c1"># --- I/O helpers ---</span>
+<div class="viewcode-block" id="DataRegistry.align_to_original">
+<a class="viewcode-back" href="../../../reference/toplevel.html#climclusterpy.data.DataRegistry.align_to_original">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">align_to_original</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ds</span><span class="p">:</span> <span class="n">xr</span><span class="o">.</span><span class="n">Dataset</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">xr</span><span class="o">.</span><span class="n">Dataset</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""</span>
+<span class="sd">        Map `ds` to the original grid using nearest-neighbor mapping.</span>
+<span class="sd">        Handles 1D or 2D lat/lon grids with ascending or descending coordinates.</span>
+<span class="sd">        Emits diagnostics:</span>
+<span class="sd">        - dataset sources</span>
+<span class="sd">        - number of cells requiring mapping</span>
+<span class="sd">        - maximum lat/lon shift with source/target coordinates.</span>
+<span class="sd">        """</span>
+        <span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
+
+        <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+        <span class="c1"># get original grid</span>
+        <span class="n">orig</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_original_grid</span><span class="p">()</span>
+        <span class="n">lat_name</span><span class="p">,</span> <span class="n">lon_name</span> <span class="o">=</span> <span class="n">_find_coord_names</span><span class="p">(</span><span class="n">ds</span><span class="p">)</span>
+        <span class="n">tgt_lat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">orig</span><span class="o">.</span><span class="n">latitudes</span><span class="p">)</span>
+        <span class="n">tgt_lon</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">orig</span><span class="o">.</span><span class="n">longitudes</span><span class="p">)</span>
+
+        <span class="c1"># quick check for exact match</span>
+        <span class="n">lat_ok</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array_equal</span><span class="p">(</span><span class="n">ds</span><span class="p">[</span><span class="n">lat_name</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">tgt_lat</span><span class="p">)</span>
+        <span class="n">lon_ok</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array_equal</span><span class="p">(</span><span class="n">ds</span><span class="p">[</span><span class="n">lon_name</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">tgt_lon</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">lat_ok</span> <span class="ow">and</span> <span class="n">lon_ok</span><span class="p">:</span>
+            <span class="n">out</span> <span class="o">=</span> <span class="n">ds</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+            <span class="n">out</span><span class="p">[</span><span class="s2">"original_cell_id"</span><span class="p">]</span> <span class="o">=</span> <span class="p">((</span><span class="n">lat_name</span><span class="p">,</span> <span class="n">lon_name</span><span class="p">),</span> <span class="n">orig</span><span class="o">.</span><span class="n">cell_ids</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">out</span>
+
+        <span class="c1"># --- build 2D target grid ---</span>
+        <span class="n">tgt_lat_grid</span><span class="p">,</span> <span class="n">tgt_lon_grid</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">tgt_lat</span><span class="p">,</span> <span class="n">tgt_lon</span><span class="p">,</span> <span class="n">indexing</span><span class="o">=</span><span class="s2">"ij"</span><span class="p">)</span>
+
+        <span class="c1"># --- find nearest source indices ---</span>
+        <span class="n">src_lat</span> <span class="o">=</span> <span class="n">ds</span><span class="p">[</span><span class="n">lat_name</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+        <span class="n">src_lon</span> <span class="o">=</span> <span class="n">ds</span><span class="p">[</span><span class="n">lon_name</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+
+        <span class="k">def</span><span class="w"> </span><span class="nf">nearest_index_1d</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">tgt</span><span class="p">):</span>
+<span class="w">            </span><span class="sd">"""Find nearest indices, handles ascending or descending source arrays."""</span>
+            <span class="n">ascending</span> <span class="o">=</span> <span class="n">src</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">src</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+            <span class="n">src_sorted</span> <span class="o">=</span> <span class="n">src</span> <span class="k">if</span> <span class="n">ascending</span> <span class="k">else</span> <span class="n">src</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+            <span class="n">idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">searchsorted</span><span class="p">(</span><span class="n">src_sorted</span><span class="p">,</span> <span class="n">tgt</span><span class="p">)</span>
+            <span class="n">idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">idx</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">src_sorted</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+            <span class="n">left</span> <span class="o">=</span> <span class="n">src_sorted</span><span class="p">[</span><span class="n">idx</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span>
+            <span class="n">right</span> <span class="o">=</span> <span class="n">src_sorted</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
+            <span class="n">idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">tgt</span> <span class="o">-</span> <span class="n">left</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">tgt</span> <span class="o">-</span> <span class="n">right</span><span class="p">),</span> <span class="n">idx</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">idx</span><span class="p">)</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">ascending</span><span class="p">:</span>
+                <span class="n">idx</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">src</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">idx</span>  <span class="c1"># reverse indices back</span>
+            <span class="k">return</span> <span class="n">idx</span>
+
+        <span class="n">lat_idx_1d</span> <span class="o">=</span> <span class="n">nearest_index_1d</span><span class="p">(</span><span class="n">src_lat</span><span class="p">,</span> <span class="n">tgt_lat</span><span class="p">)</span>
+        <span class="n">lon_idx_1d</span> <span class="o">=</span> <span class="n">nearest_index_1d</span><span class="p">(</span><span class="n">src_lon</span><span class="p">,</span> <span class="n">tgt_lon</span><span class="p">)</span>
+
+        <span class="c1"># --- build full 2D index grids ---</span>
+        <span class="n">lat_idx_grid</span><span class="p">,</span> <span class="n">lon_idx_grid</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">lat_idx_1d</span><span class="p">,</span> <span class="n">lon_idx_1d</span><span class="p">,</span> <span class="n">indexing</span><span class="o">=</span><span class="s2">"ij"</span><span class="p">)</span>
+
+        <span class="c1"># --- get chosen source coordinates ---</span>
+        <span class="n">chosen_lat_grid</span> <span class="o">=</span> <span class="n">src_lat</span><span class="p">[</span><span class="n">lat_idx_grid</span><span class="p">]</span>
+        <span class="n">chosen_lon_grid</span> <span class="o">=</span> <span class="n">src_lon</span><span class="p">[</span><span class="n">lon_idx_grid</span><span class="p">]</span>
+
+        <span class="c1"># --- compute diffs ---</span>
+        <span class="n">lat_diffs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">chosen_lat_grid</span> <span class="o">-</span> <span class="n">tgt_lat_grid</span><span class="p">)</span>
+        <span class="n">lon_diffs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">minimum</span><span class="p">(</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">chosen_lon_grid</span> <span class="o">-</span> <span class="n">tgt_lon_grid</span><span class="p">),</span> <span class="mi">360</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">chosen_lon_grid</span> <span class="o">-</span> <span class="n">tgt_lon_grid</span><span class="p">)</span>
+        <span class="p">)</span>
+
+        <span class="c1"># --- mapped dataset ---</span>
+        <span class="n">mapped_ds</span> <span class="o">=</span> <span class="n">ds</span><span class="o">.</span><span class="n">isel</span><span class="p">({</span><span class="n">lat_name</span><span class="p">:</span> <span class="n">lat_idx_1d</span><span class="p">,</span> <span class="n">lon_name</span><span class="p">:</span> <span class="n">lon_idx_1d</span><span class="p">})</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="n">mapped_ds</span> <span class="o">=</span> <span class="n">mapped_ds</span><span class="o">.</span><span class="n">assign_coords</span><span class="p">({</span><span class="n">lat_name</span><span class="p">:</span> <span class="n">tgt_lat</span><span class="p">,</span> <span class="n">lon_name</span><span class="p">:</span> <span class="n">tgt_lon</span><span class="p">})</span>
+        <span class="n">mapped_ds</span><span class="p">[</span><span class="s2">"original_cell_id"</span><span class="p">]</span> <span class="o">=</span> <span class="p">((</span><span class="n">lat_name</span><span class="p">,</span> <span class="n">lon_name</span><span class="p">),</span> <span class="n">orig</span><span class="o">.</span><span class="n">cell_ids</span><span class="p">)</span>
+
+        <span class="c1"># --- diagnostics ---</span>
+        <span class="n">mismatched_cells</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">count_nonzero</span><span class="p">((</span><span class="n">lat_diffs</span> <span class="o">!=</span> <span class="mf">0.0</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="n">lon_diffs</span> <span class="o">!=</span> <span class="mf">0.0</span><span class="p">)))</span>
+        <span class="n">lat_max_idx</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">lat_diffs</span><span class="p">))</span>
+        <span class="n">lon_max_idx</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">lon_diffs</span><span class="p">))</span>
+        <span class="n">lat_max_diff</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">lat_diffs</span><span class="o">.</span><span class="n">ravel</span><span class="p">()[</span><span class="n">lat_max_idx</span><span class="p">])</span>
+        <span class="n">lon_max_diff</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">lon_diffs</span><span class="o">.</span><span class="n">ravel</span><span class="p">()[</span><span class="n">lon_max_idx</span><span class="p">])</span>
+        <span class="n">lat_max_tgt</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">tgt_lat_grid</span><span class="o">.</span><span class="n">ravel</span><span class="p">()[</span><span class="n">lat_max_idx</span><span class="p">])</span>
+        <span class="n">lat_max_src</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">chosen_lat_grid</span><span class="o">.</span><span class="n">ravel</span><span class="p">()[</span><span class="n">lat_max_idx</span><span class="p">])</span>
+        <span class="n">lon_max_tgt</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">tgt_lon_grid</span><span class="o">.</span><span class="n">ravel</span><span class="p">()[</span><span class="n">lon_max_idx</span><span class="p">])</span>
+        <span class="n">lon_max_src</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">chosen_lon_grid</span><span class="o">.</span><span class="n">ravel</span><span class="p">()[</span><span class="n">lon_max_idx</span><span class="p">])</span>
+
+        <span class="c1"># dataset sources</span>
+        <span class="n">ds_source</span> <span class="o">=</span> <span class="n">ds</span><span class="o">.</span><span class="n">encoding</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"source"</span><span class="p">)</span> <span class="ow">or</span> <span class="n">ds</span><span class="o">.</span><span class="n">attrs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"source"</span><span class="p">)</span>
+        <span class="n">orig_source</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">"_original_source"</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+
+        <span class="c1"># Nearest-cell mapping is a regrid only while every target cell falls inside some</span>
+        <span class="c1"># source cell. Past half a cell it is extrapolation: a grid that lies somewhere else</span>
+        <span class="c1"># entirely would otherwise be "mapped" onto its own edge cells with only a warning.</span>
+        <span class="k">def</span><span class="w"> </span><span class="nf">_step</span><span class="p">(</span><span class="n">v</span><span class="p">):</span>
+            <span class="n">v</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+            <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">v</span><span class="p">))))</span> <span class="k">if</span> <span class="n">v</span><span class="o">.</span><span class="n">size</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="k">else</span> <span class="nb">float</span><span class="p">(</span><span class="s2">"inf"</span><span class="p">)</span>
+
+        <span class="n">lat_limit</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="nb">max</span><span class="p">(</span><span class="n">_step</span><span class="p">(</span><span class="n">src_lat</span><span class="p">),</span> <span class="n">_step</span><span class="p">(</span><span class="n">tgt_lat</span><span class="p">))</span> <span class="o">+</span> <span class="mf">1e-6</span>
+        <span class="n">lon_limit</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="nb">max</span><span class="p">(</span><span class="n">_step</span><span class="p">(</span><span class="n">src_lon</span><span class="p">),</span> <span class="n">_step</span><span class="p">(</span><span class="n">tgt_lon</span><span class="p">))</span> <span class="o">+</span> <span class="mf">1e-6</span>
+        <span class="n">valid</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_valid_mask</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_valid_mask</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">np</span><span class="o">.</span><span class="n">ones_like</span><span class="p">(</span><span class="n">lat_diffs</span><span class="p">,</span> <span class="nb">bool</span><span class="p">)</span>
+        <span class="n">too_far</span> <span class="o">=</span> <span class="p">((</span><span class="n">lat_diffs</span> <span class="o">&gt;</span> <span class="n">lat_limit</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="n">lon_diffs</span> <span class="o">&gt;</span> <span class="n">lon_limit</span><span class="p">))</span> <span class="o">&amp;</span> <span class="n">valid</span>
+        <span class="k">if</span> <span class="n">too_far</span><span class="o">.</span><span class="n">any</span><span class="p">():</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">ds_source</span><span class="w"> </span><span class="ow">or</span><span class="w"> </span><span class="s1">'A dataset'</span><span class="si">}</span><span class="s2"> is not on a grid that covers the original grid: "</span>
+                <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">too_far</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span><span class="si">}</span><span class="s2"> land cell(s) would take their value from a cell up to "</span>
+                <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="nb">max</span><span class="p">(</span><span class="n">lat_max_diff</span><span class="p">,</span><span class="w"> </span><span class="n">lon_max_diff</span><span class="p">)</span><span class="si">:</span><span class="s2">.4g</span><span class="si">}</span><span class="s2"> deg away (latitude </span><span class="si">{</span><span class="n">lat_max_tgt</span><span class="si">:</span><span class="s2">.6g</span><span class="si">}</span><span class="s2"> -&gt; "</span>
+                <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">lat_max_src</span><span class="si">:</span><span class="s2">.6g</span><span class="si">}</span><span class="s2">, longitude </span><span class="si">{</span><span class="n">lon_max_tgt</span><span class="si">:</span><span class="s2">.6g</span><span class="si">}</span><span class="s2"> -&gt; </span><span class="si">{</span><span class="n">lon_max_src</span><span class="si">:</span><span class="s2">.6g</span><span class="si">}</span><span class="s2">), more "</span>
+                <span class="s2">"than half a grid cell. Regrid it onto the soil_code grid first, or check "</span>
+                <span class="s2">"that it covers the same region."</span>
+            <span class="p">)</span>
+
+        <span class="c1"># emit single warning</span>
+        <span class="n">msg_lines</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"Grid mismatch detected; mapping to original grid (nearest)."</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">ds_source</span><span class="p">:</span>
+            <span class="n">msg_lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">"  Dataset source: </span><span class="si">{</span><span class="n">ds_source</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">orig_source</span><span class="p">:</span>
+            <span class="n">msg_lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">"  Original grid source: </span><span class="si">{</span><span class="n">orig_source</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+        <span class="n">msg_lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">"  Source cells requiring interpolation: </span><span class="si">{</span><span class="n">mismatched_cells</span><span class="si">}</span><span class="s2"> of </span><span class="si">{</span><span class="n">tgt_lat_grid</span><span class="o">.</span><span class="n">size</span><span class="si">}</span><span class="s2">"</span>
+        <span class="p">)</span>
+        <span class="n">msg_lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">"  Max |lat shift| = </span><span class="si">{</span><span class="n">lat_max_diff</span><span class="si">:</span><span class="s2">.6f</span><span class="si">}</span><span class="s2"> at target </span><span class="si">{</span><span class="n">lat_max_tgt</span><span class="si">:</span><span class="s2">.6f</span><span class="si">}</span><span class="s2"> → chosen src </span><span class="si">{</span><span class="n">lat_max_src</span><span class="si">:</span><span class="s2">.6f</span><span class="si">}</span><span class="s2">"</span>
+        <span class="p">)</span>
+        <span class="n">msg_lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">"  Max |lon shift| = </span><span class="si">{</span><span class="n">lon_max_diff</span><span class="si">:</span><span class="s2">.6f</span><span class="si">}</span><span class="s2"> at target </span><span class="si">{</span><span class="n">lon_max_tgt</span><span class="si">:</span><span class="s2">.6f</span><span class="si">}</span><span class="s2"> → chosen src </span><span class="si">{</span><span class="n">lon_max_src</span><span class="si">:</span><span class="s2">.6f</span><span class="si">}</span><span class="s2">"</span>
+        <span class="p">)</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">msg_lines</span><span class="p">)</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="ne">UserWarning</span><span class="p">,</span> <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">mapped_ds</span></div>
+
+
+<div class="viewcode-block" id="DataRegistry.attach_original_ids">
+<a class="viewcode-back" href="../../../reference/toplevel.html#climclusterpy.data.DataRegistry.attach_original_ids">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">attach_original_ids</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ds</span><span class="p">:</span> <span class="n">xr</span><span class="o">.</span><span class="n">Dataset</span><span class="p">,</span> <span class="n">tol</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-5</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">xr</span><span class="o">.</span><span class="n">Dataset</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Attach original_cell_id to a dataset already on the original grid; no interpolation.</span>
+
+<span class="sd">        This function is strict by default but accepts small numeric deviations between</span>
+<span class="sd">        the dataset coordinates and the registered original grid. If coordinates are</span>
+<span class="sd">        within the given absolute tolerance ``tol`` they will be coerced to the exact</span>
+<span class="sd">        original grid coordinates to preserve downstream equality checks.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            ds: dataset whose coordinates should match the original grid.</span>
+<span class="sd">            tol: absolute tolerance for numeric coordinate differences (default 1e-5).</span>
+
+<span class="sd">        Raises ValueError if ds coordinates do not match the original grid within</span>
+<span class="sd">        the provided tolerance.</span>
+<span class="sd">        """</span>
+        <span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
+
+        <span class="n">orig</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_original_grid</span><span class="p">()</span>
+        <span class="n">lat_name</span><span class="p">,</span> <span class="n">lon_name</span> <span class="o">=</span> <span class="n">_find_coord_names</span><span class="p">(</span><span class="n">ds</span><span class="p">)</span>
+        <span class="n">ds_lat</span> <span class="o">=</span> <span class="n">ds</span><span class="p">[</span><span class="n">lat_name</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+        <span class="n">ds_lon</span> <span class="o">=</span> <span class="n">ds</span><span class="p">[</span><span class="n">lon_name</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+
+        <span class="n">lat_ok</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array_equal</span><span class="p">(</span><span class="n">ds_lat</span><span class="p">,</span> <span class="n">orig</span><span class="o">.</span><span class="n">latitudes</span><span class="p">)</span>
+        <span class="n">lon_ok</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array_equal</span><span class="p">(</span><span class="n">ds_lon</span><span class="p">,</span> <span class="n">orig</span><span class="o">.</span><span class="n">longitudes</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">lat_ok</span> <span class="ow">and</span> <span class="n">lon_ok</span><span class="p">:</span>
+            <span class="n">out</span> <span class="o">=</span> <span class="n">ds</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+            <span class="n">out</span><span class="p">[</span><span class="s2">"original_cell_id"</span><span class="p">]</span> <span class="o">=</span> <span class="p">((</span><span class="n">lat_name</span><span class="p">,</span> <span class="n">lon_name</span><span class="p">),</span> <span class="n">orig</span><span class="o">.</span><span class="n">cell_ids</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">out</span>
+
+        <span class="c1"># Allow small numeric deviations</span>
+        <span class="n">lat_close</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">ds_lat</span><span class="p">,</span> <span class="n">orig</span><span class="o">.</span><span class="n">latitudes</span><span class="p">,</span> <span class="n">rtol</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">atol</span><span class="o">=</span><span class="n">tol</span><span class="p">)</span>
+        <span class="n">lon_close</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">ds_lon</span><span class="p">,</span> <span class="n">orig</span><span class="o">.</span><span class="n">longitudes</span><span class="p">,</span> <span class="n">rtol</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">atol</span><span class="o">=</span><span class="n">tol</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="n">lat_close</span> <span class="ow">and</span> <span class="n">lon_close</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s2">"Dataset grid mismatch; expected dataset already on original grid. No interpolation performed."</span>
+            <span class="p">)</span>
+
+        <span class="c1"># Coerce coordinates to exact original values to satisfy strict downstream checks</span>
+        <span class="n">out</span> <span class="o">=</span> <span class="n">ds</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="n">out</span> <span class="o">=</span> <span class="n">out</span><span class="o">.</span><span class="n">assign_coords</span><span class="p">({</span><span class="n">lat_name</span><span class="p">:</span> <span class="n">orig</span><span class="o">.</span><span class="n">latitudes</span><span class="p">,</span> <span class="n">lon_name</span><span class="p">:</span> <span class="n">orig</span><span class="o">.</span><span class="n">longitudes</span><span class="p">})</span>
+        <span class="n">out</span><span class="p">[</span><span class="s2">"original_cell_id"</span><span class="p">]</span> <span class="o">=</span> <span class="p">((</span><span class="n">lat_name</span><span class="p">,</span> <span class="n">lon_name</span><span class="p">),</span> <span class="n">orig</span><span class="o">.</span><span class="n">cell_ids</span><span class="p">)</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">"Dataset coordinates matched original grid within tol=</span><span class="si">{</span><span class="n">tol</span><span class="si">}</span><span class="s2">; coordinates were coerced to exact original values."</span><span class="p">,</span>
+            <span class="ne">UserWarning</span><span class="p">,</span>
+            <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="n">out</span></div>
+
+
+<div class="viewcode-block" id="DataRegistry.project_to_artificial">
+<a class="viewcode-back" href="../../../reference/toplevel.html#climclusterpy.data.DataRegistry.project_to_artificial">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">project_to_artificial</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ds</span><span class="p">:</span> <span class="n">xr</span><span class="o">.</span><span class="n">Dataset</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">xr</span><span class="o">.</span><span class="n">Dataset</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Interp dataset on original grid to artificial grid coordinates.</span>
+
+<span class="sd">        Assumes ds coordinates are already standardized by the loader.</span>
+<span class="sd">        """</span>
+        <span class="n">ag</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_artificial_grid</span><span class="p">()</span>
+        <span class="n">lat_name</span><span class="p">,</span> <span class="n">lon_name</span> <span class="o">=</span> <span class="n">_find_coord_names</span><span class="p">(</span><span class="n">ds</span><span class="p">)</span>
+        <span class="n">projected</span> <span class="o">=</span> <span class="n">ds</span><span class="o">.</span><span class="n">interp</span><span class="p">({</span><span class="n">lat_name</span><span class="p">:</span> <span class="n">ag</span><span class="o">.</span><span class="n">latitudes</span><span class="p">,</span> <span class="n">lon_name</span><span class="p">:</span> <span class="n">ag</span><span class="o">.</span><span class="n">longitudes</span><span class="p">},</span> <span class="n">method</span><span class="o">=</span><span class="s2">"nearest"</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">projected</span></div>
+
+
+    <span class="c1"># --- valid cells / flattening helpers ---</span>
+<div class="viewcode-block" id="DataRegistry.get_valid_mask">
+<a class="viewcode-back" href="../../../reference/toplevel.html#climclusterpy.data.DataRegistry.get_valid_mask">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_valid_mask</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Return 2D boolean mask (latitude, longitude) indicating valid original cells."""</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_valid_mask</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
+                <span class="s2">"Valid mask not initialized. Call init_original_grid_from_soilcode() first."</span>
+            <span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_valid_mask</span></div>
+
+
+<div class="viewcode-block" id="DataRegistry.get_valid_lat_lon">
+<a class="viewcode-back" href="../../../reference/toplevel.html#climclusterpy.data.DataRegistry.get_valid_lat_lon">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_valid_lat_lon</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">"""Return 1D arrays of (lat, lon) for valid original cells in row-major order."""</span>
+        <span class="n">orig</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_original_grid</span><span class="p">()</span>
+        <span class="n">mask</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_valid_mask</span><span class="p">()</span>
+        <span class="n">lon2d</span><span class="p">,</span> <span class="n">lat2d</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">orig</span><span class="o">.</span><span class="n">longitudes</span><span class="p">,</span> <span class="n">orig</span><span class="o">.</span><span class="n">latitudes</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">lat2d</span><span class="p">[</span><span class="n">mask</span><span class="p">],</span> <span class="n">lon2d</span><span class="p">[</span><span class="n">mask</span><span class="p">]</span></div>
+
+
+<div class="viewcode-block" id="DataRegistry.get_valid_original_ids">
+<a class="viewcode-back" href="../../../reference/toplevel.html#climclusterpy.data.DataRegistry.get_valid_original_ids">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_valid_original_ids</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Return 1D array of original_cell_id for valid cells (consecutive 0, 1, 2, ...)."""</span>
+        <span class="n">orig</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_original_grid</span><span class="p">()</span>
+        <span class="n">mask</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_valid_mask</span><span class="p">()</span>
+        <span class="n">valid_ids</span> <span class="o">=</span> <span class="n">orig</span><span class="o">.</span><span class="n">cell_ids</span><span class="p">[</span><span class="n">mask</span><span class="p">]</span>
+        <span class="c1"># Since we now assign consecutive IDs only to valid cells, these should be 0, 1, 2, ...</span>
+        <span class="k">return</span> <span class="n">valid_ids</span></div>
+
+
+<div class="viewcode-block" id="DataRegistry.flatten_on_valid">
+<a class="viewcode-back" href="../../../reference/toplevel.html#climclusterpy.data.DataRegistry.flatten_on_valid">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">flatten_on_valid</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">da</span><span class="p">:</span> <span class="n">xr</span><span class="o">.</span><span class="n">DataArray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Flatten a DataArray (lat, lon, ...) to (n_valid, prod(other_dims)) restricting to valid cells.</span>
+
+<span class="sd">        The input must be aligned to the original grid (use align_to_original beforehand).</span>
+
+<span class="sd">        Optimized version: extract values first, then use numpy operations (100x faster).</span>
+<span class="sd">        """</span>
+        <span class="c1"># Identify lat/lon dimensions</span>
+        <span class="n">dims</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">da</span><span class="o">.</span><span class="n">dims</span><span class="p">)</span>
+        <span class="n">lat_dim</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">lon_dim</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">dims</span><span class="p">:</span>
+            <span class="n">d_lower</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">d_lower</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">"lat"</span><span class="p">,</span> <span class="s2">"latitude"</span><span class="p">,</span> <span class="s2">"y"</span><span class="p">):</span>
+                <span class="n">lat_dim</span> <span class="o">=</span> <span class="n">d</span>
+            <span class="k">elif</span> <span class="n">d_lower</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">"lon"</span><span class="p">,</span> <span class="s2">"longitude"</span><span class="p">,</span> <span class="s2">"x"</span><span class="p">):</span>
+                <span class="n">lon_dim</span> <span class="o">=</span> <span class="n">d</span>
+
+        <span class="k">if</span> <span class="n">lat_dim</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">lon_dim</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="c1"># Fallback</span>
+            <span class="n">lat_dim</span><span class="p">,</span> <span class="n">lon_dim</span> <span class="o">=</span> <span class="n">_find_coord_names</span><span class="p">(</span><span class="n">da</span><span class="o">.</span><span class="n">to_dataset</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">"_tmp"</span><span class="p">))</span>
+
+        <span class="c1"># Load data in chunks to avoid memory issues, convert to float32</span>
+        <span class="c1"># Use dask if available for parallel processing</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">da</span><span class="p">,</span> <span class="s2">"chunk"</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">da</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="s2">"chunks"</span><span class="p">):</span>
+            <span class="c1"># Already chunked with dask - compute with float32</span>
+            <span class="n">arr</span> <span class="o">=</span> <span class="n">da</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span><span class="o">.</span><span class="n">values</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># Load directly as float32</span>
+            <span class="n">arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">da</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+
+        <span class="c1"># Find dimension indices for lat/lon</span>
+        <span class="n">lat_idx</span> <span class="o">=</span> <span class="n">dims</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">lat_dim</span><span class="p">)</span>
+        <span class="n">lon_idx</span> <span class="o">=</span> <span class="n">dims</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">lon_dim</span><span class="p">)</span>
+
+        <span class="c1"># Build transpose order: (lat, lon, other...)</span>
+        <span class="n">other_indices</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">dims</span><span class="p">))</span> <span class="k">if</span> <span class="n">i</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="n">lat_idx</span><span class="p">,</span> <span class="n">lon_idx</span><span class="p">)]</span>
+        <span class="n">transpose_order</span> <span class="o">=</span> <span class="p">[</span><span class="n">lat_idx</span><span class="p">,</span> <span class="n">lon_idx</span><span class="p">,</span> <span class="o">*</span><span class="n">other_indices</span><span class="p">]</span>
+
+        <span class="c1"># Transpose using numpy (much faster than xarray)</span>
+        <span class="k">if</span> <span class="n">transpose_order</span> <span class="o">!=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">dims</span><span class="p">))):</span>
+            <span class="n">arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">arr</span><span class="p">,</span> <span class="n">transpose_order</span><span class="p">)</span>
+
+        <span class="c1"># Reshape spatial dims to flat</span>
+        <span class="n">lat_size</span><span class="p">,</span> <span class="n">lon_size</span> <span class="o">=</span> <span class="n">arr</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">arr</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">rest_size</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">prod</span><span class="p">(</span><span class="n">arr</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">2</span><span class="p">:]))</span> <span class="k">if</span> <span class="n">arr</span><span class="o">.</span><span class="n">ndim</span> <span class="o">&gt;</span> <span class="mi">2</span> <span class="k">else</span> <span class="mi">1</span>
+        <span class="n">arr_2d</span> <span class="o">=</span> <span class="n">arr</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">lat_size</span> <span class="o">*</span> <span class="n">lon_size</span><span class="p">,</span> <span class="n">rest_size</span><span class="p">)</span>
+
+        <span class="c1"># Apply mask</span>
+        <span class="n">mask_flat</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_valid_mask</span><span class="p">()</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">lat_size</span> <span class="o">*</span> <span class="n">lon_size</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">arr_2d</span><span class="p">[</span><span class="n">mask_flat</span><span class="p">]</span></div>
+
+
+    <span class="c1"># --- CSV/NC specific helpers ---</span>
+<div class="viewcode-block" id="DataRegistry.attach_new_cell_id">
+<a class="viewcode-back" href="../../../reference/toplevel.html#climclusterpy.data.DataRegistry.attach_new_cell_id">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">attach_new_cell_id</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ds_on_artificial</span><span class="p">:</span> <span class="n">xr</span><span class="o">.</span><span class="n">Dataset</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">xr</span><span class="o">.</span><span class="n">Dataset</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Attach per-point new_cell_id along a point dimension based on mapping_df.</span>
+
+<span class="sd">        Note: This is a simplified representation; in practice you may build a point index</span>
+<span class="sd">        by flattening spatial dims.</span>
+<span class="sd">        """</span>
+        <span class="n">ag</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_artificial_grid</span><span class="p">()</span>
+        <span class="c1"># build a deterministic mapping array for flattened order</span>
+        <span class="n">nlat</span> <span class="o">=</span> <span class="n">ag</span><span class="o">.</span><span class="n">latitudes</span><span class="o">.</span><span class="n">size</span>
+        <span class="n">nlon</span> <span class="o">=</span> <span class="n">ag</span><span class="o">.</span><span class="n">longitudes</span><span class="o">.</span><span class="n">size</span>
+        <span class="n">flat_indices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">nlat</span> <span class="o">*</span> <span class="n">nlon</span><span class="p">)</span>
+        <span class="c1"># map flat index to new_cell_id by joining with mapping (assuming 1-1 for simplicity here)</span>
+        <span class="c1"># In real use, mapping_df can contain repeats (multiple new cells per original); preserve as-is.</span>
+        <span class="n">new_ids</span> <span class="o">=</span> <span class="n">ag</span><span class="o">.</span><span class="n">mapping_df</span><span class="p">[</span><span class="s2">"new_cell_id"</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+        <span class="k">if</span> <span class="n">new_ids</span><span class="o">.</span><span class="n">size</span> <span class="o">!=</span> <span class="n">flat_indices</span><span class="o">.</span><span class="n">size</span><span class="p">:</span>
+            <span class="c1"># if mismatch, fallback to broadcasting new_cell_id by nearest mapping order (placeholder)</span>
+            <span class="c1"># For full fidelity, extend mapping to a 2D raster matching the artificial grid.</span>
+            <span class="n">new_ids</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">resize</span><span class="p">(</span><span class="n">new_ids</span><span class="p">,</span> <span class="n">flat_indices</span><span class="o">.</span><span class="n">size</span><span class="p">)</span>
+        <span class="n">grid_ids</span> <span class="o">=</span> <span class="n">new_ids</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">nlat</span><span class="p">,</span> <span class="n">nlon</span><span class="p">)</span>
+        <span class="n">out</span> <span class="o">=</span> <span class="n">ds_on_artificial</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="n">out</span><span class="p">[</span><span class="s2">"new_cell_id"</span><span class="p">]</span> <span class="o">=</span> <span class="p">((</span><span class="s2">"latitude"</span><span class="p">,</span> <span class="s2">"longitude"</span><span class="p">),</span> <span class="n">grid_ids</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">out</span></div>
+</div>
+
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">require_valid_cell_alignment</span><span class="p">(</span><span class="n">features_df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">registry</span><span class="p">,</span> <span class="n">what</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Return ``features_df`` sorted into registry valid-cell order, or fail loudly.</span>
+
+<span class="sd">    Every downstream step (label CSVs, mapping CSVs, reconstruction) identifies a</span>
+<span class="sd">    cell by its position in the registry's valid-cell sequence. A table that has</span>
+<span class="sd">    lost or reordered cells would still *run* while silently attributing values to</span>
+<span class="sd">    the wrong places, so the alignment is checked elementwise rather than by length.</span>
+<span class="sd">    """</span>
+    <span class="k">if</span> <span class="s2">"cell_id"</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">features_df</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">what</span><span class="si">}</span><span class="s2"> is missing a 'cell_id' column; cannot verify cell alignment."</span><span class="p">)</span>
+
+    <span class="n">expected</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">registry</span><span class="o">.</span><span class="n">get_valid_original_ids</span><span class="p">())</span>
+    <span class="n">ordered</span> <span class="o">=</span> <span class="n">features_df</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s2">"cell_id"</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">actual</span> <span class="o">=</span> <span class="n">ordered</span><span class="p">[</span><span class="s2">"cell_id"</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
+
+    <span class="k">if</span> <span class="n">actual</span><span class="o">.</span><span class="n">shape</span> <span class="o">!=</span> <span class="n">expected</span><span class="o">.</span><span class="n">shape</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">array_equal</span><span class="p">(</span><span class="n">actual</span><span class="p">,</span> <span class="n">expected</span><span class="p">):</span>
+        <span class="n">missing</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">expected</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span> <span class="o">-</span> <span class="nb">set</span><span class="p">(</span><span class="n">actual</span><span class="o">.</span><span class="n">tolist</span><span class="p">()))</span>
+        <span class="n">extra</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">actual</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span> <span class="o">-</span> <span class="nb">set</span><span class="p">(</span><span class="n">expected</span><span class="o">.</span><span class="n">tolist</span><span class="p">()))</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">what</span><span class="si">}</span><span class="s2"> does not cover the grid's valid cells exactly: it has </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">actual</span><span class="p">)</span><span class="si">}</span><span class="s2"> rows "</span>
+            <span class="sa">f</span><span class="s2">"for </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">expected</span><span class="p">)</span><span class="si">}</span><span class="s2"> valid cells"</span>
+            <span class="o">+</span> <span class="p">(</span>
+                <span class="sa">f</span><span class="s2">", missing cell_ids </span><span class="si">{</span><span class="n">missing</span><span class="p">[:</span><span class="mi">5</span><span class="p">]</span><span class="si">}{</span><span class="s1">'…'</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="nb">len</span><span class="p">(</span><span class="n">missing</span><span class="p">)</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">5</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="s1">''</span><span class="si">}</span><span class="s2">"</span>
+                <span class="k">if</span> <span class="n">missing</span>
+                <span class="k">else</span> <span class="s2">""</span>
+            <span class="p">)</span>
+            <span class="o">+</span> <span class="p">(</span><span class="sa">f</span><span class="s2">", unexpected cell_ids </span><span class="si">{</span><span class="n">extra</span><span class="p">[:</span><span class="mi">5</span><span class="p">]</span><span class="si">}{</span><span class="s1">'…'</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="nb">len</span><span class="p">(</span><span class="n">extra</span><span class="p">)</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">5</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="s1">''</span><span class="si">}</span><span class="s2">"</span> <span class="k">if</span> <span class="n">extra</span> <span class="k">else</span> <span class="s2">""</span><span class="p">)</span>
+            <span class="o">+</span> <span class="s2">". Cell identity must match the climate input's grid."</span>
+        <span class="p">)</span>
+    <span class="k">return</span> <span class="n">ordered</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, Jamir Priesner.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

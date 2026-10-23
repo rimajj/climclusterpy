@@ -1,0 +1,790 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>climclusterpy.features.diagnostics &mdash; climclusterpy 0.5</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/custom.css?v=f2cc2102" />
+
+  
+    <link rel="shortcut icon" href="../../../_static/logo.svg"/>
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=1dd76d02"></script>
+      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            climclusterpy
+              <img src="../../../_static/logo.svg" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorials/index.html">Tutorials</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../tutorials/one_call_roundtrip.html">Tutorial 0 — the whole workflow in two calls</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/one_call_roundtrip.html#the-idea">The idea</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/one_call_roundtrip.html#call-1-build-the-reduced-grid">Call 1 — build the reduced grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/one_call_roundtrip.html#call-2-rebuild-the-original-grid">Call 2 — rebuild the original grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/one_call_roundtrip.html#the-complete-script">The complete script</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/one_call_roundtrip.html#run-it">Run it</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/one_call_roundtrip.html#next-steps">Next steps</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../tutorials/euclidean_clustering.html">Tutorial 1 — Euclidean clustering</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/euclidean_clustering.html#load-data-and-build-a-feature-matrix">Load data and build a feature matrix</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/euclidean_clustering.html#cluster">Cluster</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/euclidean_clustering.html#the-complete-script">The complete script</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/euclidean_clustering.html#run-it">Run it</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/euclidean_clustering.html#next-steps">Next steps</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../tutorials/lmnn_clustering.html">Tutorial 2 — LMNN metric-learning clustering</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/lmnn_clustering.html#provide-a-supervision-signal">Provide a supervision signal</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/lmnn_clustering.html#learn-a-metric-and-cluster">Learn a metric and cluster</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/lmnn_clustering.html#the-complete-script">The complete script</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/lmnn_clustering.html#run-it">Run it</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/lmnn_clustering.html#next-steps">Next steps</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../tutorials/supervision.html">Tutorial 3 — Supervision signals</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/supervision.html#koppengeiger-from-monthly-climatology">Köppen–Geiger from monthly climatology</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/supervision.html#model-output-trait-clustering">Model-output (trait) clustering</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/supervision.html#the-complete-script">The complete script</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/supervision.html#run-it">Run it</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/supervision.html#ecoregion-supervision">Ecoregion supervision</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../tutorials/reconstruction.html">Tutorial 4 — Reconstruct the original grid</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/reconstruction.html#the-round-trip">The round trip</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/reconstruction.html#verify">Verify</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/reconstruction.html#the-complete-script">The complete script</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/reconstruction.html#run-it">Run it</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/reconstruction.html#next-steps">Next steps</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../tutorials/index.html#a-note-on-the-synthetic-data">A note on the synthetic data</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">How-to guides</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../howto/index.html">How-to guides</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../howto/install.html">Install climclusterpy</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/install.html#base-install">Base install</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/install.html#optional-extras">Optional extras</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/install.html#installing-the-geospatial-extras-with-conda">Installing the geospatial extras with conda</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/install.html#pytorch-cpu-vs-gpu">PyTorch (CPU vs. GPU)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/install.html#environment-variables">Environment variables</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/install.html#building-the-documentation">Building the documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../howto/inputs.html">Prepare the input files</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/inputs.html#check-your-input-first">Check your input first</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/inputs.html#the-files">The files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/inputs.html#grid-and-coordinates">Grid and coordinates</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/inputs.html#which-cells-exist-the-soil-code">Which cells exist: the soil code</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/inputs.html#the-time-axis">The time axis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/inputs.html#missing-values">Missing values</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/inputs.html#another-vegetation-model-s-input">Another vegetation model’s input</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/inputs.html#output-files">Output files</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../howto/clustering.html">Cluster a feature matrix (choose a mode)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/clustering.html#euclidean-mode-no-supervision">Euclidean mode (no supervision)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/clustering.html#lmnn-mode-supervised-metric-learning">LMNN mode (supervised metric learning)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/clustering.html#lower-level-control">Lower-level control</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../howto/supervision.html">Build an LMNN supervision signal</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/supervision.html#from-climate-koppengeiger">From climate — Köppen–Geiger</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/supervision.html#from-model-output-traits">From model output — traits</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/supervision.html#from-a-shapefile-ecoregions2017">From a shapefile — Ecoregions2017</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/supervision.html#using-the-signal">Using the signal</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/supervision.html#in-one-call">In one call</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/supervision.html#saved-results-are-reused-only-for-the-same-inputs">Saved results are reused only for the same inputs</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../howto/cell_selection.html">Choosing the cells a cluster is simulated on</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/cell_selection.html#the-patch-budget">The patch budget</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/cell_selection.html#what-the-drawn-cells-carry">What the drawn cells carry</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/cell_selection.html#reproducibility">Reproducibility</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/cell_selection.html#looking-at-a-draw-without-building-a-grid">Looking at a draw without building a grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/cell_selection.html#back-to-the-full-grid">Back to the full grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/cell_selection.html#a-model-that-reads-its-own-inputs-the-grid-only-then-cut-the-rest">A model that reads its own inputs: the grid only, then cut the rest</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../howto/reconstruct.html">Reconstruct the original grid</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/reconstruct.html#the-usual-call">The usual call</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/reconstruct.html#picking-up-where-you-left-off">Picking up where you left off</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/reconstruct.html#without-a-result-or-run-folder">Without a result or run folder</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/reconstruct.html#required-mapping-files">Required mapping files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/reconstruct.html#reconstruction-paths-kind">Reconstruction paths (<code class="docutils literal notranslate"><span class="pre">kind</span></code>)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/reconstruct.html#verifying-the-result">Verifying the result</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../reference/index.html">Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../reference/api.html">Public API — <code class="xref py py-mod docutils literal notranslate"><span class="pre">climclusterpy</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/api.html#the-two-headline-functions">The two headline functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/api.html#before-and-after-the-model-run">Before and after the model run</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/api.html#input-for-a-model-other-than-lpjml">Input for a model other than LPJmL</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/api.html#other-ways-to-build-the-reduced-grid">Other ways to build the reduced grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/api.html#reusing-a-trained-metric">Reusing a trained metric</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/api.html#the-model-s-other-inputs">The model’s other inputs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/api.html#writing-the-reduced-grid-yourself">Writing the reduced grid yourself</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/api.html#building-blocks">Building blocks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/api.html#result-objects">Result objects</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../reference/toplevel.html">Data, timeseries, I/O &amp; plotting</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/toplevel.html#module-climclusterpy.data">Data loading &amp; the grid registry</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/toplevel.html#how-much-the-package-reports">How much the package reports</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/toplevel.html#coordinates">Coordinates</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/toplevel.html#module-climclusterpy.timeseries">Per-cluster timeseries</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/toplevel.html#module-climclusterpy.io">File input/output</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/toplevel.html#module-climclusterpy.preprocessing">Preprocessing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/toplevel.html#module-climclusterpy.viz">Plotting</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../reference/features.html">Feature engineering</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/features.html#ecological-summaries">Ecological summaries</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/features.html#vegetation-model-traits">Vegetation-model traits</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/features.html#standardization-filtering">Standardization &amp; filtering</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../reference/clustering.html">Clustering &amp; metric learning</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/clustering.html#hierarchical-clustering">Hierarchical clustering</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/clustering.html#module-climclusterpy.clustering.lmnn">LMNN metric learning</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../reference/supervision.html">Supervision labels</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/supervision.html#koppengeiger-climate-zones">Köppen–Geiger climate zones</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/supervision.html#vegetation-model-output-traits">Vegetation-model output traits</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/supervision.html#ecoregion-polygons">Ecoregion polygons</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/supervision.html#daily-input-helpers">Daily-input helpers</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../reference/grid.html">Grid building &amp; reconstruction</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/grid.html#where-each-reduced-cell-is-placed">Where each reduced cell is placed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/grid.html#writing-the-reduced-grid">Writing the reduced grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/grid.html#reconstruction">Reconstruction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/grid.html#lpjml-clm-conversion">LPJmL CLM conversion</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../reference/cli.html">Command-line interface (<code class="docutils literal notranslate"><span class="pre">climclu</span></code>)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/cli.html#the-two-headline-commands">The two headline commands</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/cli.html#building-blocks">Building blocks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/cli.html#options-shared-by-every-action-command">Options shared by every action command</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/cli.html#errors-and-exit-codes">Errors and exit codes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../reference/index.html#which-function-do-i-need">Which function do I need?</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Explanation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../explanation/index.html">Explanation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../explanation/overview.html">Overview</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/overview.html#design-philosophy">Design Philosophy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/overview.html#workflow-summary">Workflow Summary</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/overview.html#key-innovations">Key Innovations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/overview.html#use-cases">Use Cases</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/overview.html#limitations">Limitations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/overview.html#future-directions">Future Directions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/overview.html#references">References</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../explanation/methods.html">Scientific Methods</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/methods.html#data-acquisition-and-preprocessing">Data Acquisition and Preprocessing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/methods.html#ecoregion-assignment">Ecoregion Assignment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/methods.html#ecological-feature-summarization">Ecological Feature Summarization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/methods.html#feature-standardization-and-filtering">Feature Standardization and Filtering</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/methods.html#large-margin-nearest-neighbor-lmnn-metric-learning">Large Margin Nearest Neighbor (LMNN) Metric Learning</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/methods.html#hierarchical-clustering">Hierarchical Clustering</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/methods.html#representative-cell-selection">Representative Cell Selection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/methods.html#evaluation-metrics">Evaluation Metrics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/methods.html#netcdf-processing">NetCDF Processing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/methods.html#computational-implementation">Computational Implementation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../explanation/index.html#reconstruction-correctness">Reconstruction correctness</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">climclusterpy</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">climclusterpy.features.diagnostics</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for climclusterpy.features.diagnostics</h1><div class="highlight"><pre>
+<span></span><span class="sd">"""Ecophysiological and Köppen-diagnostic features.</span>
+
+<span class="sd">Two families of derived features that raw statistics miss, both computed from the</span>
+<span class="sd">monthly climatologies:</span>
+
+<span class="sd">* **Köppen diagnostics** (``kg_diag_*``) — the quantities the Köppen–Geiger rules</span>
+<span class="sd">  are actually defined on (warmest/coldest month, seasonality ratios, aridity</span>
+<span class="sd">  index), so a clustering can see the same structure a climate classification does.</span>
+<span class="sd">* **Ecology diagnostics** (``eco_diag_*``) — threshold and ratio transformations</span>
+<span class="sd">  with independent ecological meaning: vapour-pressure deficit, growing degree</span>
+<span class="sd">  days, frost-free days, PET and the P/PET ratio, water-deficit months, dry-spell</span>
+<span class="sd">  length, and precipitation intensity.</span>
+
+<span class="sd">Both families are *protected* from correlation and PCA filtering. They may</span>
+<span class="sd">correlate with raw features numerically while encoding non-redundant</span>
+<span class="sd">threshold-nonlinear information, so dropping them on a correlation test would throw</span>
+<span class="sd">away exactly the ecological signal they were added for.</span>
+<span class="sd">"""</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">climclusterpy.features.climate</span><span class="w"> </span><span class="kn">import</span> <span class="n">DAYS_PER_MONTH</span>
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">"ECOLOGY_DIAGNOSTIC_FEATURES"</span><span class="p">,</span>
+    <span class="s2">"compute_all_ecology_diagnostic_features"</span><span class="p">,</span>
+    <span class="s2">"compute_dry_spell_features"</span><span class="p">,</span>
+    <span class="s2">"compute_growing_season_features"</span><span class="p">,</span>
+    <span class="s2">"compute_kg_diagnostic_features"</span><span class="p">,</span>
+    <span class="s2">"compute_vpd_features"</span><span class="p">,</span>
+    <span class="s2">"compute_water_balance_features"</span><span class="p">,</span>
+<span class="p">]</span>
+
+
+<div class="viewcode-block" id="compute_kg_diagnostic_features">
+<a class="viewcode-back" href="../../../reference/features.html#climclusterpy.features.compute_kg_diagnostic_features">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">compute_kg_diagnostic_features</span><span class="p">(</span>
+    <span class="n">monthly_T</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">monthly_P</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">latitudes</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">"""</span>
+<span class="sd">    Compute KG-diagnostic scalar features from 12-month climatological means.</span>
+
+<span class="sd">    These features capture the exact quantities used by the Köppen-Geiger</span>
+<span class="sd">    classification rule (temperature extremes, precipitation seasonality,</span>
+<span class="sd">    aridity) as continuous scalars.  They are prefixed with ``kg_diag_`` so</span>
+<span class="sd">    that the filtering pipeline can identify and protect them.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    monthly_T : np.ndarray, shape (n_cells, 12)</span>
+<span class="sd">        Mean temperature (°C) for each of the 12 calendar months.</span>
+<span class="sd">    monthly_P : np.ndarray, shape (n_cells, 12)</span>
+<span class="sd">        Mean precipitation (mm/month) for each of the 12 calendar months.</span>
+<span class="sd">    latitudes : np.ndarray, shape (n_cells,)</span>
+<span class="sd">        Cell latitudes in decimal degrees (negative = Southern Hemisphere).</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    dict mapping ``kg_diag_*`` feature names to 1-D arrays of length n_cells.</span>
+<span class="sd">    """</span>
+    <span class="c1"># Month indices: NH summer = Apr(3)–Sep(8), NH winter = Oct(9)–Mar(2)</span>
+    <span class="c1"># For SH cells the halves are flipped (hemisphere derived from latitude sign).</span>
+    <span class="n">NH_SUMMER</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">])</span>  <span class="c1"># 0-indexed months Apr–Sep</span>
+    <span class="n">NH_WINTER</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">9</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>  <span class="c1"># Oct–Mar</span>
+
+    <span class="n">T_cold</span> <span class="o">=</span> <span class="n">monthly_T</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">T_warm</span> <span class="o">=</span> <span class="n">monthly_T</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">T_annual</span> <span class="o">=</span> <span class="n">monthly_T</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="n">P_dry_min</span> <span class="o">=</span> <span class="n">monthly_P</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">P_wet_max</span> <span class="o">=</span> <span class="n">monthly_P</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="c1"># Hemisphere-aware seasonal precip</span>
+    <span class="n">is_southern</span> <span class="o">=</span> <span class="n">latitudes</span> <span class="o">&lt;</span> <span class="mi">0</span>
+    <span class="c1"># NH conventions first; then flip for SH cells</span>
+    <span class="n">P_summer_nh</span> <span class="o">=</span> <span class="n">monthly_P</span><span class="p">[:,</span> <span class="n">NH_SUMMER</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">P_winter_nh</span> <span class="o">=</span> <span class="n">monthly_P</span><span class="p">[:,</span> <span class="n">NH_WINTER</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">P_summer_sh</span> <span class="o">=</span> <span class="n">monthly_P</span><span class="p">[:,</span> <span class="n">NH_WINTER</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">P_winter_sh</span> <span class="o">=</span> <span class="n">monthly_P</span><span class="p">[:,</span> <span class="n">NH_SUMMER</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="n">P_dry_summer</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">is_southern</span><span class="p">,</span> <span class="n">P_summer_sh</span><span class="p">,</span> <span class="n">P_summer_nh</span><span class="p">)</span>
+    <span class="n">P_dry_winter</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">is_southern</span><span class="p">,</span> <span class="n">P_winter_sh</span><span class="p">,</span> <span class="n">P_winter_nh</span><span class="p">)</span>
+
+    <span class="c1"># Seasonality ratio (wettest/driest monthly precip); clip to avoid explosion</span>
+    <span class="c1"># Add small epsilon to driest month to avoid div-by-zero</span>
+    <span class="n">P_seasonality_ratio</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span>
+        <span class="n">P_wet_max</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">maximum</span><span class="p">(</span><span class="n">P_dry_min</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">),</span>
+        <span class="mf">1.0</span><span class="p">,</span>
+        <span class="mf">100.0</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="c1"># Aridity offset from the KG threshold</span>
+    <span class="c1"># KG aridity threshold: Pann &gt; 2*Tann + 28 (all-year precipitation; shift for</span>
+    <span class="c1"># summer/winter precipitation patterns is not applied here — that is handled</span>
+    <span class="c1"># by the KG module).  Negative values indicate arid conditions.</span>
+    <span class="n">aridity_index</span> <span class="o">=</span> <span class="n">monthly_P</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="o">-</span> <span class="p">(</span><span class="mf">2.0</span> <span class="o">*</span> <span class="n">T_annual</span> <span class="o">+</span> <span class="mf">28.0</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="s2">"kg_diag_T_cold"</span><span class="p">:</span> <span class="n">T_cold</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">),</span>
+        <span class="s2">"kg_diag_T_warm"</span><span class="p">:</span> <span class="n">T_warm</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">),</span>
+        <span class="s2">"kg_diag_P_dry_min"</span><span class="p">:</span> <span class="n">P_dry_min</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">),</span>
+        <span class="s2">"kg_diag_P_wet_max"</span><span class="p">:</span> <span class="n">P_wet_max</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">),</span>
+        <span class="s2">"kg_diag_P_dry_summer"</span><span class="p">:</span> <span class="n">P_dry_summer</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">),</span>
+        <span class="s2">"kg_diag_P_dry_winter"</span><span class="p">:</span> <span class="n">P_dry_winter</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">),</span>
+        <span class="s2">"kg_diag_P_seasonality_ratio"</span><span class="p">:</span> <span class="n">P_seasonality_ratio</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">),</span>
+        <span class="s2">"kg_diag_aridity_index"</span><span class="p">:</span> <span class="n">aridity_index</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">),</span>
+    <span class="p">}</span></div>
+
+
+
+<span class="c1"># ─────────────────────────────────────────────────────────────────────────</span>
+<span class="c1"># Ecology-diagnostic features  (eco_diag_*)</span>
+<span class="c1"># ─────────────────────────────────────────────────────────────────────────</span>
+<span class="c1"># NEW PROTECTION CATEGORY</span>
+<span class="c1"># ecology_diagnostic features: physically non-redundant ecological indices</span>
+<span class="c1"># that may correlate with raw climate features but encode threshold-nonlinear</span>
+<span class="c1"># or ratio transformations with independent ecological meaning.</span>
+<span class="c1"># These are protected from correlation filtering and PCA removal,</span>
+<span class="c1"># identical to how kg_diag features are protected.</span>
+<span class="n">ECOLOGY_DIAGNOSTIC_FEATURES</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">"eco_diag_vpd_mean"</span><span class="p">,</span>
+    <span class="s2">"eco_diag_vpd_max_monthly"</span><span class="p">,</span>
+    <span class="s2">"eco_diag_vpd_stress_months"</span><span class="p">,</span>
+    <span class="s2">"eco_diag_gdd_5"</span><span class="p">,</span>
+    <span class="s2">"eco_diag_gdd_10"</span><span class="p">,</span>
+    <span class="s2">"eco_diag_frost_free_days"</span><span class="p">,</span>
+    <span class="s2">"eco_diag_pet_mean"</span><span class="p">,</span>
+    <span class="s2">"eco_diag_p_pet_ratio"</span><span class="p">,</span>
+    <span class="s2">"eco_diag_water_deficit_months"</span><span class="p">,</span>
+    <span class="s2">"eco_diag_dry_spell_max"</span><span class="p">,</span>
+    <span class="s2">"eco_diag_dry_spell_mean"</span><span class="p">,</span>
+    <span class="s2">"eco_diag_precip_intensity_wet_days"</span><span class="p">,</span>
+    <span class="s2">"eco_diag_precip_wettest_quarter_frac"</span><span class="p">,</span>
+<span class="p">]</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">compute_vpd_features</span><span class="p">(</span>
+    <span class="n">monthly_T</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">monthly_q</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">"""</span>
+<span class="sd">    Vapour Pressure Deficit (VPD) features from monthly temperature and</span>
+<span class="sd">    specific humidity.</span>
+
+<span class="sd">    VPD = e_s(T) * (1 - RH/100)</span>
+<span class="sd">    e_s(T) = 0.611 * exp(17.27*T / (T + 237.3))  [kPa]</span>
+<span class="sd">    RH ≈ 100 * (q * P) / (0.622 * e_s(T))        [% ; P = 101.325 kPa]</span>
+
+<span class="sd">    Ecological motivation:</span>
+<span class="sd">    - VPD is the primary driver of plant water stress and stomatal closure,</span>
+<span class="sd">      more direct than either temperature or humidity alone</span>
+<span class="sd">    - Mean VPD captures background atmospheric aridity</span>
+<span class="sd">    - Max monthly VPD captures peak physiological stress intensity</span>
+<span class="sd">    - Stress months captures duration of high-VPD conditions</span>
+<span class="sd">    - Particularly important for differentiating semi-arid systems where</span>
+<span class="sd">      P/PET alone does not capture atmospheric demand timing</span>
+
+<span class="sd">    Note: may correlate with temperature and humidity features but encodes</span>
+<span class="sd">    a nonlinear multiplicative interaction between them — protected from</span>
+<span class="sd">    filtering as ecology_diagnostic.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    monthly_T : (n_cells, 12)  Mean temperature per month [°C]</span>
+<span class="sd">    monthly_q : (n_cells,)     Mean annual specific humidity [kg/kg]</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    dict with keys: eco_diag_vpd_mean, eco_diag_vpd_max_monthly,</span>
+<span class="sd">                    eco_diag_vpd_stress_months</span>
+<span class="sd">    """</span>
+    <span class="n">P_ATM</span> <span class="o">=</span> <span class="mf">101.325</span>  <span class="c1"># kPa, standard atmospheric pressure</span>
+
+    <span class="c1"># Saturation vapour pressure per month [kPa]</span>
+    <span class="n">e_s</span> <span class="o">=</span> <span class="mf">0.611</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="mf">17.27</span> <span class="o">*</span> <span class="n">monthly_T</span> <span class="o">/</span> <span class="p">(</span><span class="n">monthly_T</span> <span class="o">+</span> <span class="mf">237.3</span><span class="p">))</span>
+
+    <span class="c1"># Approximate RH per month from annual-mean specific humidity</span>
+    <span class="c1"># RH_m ≈ 100 * (q * P) / (0.622 * e_s_m)</span>
+    <span class="n">q_expanded</span> <span class="o">=</span> <span class="n">monthly_q</span><span class="p">[:,</span> <span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">]</span>  <span class="c1"># (n, 1)</span>
+    <span class="n">RH_monthly</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span>
+        <span class="mf">100.0</span> <span class="o">*</span> <span class="p">(</span><span class="n">q_expanded</span> <span class="o">*</span> <span class="n">P_ATM</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mf">0.622</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">maximum</span><span class="p">(</span><span class="n">e_s</span><span class="p">,</span> <span class="mf">1e-6</span><span class="p">)),</span>
+        <span class="mf">0.0</span><span class="p">,</span>
+        <span class="mf">100.0</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="c1"># VPD per month [kPa]</span>
+    <span class="n">vpd_monthly</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">maximum</span><span class="p">(</span><span class="n">e_s</span> <span class="o">*</span> <span class="p">(</span><span class="mf">1.0</span> <span class="o">-</span> <span class="n">RH_monthly</span> <span class="o">/</span> <span class="mf">100.0</span><span class="p">),</span> <span class="mf">0.0</span><span class="p">)</span>
+
+    <span class="n">vpd_mean</span> <span class="o">=</span> <span class="n">vpd_monthly</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+    <span class="n">vpd_max_monthly</span> <span class="o">=</span> <span class="n">vpd_monthly</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+    <span class="n">vpd_stress_months</span> <span class="o">=</span> <span class="p">(</span><span class="n">vpd_monthly</span> <span class="o">&gt;</span> <span class="mf">1.0</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="s2">"eco_diag_vpd_mean"</span><span class="p">:</span> <span class="n">vpd_mean</span><span class="p">,</span>
+        <span class="s2">"eco_diag_vpd_max_monthly"</span><span class="p">:</span> <span class="n">vpd_max_monthly</span><span class="p">,</span>
+        <span class="s2">"eco_diag_vpd_stress_months"</span><span class="p">:</span> <span class="n">vpd_stress_months</span><span class="p">,</span>
+    <span class="p">}</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">compute_growing_season_features</span><span class="p">(</span>
+    <span class="n">monthly_T</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">"""</span>
+<span class="sd">    Growing season thermal accumulation features from monthly temperatures.</span>
+
+<span class="sd">    Works on the monthly means directly, with no daily reconstruction:</span>
+
+<span class="sd">    * GDD above a base is the sum over months of ``max(T_month - base, 0)`` times</span>
+<span class="sd">      the days in that month. This underestimates slightly in months whose mean is</span>
+<span class="sd">      close to the base, where some days are above it and some below.</span>
+<span class="sd">    * Frost-free days is the sum over months of the days in that month times</span>
+<span class="sd">      ``clip(T_month / 5 + 0.5, 0, 1)``: a month at -2.5 °C or colder counts no day,</span>
+<span class="sd">      one at +2.5 °C or warmer counts every day, linear in between.</span>
+
+<span class="sd">    Ecological motivation:</span>
+<span class="sd">    - GDD captures total thermal energy available for plant growth</span>
+<span class="sd">      during the growing season — standard input to vegetation models</span>
+<span class="sd">    - Frost-free days captures growing season length directly</span>
+<span class="sd">    - Together they distinguish maritime from continental climates</span>
+<span class="sd">      that have equal mean annual temperature</span>
+<span class="sd">    - GDD_5 is the temperate standard; GDD_10 is the warm-season/crop standard</span>
+<span class="sd">    - May correlate with temperature seasonality but captures threshold-</span>
+<span class="sd">      nonlinear integration — protected as ecology_diagnostic</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    monthly_T : (n_cells, 12) Mean temperature per month [°C]</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    dict with keys: eco_diag_gdd_5, eco_diag_gdd_10, eco_diag_frost_free_days</span>
+<span class="sd">    """</span>
+    <span class="n">days_per_month</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">DAYS_PER_MONTH</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+
+    <span class="c1"># Approximate GDD from monthly means using the Thom (1966) method:</span>
+    <span class="c1"># For month m with mean T_m:</span>
+    <span class="c1">#   GDD_base(m) ≈ max(T_m - base, 0) * days_in_month(m)</span>
+    <span class="c1"># This is a good approximation when |T_m - base| &gt;&gt; daily_range/2</span>
+    <span class="c1"># and slightly underestimates in the transition zone.</span>
+    <span class="n">gdd_5_monthly</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">maximum</span><span class="p">(</span><span class="n">monthly_T</span> <span class="o">-</span> <span class="mf">5.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span> <span class="o">*</span> <span class="n">days_per_month</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">,</span> <span class="p">:]</span>
+    <span class="n">gdd_10_monthly</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">maximum</span><span class="p">(</span><span class="n">monthly_T</span> <span class="o">-</span> <span class="mf">10.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span> <span class="o">*</span> <span class="n">days_per_month</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">,</span> <span class="p">:]</span>
+
+    <span class="n">gdd_5</span> <span class="o">=</span> <span class="n">gdd_5_monthly</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+    <span class="n">gdd_10</span> <span class="o">=</span> <span class="n">gdd_10_monthly</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+
+    <span class="c1"># Frost-free days: approximate as sum of days in months with T_m &gt;= 0°C</span>
+    <span class="c1"># For months near 0°C, use linear interpolation:</span>
+    <span class="c1"># fraction_frost_free ≈ clip(T_m / 5 + 0.5, 0, 1)</span>
+    <span class="c1"># This gives 0% at T_m = -2.5°C, 100% at T_m = +2.5°C, linear between</span>
+    <span class="n">frac_frost_free</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">monthly_T</span> <span class="o">/</span> <span class="mf">5.0</span> <span class="o">+</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span>
+    <span class="n">frost_free_days</span> <span class="o">=</span> <span class="p">(</span><span class="n">frac_frost_free</span> <span class="o">*</span> <span class="n">days_per_month</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">,</span> <span class="p">:])</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">frost_free_days</span> <span class="o">=</span> <span class="n">frost_free_days</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="s2">"eco_diag_gdd_5"</span><span class="p">:</span> <span class="n">gdd_5</span><span class="p">,</span>
+        <span class="s2">"eco_diag_gdd_10"</span><span class="p">:</span> <span class="n">gdd_10</span><span class="p">,</span>
+        <span class="s2">"eco_diag_frost_free_days"</span><span class="p">:</span> <span class="n">frost_free_days</span><span class="p">,</span>
+    <span class="p">}</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">compute_water_balance_features</span><span class="p">(</span>
+    <span class="n">monthly_P</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">monthly_T</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">rsds_mean</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">"""</span>
+<span class="sd">    Water balance features from precipitation and potential evapotranspiration.</span>
+
+<span class="sd">    PET is computed using Priestley-Taylor approximation from monthly T and</span>
+<span class="sd">    mean annual shortwave radiation:</span>
+<span class="sd">        Rn ≈ 0.77 * rsds * 0.0864   [MJ/m²/day]</span>
+<span class="sd">        PET_monthly ≈ 1.26 * (Δ * Rn) / (Δ + γ) * days_per_month</span>
+<span class="sd">    where Δ is the slope of the saturation vapour pressure curve and γ</span>
+<span class="sd">    is the psychrometric constant.</span>
+
+<span class="sd">    Ecological motivation:</span>
+<span class="sd">    - P/PET is the single most important axis of global vegetation distribution,</span>
+<span class="sd">      separating humid from arid systems more cleanly than either P or T alone</span>
+<span class="sd">    - Annual PET captures evaporative demand independent of water supply</span>
+<span class="sd">    - Water deficit months captures duration of physiological drought stress</span>
+<span class="sd">    - These complement rather than replace the KG aridity index scalar</span>
+<span class="sd">      (Pann - 2*Tann + 28) which uses a linear temperature approximation —</span>
+<span class="sd">      P/PET from Priestley-Taylor PET is physically more rigorous</span>
+<span class="sd">    - Protected as ecology_diagnostic despite possible correlation with</span>
+<span class="sd">      existing aridity features</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    monthly_P : (n_cells, 12) Monthly mean precipitation [mm/month]</span>
+<span class="sd">    monthly_T : (n_cells, 12) Monthly mean temperature [°C]</span>
+<span class="sd">    rsds_mean : (n_cells,)    Mean annual shortwave radiation [W/m²]</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    dict with keys: eco_diag_pet_mean, eco_diag_p_pet_ratio,</span>
+<span class="sd">                    eco_diag_water_deficit_months</span>
+<span class="sd">    """</span>
+    <span class="n">days_per_month</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">DAYS_PER_MONTH</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+
+    <span class="c1"># Net radiation (MJ/m²/day) from mean annual shortwave</span>
+    <span class="n">Rn_daily</span> <span class="o">=</span> <span class="mf">0.77</span> <span class="o">*</span> <span class="n">rsds_mean</span> <span class="o">*</span> <span class="mf">0.0864</span>  <span class="c1"># (n_cells,)</span>
+
+    <span class="c1"># Psychrometric constant γ ≈ 0.066 kPa/°C (at sea level)</span>
+    <span class="n">gamma</span> <span class="o">=</span> <span class="mf">0.066</span>
+
+    <span class="c1"># Slope of saturation vapour pressure curve Δ(T) [kPa/°C]</span>
+    <span class="c1"># Δ = 4098 * e_s(T) / (T + 237.3)^2</span>
+    <span class="n">e_s</span> <span class="o">=</span> <span class="mf">0.611</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="mf">17.27</span> <span class="o">*</span> <span class="n">monthly_T</span> <span class="o">/</span> <span class="p">(</span><span class="n">monthly_T</span> <span class="o">+</span> <span class="mf">237.3</span><span class="p">))</span>
+    <span class="n">delta</span> <span class="o">=</span> <span class="mf">4098.0</span> <span class="o">*</span> <span class="n">e_s</span> <span class="o">/</span> <span class="p">(</span><span class="n">monthly_T</span> <span class="o">+</span> <span class="mf">237.3</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span>  <span class="c1"># (n_cells, 12)</span>
+
+    <span class="c1"># Priestley-Taylor PET [mm/day] per month</span>
+    <span class="c1"># PET_day = 1.26 * (Δ / (Δ + γ)) * (Rn / 2.45)</span>
+    <span class="c1"># where 2.45 MJ/kg is the latent heat of vaporisation</span>
+    <span class="n">Rn_expand</span> <span class="o">=</span> <span class="n">Rn_daily</span><span class="p">[:,</span> <span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">]</span>  <span class="c1"># (n_cells, 1)</span>
+    <span class="n">pet_daily</span> <span class="o">=</span> <span class="mf">1.26</span> <span class="o">*</span> <span class="p">(</span><span class="n">delta</span> <span class="o">/</span> <span class="p">(</span><span class="n">delta</span> <span class="o">+</span> <span class="n">gamma</span><span class="p">))</span> <span class="o">*</span> <span class="p">(</span><span class="n">Rn_expand</span> <span class="o">/</span> <span class="mf">2.45</span><span class="p">)</span>
+    <span class="n">pet_daily</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">maximum</span><span class="p">(</span><span class="n">pet_daily</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>  <span class="c1"># (n_cells, 12)</span>
+
+    <span class="c1"># Monthly PET [mm/month]</span>
+    <span class="n">PET_monthly</span> <span class="o">=</span> <span class="n">pet_daily</span> <span class="o">*</span> <span class="n">days_per_month</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">,</span> <span class="p">:]</span>  <span class="c1"># (n_cells, 12)</span>
+
+    <span class="n">pet_mean</span> <span class="o">=</span> <span class="n">PET_monthly</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+
+    <span class="c1"># P/PET ratio (annual)</span>
+    <span class="n">P_annual</span> <span class="o">=</span> <span class="n">monthly_P</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">PET_annual</span> <span class="o">=</span> <span class="n">PET_monthly</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">p_pet_ratio</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span>
+        <span class="n">P_annual</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">maximum</span><span class="p">(</span><span class="n">PET_annual</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">),</span>
+        <span class="mf">0.01</span><span class="p">,</span>
+        <span class="mf">10.0</span><span class="p">,</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+
+    <span class="c1"># Water deficit months: months where P &lt; PET</span>
+    <span class="n">water_deficit_months</span> <span class="o">=</span> <span class="p">(</span><span class="n">monthly_P</span> <span class="o">&lt;</span> <span class="n">PET_monthly</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="s2">"eco_diag_pet_mean"</span><span class="p">:</span> <span class="n">pet_mean</span><span class="p">,</span>
+        <span class="s2">"eco_diag_p_pet_ratio"</span><span class="p">:</span> <span class="n">p_pet_ratio</span><span class="p">,</span>
+        <span class="s2">"eco_diag_water_deficit_months"</span><span class="p">:</span> <span class="n">water_deficit_months</span><span class="p">,</span>
+    <span class="p">}</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">compute_dry_spell_features</span><span class="p">(</span>
+    <span class="n">monthly_P</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">pr_wetdays_freq</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">pr_mean_annual</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">"""</span>
+<span class="sd">    Precipitation event structure features from monthly precipitation totals.</span>
+
+<span class="sd">    Uses monthly summaries to approximate dry spell statistics without</span>
+<span class="sd">    requiring daily data:</span>
+
+<span class="sd">    - Dry spell max: the expected longest dry run of a year when every day is wet</span>
+<span class="sd">      with the annual wet-day fraction ``p`` independently (geometric model),</span>
+<span class="sd">      ``-ln(365) / ln(1 - p)``, clipped to 1-365 days; ``1 - p`` is clipped to</span>
+<span class="sd">      [0.01, 0.99]</span>
+<span class="sd">    - Dry spell mean: ``1 / p`` (with ``p`` at least 0.01)</span>
+<span class="sd">    - Precipitation intensity on wet days: mean daily P / ``p``</span>
+<span class="sd">    - Wettest quarter fraction: exact from monthly totals (the only feature here</span>
+<span class="sd">      that uses ``monthly_P``)</span>
+
+<span class="sd">    Ecological motivation:</span>
+<span class="sd">    - Dry spell length determines how long plants must survive without water</span>
+<span class="sd">    - Precipitation intensity on wet days captures rainfall erosivity and</span>
+<span class="sd">      infiltration vs runoff partitioning</span>
+<span class="sd">    - Wettest quarter fraction distinguishes monsoon systems from year-round</span>
+<span class="sd">      precipitation — important for tropical savanna vs forest differentiation</span>
+<span class="sd">    - May correlate with wet-day frequency and CV but captures the temporal</span>
+<span class="sd">      clustering of precipitation events — protected as ecology_diagnostic</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    monthly_P :       (n_cells, 12) Monthly mean precipitation [mm/month]</span>
+<span class="sd">    pr_wetdays_freq : (n_cells,)    Fraction of days that are wet (&gt;1mm)</span>
+<span class="sd">    pr_mean_annual :  (n_cells,)    Mean annual precipitation [mm/day]</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    dict with keys: eco_diag_dry_spell_max, eco_diag_dry_spell_mean,</span>
+<span class="sd">                    eco_diag_precip_intensity_wet_days,</span>
+<span class="sd">                    eco_diag_precip_wettest_quarter_frac</span>
+<span class="sd">    """</span>
+    <span class="c1"># ── Precipitation intensity on wet days [mm/day] ──────────────────────</span>
+    <span class="c1"># intensity = mean_daily_P / wet_day_fraction</span>
+    <span class="n">wet_frac</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">maximum</span><span class="p">(</span><span class="n">pr_wetdays_freq</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">)</span>  <span class="c1"># avoid div-by-zero</span>
+    <span class="n">mean_daily_P</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">maximum</span><span class="p">(</span><span class="n">pr_mean_annual</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
+    <span class="n">precip_intensity</span> <span class="o">=</span> <span class="p">(</span><span class="n">mean_daily_P</span> <span class="o">/</span> <span class="n">wet_frac</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+
+    <span class="c1"># ── Wettest quarter fraction ──────────────────────────────────────────</span>
+    <span class="n">precip_wettest_quarter_frac</span> <span class="o">=</span> <span class="n">_compute_wettest_quarter_fraction</span><span class="p">(</span><span class="n">monthly_P</span><span class="p">)</span>
+
+    <span class="c1"># ── Dry spell statistics (monthly approximation) ──────────────────────</span>
+    <span class="c1"># Model: on a dry day (1 - wet_frac), the probability of a dry spell</span>
+    <span class="c1"># continuing is (1 - wet_frac). The expected maximum dry spell length</span>
+    <span class="c1"># for N=365 days drawn from geometric(p=wet_frac) is approximately:</span>
+    <span class="c1">#   E[max] ≈ -log(N) / log(1 - p)</span>
+    <span class="c1"># where p = wet-day probability.</span>
+    <span class="n">dry_frac</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="mf">1.0</span> <span class="o">-</span> <span class="n">pr_wetdays_freq</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.99</span><span class="p">)</span>
+    <span class="c1"># Mean dry spell length = 1 / p ≈ 1 / wet_frac</span>
+    <span class="n">dry_spell_mean</span> <span class="o">=</span> <span class="p">(</span><span class="mf">1.0</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">maximum</span><span class="p">(</span><span class="n">pr_wetdays_freq</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">))</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+
+    <span class="c1"># Expected annual maximum dry spell from geometric distribution</span>
+    <span class="c1"># E[max] ≈ -ln(365) / ln(1 - p) where p = wet_frac</span>
+    <span class="n">log_dry</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">maximum</span><span class="p">(</span><span class="n">dry_frac</span><span class="p">,</span> <span class="mf">1e-6</span><span class="p">))</span>
+    <span class="n">dry_spell_max</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span>
+        <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mf">365.0</span><span class="p">)</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">minimum</span><span class="p">(</span><span class="n">log_dry</span><span class="p">,</span> <span class="o">-</span><span class="mf">1e-6</span><span class="p">),</span>
+        <span class="mf">1.0</span><span class="p">,</span>
+        <span class="mf">365.0</span><span class="p">,</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="s2">"eco_diag_dry_spell_max"</span><span class="p">:</span> <span class="n">dry_spell_max</span><span class="p">,</span>
+        <span class="s2">"eco_diag_dry_spell_mean"</span><span class="p">:</span> <span class="n">dry_spell_mean</span><span class="p">,</span>
+        <span class="s2">"eco_diag_precip_intensity_wet_days"</span><span class="p">:</span> <span class="n">precip_intensity</span><span class="p">,</span>
+        <span class="s2">"eco_diag_precip_wettest_quarter_frac"</span><span class="p">:</span> <span class="n">precip_wettest_quarter_frac</span><span class="p">,</span>
+    <span class="p">}</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_compute_wettest_quarter_fraction</span><span class="p">(</span><span class="n">monthly_P</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""</span>
+<span class="sd">    Fraction of annual precipitation falling in the wettest 3 consecutive months.</span>
+<span class="sd">    Uses a rolling 3-month window over the 12-month climatology.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    monthly_P : (n_cells, 12) Monthly precipitation [mm/month]</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    (n_cells,) fraction in [0, 1]. The annual total is taken as at least 1 mm, so the</span>
+<span class="sd">    fraction is at least 0.25 only where annual precipitation is at least 1 mm; a cell</span>
+<span class="sd">    with no precipitation at all gets 0.</span>
+<span class="sd">    """</span>
+    <span class="n">annual_total</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">maximum</span><span class="p">(</span><span class="n">monthly_P</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">keepdims</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span> <span class="mf">1.0</span><span class="p">)</span>
+
+    <span class="n">max_quarter</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">monthly_P</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">start</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">12</span><span class="p">):</span>
+        <span class="n">indices</span> <span class="o">=</span> <span class="p">[</span><span class="n">start</span> <span class="o">%</span> <span class="mi">12</span><span class="p">,</span> <span class="p">(</span><span class="n">start</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="mi">12</span><span class="p">,</span> <span class="p">(</span><span class="n">start</span> <span class="o">+</span> <span class="mi">2</span><span class="p">)</span> <span class="o">%</span> <span class="mi">12</span><span class="p">]</span>
+        <span class="n">quarter_sum</span> <span class="o">=</span> <span class="n">monthly_P</span><span class="p">[:,</span> <span class="n">indices</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">max_quarter</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">maximum</span><span class="p">(</span><span class="n">max_quarter</span><span class="p">,</span> <span class="n">quarter_sum</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="p">(</span><span class="n">max_quarter</span> <span class="o">/</span> <span class="n">annual_total</span><span class="o">.</span><span class="n">squeeze</span><span class="p">())</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="compute_all_ecology_diagnostic_features">
+<a class="viewcode-back" href="../../../reference/features.html#climclusterpy.features.compute_all_ecology_diagnostic_features">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">compute_all_ecology_diagnostic_features</span><span class="p">(</span>
+    <span class="n">monthly_T</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">monthly_P</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">monthly_q</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">rsds_mean</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">pr_wetdays_freq</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">pr_mean_annual</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">"""</span>
+<span class="sd">    Compute all 13 ecology_diagnostic features from cached summary data.</span>
+
+<span class="sd">    This is the top-level entry point for augmenting an existing feature set.</span>
+<span class="sd">    All inputs are available from the existing raw feature CSV — no raw NetCDF</span>
+<span class="sd">    data or daily time series are required.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    monthly_T :       (n_cells, 12) Monthly mean temperature [°C]</span>
+<span class="sd">    monthly_P :       (n_cells, 12) Monthly mean precipitation [mm/month]</span>
+<span class="sd">    monthly_q :       (n_cells,)    Annual mean specific humidity [kg/kg]</span>
+<span class="sd">    rsds_mean :       (n_cells,)    Annual mean shortwave radiation [W/m²]</span>
+<span class="sd">    pr_wetdays_freq : (n_cells,)    Fraction of days that are wet (&gt;1mm)</span>
+<span class="sd">    pr_mean_annual :  (n_cells,)    Mean annual precipitation [mm/day]</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    dict mapping eco_diag_* feature names to (n_cells,) arrays</span>
+<span class="sd">    """</span>
+    <span class="n">feats</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">feats</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">compute_vpd_features</span><span class="p">(</span><span class="n">monthly_T</span><span class="p">,</span> <span class="n">monthly_q</span><span class="p">))</span>
+    <span class="n">feats</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">compute_growing_season_features</span><span class="p">(</span><span class="n">monthly_T</span><span class="p">))</span>
+    <span class="n">feats</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">compute_water_balance_features</span><span class="p">(</span><span class="n">monthly_P</span><span class="p">,</span> <span class="n">monthly_T</span><span class="p">,</span> <span class="n">rsds_mean</span><span class="p">))</span>
+    <span class="n">feats</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">compute_dry_spell_features</span><span class="p">(</span><span class="n">monthly_P</span><span class="p">,</span> <span class="n">pr_wetdays_freq</span><span class="p">,</span> <span class="n">pr_mean_annual</span><span class="p">))</span>
+
+    <span class="k">if</span> <span class="nb">set</span><span class="p">(</span><span class="n">feats</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">set</span><span class="p">(</span><span class="n">ECOLOGY_DIAGNOSTIC_FEATURES</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+            <span class="s2">"The ecology diagnostics computed do not match the declared feature list: "</span>
+            <span class="sa">f</span><span class="s2">"extra </span><span class="si">{</span><span class="nb">sorted</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">feats</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nb">set</span><span class="p">(</span><span class="n">ECOLOGY_DIAGNOSTIC_FEATURES</span><span class="p">))</span><span class="si">}</span><span class="s2">, missing "</span>
+            <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="nb">sorted</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">ECOLOGY_DIAGNOSTIC_FEATURES</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nb">set</span><span class="p">(</span><span class="n">feats</span><span class="p">))</span><span class="si">}</span><span class="s2">."</span>
+        <span class="p">)</span>
+    <span class="k">return</span> <span class="n">feats</span></div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, Jamir Priesner.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

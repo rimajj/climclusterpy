@@ -1,0 +1,1158 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>climclusterpy.timeseries.representative &mdash; climclusterpy 0.5</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/custom.css?v=f2cc2102" />
+
+  
+    <link rel="shortcut icon" href="../../../_static/logo.svg"/>
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=1dd76d02"></script>
+      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            climclusterpy
+              <img src="../../../_static/logo.svg" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorials/index.html">Tutorials</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../tutorials/one_call_roundtrip.html">Tutorial 0 — the whole workflow in two calls</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/one_call_roundtrip.html#the-idea">The idea</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/one_call_roundtrip.html#call-1-build-the-reduced-grid">Call 1 — build the reduced grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/one_call_roundtrip.html#call-2-rebuild-the-original-grid">Call 2 — rebuild the original grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/one_call_roundtrip.html#the-complete-script">The complete script</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/one_call_roundtrip.html#run-it">Run it</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/one_call_roundtrip.html#next-steps">Next steps</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../tutorials/euclidean_clustering.html">Tutorial 1 — Euclidean clustering</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/euclidean_clustering.html#load-data-and-build-a-feature-matrix">Load data and build a feature matrix</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/euclidean_clustering.html#cluster">Cluster</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/euclidean_clustering.html#the-complete-script">The complete script</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/euclidean_clustering.html#run-it">Run it</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/euclidean_clustering.html#next-steps">Next steps</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../tutorials/lmnn_clustering.html">Tutorial 2 — LMNN metric-learning clustering</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/lmnn_clustering.html#provide-a-supervision-signal">Provide a supervision signal</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/lmnn_clustering.html#learn-a-metric-and-cluster">Learn a metric and cluster</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/lmnn_clustering.html#the-complete-script">The complete script</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/lmnn_clustering.html#run-it">Run it</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/lmnn_clustering.html#next-steps">Next steps</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../tutorials/supervision.html">Tutorial 3 — Supervision signals</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/supervision.html#koppengeiger-from-monthly-climatology">Köppen–Geiger from monthly climatology</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/supervision.html#model-output-trait-clustering">Model-output (trait) clustering</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/supervision.html#the-complete-script">The complete script</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/supervision.html#run-it">Run it</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/supervision.html#ecoregion-supervision">Ecoregion supervision</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../tutorials/reconstruction.html">Tutorial 4 — Reconstruct the original grid</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/reconstruction.html#the-round-trip">The round trip</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/reconstruction.html#verify">Verify</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/reconstruction.html#the-complete-script">The complete script</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/reconstruction.html#run-it">Run it</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/reconstruction.html#next-steps">Next steps</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../tutorials/index.html#a-note-on-the-synthetic-data">A note on the synthetic data</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">How-to guides</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../howto/index.html">How-to guides</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../howto/install.html">Install climclusterpy</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/install.html#base-install">Base install</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/install.html#optional-extras">Optional extras</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/install.html#installing-the-geospatial-extras-with-conda">Installing the geospatial extras with conda</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/install.html#pytorch-cpu-vs-gpu">PyTorch (CPU vs. GPU)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/install.html#environment-variables">Environment variables</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/install.html#building-the-documentation">Building the documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../howto/inputs.html">Prepare the input files</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/inputs.html#check-your-input-first">Check your input first</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/inputs.html#the-files">The files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/inputs.html#grid-and-coordinates">Grid and coordinates</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/inputs.html#which-cells-exist-the-soil-code">Which cells exist: the soil code</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/inputs.html#the-time-axis">The time axis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/inputs.html#missing-values">Missing values</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/inputs.html#another-vegetation-model-s-input">Another vegetation model’s input</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/inputs.html#output-files">Output files</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../howto/clustering.html">Cluster a feature matrix (choose a mode)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/clustering.html#euclidean-mode-no-supervision">Euclidean mode (no supervision)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/clustering.html#lmnn-mode-supervised-metric-learning">LMNN mode (supervised metric learning)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/clustering.html#lower-level-control">Lower-level control</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../howto/supervision.html">Build an LMNN supervision signal</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/supervision.html#from-climate-koppengeiger">From climate — Köppen–Geiger</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/supervision.html#from-model-output-traits">From model output — traits</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/supervision.html#from-a-shapefile-ecoregions2017">From a shapefile — Ecoregions2017</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/supervision.html#using-the-signal">Using the signal</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/supervision.html#in-one-call">In one call</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/supervision.html#saved-results-are-reused-only-for-the-same-inputs">Saved results are reused only for the same inputs</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../howto/cell_selection.html">Choosing the cells a cluster is simulated on</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/cell_selection.html#the-patch-budget">The patch budget</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/cell_selection.html#what-the-drawn-cells-carry">What the drawn cells carry</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/cell_selection.html#reproducibility">Reproducibility</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/cell_selection.html#looking-at-a-draw-without-building-a-grid">Looking at a draw without building a grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/cell_selection.html#back-to-the-full-grid">Back to the full grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/cell_selection.html#a-model-that-reads-its-own-inputs-the-grid-only-then-cut-the-rest">A model that reads its own inputs: the grid only, then cut the rest</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../howto/reconstruct.html">Reconstruct the original grid</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/reconstruct.html#the-usual-call">The usual call</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/reconstruct.html#picking-up-where-you-left-off">Picking up where you left off</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/reconstruct.html#without-a-result-or-run-folder">Without a result or run folder</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/reconstruct.html#required-mapping-files">Required mapping files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/reconstruct.html#reconstruction-paths-kind">Reconstruction paths (<code class="docutils literal notranslate"><span class="pre">kind</span></code>)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/reconstruct.html#verifying-the-result">Verifying the result</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../reference/index.html">Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../reference/api.html">Public API — <code class="xref py py-mod docutils literal notranslate"><span class="pre">climclusterpy</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/api.html#the-two-headline-functions">The two headline functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/api.html#before-and-after-the-model-run">Before and after the model run</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/api.html#input-for-a-model-other-than-lpjml">Input for a model other than LPJmL</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/api.html#other-ways-to-build-the-reduced-grid">Other ways to build the reduced grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/api.html#reusing-a-trained-metric">Reusing a trained metric</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/api.html#the-model-s-other-inputs">The model’s other inputs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/api.html#writing-the-reduced-grid-yourself">Writing the reduced grid yourself</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/api.html#building-blocks">Building blocks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/api.html#result-objects">Result objects</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../reference/toplevel.html">Data, timeseries, I/O &amp; plotting</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/toplevel.html#module-climclusterpy.data">Data loading &amp; the grid registry</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/toplevel.html#how-much-the-package-reports">How much the package reports</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/toplevel.html#coordinates">Coordinates</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/toplevel.html#module-climclusterpy.timeseries">Per-cluster timeseries</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/toplevel.html#module-climclusterpy.io">File input/output</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/toplevel.html#module-climclusterpy.preprocessing">Preprocessing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/toplevel.html#module-climclusterpy.viz">Plotting</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../reference/features.html">Feature engineering</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/features.html#ecological-summaries">Ecological summaries</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/features.html#vegetation-model-traits">Vegetation-model traits</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/features.html#standardization-filtering">Standardization &amp; filtering</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../reference/clustering.html">Clustering &amp; metric learning</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/clustering.html#hierarchical-clustering">Hierarchical clustering</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/clustering.html#module-climclusterpy.clustering.lmnn">LMNN metric learning</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../reference/supervision.html">Supervision labels</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/supervision.html#koppengeiger-climate-zones">Köppen–Geiger climate zones</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/supervision.html#vegetation-model-output-traits">Vegetation-model output traits</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/supervision.html#ecoregion-polygons">Ecoregion polygons</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/supervision.html#daily-input-helpers">Daily-input helpers</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../reference/grid.html">Grid building &amp; reconstruction</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/grid.html#where-each-reduced-cell-is-placed">Where each reduced cell is placed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/grid.html#writing-the-reduced-grid">Writing the reduced grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/grid.html#reconstruction">Reconstruction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/grid.html#lpjml-clm-conversion">LPJmL CLM conversion</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../reference/cli.html">Command-line interface (<code class="docutils literal notranslate"><span class="pre">climclu</span></code>)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/cli.html#the-two-headline-commands">The two headline commands</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/cli.html#building-blocks">Building blocks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/cli.html#options-shared-by-every-action-command">Options shared by every action command</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/cli.html#errors-and-exit-codes">Errors and exit codes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../reference/index.html#which-function-do-i-need">Which function do I need?</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Explanation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../explanation/index.html">Explanation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../explanation/overview.html">Overview</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/overview.html#design-philosophy">Design Philosophy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/overview.html#workflow-summary">Workflow Summary</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/overview.html#key-innovations">Key Innovations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/overview.html#use-cases">Use Cases</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/overview.html#limitations">Limitations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/overview.html#future-directions">Future Directions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/overview.html#references">References</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../explanation/methods.html">Scientific Methods</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/methods.html#data-acquisition-and-preprocessing">Data Acquisition and Preprocessing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/methods.html#ecoregion-assignment">Ecoregion Assignment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/methods.html#ecological-feature-summarization">Ecological Feature Summarization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/methods.html#feature-standardization-and-filtering">Feature Standardization and Filtering</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/methods.html#large-margin-nearest-neighbor-lmnn-metric-learning">Large Margin Nearest Neighbor (LMNN) Metric Learning</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/methods.html#hierarchical-clustering">Hierarchical Clustering</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/methods.html#representative-cell-selection">Representative Cell Selection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/methods.html#evaluation-metrics">Evaluation Metrics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/methods.html#netcdf-processing">NetCDF Processing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/methods.html#computational-implementation">Computational Implementation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../explanation/index.html#reconstruction-correctness">Reconstruction correctness</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">climclusterpy</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">climclusterpy.timeseries.representative</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for climclusterpy.timeseries.representative</h1><div class="highlight"><pre>
+<span></span><span class="sd">"""Cluster *representative* timeseries: pick one real cell to stand for each cluster.</span>
+
+<span class="sd">The counterpart to :mod:`climclusterpy.timeseries.mean`. A cluster mean is a series</span>
+<span class="sd">no cell actually experiences; a representative is a real member, which keeps the</span>
+<span class="sd">input physically consistent for a model with non-linear responses. How that member is</span>
+<span class="sd">chosen is the ``selection_method``:</span>
+
+<span class="sd">* ``"precomputed_features"`` (default) — nearest to the cluster centroid in feature</span>
+<span class="sd">  space. Fast and needs no extra data beyond the feature table.</span>
+<span class="sd">* ``"precomputed_cells"`` — a choice made upstream, which is how LMNN **medoids**</span>
+<span class="sd">  (:func:`climclusterpy.clustering.medoid.select_medoids`) are honoured.</span>
+<span class="sd">* ``"timeseries_distance"`` — nearest to the cluster mean in full timeseries space.</span>
+<span class="sd">  The most faithful and the slowest; needs no feature table.</span>
+<span class="sd">* ``"random"`` — one member drawn at random (:func:`draw_random_cells`); no</span>
+<span class="sd">  representative is computed. Reproducible for a fixed ``seed`` at any ``n_jobs``,</span>
+<span class="sd">  and the chosen cell's **own** soil is used rather than the cluster's most common one.</span>
+
+<span class="sd">Clusters are processed in parallel with joblib over **threads**, so the caller is</span>
+<span class="sd">expected to pass in arrays already loaded into memory (as :func:`climclusterpy.create_clusters`</span>
+<span class="sd">does with ``preload_climate=True``).</span>
+<span class="sd">"""</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Literal</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">xarray</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">xr</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">joblib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Parallel</span><span class="p">,</span> <span class="n">delayed</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">climclusterpy._log</span><span class="w"> </span><span class="kn">import</span> <span class="n">joblib_verbosity</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">climclusterpy.data.coords</span><span class="w"> </span><span class="kn">import</span> <span class="n">COORD_PRECISION</span>
+
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+
+<span class="n">SelectionMethod</span> <span class="o">=</span> <span class="n">Literal</span><span class="p">[</span>
+    <span class="s2">"precomputed_features"</span><span class="p">,</span> <span class="s2">"timeseries_distance"</span><span class="p">,</span> <span class="s2">"random"</span><span class="p">,</span> <span class="s2">"precomputed_cells"</span>
+<span class="p">]</span>
+
+<span class="c1"># All alignment and regridding is handled centrally by the loader/registry.</span>
+
+
+<div class="viewcode-block" id="get_most_common_soil">
+<a class="viewcode-back" href="../../../reference/toplevel.html#climclusterpy.timeseries.get_most_common_soil">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_most_common_soil</span><span class="p">(</span><span class="n">values</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""The most common soil code among a cluster's cells.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    values : pandas.Series, xarray.DataArray or array-like</span>
+<span class="sd">        The soil codes of the cluster's cells. Missing values (NaN) are ignored.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    scalar</span>
+<span class="sd">        The most frequent code, keeping the input's type; the smallest code on a tie;</span>
+<span class="sd">        NaN when there is no code at all.</span>
+<span class="sd">    """</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">scipy.stats</span><span class="w"> </span><span class="kn">import</span> <span class="n">mode</span> <span class="k">as</span> <span class="n">scipy_mode</span>
+
+    <span class="n">arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="n">values</span><span class="p">,</span> <span class="s2">"values"</span><span class="p">,</span> <span class="n">values</span><span class="p">))</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span>
+    <span class="n">arr</span> <span class="o">=</span> <span class="n">arr</span><span class="p">[</span><span class="o">~</span><span class="n">pd</span><span class="o">.</span><span class="n">isna</span><span class="p">(</span><span class="n">arr</span><span class="p">)]</span>
+    <span class="k">if</span> <span class="n">arr</span><span class="o">.</span><span class="n">size</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+    <span class="n">mode_val</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">atleast_1d</span><span class="p">(</span><span class="n">scipy_mode</span><span class="p">(</span><span class="n">arr</span><span class="p">)</span><span class="o">.</span><span class="n">mode</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">mode_val</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">if</span> <span class="n">mode_val</span><span class="o">.</span><span class="n">size</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span></div>
+
+
+
+<div class="viewcode-block" id="select_representative_by_features">
+<a class="viewcode-back" href="../../../reference/toplevel.html#climclusterpy.timeseries.select_representative_by_features">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">select_representative_by_features</span><span class="p">(</span>
+    <span class="n">cluster_cells</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span>
+    <span class="n">features_df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span>
+    <span class="n">grid_lats</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">grid_lons</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">dict</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">"""The cluster member nearest the cluster's mean in feature space (the centroid choice).</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    cluster_cells : pandas.DataFrame</span>
+<span class="sd">        The cluster's cells, with ``latitude`` and ``longitude`` columns.</span>
+<span class="sd">    features_df : pandas.DataFrame</span>
+<span class="sd">        One row per cell: ``latitude``, ``longitude`` and the feature columns. Every</span>
+<span class="sd">        numeric column that is not cell metadata (``cell_id``, ``latitude``, ``longitude``,</span>
+<span class="sd">        ``lat``, ``lon``, ``ecoregion_id``, ``cluster_label``) is a feature; non-numeric</span>
+<span class="sd">        columns are ignored. Joined to ``cluster_cells`` on the coordinates, which must</span>
+<span class="sd">        match exactly.</span>
+<span class="sd">    grid_lats, grid_lons : numpy.ndarray</span>
+<span class="sd">        The grid's coordinate axes.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    tuple</span>
+<span class="sd">        ``(lat_index, lon_index, {"latitude": ..., "longitude": ...})`` of the chosen cell.</span>
+
+<span class="sd">    Raises</span>
+<span class="sd">    ------</span>
+<span class="sd">    ValueError</span>
+<span class="sd">        If no cluster cell has features, or ``features_df`` has no feature columns.</span>
+<span class="sd">    """</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">climclusterpy.features.assemble</span><span class="w"> </span><span class="kn">import</span> <span class="n">METADATA_COLUMNS</span>
+
+    <span class="c1"># Pick the feature columns from the feature table alone, and take nothing but the</span>
+    <span class="c1"># coordinates from the cluster's cells. Merging the two whole tables renamed a column</span>
+    <span class="c1"># both carry (``cell_id``) to ``cell_id_x``/``cell_id_y``, which then passed as</span>
+    <span class="c1"># features, so the "centroid" cell was chosen largely by its cell number.</span>
+    <span class="n">feature_cols</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="n">col</span>
+        <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">features_df</span><span class="o">.</span><span class="n">columns</span>
+        <span class="k">if</span> <span class="n">col</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">METADATA_COLUMNS</span> <span class="ow">and</span> <span class="n">pd</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">is_numeric_dtype</span><span class="p">(</span><span class="n">features_df</span><span class="p">[</span><span class="n">col</span><span class="p">])</span>
+    <span class="p">]</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">feature_cols</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+            <span class="s2">"No feature columns found in features_df: every column is cell metadata "</span>
+            <span class="sa">f</span><span class="s2">"(</span><span class="si">{</span><span class="nb">sorted</span><span class="p">(</span><span class="n">METADATA_COLUMNS</span><span class="p">)</span><span class="si">}</span><span class="s2">) or not numeric."</span>
+        <span class="p">)</span>
+
+    <span class="n">merged</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span>
+        <span class="n">cluster_cells</span><span class="p">[[</span><span class="s2">"latitude"</span><span class="p">,</span> <span class="s2">"longitude"</span><span class="p">]],</span>
+        <span class="n">features_df</span><span class="p">[[</span><span class="s2">"latitude"</span><span class="p">,</span> <span class="s2">"longitude"</span><span class="p">,</span> <span class="o">*</span><span class="n">feature_cols</span><span class="p">]],</span>
+        <span class="n">on</span><span class="o">=</span><span class="p">[</span><span class="s2">"latitude"</span><span class="p">,</span> <span class="s2">"longitude"</span><span class="p">],</span>
+        <span class="n">how</span><span class="o">=</span><span class="s2">"inner"</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">merged</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"No features found for cluster cells - coordinate mismatch?"</span><span class="p">)</span>
+
+    <span class="c1"># Compute cluster centroid in feature space</span>
+    <span class="n">cluster_centroid</span> <span class="o">=</span> <span class="n">merged</span><span class="p">[</span><span class="n">feature_cols</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">values</span>
+
+    <span class="c1"># Compute Euclidean distance to centroid for each cell</span>
+    <span class="n">X</span> <span class="o">=</span> <span class="n">merged</span><span class="p">[</span><span class="n">feature_cols</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">scipy.spatial.distance</span><span class="w"> </span><span class="kn">import</span> <span class="n">cdist</span>
+
+    <span class="n">distances</span> <span class="o">=</span> <span class="n">cdist</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">cluster_centroid</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">),</span> <span class="n">metric</span><span class="o">=</span><span class="s2">"euclidean"</span><span class="p">)</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
+
+    <span class="c1"># Select cell closest to centroid</span>
+    <span class="n">rep_idx</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span><span class="n">distances</span><span class="p">))</span>
+    <span class="n">rep_cell</span> <span class="o">=</span> <span class="n">merged</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">rep_idx</span><span class="p">]</span>
+
+    <span class="c1"># Find grid indices</span>
+    <span class="n">rep_lat_idx</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">grid_lats</span> <span class="o">==</span> <span class="n">rep_cell</span><span class="p">[</span><span class="s2">"latitude"</span><span class="p">])[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">rep_lon_idx</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">grid_lons</span> <span class="o">==</span> <span class="n">rep_cell</span><span class="p">[</span><span class="s2">"longitude"</span><span class="p">])[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
+
+    <span class="k">return</span> <span class="p">(</span>
+        <span class="n">rep_lat_idx</span><span class="p">,</span>
+        <span class="n">rep_lon_idx</span><span class="p">,</span>
+        <span class="p">{</span><span class="s2">"latitude"</span><span class="p">:</span> <span class="n">rep_cell</span><span class="p">[</span><span class="s2">"latitude"</span><span class="p">],</span> <span class="s2">"longitude"</span><span class="p">:</span> <span class="n">rep_cell</span><span class="p">[</span><span class="s2">"longitude"</span><span class="p">]},</span>
+    <span class="p">)</span></div>
+
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_select_representative_by_precomputed_cells</span><span class="p">(</span>
+    <span class="n">cluster_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+    <span class="n">representative_cells</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span>
+    <span class="n">grid_lats</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">grid_lons</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">dict</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">"""Use a representative cell chosen upstream (e.g. an LMNN medoid).</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    cluster_id : int</span>
+<span class="sd">        Cluster whose representative is wanted.</span>
+<span class="sd">    representative_cells : pandas.DataFrame</span>
+<span class="sd">        One row per cluster with columns ``cluster_label``, ``latitude``,</span>
+<span class="sd">        ``longitude`` — typically built from</span>
+<span class="sd">        :func:`climclusterpy.clustering.medoid.select_medoids`.</span>
+<span class="sd">    grid_lats, grid_lons : numpy.ndarray</span>
+<span class="sd">        Grid coordinate arrays.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    tuple</span>
+<span class="sd">        ``(rep_lat_idx, rep_lon_idx, rep_info_dict)``.</span>
+<span class="sd">    """</span>
+    <span class="n">row</span> <span class="o">=</span> <span class="n">representative_cells</span><span class="p">[</span><span class="n">representative_cells</span><span class="p">[</span><span class="s2">"cluster_label"</span><span class="p">]</span> <span class="o">==</span> <span class="n">cluster_id</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">row</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">"No precomputed representative cell for cluster </span><span class="si">{</span><span class="n">cluster_id</span><span class="si">}</span><span class="s2">. "</span>
+            <span class="s2">"representative_cells must cover every cluster label."</span>
+        <span class="p">)</span>
+    <span class="n">rep</span> <span class="o">=</span> <span class="n">row</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">lat_hits</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">grid_lats</span> <span class="o">==</span> <span class="n">rep</span><span class="p">[</span><span class="s2">"latitude"</span><span class="p">])[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">lon_hits</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">grid_lons</span> <span class="o">==</span> <span class="n">rep</span><span class="p">[</span><span class="s2">"longitude"</span><span class="p">])[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">lat_hits</span><span class="o">.</span><span class="n">size</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">lon_hits</span><span class="o">.</span><span class="n">size</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">"Representative cell for cluster </span><span class="si">{</span><span class="n">cluster_id</span><span class="si">}</span><span class="s2"> at "</span>
+            <span class="sa">f</span><span class="s2">"(</span><span class="si">{</span><span class="n">rep</span><span class="p">[</span><span class="s1">'latitude'</span><span class="p">]</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">rep</span><span class="p">[</span><span class="s1">'longitude'</span><span class="p">]</span><span class="si">}</span><span class="s2">) is not on the climate grid. "</span>
+            <span class="s2">"Representative coordinates must come from the same grid as the input data."</span>
+        <span class="p">)</span>
+    <span class="k">return</span> <span class="p">(</span>
+        <span class="nb">int</span><span class="p">(</span><span class="n">lat_hits</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span>
+        <span class="nb">int</span><span class="p">(</span><span class="n">lon_hits</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span>
+        <span class="p">{</span><span class="s2">"latitude"</span><span class="p">:</span> <span class="n">rep</span><span class="p">[</span><span class="s2">"latitude"</span><span class="p">],</span> <span class="s2">"longitude"</span><span class="p">:</span> <span class="n">rep</span><span class="p">[</span><span class="s2">"longitude"</span><span class="p">]},</span>
+    <span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_select_representative_by_timeseries_distance</span><span class="p">(</span>
+    <span class="n">cluster_cells</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span>
+    <span class="n">preprocessed_climate_data</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">xr</span><span class="o">.</span><span class="n">Dataset</span><span class="p">],</span>
+    <span class="n">grid_lats</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">grid_lons</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">cell_indices</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span>
+    <span class="n">distance_metric</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"euclidean"</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">dict</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">"""</span>
+<span class="sd">    Most accurate method: Select representative based on full timeseries distance.</span>
+
+<span class="sd">    Uses scipy.spatial.distance.cdist for efficient pairwise distance computation.</span>
+<span class="sd">    Concatenates all climate variable timeseries and computes distance in full timeseries space.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">            distance_metric: scipy distance metric ('euclidean', 'correlation', 'cityblock', etc.)</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">            (rep_lat_idx, rep_lon_idx, rep_info_dict)</span>
+<span class="sd">    """</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">scipy.spatial.distance</span><span class="w"> </span><span class="kn">import</span> <span class="n">cdist</span>
+
+    <span class="c1"># Build timeseries matrix: (n_cells, n_timesteps_all_variables)</span>
+    <span class="n">timeseries_list</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">lat_idx</span><span class="p">,</span> <span class="n">lon_idx</span> <span class="ow">in</span> <span class="n">cell_indices</span><span class="p">:</span>
+        <span class="n">cell_ts_parts</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">var_name</span><span class="p">,</span> <span class="n">ds_var</span> <span class="ow">in</span> <span class="n">preprocessed_climate_data</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">data_var_names</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">ds_var</span><span class="o">.</span><span class="n">data_vars</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">data_var_names</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="n">data_var</span> <span class="o">=</span> <span class="n">data_var_names</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="k">elif</span> <span class="n">var_name</span> <span class="ow">in</span> <span class="n">data_var_names</span><span class="p">:</span>
+                <span class="n">data_var</span> <span class="o">=</span> <span class="n">var_name</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">matches</span> <span class="o">=</span> <span class="p">[</span><span class="n">dv</span> <span class="k">for</span> <span class="n">dv</span> <span class="ow">in</span> <span class="n">data_var_names</span> <span class="k">if</span> <span class="n">var_name</span> <span class="ow">in</span> <span class="n">dv</span> <span class="ow">or</span> <span class="n">dv</span> <span class="ow">in</span> <span class="n">var_name</span><span class="p">]</span>
+                <span class="n">data_var</span> <span class="o">=</span> <span class="n">matches</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">if</span> <span class="n">matches</span> <span class="k">else</span> <span class="n">data_var_names</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+            <span class="n">ts</span> <span class="o">=</span> <span class="n">ds_var</span><span class="o">.</span><span class="n">isel</span><span class="p">(</span><span class="n">latitude</span><span class="o">=</span><span class="n">lat_idx</span><span class="p">,</span> <span class="n">longitude</span><span class="o">=</span><span class="n">lon_idx</span><span class="p">)[</span><span class="n">data_var</span><span class="p">]</span>
+            <span class="n">ts_np</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">ts</span><span class="o">.</span><span class="n">values</span><span class="p">)</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
+            <span class="n">cell_ts_parts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ts_np</span><span class="p">)</span>
+
+        <span class="c1"># Concatenate all variables for this cell</span>
+        <span class="n">cell_ts_full</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span><span class="n">cell_ts_parts</span><span class="p">)</span>
+        <span class="n">timeseries_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cell_ts_full</span><span class="p">)</span>
+
+    <span class="c1"># Stack into matrix: (n_cells, n_timesteps_total)</span>
+    <span class="n">ts_matrix</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">(</span><span class="n">timeseries_list</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+
+    <span class="c1"># Compute cluster centroid (mean timeseries)</span>
+    <span class="n">cluster_centroid</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmean</span><span class="p">(</span><span class="n">ts_matrix</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">keepdims</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="c1"># Compute distances to centroid using scipy (highly optimized C code)</span>
+    <span class="n">distances</span> <span class="o">=</span> <span class="n">cdist</span><span class="p">(</span><span class="n">ts_matrix</span><span class="p">,</span> <span class="n">cluster_centroid</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span><span class="n">distance_metric</span><span class="p">)</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
+
+    <span class="c1"># Select cell with minimum distance</span>
+    <span class="n">rep_cell_idx</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span><span class="n">distances</span><span class="p">))</span>
+    <span class="n">rep_lat_idx</span><span class="p">,</span> <span class="n">rep_lon_idx</span> <span class="o">=</span> <span class="n">cell_indices</span><span class="p">[</span><span class="n">rep_cell_idx</span><span class="p">]</span>
+
+    <span class="k">return</span> <span class="p">(</span>
+        <span class="n">rep_lat_idx</span><span class="p">,</span>
+        <span class="n">rep_lon_idx</span><span class="p">,</span>
+        <span class="p">{</span><span class="s2">"latitude"</span><span class="p">:</span> <span class="n">grid_lats</span><span class="p">[</span><span class="n">rep_lat_idx</span><span class="p">],</span> <span class="s2">"longitude"</span><span class="p">:</span> <span class="n">grid_lons</span><span class="p">[</span><span class="n">rep_lon_idx</span><span class="p">]},</span>
+    <span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_select_representative_by_random</span><span class="p">(</span>
+    <span class="n">cluster_cells</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span>
+    <span class="n">grid_lats</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">grid_lons</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">rng</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">Generator</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">dict</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">"""</span>
+<span class="sd">    Simplest method: Randomly select one cell from the cluster.</span>
+
+<span class="sd">    No feature computation or timeseries distance calculation needed.</span>
+<span class="sd">    Just pick a random cell and use its timeseries.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">            cluster_cells: DataFrame with cluster cells (must have latitude, longitude)</span>
+<span class="sd">            grid_lats, grid_lons: Grid coordinate arrays</span>
+<span class="sd">            rng: NumPy random generator for reproducible selection</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">            (rep_lat_idx, rep_lon_idx, rep_info_dict)</span>
+<span class="sd">    """</span>
+    <span class="c1"># Randomly select one cell from cluster</span>
+    <span class="n">rep_cell</span> <span class="o">=</span> <span class="n">cluster_cells</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="n">rng</span><span class="o">.</span><span class="n">bit_generator</span><span class="p">)</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="c1"># Find grid indices</span>
+    <span class="n">rep_lat_idx</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">grid_lats</span> <span class="o">==</span> <span class="n">rep_cell</span><span class="p">[</span><span class="s2">"latitude"</span><span class="p">])[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">rep_lon_idx</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">grid_lons</span> <span class="o">==</span> <span class="n">rep_cell</span><span class="p">[</span><span class="s2">"longitude"</span><span class="p">])[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
+
+    <span class="k">return</span> <span class="p">(</span>
+        <span class="n">rep_lat_idx</span><span class="p">,</span>
+        <span class="n">rep_lon_idx</span><span class="p">,</span>
+        <span class="p">{</span><span class="s2">"latitude"</span><span class="p">:</span> <span class="n">rep_cell</span><span class="p">[</span><span class="s2">"latitude"</span><span class="p">],</span> <span class="s2">"longitude"</span><span class="p">:</span> <span class="n">rep_cell</span><span class="p">[</span><span class="s2">"longitude"</span><span class="p">]},</span>
+    <span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_soil_depth_variable</span><span class="p">(</span><span class="n">soildepth_data</span><span class="p">:</span> <span class="n">xr</span><span class="o">.</span><span class="n">Dataset</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""The soil-depth variable of ``soildepth_data``; None when the dataset holds no variable.</span>
+
+<span class="sd">    Taken by name: ``soil_depth`` itself, else the first variable whose name contains</span>
+<span class="sd">    ``"soil"`` (e.g. LPJmL's ``soildepth``), else the dataset's only variable whatever its</span>
+<span class="sd">    name (e.g. ``depth``).</span>
+
+<span class="sd">    Raises</span>
+<span class="sd">    ------</span>
+<span class="sd">    ValueError</span>
+<span class="sd">        When several variables are present and none of them is named like a soil depth, so</span>
+<span class="sd">        there is no telling which one to read.</span>
+<span class="sd">    """</span>
+    <span class="n">names</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">soildepth_data</span><span class="o">.</span><span class="n">data_vars</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">names</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">None</span>
+    <span class="k">if</span> <span class="s2">"soil_depth"</span> <span class="ow">in</span> <span class="n">names</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s2">"soil_depth"</span>
+    <span class="n">soil_like</span> <span class="o">=</span> <span class="p">[</span><span class="n">v</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">names</span> <span class="k">if</span> <span class="s2">"soil"</span> <span class="ow">in</span> <span class="n">v</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">soil_like</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">soil_like</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">names</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">names</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+        <span class="sa">f</span><span class="s2">"Cannot tell which variable of the soil-depth dataset is the soil depth: it holds "</span>
+        <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">names</span><span class="si">}</span><span class="s2">. Name it 'soil_depth', or pass a dataset holding only that variable."</span>
+    <span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">process_single_cluster</span><span class="p">(</span>
+    <span class="n">cluster_id</span><span class="p">,</span>
+    <span class="n">cluster_cells</span><span class="p">,</span>
+    <span class="n">preprocessed_climate_data</span><span class="p">,</span>
+    <span class="n">df_soil_code</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">df_soil_depth</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">soil_code_data</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">soildepth_data</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">selection_method</span><span class="p">:</span> <span class="n">SelectionMethod</span> <span class="o">=</span> <span class="s2">"precomputed_features"</span><span class="p">,</span>
+    <span class="n">features_df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">distance_metric</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"euclidean"</span><span class="p">,</span>
+    <span class="n">rng</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">Generator</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">representative_cells</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">"""</span>
+<span class="sd">    Process a single cluster to extract representative cell and timeseries.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">            selection_method: Method to use for selecting representative cell:</span>
+<span class="sd">                    - 'precomputed_features': Use pre-computed LMNN features (DEFAULT, requires features_df)</span>
+<span class="sd">                    - 'timeseries_distance': Full timeseries distance (most accurate, slower)</span>
+<span class="sd">                    - 'random': Randomly select one cell (fastest, no features needed)</span>
+<span class="sd">                    - 'precomputed_cells': Use cells chosen upstream (requires representative_cells),</span>
+<span class="sd">                      e.g. LMNN medoids from climclusterpy.clustering.medoid.select_medoids</span>
+<span class="sd">            features_df: Pre-computed features DataFrame (required for 'precomputed_features' method)</span>
+<span class="sd">            distance_metric: Distance metric for 'timeseries_distance' method</span>
+<span class="sd">            rng: NumPy random generator for 'random' method (if None, will create one)</span>
+<span class="sd">            representative_cells: cluster_label/latitude/longitude table (required for</span>
+<span class="sd">                    'precomputed_cells' method)</span>
+<span class="sd">    """</span>
+    <span class="n">rep_info</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"cluster_label"</span><span class="p">:</span> <span class="n">cluster_id</span><span class="p">}</span>
+
+    <span class="c1"># Use median of absolute latitude values to avoid issues with clusters spanning the equator</span>
+    <span class="n">abs_lats</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">cluster_cells</span><span class="p">[</span><span class="s2">"latitude"</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+    <span class="n">center_lat</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">abs_lats</span><span class="p">))</span>
+    <span class="c1"># Keep the sign of the latitude with the median absolute value</span>
+    <span class="c1"># Find the actual latitude value closest to the median absolute value</span>
+    <span class="n">closest_idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">cluster_cells</span><span class="p">[</span><span class="s2">"latitude"</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">)</span> <span class="o">-</span> <span class="n">center_lat</span><span class="p">))</span>
+    <span class="n">center_lat</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">cluster_cells</span><span class="p">[</span><span class="s2">"latitude"</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">closest_idx</span><span class="p">])</span>
+    <span class="n">center_lon</span> <span class="o">=</span> <span class="n">cluster_cells</span><span class="p">[</span><span class="s2">"longitude"</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+
+    <span class="c1"># All datasets now have 'latitude' and 'longitude' as coordinate names and are on the same grid</span>
+    <span class="n">grid_lats</span> <span class="o">=</span> <span class="n">preprocessed_climate_data</span><span class="p">[</span><span class="nb">next</span><span class="p">(</span><span class="nb">iter</span><span class="p">(</span><span class="n">preprocessed_climate_data</span><span class="o">.</span><span class="n">keys</span><span class="p">()))][</span>
+        <span class="s2">"latitude"</span>
+    <span class="p">]</span><span class="o">.</span><span class="n">values</span>
+    <span class="n">grid_lons</span> <span class="o">=</span> <span class="n">preprocessed_climate_data</span><span class="p">[</span><span class="nb">next</span><span class="p">(</span><span class="nb">iter</span><span class="p">(</span><span class="n">preprocessed_climate_data</span><span class="o">.</span><span class="n">keys</span><span class="p">()))][</span>
+        <span class="s2">"longitude"</span>
+    <span class="p">]</span><span class="o">.</span><span class="n">values</span>
+
+    <span class="c1"># Select representative cell based on chosen method</span>
+    <span class="k">if</span> <span class="n">selection_method</span> <span class="o">==</span> <span class="s2">"precomputed_features"</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">features_df</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s2">"features_df must be provided for 'precomputed_features' selection method"</span>
+            <span class="p">)</span>
+        <span class="n">rep_lat_idx</span><span class="p">,</span> <span class="n">rep_lon_idx</span><span class="p">,</span> <span class="n">coord_info</span> <span class="o">=</span> <span class="n">select_representative_by_features</span><span class="p">(</span>
+            <span class="n">cluster_cells</span><span class="p">,</span> <span class="n">features_df</span><span class="p">,</span> <span class="n">grid_lats</span><span class="p">,</span> <span class="n">grid_lons</span>
+        <span class="p">)</span>
+    <span class="k">elif</span> <span class="n">selection_method</span> <span class="o">==</span> <span class="s2">"timeseries_distance"</span><span class="p">:</span>
+        <span class="c1"># Build cell indices only for timeseries_distance method (expensive operation)</span>
+        <span class="n">cell_indices</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="p">(</span>
+                <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">grid_lats</span> <span class="o">==</span> <span class="n">row</span><span class="p">[</span><span class="s2">"latitude"</span><span class="p">])[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span>
+                <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">grid_lons</span> <span class="o">==</span> <span class="n">row</span><span class="p">[</span><span class="s2">"longitude"</span><span class="p">])[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span>
+            <span class="p">)</span>
+            <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">cluster_cells</span><span class="o">.</span><span class="n">iterrows</span><span class="p">()</span>
+        <span class="p">]</span>
+        <span class="n">rep_lat_idx</span><span class="p">,</span> <span class="n">rep_lon_idx</span><span class="p">,</span> <span class="n">coord_info</span> <span class="o">=</span> <span class="n">_select_representative_by_timeseries_distance</span><span class="p">(</span>
+            <span class="n">cluster_cells</span><span class="p">,</span>
+            <span class="n">preprocessed_climate_data</span><span class="p">,</span>
+            <span class="n">grid_lats</span><span class="p">,</span>
+            <span class="n">grid_lons</span><span class="p">,</span>
+            <span class="n">cell_indices</span><span class="p">,</span>
+            <span class="n">distance_metric</span><span class="p">,</span>
+        <span class="p">)</span>
+    <span class="k">elif</span> <span class="n">selection_method</span> <span class="o">==</span> <span class="s2">"precomputed_cells"</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">representative_cells</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s2">"representative_cells must be provided for 'precomputed_cells' selection method"</span>
+            <span class="p">)</span>
+        <span class="n">rep_lat_idx</span><span class="p">,</span> <span class="n">rep_lon_idx</span><span class="p">,</span> <span class="n">coord_info</span> <span class="o">=</span> <span class="n">_select_representative_by_precomputed_cells</span><span class="p">(</span>
+            <span class="n">cluster_id</span><span class="p">,</span> <span class="n">representative_cells</span><span class="p">,</span> <span class="n">grid_lats</span><span class="p">,</span> <span class="n">grid_lons</span>
+        <span class="p">)</span>
+    <span class="k">elif</span> <span class="n">selection_method</span> <span class="o">==</span> <span class="s2">"random"</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">representative_cells</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="c1"># Drawn up front by extract_representative_cells (reproducible).</span>
+            <span class="n">rep_lat_idx</span><span class="p">,</span> <span class="n">rep_lon_idx</span><span class="p">,</span> <span class="n">coord_info</span> <span class="o">=</span> <span class="n">_select_representative_by_precomputed_cells</span><span class="p">(</span>
+                <span class="n">cluster_id</span><span class="p">,</span> <span class="n">representative_cells</span><span class="p">,</span> <span class="n">grid_lats</span><span class="p">,</span> <span class="n">grid_lons</span>
+            <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">rng</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">()</span>
+            <span class="n">rep_lat_idx</span><span class="p">,</span> <span class="n">rep_lon_idx</span><span class="p">,</span> <span class="n">coord_info</span> <span class="o">=</span> <span class="n">_select_representative_by_random</span><span class="p">(</span>
+                <span class="n">cluster_cells</span><span class="p">,</span> <span class="n">grid_lats</span><span class="p">,</span> <span class="n">grid_lons</span><span class="p">,</span> <span class="n">rng</span>
+            <span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">"Unknown selection_method: </span><span class="si">{</span><span class="n">selection_method</span><span class="si">}</span><span class="s2">. Use 'precomputed_features', "</span>
+            <span class="s2">"'precomputed_cells', 'timeseries_distance', or 'random'"</span>
+        <span class="p">)</span>
+
+    <span class="n">rep_info</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">coord_info</span><span class="p">)</span>
+
+    <span class="c1"># Extract timeseries for representative cell</span>
+    <span class="n">rep_timeseries</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">var_name</span><span class="p">,</span> <span class="n">ds_var</span> <span class="ow">in</span> <span class="n">preprocessed_climate_data</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="n">data_var_names</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">ds_var</span><span class="o">.</span><span class="n">data_vars</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">data_var_names</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">data_var</span> <span class="o">=</span> <span class="n">data_var_names</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">elif</span> <span class="n">var_name</span> <span class="ow">in</span> <span class="n">data_var_names</span><span class="p">:</span>
+            <span class="n">data_var</span> <span class="o">=</span> <span class="n">var_name</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">matches</span> <span class="o">=</span> <span class="p">[</span><span class="n">dv</span> <span class="k">for</span> <span class="n">dv</span> <span class="ow">in</span> <span class="n">data_var_names</span> <span class="k">if</span> <span class="n">var_name</span> <span class="ow">in</span> <span class="n">dv</span> <span class="ow">or</span> <span class="n">dv</span> <span class="ow">in</span> <span class="n">var_name</span><span class="p">]</span>
+            <span class="n">data_var</span> <span class="o">=</span> <span class="n">matches</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">if</span> <span class="n">matches</span> <span class="k">else</span> <span class="n">data_var_names</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+        <span class="c1"># Use .load() on single cell selection to avoid repeated lazy reads</span>
+        <span class="n">ts</span> <span class="o">=</span> <span class="n">ds_var</span><span class="o">.</span><span class="n">isel</span><span class="p">(</span><span class="n">latitude</span><span class="o">=</span><span class="n">rep_lat_idx</span><span class="p">,</span> <span class="n">longitude</span><span class="o">=</span><span class="n">rep_lon_idx</span><span class="p">)[</span><span class="n">data_var</span><span class="p">]</span><span class="o">.</span><span class="n">load</span><span class="p">()</span>
+        <span class="n">rep_timeseries</span><span class="p">[</span><span class="n">var_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">ts</span><span class="o">.</span><span class="n">values</span>
+
+    <span class="c1"># Determine soil_code for the cluster using robust ID-based mapping when available</span>
+    <span class="c1"># For random selection, just use the selected cell's soil code (no need to compute mode)</span>
+    <span class="k">if</span> <span class="n">soil_code_data</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="c1"># No soil-code-like static field was supplied (a non-LPJmL input): nothing to report.</span>
+        <span class="n">rep_info</span><span class="p">[</span><span class="s2">"soil_code"</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+    <span class="k">elif</span> <span class="n">selection_method</span> <span class="o">==</span> <span class="s2">"random"</span><span class="p">:</span>
+        <span class="c1"># Direct lookup: use the selected representative cell's soil code</span>
+        <span class="n">soil_var</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="s2">"soil_code"</span>
+            <span class="k">if</span> <span class="s2">"soil_code"</span> <span class="ow">in</span> <span class="n">soil_code_data</span><span class="o">.</span><span class="n">data_vars</span>
+            <span class="k">else</span> <span class="p">(</span><span class="s2">"soiltexture"</span> <span class="k">if</span> <span class="s2">"soiltexture"</span> <span class="ow">in</span> <span class="n">soil_code_data</span><span class="o">.</span><span class="n">data_vars</span> <span class="k">else</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="p">)</span>
+        <span class="k">if</span> <span class="n">soil_var</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">soil_var</span> <span class="ow">in</span> <span class="n">soil_code_data</span><span class="o">.</span><span class="n">data_vars</span><span class="p">:</span>
+            <span class="n">rep_info</span><span class="p">[</span><span class="s2">"soil_code"</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="n">soil_code_data</span><span class="p">[</span><span class="n">soil_var</span><span class="p">]</span>
+                <span class="o">.</span><span class="n">isel</span><span class="p">(</span><span class="n">latitude</span><span class="o">=</span><span class="n">rep_lat_idx</span><span class="p">,</span> <span class="n">longitude</span><span class="o">=</span><span class="n">rep_lon_idx</span><span class="p">)</span>
+                <span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+            <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># try to find any soil-like var</span>
+            <span class="n">soil_vars</span> <span class="o">=</span> <span class="p">[</span><span class="n">v</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">soil_code_data</span><span class="o">.</span><span class="n">data_vars</span> <span class="k">if</span> <span class="s2">"soil"</span> <span class="ow">in</span> <span class="n">v</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">soil_vars</span><span class="p">:</span>
+                <span class="n">soil_var</span> <span class="o">=</span> <span class="n">soil_vars</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                <span class="n">rep_info</span><span class="p">[</span><span class="s2">"soil_code"</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+                    <span class="n">soil_code_data</span><span class="p">[</span><span class="n">soil_var</span><span class="p">]</span>
+                    <span class="o">.</span><span class="n">isel</span><span class="p">(</span><span class="n">latitude</span><span class="o">=</span><span class="n">rep_lat_idx</span><span class="p">,</span> <span class="n">longitude</span><span class="o">=</span><span class="n">rep_lon_idx</span><span class="p">)</span>
+                    <span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+                <span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">rep_info</span><span class="p">[</span><span class="s2">"soil_code"</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="c1"># For mean/representative methods, compute mode over cluster cells</span>
+        <span class="n">soil_mode</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+        <span class="k">if</span> <span class="s2">"cell_id"</span> <span class="ow">in</span> <span class="n">cluster_cells</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+            <span class="c1"># Prefer mapping by original_cell_id to avoid coordinate precision issues</span>
+            <span class="n">id_col</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="s2">"original_cell_id"</span>
+                <span class="k">if</span> <span class="s2">"original_cell_id"</span> <span class="ow">in</span> <span class="n">df_soil_code</span><span class="o">.</span><span class="n">columns</span>
+                <span class="k">else</span> <span class="p">(</span><span class="s2">"cell_id"</span> <span class="k">if</span> <span class="s2">"cell_id"</span> <span class="ow">in</span> <span class="n">df_soil_code</span><span class="o">.</span><span class="n">columns</span> <span class="k">else</span> <span class="kc">None</span><span class="p">)</span>
+            <span class="p">)</span>
+            <span class="k">if</span> <span class="n">id_col</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">soil_col</span> <span class="o">=</span> <span class="p">(</span>
+                    <span class="s2">"soil_code"</span>
+                    <span class="k">if</span> <span class="s2">"soil_code"</span> <span class="ow">in</span> <span class="n">df_soil_code</span><span class="o">.</span><span class="n">columns</span>
+                    <span class="k">else</span> <span class="p">(</span><span class="s2">"soiltexture"</span> <span class="k">if</span> <span class="s2">"soiltexture"</span> <span class="ow">in</span> <span class="n">df_soil_code</span><span class="o">.</span><span class="n">columns</span> <span class="k">else</span> <span class="kc">None</span><span class="p">)</span>
+                <span class="p">)</span>
+                <span class="k">if</span> <span class="n">soil_col</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="n">id_to_soil</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">df_soil_code</span><span class="p">[</span><span class="n">id_col</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">),</span> <span class="n">df_soil_code</span><span class="p">[</span><span class="n">soil_col</span><span class="p">]))</span>
+                    <span class="n">soil_values</span> <span class="o">=</span> <span class="n">cluster_cells</span><span class="p">[</span><span class="s2">"cell_id"</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">id_to_soil</span><span class="p">)</span>
+                    <span class="n">soil_mode</span> <span class="o">=</span> <span class="n">get_most_common_soil</span><span class="p">(</span><span class="n">soil_values</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="c1"># Fallback: merge on rounded coordinates</span>
+                <span class="n">cc</span> <span class="o">=</span> <span class="n">cluster_cells</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+                <span class="n">dfsc</span> <span class="o">=</span> <span class="n">df_soil_code</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+                <span class="n">cc</span><span class="p">[</span><span class="s2">"latitude"</span><span class="p">]</span> <span class="o">=</span> <span class="n">cc</span><span class="p">[</span><span class="s2">"latitude"</span><span class="p">]</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">COORD_PRECISION</span><span class="p">)</span>
+                <span class="n">cc</span><span class="p">[</span><span class="s2">"longitude"</span><span class="p">]</span> <span class="o">=</span> <span class="n">cc</span><span class="p">[</span><span class="s2">"longitude"</span><span class="p">]</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">COORD_PRECISION</span><span class="p">)</span>
+                <span class="n">dfsc</span><span class="p">[</span><span class="s2">"latitude"</span><span class="p">]</span> <span class="o">=</span> <span class="n">dfsc</span><span class="p">[</span><span class="s2">"latitude"</span><span class="p">]</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">COORD_PRECISION</span><span class="p">)</span>
+                <span class="n">dfsc</span><span class="p">[</span><span class="s2">"longitude"</span><span class="p">]</span> <span class="o">=</span> <span class="n">dfsc</span><span class="p">[</span><span class="s2">"longitude"</span><span class="p">]</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">COORD_PRECISION</span><span class="p">)</span>
+                <span class="n">merged</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">cc</span><span class="p">,</span> <span class="n">dfsc</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="p">[</span><span class="s2">"latitude"</span><span class="p">,</span> <span class="s2">"longitude"</span><span class="p">],</span> <span class="n">how</span><span class="o">=</span><span class="s2">"left"</span><span class="p">)</span>
+                <span class="n">soil_col</span> <span class="o">=</span> <span class="p">(</span>
+                    <span class="s2">"soil_code"</span>
+                    <span class="k">if</span> <span class="s2">"soil_code"</span> <span class="ow">in</span> <span class="n">merged</span><span class="o">.</span><span class="n">columns</span>
+                    <span class="k">else</span> <span class="p">(</span><span class="s2">"soiltexture"</span> <span class="k">if</span> <span class="s2">"soiltexture"</span> <span class="ow">in</span> <span class="n">merged</span><span class="o">.</span><span class="n">columns</span> <span class="k">else</span> <span class="kc">None</span><span class="p">)</span>
+                <span class="p">)</span>
+                <span class="n">soil_mode</span> <span class="o">=</span> <span class="p">(</span>
+                    <span class="n">get_most_common_soil</span><span class="p">(</span><span class="n">merged</span><span class="p">[</span><span class="n">soil_col</span><span class="p">])</span>
+                    <span class="k">if</span> <span class="ow">not</span> <span class="n">merged</span><span class="o">.</span><span class="n">empty</span> <span class="ow">and</span> <span class="n">soil_col</span> <span class="ow">in</span> <span class="n">merged</span><span class="o">.</span><span class="n">columns</span>
+                    <span class="k">else</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+                <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># No cell IDs? Fallback to coordinate merge</span>
+            <span class="n">cc</span> <span class="o">=</span> <span class="n">cluster_cells</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+            <span class="n">dfsc</span> <span class="o">=</span> <span class="n">df_soil_code</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+            <span class="n">cc</span><span class="p">[</span><span class="s2">"latitude"</span><span class="p">]</span> <span class="o">=</span> <span class="n">cc</span><span class="p">[</span><span class="s2">"latitude"</span><span class="p">]</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">COORD_PRECISION</span><span class="p">)</span>
+            <span class="n">cc</span><span class="p">[</span><span class="s2">"longitude"</span><span class="p">]</span> <span class="o">=</span> <span class="n">cc</span><span class="p">[</span><span class="s2">"longitude"</span><span class="p">]</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">COORD_PRECISION</span><span class="p">)</span>
+            <span class="n">dfsc</span><span class="p">[</span><span class="s2">"latitude"</span><span class="p">]</span> <span class="o">=</span> <span class="n">dfsc</span><span class="p">[</span><span class="s2">"latitude"</span><span class="p">]</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">COORD_PRECISION</span><span class="p">)</span>
+            <span class="n">dfsc</span><span class="p">[</span><span class="s2">"longitude"</span><span class="p">]</span> <span class="o">=</span> <span class="n">dfsc</span><span class="p">[</span><span class="s2">"longitude"</span><span class="p">]</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">COORD_PRECISION</span><span class="p">)</span>
+            <span class="n">merged</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">cc</span><span class="p">,</span> <span class="n">dfsc</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="p">[</span><span class="s2">"latitude"</span><span class="p">,</span> <span class="s2">"longitude"</span><span class="p">],</span> <span class="n">how</span><span class="o">=</span><span class="s2">"left"</span><span class="p">)</span>
+            <span class="n">soil_col</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="s2">"soil_code"</span>
+                <span class="k">if</span> <span class="s2">"soil_code"</span> <span class="ow">in</span> <span class="n">merged</span><span class="o">.</span><span class="n">columns</span>
+                <span class="k">else</span> <span class="p">(</span><span class="s2">"soiltexture"</span> <span class="k">if</span> <span class="s2">"soiltexture"</span> <span class="ow">in</span> <span class="n">merged</span><span class="o">.</span><span class="n">columns</span> <span class="k">else</span> <span class="kc">None</span><span class="p">)</span>
+            <span class="p">)</span>
+            <span class="n">soil_mode</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="n">get_most_common_soil</span><span class="p">(</span><span class="n">merged</span><span class="p">[</span><span class="n">soil_col</span><span class="p">])</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">merged</span><span class="o">.</span><span class="n">empty</span> <span class="ow">and</span> <span class="n">soil_col</span> <span class="ow">in</span> <span class="n">merged</span><span class="o">.</span><span class="n">columns</span>
+                <span class="k">else</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+            <span class="p">)</span>
+        <span class="c1"># Fallback: if soil_mode is NaN, sample soil_code at the representative cell directly</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">soil_mode</span><span class="p">,</span> <span class="nb">float</span><span class="p">)</span> <span class="ow">and</span> <span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">soil_mode</span><span class="p">))</span> <span class="ow">or</span> <span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">isna</span><span class="p">(</span><span class="n">soil_mode</span><span class="p">)):</span>
+            <span class="n">soil_var</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="s2">"soil_code"</span>
+                <span class="k">if</span> <span class="s2">"soil_code"</span> <span class="ow">in</span> <span class="n">soil_code_data</span><span class="o">.</span><span class="n">data_vars</span>
+                <span class="k">else</span> <span class="p">(</span><span class="s2">"soiltexture"</span> <span class="k">if</span> <span class="s2">"soiltexture"</span> <span class="ow">in</span> <span class="n">soil_code_data</span><span class="o">.</span><span class="n">data_vars</span> <span class="k">else</span> <span class="kc">None</span><span class="p">)</span>
+            <span class="p">)</span>
+            <span class="k">if</span> <span class="n">soil_var</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">soil_var</span> <span class="ow">in</span> <span class="n">soil_code_data</span><span class="o">.</span><span class="n">data_vars</span><span class="p">:</span>
+                <span class="n">rep_info</span><span class="p">[</span><span class="s2">"soil_code"</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+                    <span class="n">soil_code_data</span><span class="p">[</span><span class="n">soil_var</span><span class="p">]</span>
+                    <span class="o">.</span><span class="n">isel</span><span class="p">(</span><span class="n">latitude</span><span class="o">=</span><span class="n">rep_lat_idx</span><span class="p">,</span> <span class="n">longitude</span><span class="o">=</span><span class="n">rep_lon_idx</span><span class="p">)</span>
+                    <span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+                <span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="c1"># try to find any soil-like var</span>
+                <span class="n">soil_vars</span> <span class="o">=</span> <span class="p">[</span><span class="n">v</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">soil_code_data</span><span class="o">.</span><span class="n">data_vars</span> <span class="k">if</span> <span class="s2">"soil"</span> <span class="ow">in</span> <span class="n">v</span><span class="p">]</span>
+                <span class="k">if</span> <span class="n">soil_vars</span><span class="p">:</span>
+                    <span class="n">soil_var</span> <span class="o">=</span> <span class="n">soil_vars</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                    <span class="n">rep_info</span><span class="p">[</span><span class="s2">"soil_code"</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+                        <span class="n">soil_code_data</span><span class="p">[</span><span class="n">soil_var</span><span class="p">]</span>
+                        <span class="o">.</span><span class="n">isel</span><span class="p">(</span><span class="n">latitude</span><span class="o">=</span><span class="n">rep_lat_idx</span><span class="p">,</span> <span class="n">longitude</span><span class="o">=</span><span class="n">rep_lon_idx</span><span class="p">)</span>
+                        <span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+                    <span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">rep_info</span><span class="p">[</span><span class="s2">"soil_code"</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">rep_info</span><span class="p">[</span><span class="s2">"soil_code"</span><span class="p">]</span> <span class="o">=</span> <span class="n">soil_mode</span>
+
+    <span class="c1"># Soil depth (direct index selection, no nearest-neighbor)</span>
+    <span class="k">if</span> <span class="n">soildepth_data</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">depth_var</span> <span class="o">=</span> <span class="n">_soil_depth_variable</span><span class="p">(</span><span class="n">soildepth_data</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">depth_var</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="c1"># Detect coordinate names for soil depth dataset (might be 'Latitude', 'Longitude')</span>
+            <span class="kn">from</span><span class="w"> </span><span class="nn">climclusterpy.data.coords</span><span class="w"> </span><span class="kn">import</span> <span class="n">LAT_NAMES</span><span class="p">,</span> <span class="n">LON_NAMES</span>
+
+            <span class="n">depth_lat_name</span> <span class="o">=</span> <span class="nb">next</span><span class="p">((</span><span class="n">n</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">LAT_NAMES</span> <span class="k">if</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">soildepth_data</span><span class="o">.</span><span class="n">coords</span><span class="p">),</span> <span class="s2">"latitude"</span><span class="p">)</span>
+            <span class="n">depth_lon_name</span> <span class="o">=</span> <span class="nb">next</span><span class="p">((</span><span class="n">n</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">LON_NAMES</span> <span class="k">if</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">soildepth_data</span><span class="o">.</span><span class="n">coords</span><span class="p">),</span> <span class="s2">"longitude"</span><span class="p">)</span>
+            <span class="n">rep_lat_idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">grid_lats</span> <span class="o">==</span> <span class="n">rep_info</span><span class="p">[</span><span class="s2">"latitude"</span><span class="p">])[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">rep_lon_idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">grid_lons</span> <span class="o">==</span> <span class="n">rep_info</span><span class="p">[</span><span class="s2">"longitude"</span><span class="p">])[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">rep_depth</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="n">soildepth_data</span><span class="p">[</span><span class="n">depth_var</span><span class="p">]</span>
+                <span class="o">.</span><span class="n">isel</span><span class="p">({</span><span class="n">depth_lat_name</span><span class="p">:</span> <span class="n">rep_lat_idx</span><span class="p">,</span> <span class="n">depth_lon_name</span><span class="p">:</span> <span class="n">rep_lon_idx</span><span class="p">})</span>
+                <span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+            <span class="p">)</span>
+            <span class="n">rep_info</span><span class="p">[</span><span class="s2">"soil_depth"</span><span class="p">]</span> <span class="o">=</span> <span class="n">rep_depth</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">rep_info</span><span class="p">[</span><span class="s2">"soil_depth"</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">rep_info</span><span class="p">[</span><span class="s2">"soil_depth"</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+    <span class="k">return</span> <span class="n">rep_info</span><span class="p">,</span> <span class="n">rep_timeseries</span><span class="p">,</span> <span class="n">center_lat</span><span class="p">,</span> <span class="n">center_lon</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">draw_random_cells</span><span class="p">(</span><span class="n">clusters</span><span class="p">,</span> <span class="n">df_labels</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">random_seed</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""One member per cluster, drawn uniformly at random — reproducibly for a given seed.</span>
+
+<span class="sd">    Draws serially in the order ``clusters`` is given, from one generator seeded with</span>
+<span class="sd">    ``random_seed``, so the same seed and the same labels always pick the same cells.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    pandas.DataFrame</span>
+<span class="sd">        One row per cluster: ``cluster_label``, ``latitude``, ``longitude`` (and ``cell_id``</span>
+<span class="sd">        when ``df_labels`` carries it) — the ``representative_cells`` table the</span>
+<span class="sd">        ``"precomputed_cells"`` path reads.</span>
+<span class="sd">    """</span>
+    <span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="n">random_seed</span><span class="p">)</span>
+    <span class="n">rows</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">cluster_id</span> <span class="ow">in</span> <span class="n">clusters</span><span class="p">:</span>
+        <span class="n">members</span> <span class="o">=</span> <span class="n">df_labels</span><span class="p">[</span><span class="n">df_labels</span><span class="p">[</span><span class="s2">"cluster_label"</span><span class="p">]</span> <span class="o">==</span> <span class="n">cluster_id</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">members</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Cluster </span><span class="si">{</span><span class="n">cluster_id</span><span class="si">}</span><span class="s2"> has no cells to draw from."</span><span class="p">)</span>
+        <span class="n">pick</span> <span class="o">=</span> <span class="n">members</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">rng</span><span class="o">.</span><span class="n">integers</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">members</span><span class="p">)))]</span>
+        <span class="n">row</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">"cluster_label"</span><span class="p">:</span> <span class="n">cluster_id</span><span class="p">,</span>
+            <span class="s2">"latitude"</span><span class="p">:</span> <span class="n">pick</span><span class="p">[</span><span class="s2">"latitude"</span><span class="p">],</span>
+            <span class="s2">"longitude"</span><span class="p">:</span> <span class="n">pick</span><span class="p">[</span><span class="s2">"longitude"</span><span class="p">],</span>
+        <span class="p">}</span>
+        <span class="k">if</span> <span class="s2">"cell_id"</span> <span class="ow">in</span> <span class="n">members</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+            <span class="n">row</span><span class="p">[</span><span class="s2">"cell_id"</span><span class="p">]</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">pick</span><span class="p">[</span><span class="s2">"cell_id"</span><span class="p">])</span>
+        <span class="n">rows</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">rows</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="extract_representative_cells">
+<a class="viewcode-back" href="../../../reference/toplevel.html#climclusterpy.timeseries.extract_representative_cells">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">extract_representative_cells</span><span class="p">(</span>
+    <span class="n">clusters</span><span class="p">,</span>
+    <span class="n">df_labels</span><span class="p">,</span>
+    <span class="n">preprocessed_climate_data</span><span class="p">,</span>
+    <span class="n">df_soil_code</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">df_soil_depth</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">soil_code_data</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">soildepth_data</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">n_jobs</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
+    <span class="n">n_samples</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">min_samples</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+    <span class="n">seed</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">selection_method</span><span class="p">:</span> <span class="n">SelectionMethod</span> <span class="o">=</span> <span class="s2">"precomputed_features"</span><span class="p">,</span>
+    <span class="n">features_df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">distance_metric</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"euclidean"</span><span class="p">,</span>
+    <span class="n">representative_cells</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">"""One real cell's climate and soil for each cluster, clusters processed in parallel.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    clusters : list of int</span>
+<span class="sd">        The cluster ids.</span>
+<span class="sd">    df_labels : pandas.DataFrame</span>
+<span class="sd">        ``cell_id``, ``cluster_label``, ``latitude`` and ``longitude`` of every cell.</span>
+<span class="sd">    preprocessed_climate_data : dict of str to xarray.Dataset</span>
+<span class="sd">        The climate variables, already loaded into memory.</span>
+<span class="sd">    df_soil_code, df_soil_depth : pandas.DataFrame or None</span>
+<span class="sd">        The soil fields as tables. ``None`` for an input without them (a model other than</span>
+<span class="sd">        LPJmL): the output's soil columns are then all NaN.</span>
+<span class="sd">    soil_code_data, soildepth_data : xarray.Dataset or None</span>
+<span class="sd">        The same soil fields as grids, or ``None`` as above.</span>
+<span class="sd">    n_jobs : int, optional</span>
+<span class="sd">        Parallel threads.</span>
+<span class="sd">    n_samples, min_samples : optional</span>
+<span class="sd">        Choose among a random subset of each cluster's cells instead of all of them, as in</span>
+<span class="sd">        :func:`sample_cluster_indices`.</span>
+<span class="sd">    seed : int, optional</span>
+<span class="sd">        Seeds that subset and the ``"random"`` draw.</span>
+<span class="sd">    selection_method : str, optional</span>
+<span class="sd">        How the cell is chosen:</span>
+
+<span class="sd">        * ``"precomputed_features"`` (default) -- nearest the cluster centroid in feature</span>
+<span class="sd">          space; needs ``features_df``;</span>
+<span class="sd">        * ``"timeseries_distance"`` -- nearest the cluster mean in full timeseries space;</span>
+<span class="sd">          slower, needs no features;</span>
+<span class="sd">        * ``"random"`` -- one member drawn at random;</span>
+<span class="sd">        * ``"precomputed_cells"`` -- the cells given in ``representative_cells`` (how</span>
+<span class="sd">          medoids of a learned metric are honoured).</span>
+<span class="sd">    features_df : pandas.DataFrame, optional</span>
+<span class="sd">        The per-cell features, for ``"precomputed_features"``.</span>
+<span class="sd">    distance_metric : str, optional</span>
+<span class="sd">        The distance of ``"timeseries_distance"`` (``"euclidean"``, ``"correlation"``, ...).</span>
+<span class="sd">    representative_cells : pandas.DataFrame, optional</span>
+<span class="sd">        ``cluster_label``, ``latitude`` and ``longitude``, one row per cluster, for</span>
+<span class="sd">        ``"precomputed_cells"``.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    xarray.Dataset</span>
+<span class="sd">        The chosen cells and their timeseries, one entry per cluster.</span>
+<span class="sd">    """</span>
+    <span class="c1"># Validate selection method</span>
+    <span class="k">if</span> <span class="n">selection_method</span> <span class="o">==</span> <span class="s2">"precomputed_features"</span> <span class="ow">and</span> <span class="n">features_df</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+            <span class="s2">"features_df must be provided when selection_method='precomputed_features'.</span><span class="se">\n</span><span class="s2">"</span>
+            <span class="s2">"Either:</span><span class="se">\n</span><span class="s2">"</span>
+            <span class="s2">"  1. Pass features_df (pre-computed features DataFrame), or</span><span class="se">\n</span><span class="s2">"</span>
+            <span class="s2">"  2. Use selection_method='timeseries_distance' (slower, no features needed), or</span><span class="se">\n</span><span class="s2">"</span>
+            <span class="s2">"  3. Use selection_method='random' (fastest, no features needed)"</span>
+        <span class="p">)</span>
+    <span class="k">if</span> <span class="n">selection_method</span> <span class="o">==</span> <span class="s2">"precomputed_cells"</span> <span class="ow">and</span> <span class="n">representative_cells</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+            <span class="s2">"representative_cells must be provided when selection_method='precomputed_cells'. "</span>
+            <span class="s2">"Build it from climclusterpy.clustering.medoid.select_medoids, or choose another "</span>
+            <span class="s2">"selection_method."</span>
+        <span class="p">)</span>
+
+    <span class="c1"># Random picks are drawn HERE, serially and in cluster order, before the threaded</span>
+    <span class="c1"># fan-out. Handing one generator to every thread made the draw depend on which thread</span>
+    <span class="c1"># reached it first, so a fixed seed did not reproduce the same cells at n_jobs &gt; 1.</span>
+    <span class="n">rng</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="k">if</span> <span class="n">selection_method</span> <span class="o">==</span> <span class="s2">"random"</span> <span class="ow">and</span> <span class="n">representative_cells</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">representative_cells</span> <span class="o">=</span> <span class="n">draw_random_cells</span><span class="p">(</span><span class="n">clusters</span><span class="p">,</span> <span class="n">df_labels</span><span class="p">,</span> <span class="n">seed</span><span class="p">)</span>
+
+    <span class="c1"># Apply sampling to cluster cells before processing</span>
+    <span class="c1"># For random selection, skip sampling entirely since we only pick 1 cell per cluster anyway</span>
+    <span class="k">if</span> <span class="n">n_samples</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">selection_method</span> <span class="o">!=</span> <span class="s2">"random"</span><span class="p">:</span>
+        <span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
+
+        <span class="kn">from</span><span class="w"> </span><span class="nn">climclusterpy.timeseries.sampling</span><span class="w"> </span><span class="kn">import</span> <span class="n">sample_cluster_indices</span>
+
+        <span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">"Sampling cells for representative extraction: n_samples=</span><span class="si">{</span><span class="n">n_samples</span><span class="si">}</span><span class="s2">, min_samples=</span><span class="si">{</span><span class="n">min_samples</span><span class="si">}</span><span class="s2">"</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Build cluster_to_indices mapping (using DataFrame row indices)</span>
+        <span class="n">cluster_to_row_indices</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">cluster_id</span> <span class="ow">in</span> <span class="n">clusters</span><span class="p">:</span>
+            <span class="n">mask</span> <span class="o">=</span> <span class="n">df_labels</span><span class="p">[</span><span class="s2">"cluster_label"</span><span class="p">]</span> <span class="o">==</span> <span class="n">cluster_id</span>
+            <span class="n">cluster_to_row_indices</span><span class="p">[</span><span class="n">cluster_id</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_labels</span><span class="p">[</span><span class="n">mask</span><span class="p">]</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+
+        <span class="c1"># Sample indices</span>
+        <span class="n">sampled_indices</span> <span class="o">=</span> <span class="n">sample_cluster_indices</span><span class="p">(</span>
+            <span class="n">cluster_to_row_indices</span><span class="p">,</span>
+            <span class="n">n_samples</span><span class="o">=</span><span class="n">n_samples</span><span class="p">,</span>
+            <span class="n">min_samples</span><span class="o">=</span><span class="n">min_samples</span><span class="p">,</span>
+            <span class="n">seed</span><span class="o">=</span><span class="n">seed</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Create a sampled df_labels by selecting only sampled rows</span>
+        <span class="n">all_sampled_rows</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">cluster_id</span> <span class="ow">in</span> <span class="n">clusters</span><span class="p">:</span>
+            <span class="n">all_sampled_rows</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">sampled_indices</span><span class="p">[</span><span class="n">cluster_id</span><span class="p">])</span>
+        <span class="n">df_labels</span> <span class="o">=</span> <span class="n">df_labels</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">all_sampled_rows</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+    <span class="n">results</span> <span class="o">=</span> <span class="n">Parallel</span><span class="p">(</span><span class="n">n_jobs</span><span class="o">=</span><span class="n">n_jobs</span><span class="p">,</span> <span class="n">prefer</span><span class="o">=</span><span class="s2">"threads"</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="n">joblib_verbosity</span><span class="p">())(</span>
+        <span class="n">delayed</span><span class="p">(</span><span class="n">process_single_cluster</span><span class="p">)(</span>
+            <span class="n">cluster_id</span><span class="p">,</span>
+            <span class="n">df_labels</span><span class="p">[</span><span class="n">df_labels</span><span class="p">[</span><span class="s2">"cluster_label"</span><span class="p">]</span> <span class="o">==</span> <span class="n">cluster_id</span><span class="p">],</span>
+            <span class="n">preprocessed_climate_data</span><span class="p">,</span>
+            <span class="n">df_soil_code</span><span class="p">,</span>
+            <span class="n">df_soil_depth</span><span class="p">,</span>
+            <span class="n">soil_code_data</span><span class="p">,</span>
+            <span class="n">soildepth_data</span><span class="p">,</span>
+            <span class="n">selection_method</span><span class="p">,</span>
+            <span class="n">features_df</span><span class="p">,</span>
+            <span class="n">distance_metric</span><span class="p">,</span>
+            <span class="n">rng</span><span class="p">,</span>
+            <span class="n">representative_cells</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="k">for</span> <span class="n">cluster_id</span> <span class="ow">in</span> <span class="n">clusters</span>
+    <span class="p">)</span>
+    <span class="c1"># Collect results</span>
+    <span class="n">rep_properties</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="n">k</span><span class="p">:</span> <span class="p">[]</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">"cluster_label"</span><span class="p">,</span> <span class="s2">"latitude"</span><span class="p">,</span> <span class="s2">"longitude"</span><span class="p">,</span> <span class="s2">"soil_code"</span><span class="p">,</span> <span class="s2">"soil_depth"</span><span class="p">]</span>
+    <span class="p">}</span>
+    <span class="n">rep_timeseries</span> <span class="o">=</span> <span class="p">{</span><span class="n">var</span><span class="p">:</span> <span class="p">[]</span> <span class="k">for</span> <span class="n">var</span> <span class="ow">in</span> <span class="n">preprocessed_climate_data</span><span class="o">.</span><span class="n">keys</span><span class="p">()}</span>
+    <span class="n">center_lat_list</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">center_lon_list</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">rep_info</span><span class="p">,</span> <span class="n">rep_ts</span><span class="p">,</span> <span class="n">center_lat</span><span class="p">,</span> <span class="n">center_lon</span> <span class="ow">in</span> <span class="n">results</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">rep_properties</span><span class="p">:</span>
+            <span class="n">rep_properties</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">rep_info</span><span class="p">[</span><span class="n">k</span><span class="p">])</span>
+        <span class="k">for</span> <span class="n">var</span> <span class="ow">in</span> <span class="n">rep_timeseries</span><span class="p">:</span>
+            <span class="n">rep_timeseries</span><span class="p">[</span><span class="n">var</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">rep_ts</span><span class="p">[</span><span class="n">var</span><span class="p">])</span>
+        <span class="n">center_lat_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">center_lat</span><span class="p">)</span>
+        <span class="n">center_lon_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">center_lon</span><span class="p">)</span>
+    <span class="c1"># Build xarray Dataset</span>
+    <span class="n">time_dim</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="nb">iter</span><span class="p">(</span><span class="n">preprocessed_climate_data</span><span class="o">.</span><span class="n">values</span><span class="p">()))[</span><span class="s2">"time"</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+    <span class="n">ds_out</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">Dataset</span><span class="p">()</span>
+    <span class="n">ds_out</span><span class="p">[</span><span class="s2">"cluster_label"</span><span class="p">]</span> <span class="o">=</span> <span class="p">((</span><span class="s2">"cluster"</span><span class="p">,),</span> <span class="n">rep_properties</span><span class="p">[</span><span class="s2">"cluster_label"</span><span class="p">])</span>
+    <span class="n">ds_out</span><span class="p">[</span><span class="s2">"latitude"</span><span class="p">]</span> <span class="o">=</span> <span class="p">((</span><span class="s2">"cluster"</span><span class="p">,),</span> <span class="n">rep_properties</span><span class="p">[</span><span class="s2">"latitude"</span><span class="p">])</span>
+    <span class="n">ds_out</span><span class="p">[</span><span class="s2">"longitude"</span><span class="p">]</span> <span class="o">=</span> <span class="p">((</span><span class="s2">"cluster"</span><span class="p">,),</span> <span class="n">rep_properties</span><span class="p">[</span><span class="s2">"longitude"</span><span class="p">])</span>
+    <span class="n">ds_out</span><span class="p">[</span><span class="s2">"soil_code"</span><span class="p">]</span> <span class="o">=</span> <span class="p">((</span><span class="s2">"cluster"</span><span class="p">,),</span> <span class="n">rep_properties</span><span class="p">[</span><span class="s2">"soil_code"</span><span class="p">])</span>
+    <span class="n">ds_out</span><span class="p">[</span><span class="s2">"soil_depth"</span><span class="p">]</span> <span class="o">=</span> <span class="p">((</span><span class="s2">"cluster"</span><span class="p">,),</span> <span class="n">rep_properties</span><span class="p">[</span><span class="s2">"soil_depth"</span><span class="p">])</span>
+    <span class="n">ds_out</span><span class="p">[</span><span class="s2">"center_lat"</span><span class="p">]</span> <span class="o">=</span> <span class="p">((</span><span class="s2">"cluster"</span><span class="p">,),</span> <span class="n">center_lat_list</span><span class="p">)</span>
+    <span class="n">ds_out</span><span class="p">[</span><span class="s2">"center_lon"</span><span class="p">]</span> <span class="o">=</span> <span class="p">((</span><span class="s2">"cluster"</span><span class="p">,),</span> <span class="n">center_lon_list</span><span class="p">)</span>
+    <span class="n">ds_out</span><span class="p">[</span><span class="s2">"center_lat"</span><span class="p">]</span><span class="o">.</span><span class="n">attrs</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">"units"</span><span class="p">:</span> <span class="s2">"degrees_north"</span><span class="p">,</span>
+        <span class="s2">"description"</span><span class="p">:</span> <span class="s2">"Latitude of cluster center"</span><span class="p">,</span>
+        <span class="s2">"_FillValue"</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="n">ds_out</span><span class="p">[</span><span class="s2">"center_lon"</span><span class="p">]</span><span class="o">.</span><span class="n">attrs</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">"units"</span><span class="p">:</span> <span class="s2">"degrees_east"</span><span class="p">,</span>
+        <span class="s2">"description"</span><span class="p">:</span> <span class="s2">"Longitude of cluster center"</span><span class="p">,</span>
+        <span class="s2">"_FillValue"</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="k">for</span> <span class="n">var_name</span><span class="p">,</span> <span class="n">arrs</span> <span class="ow">in</span> <span class="n">rep_timeseries</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="n">ds_out</span><span class="p">[</span><span class="n">var_name</span><span class="p">]</span> <span class="o">=</span> <span class="p">((</span><span class="s2">"cluster"</span><span class="p">,</span> <span class="s2">"time"</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">stack</span><span class="p">(</span><span class="n">arrs</span><span class="p">))</span>
+    <span class="n">ds_out</span><span class="p">[</span><span class="s2">"time"</span><span class="p">]</span> <span class="o">=</span> <span class="p">((</span><span class="s2">"time"</span><span class="p">,),</span> <span class="n">time_dim</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">ds_out</span></div>
+
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_place_labels_by_cell_id</span><span class="p">(</span><span class="n">df_labels</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">registry</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""``df_labels`` with ``latitude``/``longitude`` taken from the registry by ``cell_id``.</span>
+
+<span class="sd">    Raises</span>
+<span class="sd">    ------</span>
+<span class="sd">    ValueError</span>
+<span class="sd">        When a ``cell_id`` is not a valid cell of the registry's original grid.</span>
+<span class="sd">    """</span>
+    <span class="c1"># Cells outside the valid mask carry id -1 in the registry; no label can refer to them.</span>
+    <span class="n">orig</span> <span class="o">=</span> <span class="n">registry</span><span class="o">.</span><span class="n">get_original_grid</span><span class="p">()</span>
+    <span class="n">lon2d</span><span class="p">,</span> <span class="n">lat2d</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">orig</span><span class="o">.</span><span class="n">longitudes</span><span class="p">,</span> <span class="n">orig</span><span class="o">.</span><span class="n">latitudes</span><span class="p">)</span>
+    <span class="n">flat_ids</span> <span class="o">=</span> <span class="n">orig</span><span class="o">.</span><span class="n">cell_ids</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span>
+    <span class="n">valid</span> <span class="o">=</span> <span class="n">flat_ids</span> <span class="o">&gt;=</span> <span class="mi">0</span>
+    <span class="n">flat_ids</span> <span class="o">=</span> <span class="n">flat_ids</span><span class="p">[</span><span class="n">valid</span><span class="p">]</span>
+    <span class="n">id_to_lat</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">flat_ids</span><span class="o">.</span><span class="n">tolist</span><span class="p">(),</span> <span class="n">lat2d</span><span class="o">.</span><span class="n">ravel</span><span class="p">()[</span><span class="n">valid</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()))</span>
+    <span class="n">id_to_lon</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">flat_ids</span><span class="o">.</span><span class="n">tolist</span><span class="p">(),</span> <span class="n">lon2d</span><span class="o">.</span><span class="n">ravel</span><span class="p">()[</span><span class="n">valid</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()))</span>
+    <span class="c1"># A label for a cell the grid does not have would get no position (or, for -1, the</span>
+    <span class="c1"># position of a cell outside the land mask): refuse it rather than carry it along.</span>
+    <span class="n">unknown</span> <span class="o">=</span> <span class="o">~</span><span class="n">df_labels</span><span class="p">[</span><span class="s2">"cell_id"</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">flat_ids</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">unknown</span><span class="o">.</span><span class="n">any</span><span class="p">():</span>
+        <span class="n">bad</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">df_labels</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">unknown</span><span class="p">,</span> <span class="s2">"cell_id"</span><span class="p">])</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">"The label table names </span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">unknown</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span><span class="si">}</span><span class="s2"> cell(s) that are not valid cells of "</span>
+            <span class="sa">f</span><span class="s2">"the original grid (cell_id </span><span class="si">{</span><span class="n">bad</span><span class="p">[:</span><span class="mi">10</span><span class="p">]</span><span class="si">}{</span><span class="s1">' ...'</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="nb">len</span><span class="p">(</span><span class="n">bad</span><span class="p">)</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">10</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="s1">''</span><span class="si">}</span><span class="s2">; the "</span>
+            <span class="sa">f</span><span class="s2">"grid has </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">flat_ids</span><span class="p">)</span><span class="si">}</span><span class="s2"> valid cells). The labels must come from the same grid "</span>
+            <span class="s2">"as the input data."</span>
+        <span class="p">)</span>
+    <span class="n">df_labels</span> <span class="o">=</span> <span class="n">df_labels</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">df_labels</span><span class="p">[</span><span class="s2">"latitude"</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_labels</span><span class="p">[</span><span class="s2">"cell_id"</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">id_to_lat</span><span class="p">)</span>
+    <span class="n">df_labels</span><span class="p">[</span><span class="s2">"longitude"</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_labels</span><span class="p">[</span><span class="s2">"cell_id"</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">id_to_lon</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">df_labels</span>
+
+
+<div class="viewcode-block" id="load_and_clean_cluster_labels">
+<a class="viewcode-back" href="../../../reference/toplevel.html#climclusterpy.timeseries.load_and_clean_cluster_labels">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">load_and_clean_cluster_labels</span><span class="p">(</span><span class="n">labels_file</span><span class="p">,</span> <span class="n">registry</span><span class="p">:</span> <span class="nb">object</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Load label CSV and map `cell_id` to latitude/longitude using registry's original grid."""</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Loading cluster labels from: </span><span class="si">{</span><span class="n">labels_file</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+    <span class="n">df_labels</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">labels_file</span><span class="p">)</span>
+    <span class="n">required_cols</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"latitude"</span><span class="p">,</span> <span class="s2">"longitude"</span><span class="p">,</span> <span class="s2">"cluster_label"</span><span class="p">]</span>
+    <span class="n">missing_cols</span> <span class="o">=</span> <span class="p">[</span><span class="n">col</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">required_cols</span> <span class="k">if</span> <span class="n">col</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">df_labels</span><span class="o">.</span><span class="n">columns</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">missing_cols</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Missing required columns in label file: </span><span class="si">{</span><span class="n">missing_cols</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+    <span class="n">initial_count</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">df_labels</span><span class="p">)</span>
+    <span class="n">df_labels</span><span class="p">[</span><span class="s2">"cluster_label"</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_numeric</span><span class="p">(</span><span class="n">df_labels</span><span class="p">[</span><span class="s2">"cluster_label"</span><span class="p">],</span> <span class="n">errors</span><span class="o">=</span><span class="s2">"coerce"</span><span class="p">)</span>
+    <span class="n">df_labels</span> <span class="o">=</span> <span class="n">df_labels</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="s2">"cluster_label"</span><span class="p">])</span>
+    <span class="n">df_labels</span><span class="p">[</span><span class="s2">"cluster_label"</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_labels</span><span class="p">[</span><span class="s2">"cluster_label"</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+    <span class="n">df_labels</span> <span class="o">=</span> <span class="n">df_labels</span><span class="p">[</span><span class="n">df_labels</span><span class="p">[</span><span class="s2">"cluster_label"</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">]</span>
+    <span class="c1"># concise status</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+        <span class="sa">f</span><span class="s2">"Labels cleaned: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">df_labels</span><span class="p">)</span><span class="si">}</span><span class="s2"> valid (removed </span><span class="si">{</span><span class="n">initial_count</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nb">len</span><span class="p">(</span><span class="n">df_labels</span><span class="p">)</span><span class="si">}</span><span class="s2">)"</span>
+    <span class="p">)</span>
+    <span class="c1"># Map cell_id to lat/lon using registry</span>
+    <span class="k">if</span> <span class="s2">"cell_id"</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">df_labels</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"Expected label CSV to include 'cell_id' column"</span><span class="p">)</span>
+    <span class="n">df_labels</span> <span class="o">=</span> <span class="n">_place_labels_by_cell_id</span><span class="p">(</span><span class="n">df_labels</span><span class="p">,</span> <span class="n">registry</span><span class="p">)</span>
+    <span class="n">n_duplicates</span> <span class="o">=</span> <span class="n">df_labels</span><span class="o">.</span><span class="n">duplicated</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="s2">"latitude"</span><span class="p">,</span> <span class="s2">"longitude"</span><span class="p">])</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">n_duplicates</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">"WARNING: Found </span><span class="si">{</span><span class="n">n_duplicates</span><span class="si">}</span><span class="s2"> duplicate lat/lon combinations. Keeping first occurrence."</span>
+        <span class="p">)</span>
+        <span class="n">df_labels</span> <span class="o">=</span> <span class="n">df_labels</span><span class="o">.</span><span class="n">drop_duplicates</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="s2">"latitude"</span><span class="p">,</span> <span class="s2">"longitude"</span><span class="p">],</span> <span class="n">keep</span><span class="o">=</span><span class="s2">"first"</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">df_labels</span></div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, Jamir Priesner.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

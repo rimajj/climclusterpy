@@ -1,0 +1,59 @@
+Supervision labels
+==================
+
+The three sources of LMNN class labels, all producing the same
+``cell_id, latitude, longitude, cluster_label`` table. Reached most easily through
+:func:`~climclusterpy.compute_supervision`; the generators below, all importable from
+``climclusterpy.supervision``, are exposed for finer control.
+
+.. py:module:: climclusterpy.supervision
+
+Köppen–Geiger climate zones
+---------------------------
+
+.. autofunction:: climclusterpy.supervision.perform_koppen_geiger_assignment
+
+.. autofunction:: climclusterpy.supervision.assign_cells_to_koppen_geiger
+
+.. autofunction:: climclusterpy.supervision.classify_koppen_from_features
+
+.. autofunction:: climclusterpy.supervision.get_koppen_geiger_label
+
+``KG_LABELS`` maps each of the 30 Köppen–Geiger class codes to its name (``"Af"``,
+``"BWh"``, ...), and ``LABEL_TO_CODE`` is the reverse.
+
+Vegetation-model output traits
+------------------------------
+
+.. autofunction:: climclusterpy.supervision.perform_trait_assignment
+
+.. autofunction:: climclusterpy.supervision.build_trait_feature_matrix
+
+.. autofunction:: climclusterpy.supervision.build_trait_feature_table
+
+Ecoregion polygons
+------------------
+
+.. note::
+
+   Ecoregion supervision needs the ``[ecoregions]`` extra (``geopandas``).
+   See :doc:`../howto/install`.
+
+.. autofunction:: climclusterpy.supervision.perform_ecoregion_assignment
+
+.. autofunction:: climclusterpy.supervision.assign_cells_to_ecoregions
+
+.. autofunction:: climclusterpy.supervision.merge_small_ecoregions
+
+.. autodata:: climclusterpy.supervision.DEFAULT_MERGE_MAX_KM
+
+.. autofunction:: climclusterpy.supervision.load_ecoregions_shapefile
+
+.. autofunction:: climclusterpy.supervision.compute_ecoregion_centers
+
+Daily-input helpers
+-------------------
+
+.. autofunction:: climclusterpy.features.monthly_climatology_from_daily
+
+.. autofunction:: climclusterpy.features.to_celsius

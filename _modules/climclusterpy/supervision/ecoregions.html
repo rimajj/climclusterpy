@@ -1,0 +1,974 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>climclusterpy.supervision.ecoregions &mdash; climclusterpy 0.5</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/custom.css?v=f2cc2102" />
+
+  
+    <link rel="shortcut icon" href="../../../_static/logo.svg"/>
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=1dd76d02"></script>
+      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            climclusterpy
+              <img src="../../../_static/logo.svg" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorials/index.html">Tutorials</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../tutorials/one_call_roundtrip.html">Tutorial 0 — the whole workflow in two calls</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/one_call_roundtrip.html#the-idea">The idea</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/one_call_roundtrip.html#call-1-build-the-reduced-grid">Call 1 — build the reduced grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/one_call_roundtrip.html#call-2-rebuild-the-original-grid">Call 2 — rebuild the original grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/one_call_roundtrip.html#the-complete-script">The complete script</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/one_call_roundtrip.html#run-it">Run it</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/one_call_roundtrip.html#next-steps">Next steps</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../tutorials/euclidean_clustering.html">Tutorial 1 — Euclidean clustering</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/euclidean_clustering.html#load-data-and-build-a-feature-matrix">Load data and build a feature matrix</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/euclidean_clustering.html#cluster">Cluster</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/euclidean_clustering.html#the-complete-script">The complete script</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/euclidean_clustering.html#run-it">Run it</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/euclidean_clustering.html#next-steps">Next steps</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../tutorials/lmnn_clustering.html">Tutorial 2 — LMNN metric-learning clustering</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/lmnn_clustering.html#provide-a-supervision-signal">Provide a supervision signal</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/lmnn_clustering.html#learn-a-metric-and-cluster">Learn a metric and cluster</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/lmnn_clustering.html#the-complete-script">The complete script</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/lmnn_clustering.html#run-it">Run it</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/lmnn_clustering.html#next-steps">Next steps</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../tutorials/supervision.html">Tutorial 3 — Supervision signals</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/supervision.html#koppengeiger-from-monthly-climatology">Köppen–Geiger from monthly climatology</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/supervision.html#model-output-trait-clustering">Model-output (trait) clustering</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/supervision.html#the-complete-script">The complete script</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/supervision.html#run-it">Run it</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/supervision.html#ecoregion-supervision">Ecoregion supervision</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../tutorials/reconstruction.html">Tutorial 4 — Reconstruct the original grid</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/reconstruction.html#the-round-trip">The round trip</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/reconstruction.html#verify">Verify</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/reconstruction.html#the-complete-script">The complete script</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/reconstruction.html#run-it">Run it</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/reconstruction.html#next-steps">Next steps</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../tutorials/index.html#a-note-on-the-synthetic-data">A note on the synthetic data</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">How-to guides</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../howto/index.html">How-to guides</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../howto/install.html">Install climclusterpy</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/install.html#base-install">Base install</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/install.html#optional-extras">Optional extras</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/install.html#installing-the-geospatial-extras-with-conda">Installing the geospatial extras with conda</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/install.html#pytorch-cpu-vs-gpu">PyTorch (CPU vs. GPU)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/install.html#environment-variables">Environment variables</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/install.html#building-the-documentation">Building the documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../howto/inputs.html">Prepare the input files</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/inputs.html#check-your-input-first">Check your input first</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/inputs.html#the-files">The files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/inputs.html#grid-and-coordinates">Grid and coordinates</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/inputs.html#which-cells-exist-the-soil-code">Which cells exist: the soil code</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/inputs.html#the-time-axis">The time axis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/inputs.html#missing-values">Missing values</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/inputs.html#another-vegetation-model-s-input">Another vegetation model’s input</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/inputs.html#output-files">Output files</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../howto/clustering.html">Cluster a feature matrix (choose a mode)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/clustering.html#euclidean-mode-no-supervision">Euclidean mode (no supervision)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/clustering.html#lmnn-mode-supervised-metric-learning">LMNN mode (supervised metric learning)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/clustering.html#lower-level-control">Lower-level control</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../howto/supervision.html">Build an LMNN supervision signal</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/supervision.html#from-climate-koppengeiger">From climate — Köppen–Geiger</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/supervision.html#from-model-output-traits">From model output — traits</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/supervision.html#from-a-shapefile-ecoregions2017">From a shapefile — Ecoregions2017</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/supervision.html#using-the-signal">Using the signal</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/supervision.html#in-one-call">In one call</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/supervision.html#saved-results-are-reused-only-for-the-same-inputs">Saved results are reused only for the same inputs</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../howto/cell_selection.html">Choosing the cells a cluster is simulated on</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/cell_selection.html#the-patch-budget">The patch budget</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/cell_selection.html#what-the-drawn-cells-carry">What the drawn cells carry</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/cell_selection.html#reproducibility">Reproducibility</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/cell_selection.html#looking-at-a-draw-without-building-a-grid">Looking at a draw without building a grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/cell_selection.html#back-to-the-full-grid">Back to the full grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/cell_selection.html#a-model-that-reads-its-own-inputs-the-grid-only-then-cut-the-rest">A model that reads its own inputs: the grid only, then cut the rest</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../howto/reconstruct.html">Reconstruct the original grid</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/reconstruct.html#the-usual-call">The usual call</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/reconstruct.html#picking-up-where-you-left-off">Picking up where you left off</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/reconstruct.html#without-a-result-or-run-folder">Without a result or run folder</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/reconstruct.html#required-mapping-files">Required mapping files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/reconstruct.html#reconstruction-paths-kind">Reconstruction paths (<code class="docutils literal notranslate"><span class="pre">kind</span></code>)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/reconstruct.html#verifying-the-result">Verifying the result</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../reference/index.html">Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../reference/api.html">Public API — <code class="xref py py-mod docutils literal notranslate"><span class="pre">climclusterpy</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/api.html#the-two-headline-functions">The two headline functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/api.html#before-and-after-the-model-run">Before and after the model run</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/api.html#input-for-a-model-other-than-lpjml">Input for a model other than LPJmL</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/api.html#other-ways-to-build-the-reduced-grid">Other ways to build the reduced grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/api.html#reusing-a-trained-metric">Reusing a trained metric</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/api.html#the-model-s-other-inputs">The model’s other inputs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/api.html#writing-the-reduced-grid-yourself">Writing the reduced grid yourself</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/api.html#building-blocks">Building blocks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/api.html#result-objects">Result objects</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../reference/toplevel.html">Data, timeseries, I/O &amp; plotting</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/toplevel.html#module-climclusterpy.data">Data loading &amp; the grid registry</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/toplevel.html#how-much-the-package-reports">How much the package reports</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/toplevel.html#coordinates">Coordinates</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/toplevel.html#module-climclusterpy.timeseries">Per-cluster timeseries</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/toplevel.html#module-climclusterpy.io">File input/output</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/toplevel.html#module-climclusterpy.preprocessing">Preprocessing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/toplevel.html#module-climclusterpy.viz">Plotting</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../reference/features.html">Feature engineering</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/features.html#ecological-summaries">Ecological summaries</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/features.html#vegetation-model-traits">Vegetation-model traits</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/features.html#standardization-filtering">Standardization &amp; filtering</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../reference/clustering.html">Clustering &amp; metric learning</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/clustering.html#hierarchical-clustering">Hierarchical clustering</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/clustering.html#module-climclusterpy.clustering.lmnn">LMNN metric learning</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../reference/supervision.html">Supervision labels</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/supervision.html#koppengeiger-climate-zones">Köppen–Geiger climate zones</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/supervision.html#vegetation-model-output-traits">Vegetation-model output traits</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/supervision.html#ecoregion-polygons">Ecoregion polygons</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/supervision.html#daily-input-helpers">Daily-input helpers</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../reference/grid.html">Grid building &amp; reconstruction</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/grid.html#where-each-reduced-cell-is-placed">Where each reduced cell is placed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/grid.html#writing-the-reduced-grid">Writing the reduced grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/grid.html#reconstruction">Reconstruction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/grid.html#lpjml-clm-conversion">LPJmL CLM conversion</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../reference/cli.html">Command-line interface (<code class="docutils literal notranslate"><span class="pre">climclu</span></code>)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/cli.html#the-two-headline-commands">The two headline commands</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/cli.html#building-blocks">Building blocks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/cli.html#options-shared-by-every-action-command">Options shared by every action command</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/cli.html#errors-and-exit-codes">Errors and exit codes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../reference/index.html#which-function-do-i-need">Which function do I need?</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Explanation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../explanation/index.html">Explanation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../explanation/overview.html">Overview</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/overview.html#design-philosophy">Design Philosophy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/overview.html#workflow-summary">Workflow Summary</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/overview.html#key-innovations">Key Innovations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/overview.html#use-cases">Use Cases</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/overview.html#limitations">Limitations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/overview.html#future-directions">Future Directions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/overview.html#references">References</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../explanation/methods.html">Scientific Methods</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/methods.html#data-acquisition-and-preprocessing">Data Acquisition and Preprocessing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/methods.html#ecoregion-assignment">Ecoregion Assignment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/methods.html#ecological-feature-summarization">Ecological Feature Summarization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/methods.html#feature-standardization-and-filtering">Feature Standardization and Filtering</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/methods.html#large-margin-nearest-neighbor-lmnn-metric-learning">Large Margin Nearest Neighbor (LMNN) Metric Learning</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/methods.html#hierarchical-clustering">Hierarchical Clustering</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/methods.html#representative-cell-selection">Representative Cell Selection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/methods.html#evaluation-metrics">Evaluation Metrics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/methods.html#netcdf-processing">NetCDF Processing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/methods.html#computational-implementation">Computational Implementation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../explanation/index.html#reconstruction-correctness">Reconstruction correctness</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">climclusterpy</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">climclusterpy.supervision.ecoregions</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for climclusterpy.supervision.ecoregions</h1><div class="highlight"><pre>
+<span></span><span class="sd">"""Supervision from ecoregion polygons (Ecoregions2017 or your own shapefile).</span>
+
+<span class="sd">Assigns each grid cell the ecoregion whose polygon it falls in, producing the same</span>
+<span class="sd">``cell_id, latitude, longitude, cluster_label`` table as the other supervision</span>
+<span class="sd">sources. Use this when you have an authoritative external delineation of ecological</span>
+<span class="sd">regions and want the learned metric to reproduce *those* boundaries.</span>
+
+<span class="sd">Ecoregions with only a few cells on the grid make poor training classes: metric learning</span>
+<span class="sd">draws several same-class neighbours for every cell, which a region of three cells cannot</span>
+<span class="sd">supply. :func:`merge_small_ecoregions` therefore absorbs each region below a minimum size into</span>
+<span class="sd">the nearest larger region, preferring one of the same biome and realm within a distance cap.</span>
+
+<span class="sd">A label CSV is reused when it was written for the same grid, shapefile and id column,</span>
+<span class="sd">because the point-in-polygon join over a global grid is slow and its result never changes</span>
+<span class="sd">for the same inputs. Its inputs are recorded beside it, so other inputs are never served it.</span>
+
+<span class="sd">``geopandas`` (the ``[ecoregions]`` extra) is imported **inside** the functions that</span>
+<span class="sd">need it, so this module can be imported — and documented by autodoc — without the</span>
+<span class="sd">geo stack installed.</span>
+<span class="sd">"""</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">glob</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">TYPE_CHECKING</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">climclusterpy._cache</span><span class="w"> </span><span class="kn">import</span> <span class="n">file_identity</span><span class="p">,</span> <span class="n">fingerprint</span><span class="p">,</span> <span class="n">read_fingerprint</span><span class="p">,</span> <span class="n">write_fingerprint</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">climclusterpy.data.registry</span><span class="w"> </span><span class="kn">import</span> <span class="n">DataRegistry</span>
+
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>  <span class="c1"># annotations only; the runtime import is inside each function</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">geopandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">gpd</span>
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">"DEFAULT_MERGE_MAX_KM"</span><span class="p">,</span>
+    <span class="s2">"assign_cells_to_ecoregions"</span><span class="p">,</span>
+    <span class="s2">"compute_ecoregion_centers"</span><span class="p">,</span>
+    <span class="s2">"load_ecoregions_shapefile"</span><span class="p">,</span>
+    <span class="s2">"merge_small_ecoregions"</span><span class="p">,</span>
+    <span class="s2">"perform_ecoregion_assignment"</span><span class="p">,</span>
+<span class="p">]</span>
+
+<span class="c1">#: Distance cap, in km, within which :func:`merge_small_ecoregions` looks for a merge target</span>
+<span class="c1">#: before it falls back to any distance. Neighbouring cells share a climate; a same-biome region</span>
+<span class="c1">#: on another continent does not, so a nearby region of another biome is the better target.</span>
+<span class="n">DEFAULT_MERGE_MAX_KM</span> <span class="o">=</span> <span class="mf">1500.0</span>
+
+<span class="n">_EARTH_RADIUS_KM</span> <span class="o">=</span> <span class="mf">6371.0</span>
+
+<span class="c1">#: Where a small ecoregion may go, best first: ``(name, same_biome, same_realm, within_cap)``.</span>
+<span class="c1">#: Distance is a gate, not a tie-break: biome and realm only choose among the regions within</span>
+<span class="c1">#: the cap, and the uncapped rungs are reached only when nothing large is within it (a remote</span>
+<span class="c1">#: island).</span>
+<span class="n">_MERGE_RUNGS</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="p">(</span><span class="s2">"near_same_biome_same_realm"</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"near_same_realm_any_biome"</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"near_any"</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">True</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"far_same_biome"</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">False</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"far_any"</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">False</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="c1">#: The attribute columns of the Ecoregions2017 shapefile that carry its own hierarchy.</span>
+<span class="n">_BIOME_COLUMN</span> <span class="o">=</span> <span class="s2">"BIOME_NUM"</span>
+<span class="n">_REALM_COLUMN</span> <span class="o">=</span> <span class="s2">"REALM"</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_import_geopandas</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">"""Import geopandas, or explain which extra provides it."""</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="kn">import</span><span class="w"> </span><span class="nn">geopandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">gpd</span>
+    <span class="k">except</span> <span class="ne">ImportError</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span>  <span class="c1"># pragma: no cover - exercised by the bare-core gate</span>
+        <span class="k">raise</span> <span class="ne">ImportError</span><span class="p">(</span>
+            <span class="s2">"Ecoregion supervision needs the [ecoregions] extra (geopandas). Install with: "</span>
+            <span class="s2">"pip install 'climclusterpy[ecoregions]' — or, if the pip build fails on GEOS/PROJ, "</span>
+            <span class="s2">"conda install -c conda-forge geopandas"</span>
+        <span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">exc</span>
+    <span class="k">return</span> <span class="n">gpd</span>
+
+
+<div class="viewcode-block" id="load_ecoregions_shapefile">
+<a class="viewcode-back" href="../../../reference/supervision.html#climclusterpy.supervision.load_ecoregions_shapefile">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">load_ecoregions_shapefile</span><span class="p">(</span><span class="n">shapefile_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">gpd</span><span class="o">.</span><span class="n">GeoDataFrame</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Load ecoregions shapefile.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        shapefile_path: Path to the .shp file</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">        GeoDataFrame with ecoregion polygons and attributes</span>
+
+<span class="sd">    Raises</span>
+<span class="sd">    ------</span>
+<span class="sd">        FileNotFoundError: If shapefile doesn't exist</span>
+<span class="sd">        ValueError: If shapefile is empty or invalid</span>
+<span class="sd">    """</span>
+    <span class="n">gpd</span> <span class="o">=</span> <span class="n">_import_geopandas</span><span class="p">()</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">shapefile_path</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">FileNotFoundError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Ecoregions shapefile not found: </span><span class="si">{</span><span class="n">shapefile_path</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"[Ecoregions] Loading shapefile: </span><span class="si">{</span><span class="n">shapefile_path</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+    <span class="n">gdf</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="n">shapefile_path</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">gdf</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Ecoregions shapefile is empty: </span><span class="si">{</span><span class="n">shapefile_path</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"[Ecoregions] Loaded </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">gdf</span><span class="p">)</span><span class="si">}</span><span class="s2"> ecoregions"</span><span class="p">)</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"[Ecoregions] Columns: </span><span class="si">{</span><span class="nb">list</span><span class="p">(</span><span class="n">gdf</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"[Ecoregions] CRS: </span><span class="si">{</span><span class="n">gdf</span><span class="o">.</span><span class="n">crs</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">gdf</span></div>
+
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_one_label_per_cell</span><span class="p">(</span><span class="n">df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Keep one ecoregion per cell: the lowest id when a cell matched several.</span>
+
+<span class="sd">    A cell centre on the border of two polygons intersects both, and a cell in no polygon can</span>
+<span class="sd">    be equally near two of them. The lowest id is arbitrary but deterministic and independent</span>
+<span class="sd">    of the order of the shapefile's rows.</span>
+<span class="sd">    """</span>
+    <span class="n">n_matches</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">"cell_id"</span><span class="p">)[</span><span class="s2">"cluster_label"</span><span class="p">]</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="s2">"size"</span><span class="p">)</span>
+    <span class="n">tied</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">n_matches</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">]</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">tied</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span>
+        <span class="n">examples</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="sa">f</span><span class="s2">"(</span><span class="si">{</span><span class="n">grp</span><span class="p">[</span><span class="s1">'latitude'</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">grp</span><span class="p">[</span><span class="s1">'longitude'</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">): "</span>
+            <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="nb">sorted</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">v</span><span class="p">)</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">v</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">grp</span><span class="p">[</span><span class="s1">'cluster_label'</span><span class="p">])</span><span class="si">}</span><span class="s2">"</span>
+            <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">grp</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">tied</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">"cell_id"</span><span class="p">))[:</span><span class="mi">5</span><span class="p">]</span>
+        <span class="p">]</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">"[Ecoregions] </span><span class="si">{</span><span class="n">tied</span><span class="p">[</span><span class="s1">'cell_id'</span><span class="p">]</span><span class="o">.</span><span class="n">nunique</span><span class="p">()</span><span class="si">}</span><span class="s2"> cell(s) matched more than one ecoregion "</span>
+            <span class="sa">f</span><span class="s2">"(on a shared border, or equally near two when no polygon covers them); each "</span>
+            <span class="sa">f</span><span class="s2">"keeps the lowest id. First: </span><span class="si">{</span><span class="s1">'; '</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">examples</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span>
+        <span class="p">)</span>
+    <span class="k">return</span> <span class="p">(</span>
+        <span class="n">df</span><span class="o">.</span><span class="n">sort_values</span><span class="p">([</span><span class="s2">"cell_id"</span><span class="p">,</span> <span class="s2">"cluster_label"</span><span class="p">],</span> <span class="n">kind</span><span class="o">=</span><span class="s2">"stable"</span><span class="p">)</span>
+        <span class="o">.</span><span class="n">drop_duplicates</span><span class="p">(</span><span class="s2">"cell_id"</span><span class="p">,</span> <span class="n">keep</span><span class="o">=</span><span class="s2">"first"</span><span class="p">)</span>
+        <span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="p">)</span>
+
+
+<div class="viewcode-block" id="assign_cells_to_ecoregions">
+<a class="viewcode-back" href="../../../reference/supervision.html#climclusterpy.supervision.assign_cells_to_ecoregions">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">assign_cells_to_ecoregions</span><span class="p">(</span>
+    <span class="n">registry</span><span class="p">:</span> <span class="n">DataRegistry</span><span class="p">,</span>
+    <span class="n">ecoregions_gdf</span><span class="p">:</span> <span class="n">gpd</span><span class="o">.</span><span class="n">GeoDataFrame</span><span class="p">,</span>
+    <span class="n">ecoregion_id_column</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"ECO_ID"</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Assign each valid grid cell to an ecoregion based on spatial intersection.</span>
+
+<span class="sd">    Uses vectorized spatial join (geopandas.sjoin) for fast assignment.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        registry: DataRegistry containing grid information and valid cell mask</span>
+<span class="sd">        ecoregions_gdf: GeoDataFrame with ecoregion polygons</span>
+<span class="sd">        ecoregion_id_column: Column name in the shapefile containing ecoregion IDs</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">        DataFrame with columns: cell_id, latitude, longitude, cluster_label</span>
+<span class="sd">        where cluster_label is the ecoregion ID. Exactly one row per valid cell: a cell that</span>
+<span class="sd">        matches several ecoregions (on a shared border, or equally near two) keeps the lowest</span>
+<span class="sd">        id, with a warning.</span>
+
+<span class="sd">    Raises</span>
+<span class="sd">    ------</span>
+<span class="sd">        ValueError: If ecoregion_id_column not found in shapefile</span>
+<span class="sd">    """</span>
+    <span class="n">gpd</span> <span class="o">=</span> <span class="n">_import_geopandas</span><span class="p">()</span>
+
+    <span class="k">if</span> <span class="n">ecoregion_id_column</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">ecoregions_gdf</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">"Column '</span><span class="si">{</span><span class="n">ecoregion_id_column</span><span class="si">}</span><span class="s2">' not found in ecoregions shapefile. "</span>
+            <span class="sa">f</span><span class="s2">"Available columns: </span><span class="si">{</span><span class="nb">list</span><span class="p">(</span><span class="n">ecoregions_gdf</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span>
+        <span class="p">)</span>
+
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+        <span class="sa">f</span><span class="s2">"[Ecoregions] Assigning cells to ecoregions using column '</span><span class="si">{</span><span class="n">ecoregion_id_column</span><span class="si">}</span><span class="s2">'..."</span>
+    <span class="p">)</span>
+
+    <span class="c1"># Get valid lat/lon coordinates from registry</span>
+    <span class="n">valid_lats</span><span class="p">,</span> <span class="n">valid_lons</span> <span class="o">=</span> <span class="n">registry</span><span class="o">.</span><span class="n">get_valid_lat_lon</span><span class="p">()</span>
+    <span class="n">n_cells</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">valid_lats</span><span class="p">)</span>
+
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+        <span class="sa">f</span><span class="s2">"[Ecoregions] Processing </span><span class="si">{</span><span class="n">n_cells</span><span class="si">}</span><span class="s2"> valid grid cells using vectorized spatial join..."</span>
+    <span class="p">)</span>
+
+    <span class="c1"># Ensure ecoregions are in a geographic CRS (lat/lon)</span>
+    <span class="k">if</span> <span class="n">ecoregions_gdf</span><span class="o">.</span><span class="n">crs</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">"[Ecoregions] Warning: No CRS defined. Assuming EPSG:4326 (WGS84)"</span><span class="p">)</span>
+        <span class="n">ecoregions_gdf</span> <span class="o">=</span> <span class="n">ecoregions_gdf</span><span class="o">.</span><span class="n">set_crs</span><span class="p">(</span><span class="s2">"EPSG:4326"</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="ow">not</span> <span class="n">ecoregions_gdf</span><span class="o">.</span><span class="n">crs</span><span class="o">.</span><span class="n">is_geographic</span><span class="p">:</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"[Ecoregions] Converting from </span><span class="si">{</span><span class="n">ecoregions_gdf</span><span class="o">.</span><span class="n">crs</span><span class="si">}</span><span class="s2"> to EPSG:4326..."</span><span class="p">)</span>
+        <span class="n">ecoregions_gdf</span> <span class="o">=</span> <span class="n">ecoregions_gdf</span><span class="o">.</span><span class="n">to_crs</span><span class="p">(</span><span class="s2">"EPSG:4326"</span><span class="p">)</span>
+
+    <span class="c1"># Normalize grid longitudes to [-180, 180) to match standard ecoregion shapefiles</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"[Ecoregions] Normalizing grid coordinates to [-180, 180)..."</span><span class="p">)</span>
+    <span class="n">normalized_lons</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">valid_lons</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+    <span class="c1"># Bring longitudes into [-180, 180)</span>
+    <span class="n">normalized_lons</span> <span class="o">=</span> <span class="p">((</span><span class="n">normalized_lons</span> <span class="o">+</span> <span class="mi">180</span><span class="p">)</span> <span class="o">%</span> <span class="mi">360</span><span class="p">)</span> <span class="o">-</span> <span class="mi">180</span>
+
+    <span class="c1"># Check and report coordinate ranges for debugging</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"[Ecoregions] Grid lat range: [</span><span class="si">{</span><span class="n">valid_lats</span><span class="o">.</span><span class="n">min</span><span class="p">()</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">valid_lats</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">]"</span><span class="p">)</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+        <span class="sa">f</span><span class="s2">"[Ecoregions] Grid lon range (normalized): [</span><span class="si">{</span><span class="n">normalized_lons</span><span class="o">.</span><span class="n">min</span><span class="p">()</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">normalized_lons</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">]"</span>
+    <span class="p">)</span>
+
+    <span class="c1"># Get ecoregion bounds for comparison</span>
+    <span class="n">eco_bounds</span> <span class="o">=</span> <span class="n">ecoregions_gdf</span><span class="o">.</span><span class="n">total_bounds</span>  <span class="c1"># [minx, miny, maxx, maxy]</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+        <span class="sa">f</span><span class="s2">"[Ecoregions] Ecoregion bounds: lon [</span><span class="si">{</span><span class="n">eco_bounds</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">eco_bounds</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">], lat [</span><span class="si">{</span><span class="n">eco_bounds</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">eco_bounds</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">]"</span>
+    <span class="p">)</span>
+
+    <span class="c1"># Create GeoDataFrame of all grid points</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"[Ecoregions] Creating points GeoDataFrame..."</span><span class="p">)</span>
+    <span class="n">points_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+        <span class="p">{</span>
+            <span class="s2">"cell_id"</span><span class="p">:</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">n_cells</span><span class="p">)),</span>
+            <span class="s2">"latitude"</span><span class="p">:</span> <span class="n">valid_lats</span><span class="p">,</span>
+            <span class="s2">"longitude"</span><span class="p">:</span> <span class="n">normalized_lons</span><span class="p">,</span>
+        <span class="p">}</span>
+    <span class="p">)</span>
+
+    <span class="c1"># Create Point geometries from coordinates</span>
+    <span class="n">points_gdf</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">GeoDataFrame</span><span class="p">(</span>
+        <span class="n">points_df</span><span class="p">,</span>
+        <span class="n">geometry</span><span class="o">=</span><span class="n">gpd</span><span class="o">.</span><span class="n">points_from_xy</span><span class="p">(</span><span class="n">points_df</span><span class="o">.</span><span class="n">longitude</span><span class="p">,</span> <span class="n">points_df</span><span class="o">.</span><span class="n">latitude</span><span class="p">),</span>
+        <span class="n">crs</span><span class="o">=</span><span class="s2">"EPSG:4326"</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="c1"># Perform vectorized spatial join (point-in-polygon)</span>
+    <span class="c1"># Use 'intersects' to include points on polygon boundaries (more inclusive than 'within')</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+        <span class="s2">"[Ecoregions] Performing vectorized spatial join with 'intersects' predicate (includes boundary points)..."</span>
+    <span class="p">)</span>
+    <span class="n">matched</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">sjoin</span><span class="p">(</span>
+        <span class="n">points_gdf</span><span class="p">,</span>
+        <span class="n">ecoregions_gdf</span><span class="p">[[</span><span class="n">ecoregion_id_column</span><span class="p">,</span> <span class="s2">"geometry"</span><span class="p">]],</span>
+        <span class="n">how</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span>
+        <span class="n">predicate</span><span class="o">=</span><span class="s2">"intersects"</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="c1"># Filter to only successfully matched points and rename ecoregion column</span>
+    <span class="n">df_assigned</span> <span class="o">=</span> <span class="n">matched</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="n">ecoregion_id_column</span><span class="p">])</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">df_assigned</span> <span class="o">=</span> <span class="n">df_assigned</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="n">ecoregion_id_column</span><span class="p">:</span> <span class="s2">"cluster_label"</span><span class="p">})</span>
+
+    <span class="c1"># Keep only the needed columns</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">df_assigned</span><span class="p">[[</span><span class="s2">"cell_id"</span><span class="p">,</span> <span class="s2">"latitude"</span><span class="p">,</span> <span class="s2">"longitude"</span><span class="p">,</span> <span class="s2">"cluster_label"</span><span class="p">]]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+    <span class="c1"># Ensure cluster_label is int</span>
+    <span class="n">df</span><span class="p">[</span><span class="s2">"cluster_label"</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">"cluster_label"</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">_one_label_per_cell</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+
+    <span class="n">n_assigned</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+    <span class="n">n_unassigned</span> <span class="o">=</span> <span class="n">n_cells</span> <span class="o">-</span> <span class="n">n_assigned</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"[Ecoregions] Assigned </span><span class="si">{</span><span class="n">n_assigned</span><span class="si">}</span><span class="s2"> cells to ecoregions"</span><span class="p">)</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"[Ecoregions] Unassigned cells after intersects join: </span><span class="si">{</span><span class="n">n_unassigned</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">n_unassigned</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+            <span class="s2">"[Ecoregions] Running nearest-neighbor fallback for unassigned cells "</span>
+            <span class="s2">"(ensures every valid cell receives an ecoregion label)..."</span>
+        <span class="p">)</span>
+        <span class="n">assigned_ids</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">"cell_id"</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span>
+        <span class="n">unassigned_points</span> <span class="o">=</span> <span class="n">points_gdf</span><span class="p">[</span><span class="o">~</span><span class="n">points_gdf</span><span class="p">[</span><span class="s2">"cell_id"</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">assigned_ids</span><span class="p">)]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+        <span class="n">nearest</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">sjoin_nearest</span><span class="p">(</span>
+            <span class="n">unassigned_points</span><span class="p">,</span>
+            <span class="n">ecoregions_gdf</span><span class="p">[[</span><span class="n">ecoregion_id_column</span><span class="p">,</span> <span class="s2">"geometry"</span><span class="p">]],</span>
+            <span class="n">how</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span>
+            <span class="n">distance_col</span><span class="o">=</span><span class="s2">"distance_deg"</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">nearest</span><span class="p">[</span><span class="n">ecoregion_id_column</span><span class="p">]</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span><span class="o">.</span><span class="n">any</span><span class="p">():</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
+                <span class="s2">"Nearest-neighbor assignment failed for some cells; "</span>
+                <span class="s2">"please verify the ecoregion shapefile covers the study area."</span>
+            <span class="p">)</span>
+
+        <span class="n">nearest</span> <span class="o">=</span> <span class="n">nearest</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="n">ecoregion_id_column</span><span class="p">:</span> <span class="s2">"cluster_label"</span><span class="p">})</span>
+        <span class="n">nearest</span> <span class="o">=</span> <span class="n">nearest</span><span class="p">[[</span><span class="s2">"cell_id"</span><span class="p">,</span> <span class="s2">"latitude"</span><span class="p">,</span> <span class="s2">"longitude"</span><span class="p">,</span> <span class="s2">"cluster_label"</span><span class="p">]]</span>
+        <span class="n">nearest</span><span class="p">[</span><span class="s2">"cluster_label"</span><span class="p">]</span> <span class="o">=</span> <span class="n">nearest</span><span class="p">[</span><span class="s2">"cluster_label"</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+        <span class="n">nearest</span> <span class="o">=</span> <span class="n">_one_label_per_cell</span><span class="p">(</span><span class="n">nearest</span><span class="p">)</span>
+
+        <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">df</span><span class="p">,</span> <span class="n">nearest</span><span class="p">],</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="c1"># Restore original ordering by cell_id to remain compatible with downstream code</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s2">"cell_id"</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">"[Ecoregions] Fallback assigned </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">nearest</span><span class="p">)</span><span class="si">}</span><span class="s2"> additional cells "</span>
+            <span class="s2">"(all valid cells now labeled)."</span>
+        <span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">df</span></div>
+
+
+
+<div class="viewcode-block" id="compute_ecoregion_centers">
+<a class="viewcode-back" href="../../../reference/supervision.html#climclusterpy.supervision.compute_ecoregion_centers">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">compute_ecoregion_centers</span><span class="p">(</span><span class="n">df_labels</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Compute center coordinates for each ecoregion.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        df_labels: DataFrame with columns: cell_id, latitude, longitude, cluster_label</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">        DataFrame with columns: cluster_label, center_lat, center_lon</span>
+<span class="sd">    """</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"[Ecoregions] Computing ecoregion centers..."</span><span class="p">)</span>
+
+    <span class="n">centers</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">ecoregion_id</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">df_labels</span><span class="p">[</span><span class="s2">"cluster_label"</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()):</span>
+        <span class="n">cells_in_ecoregion</span> <span class="o">=</span> <span class="n">df_labels</span><span class="p">[</span><span class="n">df_labels</span><span class="p">[</span><span class="s2">"cluster_label"</span><span class="p">]</span> <span class="o">==</span> <span class="n">ecoregion_id</span><span class="p">]</span>
+
+        <span class="c1"># Use median of absolute latitude to handle equator-spanning regions</span>
+        <span class="n">abs_lats</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">cells_in_ecoregion</span><span class="p">[</span><span class="s2">"latitude"</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+        <span class="n">center_lat_abs</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">abs_lats</span><span class="p">))</span>
+
+        <span class="c1"># Find the actual latitude closest to the median absolute value</span>
+        <span class="n">closest_idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">cells_in_ecoregion</span><span class="p">[</span><span class="s2">"latitude"</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">)</span> <span class="o">-</span> <span class="n">center_lat_abs</span><span class="p">)</span>
+        <span class="p">)</span>
+        <span class="n">center_lat</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">cells_in_ecoregion</span><span class="p">[</span><span class="s2">"latitude"</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">closest_idx</span><span class="p">])</span>
+
+        <span class="c1"># Use mean longitude</span>
+        <span class="n">center_lon</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">cells_in_ecoregion</span><span class="p">[</span><span class="s2">"longitude"</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span>
+
+        <span class="n">centers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+            <span class="p">{</span>
+                <span class="s2">"cluster_label"</span><span class="p">:</span> <span class="n">ecoregion_id</span><span class="p">,</span>
+                <span class="s2">"center_lat"</span><span class="p">:</span> <span class="n">center_lat</span><span class="p">,</span>
+                <span class="s2">"center_lon"</span><span class="p">:</span> <span class="n">center_lon</span><span class="p">,</span>
+            <span class="p">}</span>
+        <span class="p">)</span>
+
+    <span class="n">df_centers</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">centers</span><span class="p">)</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"[Ecoregions] Computed centers for </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">df_centers</span><span class="p">)</span><span class="si">}</span><span class="s2"> ecoregions"</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">df_centers</span></div>
+
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_region_attribute</span><span class="p">(</span>
+    <span class="n">ecoregions_gdf</span><span class="p">:</span> <span class="n">gpd</span><span class="o">.</span><span class="n">GeoDataFrame</span><span class="p">,</span> <span class="n">id_column</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">column</span><span class="p">:</span> <span class="nb">str</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">object</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""``{region id: value}`` of one attribute column, or ``None`` when the file lacks it."""</span>
+    <span class="k">if</span> <span class="n">column</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">ecoregions_gdf</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">None</span>
+    <span class="n">table</span> <span class="o">=</span> <span class="n">ecoregions_gdf</span><span class="p">[[</span><span class="n">id_column</span><span class="p">,</span> <span class="n">column</span><span class="p">]]</span><span class="o">.</span><span class="n">drop_duplicates</span><span class="p">()</span>
+    <span class="n">conflicting</span> <span class="o">=</span> <span class="n">table</span><span class="p">[</span><span class="n">table</span><span class="o">.</span><span class="n">duplicated</span><span class="p">(</span><span class="n">id_column</span><span class="p">,</span> <span class="n">keep</span><span class="o">=</span><span class="kc">False</span><span class="p">)]</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">conflicting</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">"The ecoregion shapefile gives region(s) "</span>
+            <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="nb">sorted</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">v</span><span class="p">)</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">v</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">conflicting</span><span class="p">[</span><span class="n">id_column</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">())[:</span><span class="mi">10</span><span class="p">]</span><span class="si">}</span><span class="s2"> more than one "</span>
+            <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">column</span><span class="si">!r}</span><span class="s2"> value; one region must have one </span><span class="si">{</span><span class="n">column</span><span class="si">}</span><span class="s2">."</span>
+        <span class="p">)</span>
+    <span class="k">return</span> <span class="p">{</span><span class="nb">int</span><span class="p">(</span><span class="n">k</span><span class="p">):</span> <span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">table</span><span class="p">[</span><span class="n">id_column</span><span class="p">],</span> <span class="n">table</span><span class="p">[</span><span class="n">column</span><span class="p">])}</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_unit_vectors</span><span class="p">(</span><span class="n">lat</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">lon</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Cells as unit vectors, so great-circle nearness becomes a dot product."""</span>
+    <span class="n">la</span><span class="p">,</span> <span class="n">lo</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">deg2rad</span><span class="p">(</span><span class="n">lat</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">deg2rad</span><span class="p">(</span><span class="n">lon</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">stack</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">la</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">lo</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">la</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">lo</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">la</span><span class="p">)],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="merge_small_ecoregions">
+<a class="viewcode-back" href="../../../reference/supervision.html#climclusterpy.supervision.merge_small_ecoregions">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">merge_small_ecoregions</span><span class="p">(</span>
+    <span class="n">labels</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span>
+    <span class="n">min_cells</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span>
+    <span class="o">*</span><span class="p">,</span>
+    <span class="n">biome</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">|</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">realm</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">|</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">max_km</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">DEFAULT_MERGE_MAX_KM</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">"""Absorb every ecoregion with fewer than ``min_cells`` cells into a larger neighbour.</span>
+
+<span class="sd">    Metric learning draws several same-class neighbours for every cell, which a region with</span>
+<span class="sd">    only a few cells on the grid cannot supply. Each such region is merged, in one pass, into</span>
+<span class="sd">    the *nearest* region that has at least ``min_cells`` cells, where nearest is the smallest</span>
+<span class="sd">    great-circle distance between any cell of the one and any cell of the other (so a region</span>
+<span class="sd">    that touches the target wins over one whose middle happens to be closer). Among the</span>
+<span class="sd">    regions within ``max_km``, one of the same biome and realm is preferred, then one of the</span>
+<span class="sd">    same realm, then any; only when no large region lies within ``max_km`` (a remote island)</span>
+<span class="sd">    is the nearest one of the same biome, then any, taken at any distance. Only regions that</span>
+<span class="sd">    are already large enough are targets, so no chains form and the order the small regions</span>
+<span class="sd">    are processed in does not matter.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    labels : pandas.DataFrame</span>
+<span class="sd">        One row per grid cell with ``latitude``, ``longitude`` (degrees) and</span>
+<span class="sd">        ``cluster_label`` (the ecoregion id), e.g. from :func:`assign_cells_to_ecoregions`.</span>
+<span class="sd">        Other columns are carried through unchanged.</span>
+<span class="sd">    min_cells : int, optional</span>
+<span class="sd">        Smallest number of cells a region keeps its own class with (default 10). ``0`` or</span>
+<span class="sd">        ``1`` merges nothing.</span>
+<span class="sd">    biome, realm : dict or pandas.Series, optional</span>
+<span class="sd">        Each region's biome and realm (``{region id: value}``), e.g. the ``BIOME_NUM`` and</span>
+<span class="sd">        ``REALM`` attributes of Ecoregions2017. Without one, the preference for it is left out</span>
+<span class="sd">        and distance alone decides among the remaining candidates.</span>
+<span class="sd">    max_km : float, optional</span>
+<span class="sd">        Distance cap of the preferred targets, in km (default 1,500).</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    merged : pandas.DataFrame</span>
+<span class="sd">        ``labels`` with ``cluster_label`` replaced by the merged class (the id of the region</span>
+<span class="sd">        it was absorbed into, or its own).</span>
+<span class="sd">    merges : pandas.DataFrame</span>
+<span class="sd">        One row per absorbed region: ``source_id``, ``source_cells``, ``target_id``,</span>
+<span class="sd">        ``target_cells``, ``rule`` (which preference chose the target), ``distance_km`` and,</span>
+<span class="sd">        when given, the biome and realm of both.</span>
+
+<span class="sd">    Raises</span>
+<span class="sd">    ------</span>
+<span class="sd">    ValueError</span>
+<span class="sd">        If ``min_cells`` is negative, a required column is missing, a region lacks a biome or</span>
+<span class="sd">        realm entry, or no region has ``min_cells`` cells.</span>
+<span class="sd">    """</span>
+    <span class="k">if</span> <span class="nb">int</span><span class="p">(</span><span class="n">min_cells</span><span class="p">)</span> <span class="o">!=</span> <span class="n">min_cells</span> <span class="ow">or</span> <span class="n">min_cells</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"min_cells must be a whole number &gt;= 0, got </span><span class="si">{</span><span class="n">min_cells</span><span class="si">!r}</span><span class="s2">."</span><span class="p">)</span>
+    <span class="n">missing</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"latitude"</span><span class="p">,</span> <span class="s2">"longitude"</span><span class="p">,</span> <span class="s2">"cluster_label"</span><span class="p">}</span> <span class="o">-</span> <span class="nb">set</span><span class="p">(</span><span class="n">labels</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">missing</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"labels lacks column(s) </span><span class="si">{</span><span class="nb">sorted</span><span class="p">(</span><span class="n">missing</span><span class="p">)</span><span class="si">}</span><span class="s2">."</span><span class="p">)</span>
+
+    <span class="n">eco</span> <span class="o">=</span> <span class="n">labels</span><span class="p">[</span><span class="s2">"cluster_label"</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">int64</span><span class="p">)</span>
+    <span class="n">ids</span><span class="p">,</span> <span class="n">counts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">eco</span><span class="p">,</span> <span class="n">return_counts</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">size</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">ids</span><span class="o">.</span><span class="n">tolist</span><span class="p">(),</span> <span class="n">counts</span><span class="o">.</span><span class="n">tolist</span><span class="p">()))</span>
+    <span class="n">small</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">ids</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span> <span class="k">if</span> <span class="n">size</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">min_cells</span><span class="p">]</span>
+    <span class="n">merge_columns</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="s2">"source_id"</span><span class="p">,</span> <span class="s2">"source_cells"</span><span class="p">,</span> <span class="s2">"target_id"</span><span class="p">,</span> <span class="s2">"target_cells"</span><span class="p">,</span> <span class="s2">"rule"</span><span class="p">,</span> <span class="s2">"distance_km"</span><span class="p">,</span>
+    <span class="p">]</span>  <span class="c1"># fmt: skip</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">small</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">labels</span><span class="o">.</span><span class="n">copy</span><span class="p">(),</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="n">merge_columns</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">small</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">ids</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">"No ecoregion has </span><span class="si">{</span><span class="n">min_cells</span><span class="si">}</span><span class="s2"> or more cells on this grid (the largest has "</span>
+            <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">counts</span><span class="o">.</span><span class="n">max</span><span class="p">())</span><span class="si">}</span><span class="s2">), so there is nothing to merge into. Lower min_cells."</span>
+        <span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_codes</span><span class="p">(</span><span class="n">attribute</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">attribute</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span>
+        <span class="n">attribute</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">attribute</span><span class="p">)</span>
+        <span class="n">unknown</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">ids</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span> <span class="k">if</span> <span class="n">i</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">attribute</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">unknown</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"No </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2"> given for ecoregion(s) </span><span class="si">{</span><span class="n">unknown</span><span class="p">[:</span><span class="mi">10</span><span class="p">]</span><span class="si">}</span><span class="s2">."</span><span class="p">)</span>
+        <span class="n">codes</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">factorize</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="n">attribute</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">ids</span><span class="o">.</span><span class="n">tolist</span><span class="p">()],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">object</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">attribute</span><span class="p">,</span> <span class="n">codes</span>
+
+    <span class="n">biome_info</span><span class="p">,</span> <span class="n">realm_info</span> <span class="o">=</span> <span class="n">_codes</span><span class="p">(</span><span class="n">biome</span><span class="p">,</span> <span class="s2">"biome"</span><span class="p">),</span> <span class="n">_codes</span><span class="p">(</span><span class="n">realm</span><span class="p">,</span> <span class="s2">"realm"</span><span class="p">)</span>
+
+    <span class="c1"># Members of each region from one stable sort; `ids` is sorted, so the group starts are</span>
+    <span class="c1"># where each id first appears.</span>
+    <span class="n">order</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">eco</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s2">"stable"</span><span class="p">)</span>
+    <span class="n">starts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">searchsorted</span><span class="p">(</span><span class="n">eco</span><span class="p">[</span><span class="n">order</span><span class="p">],</span> <span class="n">ids</span><span class="p">)</span>
+    <span class="n">ends</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">starts</span><span class="p">[</span><span class="mi">1</span><span class="p">:],</span> <span class="nb">len</span><span class="p">(</span><span class="n">order</span><span class="p">))</span>
+    <span class="n">members</span> <span class="o">=</span> <span class="p">{</span><span class="n">rid</span><span class="p">:</span> <span class="n">order</span><span class="p">[</span><span class="n">a</span><span class="p">:</span><span class="n">b</span><span class="p">]</span> <span class="k">for</span> <span class="n">rid</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">ids</span><span class="o">.</span><span class="n">tolist</span><span class="p">(),</span> <span class="n">starts</span><span class="p">,</span> <span class="n">ends</span><span class="p">)}</span>
+    <span class="n">is_large</span> <span class="o">=</span> <span class="n">counts</span> <span class="o">&gt;=</span> <span class="n">min_cells</span>
+
+    <span class="n">xyz</span> <span class="o">=</span> <span class="n">_unit_vectors</span><span class="p">(</span>
+        <span class="n">labels</span><span class="p">[</span><span class="s2">"latitude"</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">(</span><span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">),</span> <span class="n">labels</span><span class="p">[</span><span class="s2">"longitude"</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">(</span><span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+    <span class="p">)</span>
+    <span class="c1"># The great-circle distance falls as the dot product rises, so the cap is a minimum dot.</span>
+    <span class="n">min_dot</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">max_km</span> <span class="o">/</span> <span class="n">_EARTH_RADIUS_KM</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">)))</span>
+
+    <span class="n">merged</span> <span class="o">=</span> <span class="n">eco</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">records</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">rid</span> <span class="ow">in</span> <span class="n">small</span><span class="p">:</span>
+        <span class="n">pos</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">searchsorted</span><span class="p">(</span><span class="n">ids</span><span class="p">,</span> <span class="n">rid</span><span class="p">))</span>
+        <span class="c1"># Nearest distance from this region to every region in one pass: the best dot product</span>
+        <span class="c1"># between any of its cells and each grid cell, then the maximum per region.</span>
+        <span class="n">best_per_cell</span> <span class="o">=</span> <span class="p">(</span><span class="n">xyz</span><span class="p">[</span><span class="n">members</span><span class="p">[</span><span class="n">rid</span><span class="p">]]</span> <span class="o">@</span> <span class="n">xyz</span><span class="o">.</span><span class="n">T</span><span class="p">)</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">region_dot</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">maximum</span><span class="o">.</span><span class="n">reduceat</span><span class="p">(</span><span class="n">best_per_cell</span><span class="p">[</span><span class="n">order</span><span class="p">],</span> <span class="n">starts</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">rule</span><span class="p">,</span> <span class="n">same_biome</span><span class="p">,</span> <span class="n">same_realm</span><span class="p">,</span> <span class="n">within_cap</span> <span class="ow">in</span> <span class="n">_MERGE_RUNGS</span><span class="p">:</span>
+            <span class="n">ok</span> <span class="o">=</span> <span class="n">is_large</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">same_biome</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">biome_info</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="k">continue</span>
+                <span class="n">ok</span> <span class="o">&amp;=</span> <span class="n">biome_info</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="n">biome_info</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="n">pos</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">same_realm</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">realm_info</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="k">continue</span>
+                <span class="n">ok</span> <span class="o">&amp;=</span> <span class="n">realm_info</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="n">realm_info</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="n">pos</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">within_cap</span><span class="p">:</span>
+                <span class="n">ok</span> <span class="o">&amp;=</span> <span class="n">region_dot</span> <span class="o">&gt;=</span> <span class="n">min_dot</span>
+            <span class="k">if</span> <span class="n">ok</span><span class="o">.</span><span class="n">any</span><span class="p">():</span>
+                <span class="n">chosen</span> <span class="o">=</span> <span class="p">(</span><span class="n">rule</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">ok</span><span class="p">,</span> <span class="n">region_dot</span><span class="p">,</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">inf</span><span class="p">))))</span>
+                <span class="k">break</span>
+        <span class="c1"># The last rule has no condition and at least one region is large, so one always fits.</span>
+        <span class="n">rule</span><span class="p">,</span> <span class="n">best</span> <span class="o">=</span> <span class="n">chosen</span>
+        <span class="n">target</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">ids</span><span class="p">[</span><span class="n">best</span><span class="p">])</span>
+        <span class="n">merged</span><span class="p">[</span><span class="n">members</span><span class="p">[</span><span class="n">rid</span><span class="p">]]</span> <span class="o">=</span> <span class="n">target</span>
+        <span class="n">record</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">"source_id"</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">rid</span><span class="p">),</span>
+            <span class="s2">"source_cells"</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">size</span><span class="p">[</span><span class="n">rid</span><span class="p">]),</span>
+            <span class="s2">"target_id"</span><span class="p">:</span> <span class="n">target</span><span class="p">,</span>
+            <span class="s2">"target_cells"</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">size</span><span class="p">[</span><span class="n">target</span><span class="p">]),</span>
+            <span class="s2">"rule"</span><span class="p">:</span> <span class="n">rule</span><span class="p">,</span>
+            <span class="s2">"distance_km"</span><span class="p">:</span> <span class="nb">round</span><span class="p">(</span>
+                <span class="n">_EARTH_RADIUS_KM</span> <span class="o">*</span> <span class="nb">float</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arccos</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">region_dot</span><span class="p">[</span><span class="n">best</span><span class="p">],</span> <span class="o">-</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">))),</span> <span class="mi">3</span>
+            <span class="p">),</span>
+        <span class="p">}</span>
+        <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">info</span> <span class="ow">in</span> <span class="p">((</span><span class="s2">"biome"</span><span class="p">,</span> <span class="n">biome_info</span><span class="p">),</span> <span class="p">(</span><span class="s2">"realm"</span><span class="p">,</span> <span class="n">realm_info</span><span class="p">)):</span>
+            <span class="k">if</span> <span class="n">info</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">record</span><span class="p">[</span><span class="sa">f</span><span class="s2">"source_</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">"</span><span class="p">]</span> <span class="o">=</span> <span class="n">info</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="nb">int</span><span class="p">(</span><span class="n">rid</span><span class="p">)]</span>
+                <span class="n">record</span><span class="p">[</span><span class="sa">f</span><span class="s2">"target_</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">"</span><span class="p">]</span> <span class="o">=</span> <span class="n">info</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">target</span><span class="p">]</span>
+        <span class="n">records</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">record</span><span class="p">)</span>
+
+    <span class="n">merges</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">records</span><span class="p">)</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+        <span class="sa">f</span><span class="s2">"[Ecoregions] Merged </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">merges</span><span class="p">)</span><span class="si">}</span><span class="s2"> of </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">ids</span><span class="p">)</span><span class="si">}</span><span class="s2"> ecoregions with fewer than "</span>
+        <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">min_cells</span><span class="si">}</span><span class="s2"> cells into a larger neighbour: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">merged</span><span class="p">))</span><span class="si">}</span><span class="s2"> classes; "</span>
+        <span class="sa">f</span><span class="s2">"rules used </span><span class="si">{</span><span class="n">merges</span><span class="p">[</span><span class="s1">'rule'</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()</span><span class="si">}</span><span class="s2">; largest distance "</span>
+        <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">merges</span><span class="p">[</span><span class="s1">'distance_km'</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="si">:</span><span class="s2">.0f</span><span class="si">}</span><span class="s2"> km."</span>
+    <span class="p">)</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="n">labels</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">out</span><span class="p">[</span><span class="s2">"cluster_label"</span><span class="p">]</span> <span class="o">=</span> <span class="n">merged</span>
+    <span class="k">return</span> <span class="n">out</span><span class="p">,</span> <span class="n">merges</span></div>
+
+
+
+<div class="viewcode-block" id="perform_ecoregion_assignment">
+<a class="viewcode-back" href="../../../reference/supervision.html#climclusterpy.supervision.perform_ecoregion_assignment">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">perform_ecoregion_assignment</span><span class="p">(</span>
+    <span class="n">registry</span><span class="p">:</span> <span class="n">DataRegistry</span><span class="p">,</span>
+    <span class="n">ecoregions_shapefile</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">output_dir</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">aggregation</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"monthly"</span><span class="p">,</span>
+    <span class="n">ecoregion_id_column</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"ECO_ID"</span><span class="p">,</span>
+    <span class="n">force_recompute</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">min_cells</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="n">max_merge_km</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">DEFAULT_MERGE_MAX_KM</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">any</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">"""Perform ecoregion-based cell assignment (replaces clustering).</span>
+
+<span class="sd">    Returns the same structure as perform_hierarchical_clustering, so the ecoregions can</span>
+<span class="sd">    stand in for a clustering.</span>
+
+<span class="sd">    Reuses an existing labels CSV in ``output_dir``, skipping the expensive spatial</span>
+<span class="sd">    assignment, only when it was written for the same grid, the same shapefile (path, size,</span>
+<span class="sd">    modification time) and the same ``ecoregion_id_column`` -- recorded in a ``.inputs`` file</span>
+<span class="sd">    beside it. A labels CSV without that record, or with another one, is never reused.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        registry: DataRegistry containing grid information</span>
+<span class="sd">        ecoregions_shapefile: Path to ecoregions .shp file</span>
+<span class="sd">        output_dir: Directory to save labels CSV</span>
+<span class="sd">        aggregation: Aggregation type (used for filename compatibility)</span>
+<span class="sd">        ecoregion_id_column: Column name for ecoregion IDs in shapefile</span>
+<span class="sd">        force_recompute: Assign afresh even when a matching labels CSV exists.</span>
+<span class="sd">        min_cells: Merge every ecoregion with fewer cells than this into a larger neighbour</span>
+<span class="sd">            (see :func:`merge_small_ecoregions`); the shapefile's ``BIOME_NUM`` and ``REALM``</span>
+<span class="sd">            columns, when present, steer the merge. Default 0: no merge, one class per</span>
+<span class="sd">            ecoregion. The merges are listed in ``ecoregion_merges_min&lt;min_cells&gt;.csv``</span>
+<span class="sd">            beside the labels.</span>
+<span class="sd">        max_merge_km: Distance cap of the preferred merge targets, in km.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">        dict with keys: 'n_clusters' (number of classes, after any merge), 'method',</span>
+<span class="sd">        'labels_csv', 'ecoregion_id_column', 'min_cells', and 'merges_csv' (``None`` without</span>
+<span class="sd">        a merge)</span>
+<span class="sd">    """</span>
+    <span class="k">if</span> <span class="nb">int</span><span class="p">(</span><span class="n">min_cells</span><span class="p">)</span> <span class="o">!=</span> <span class="n">min_cells</span> <span class="ow">or</span> <span class="n">min_cells</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"min_cells must be a whole number &gt;= 0, got </span><span class="si">{</span><span class="n">min_cells</span><span class="si">!r}</span><span class="s2">."</span><span class="p">)</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">output_dir</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="n">grid</span> <span class="o">=</span> <span class="n">registry</span><span class="o">.</span><span class="n">get_original_grid</span><span class="p">()</span>
+    <span class="n">key</span> <span class="o">=</span> <span class="n">fingerprint</span><span class="p">(</span>
+        <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">grid</span><span class="o">.</span><span class="n">latitudes</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">),</span>
+        <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">grid</span><span class="o">.</span><span class="n">longitudes</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">),</span>
+        <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">grid</span><span class="o">.</span><span class="n">cell_ids</span><span class="p">),</span>
+        <span class="n">file_identity</span><span class="p">(</span><span class="n">ecoregions_shapefile</span><span class="p">)</span> <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">ecoregions_shapefile</span><span class="p">)</span> <span class="k">else</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">ecoregion_id_column</span><span class="p">,</span>
+        <span class="c1"># Only a merge changes the labels, so an unmerged run keeps the key it always had.</span>
+        <span class="o">*</span><span class="p">((</span><span class="nb">int</span><span class="p">(</span><span class="n">min_cells</span><span class="p">),</span> <span class="nb">float</span><span class="p">(</span><span class="n">max_merge_km</span><span class="p">))</span> <span class="k">if</span> <span class="n">min_cells</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="k">else</span> <span class="p">()),</span>
+    <span class="p">)</span>
+    <span class="n">merges_csv</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">output_dir</span><span class="p">,</span> <span class="sa">f</span><span class="s2">"ecoregion_merges_min</span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">min_cells</span><span class="p">)</span><span class="si">}</span><span class="s2">.csv"</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">min_cells</span> <span class="o">&gt;</span> <span class="mi">1</span>
+        <span class="k">else</span> <span class="kc">None</span>
+    <span class="p">)</span>
+
+    <span class="c1"># Reuse an earlier assignment only when it was made from these same inputs.</span>
+    <span class="c1"># Pattern: ecoregion_labels_{aggregation}_{n}.csv, with the fingerprint beside it.</span>
+    <span class="n">existing_labels</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="n">path</span>
+        <span class="k">for</span> <span class="n">path</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span>
+            <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">output_dir</span><span class="p">,</span> <span class="sa">f</span><span class="s2">"ecoregion_labels_</span><span class="si">{</span><span class="n">aggregation</span><span class="si">}</span><span class="s2">_*.csv"</span><span class="p">))</span>
+        <span class="p">)</span>
+        <span class="k">if</span> <span class="n">read_fingerprint</span><span class="p">(</span><span class="n">path</span><span class="p">)</span> <span class="o">==</span> <span class="n">key</span>
+    <span class="p">]</span>
+
+    <span class="k">if</span> <span class="n">existing_labels</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">force_recompute</span><span class="p">:</span>
+        <span class="n">labels_csv</span> <span class="o">=</span> <span class="n">existing_labels</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"[Ecoregions] Found existing labels for these inputs: </span><span class="si">{</span><span class="n">labels_csv</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"[Ecoregions] Skipping spatial assignment (reusing existing results)"</span><span class="p">)</span>
+
+        <span class="c1"># Load to get ecoregion count and prepare final output</span>
+        <span class="n">df_output</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">labels_csv</span><span class="p">)</span>
+        <span class="n">n_ecoregions</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">df_output</span><span class="p">[</span><span class="s2">"cluster_label"</span><span class="p">]</span><span class="o">.</span><span class="n">nunique</span><span class="p">())</span>
+
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">"[Ecoregions] Loaded </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">df_output</span><span class="p">)</span><span class="si">}</span><span class="s2"> assignments for </span><span class="si">{</span><span class="n">n_ecoregions</span><span class="si">}</span><span class="s2"> ecoregions"</span>
+        <span class="p">)</span>
+
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s2">"n_clusters"</span><span class="p">:</span> <span class="n">n_ecoregions</span><span class="p">,</span>
+            <span class="s2">"method"</span><span class="p">:</span> <span class="s2">"ecoregions"</span><span class="p">,</span>
+            <span class="s2">"labels_csv"</span><span class="p">:</span> <span class="n">labels_csv</span><span class="p">,</span>
+            <span class="s2">"ecoregion_id_column"</span><span class="p">:</span> <span class="n">ecoregion_id_column</span><span class="p">,</span>
+            <span class="s2">"min_cells"</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">min_cells</span><span class="p">),</span>
+            <span class="s2">"merges_csv"</span><span class="p">:</span> <span class="n">merges_csv</span><span class="p">,</span>
+        <span class="p">}</span>
+
+    <span class="c1"># No existing labels — run spatial assignment</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"[Ecoregions] No labels for these inputs yet — running spatial assignment"</span><span class="p">)</span>
+
+    <span class="c1"># Load ecoregions shapefile</span>
+    <span class="n">ecoregions_gdf</span> <span class="o">=</span> <span class="n">load_ecoregions_shapefile</span><span class="p">(</span><span class="n">ecoregions_shapefile</span><span class="p">)</span>
+
+    <span class="c1"># Assign cells to ecoregions (vectorized)</span>
+    <span class="n">df_labels</span> <span class="o">=</span> <span class="n">assign_cells_to_ecoregions</span><span class="p">(</span><span class="n">registry</span><span class="p">,</span> <span class="n">ecoregions_gdf</span><span class="p">,</span> <span class="n">ecoregion_id_column</span><span class="p">)</span>
+    <span class="n">n_unmerged</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">df_labels</span><span class="p">[</span><span class="s2">"cluster_label"</span><span class="p">]</span><span class="o">.</span><span class="n">nunique</span><span class="p">())</span>
+    <span class="k">if</span> <span class="n">min_cells</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">df_labels</span><span class="p">,</span> <span class="n">merges</span> <span class="o">=</span> <span class="n">merge_small_ecoregions</span><span class="p">(</span>
+            <span class="n">df_labels</span><span class="p">,</span>
+            <span class="n">min_cells</span><span class="p">,</span>
+            <span class="n">biome</span><span class="o">=</span><span class="n">_region_attribute</span><span class="p">(</span><span class="n">ecoregions_gdf</span><span class="p">,</span> <span class="n">ecoregion_id_column</span><span class="p">,</span> <span class="n">_BIOME_COLUMN</span><span class="p">),</span>
+            <span class="n">realm</span><span class="o">=</span><span class="n">_region_attribute</span><span class="p">(</span><span class="n">ecoregions_gdf</span><span class="p">,</span> <span class="n">ecoregion_id_column</span><span class="p">,</span> <span class="n">_REALM_COLUMN</span><span class="p">),</span>
+            <span class="n">max_km</span><span class="o">=</span><span class="n">max_merge_km</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="n">merges</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">merges_csv</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+    <span class="c1"># Compute ecoregion centers</span>
+    <span class="n">df_centers</span> <span class="o">=</span> <span class="n">compute_ecoregion_centers</span><span class="p">(</span><span class="n">df_labels</span><span class="p">)</span>
+
+    <span class="c1"># Merge labels with centers</span>
+    <span class="n">df_output</span> <span class="o">=</span> <span class="n">df_labels</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">df_centers</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s2">"cluster_label"</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s2">"left"</span><span class="p">)</span>
+
+    <span class="c1"># Determine number of ecoregions</span>
+    <span class="n">n_ecoregions</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">df_labels</span><span class="p">[</span><span class="s2">"cluster_label"</span><span class="p">]</span><span class="o">.</span><span class="n">nunique</span><span class="p">())</span>
+
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+        <span class="sa">f</span><span class="s2">"[Ecoregions] </span><span class="si">{</span><span class="n">n_unmerged</span><span class="si">}</span><span class="s2"> ecoregions on the grid"</span>
+        <span class="o">+</span> <span class="p">(</span><span class="sa">f</span><span class="s2">", </span><span class="si">{</span><span class="n">n_ecoregions</span><span class="si">}</span><span class="s2"> classes after merging"</span> <span class="k">if</span> <span class="n">min_cells</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="k">else</span> <span class="s2">""</span><span class="p">)</span>
+    <span class="p">)</span>
+
+    <span class="c1"># Save labels CSV (format compatible with clustering)</span>
+    <span class="n">stem</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"ecoregion_labels_</span><span class="si">{</span><span class="n">aggregation</span><span class="si">}</span><span class="s2">"</span> <span class="o">+</span> <span class="p">(</span><span class="sa">f</span><span class="s2">"_min</span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">min_cells</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span> <span class="k">if</span> <span class="n">min_cells</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="k">else</span> <span class="s2">""</span><span class="p">)</span>
+    <span class="n">labels_csv</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">output_dir</span><span class="p">,</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">stem</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">n_ecoregions</span><span class="si">}</span><span class="s2">.csv"</span><span class="p">)</span>
+    <span class="n">df_output</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">labels_csv</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">write_fingerprint</span><span class="p">(</span><span class="n">labels_csv</span><span class="p">,</span> <span class="n">key</span><span class="p">)</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"[Ecoregions] Saved labels to: </span><span class="si">{</span><span class="n">labels_csv</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="s2">"n_clusters"</span><span class="p">:</span> <span class="n">n_ecoregions</span><span class="p">,</span>  <span class="c1"># Number of classes acts as cluster count</span>
+        <span class="s2">"method"</span><span class="p">:</span> <span class="s2">"ecoregions"</span><span class="p">,</span>
+        <span class="s2">"labels_csv"</span><span class="p">:</span> <span class="n">labels_csv</span><span class="p">,</span>
+        <span class="s2">"ecoregion_id_column"</span><span class="p">:</span> <span class="n">ecoregion_id_column</span><span class="p">,</span>
+        <span class="s2">"min_cells"</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">min_cells</span><span class="p">),</span>
+        <span class="s2">"merges_csv"</span><span class="p">:</span> <span class="n">merges_csv</span><span class="p">,</span>
+    <span class="p">}</span></div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, Jamir Priesner.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

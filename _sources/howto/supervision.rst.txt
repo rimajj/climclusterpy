@@ -1,0 +1,141 @@
+Build an LMNN supervision signal
+================================
+
+LMNN clustering needs a per-cell class label to learn its metric from.
+:func:`~climclusterpy.compute_supervision` builds that signal from one of three
+sources and returns a :class:`~climclusterpy.SupervisionResult` whose ``.y`` (raw
+labels) or ``.encoded_y`` (contiguous integers, required by the torch trainers) you feed
+to :func:`~climclusterpy.cluster_matrix`.
+
+.. code-block:: python
+
+   sup = compute_supervision("koppen_geiger", features_df=monthly_climatology)
+   sup.kind          # "koppen_geiger"
+   sup.n_classes     # number of distinct classes
+   sup.labels        # DataFrame: cell_id, latitude, longitude, cluster_label
+   sup.labels_csv    # path to the labels CSV the generator wrote
+   sup.y             # raw label values, shape (n_cells,)
+   sup.encoded_y     # 0..n_classes-1, aligned; feed this to local/enhanced LMNN
+
+From climate — Köppen–Geiger
+----------------------------
+
+Computed from a monthly-climatology feature table (no optional extras). ``features_df``
+must carry ``cell_id``, ``latitude``, ``longitude`` and the 12 monthly columns
+``tas_month_01``…``tas_month_12`` (°C) and ``pr_month_01``…``pr_month_12`` (mm/month).
+
+.. code-block:: python
+
+   from climclusterpy import compute_supervision
+
+   sup = compute_supervision(
+       "koppen_geiger",
+       features_df=monthly_climatology,
+       cold_threshold=0.0,       # C/D boundary (0.0 or -3.0)
+       output_dir="out/",         # optional; a temp dir is used if omitted
+   )
+
+From model output — traits
+--------------------------
+
+Cluster cells by simulated traits (VegC, height, SLA, …). Provide the trait columns via
+``continuous_cols`` (plus an optional ``categorical_col`` such as a dominant type), the
+parallel ``cell_ids`` / ``latitudes`` / ``longitudes`` arrays, and ``n_clusters``.
+
+.. code-block:: python
+
+   sup = compute_supervision(
+       "output",
+       features_df=traits,
+       cell_ids=traits["cell_id"].to_numpy(),
+       latitudes=traits["latitude"].to_numpy(),
+       longitudes=traits["longitude"].to_numpy(),
+       continuous_cols=["vegc", "height", "sla"],
+       categorical_col=None,          # e.g. "dominant_type"
+       n_clusters=20,
+       linkage_method="complete",     # the default, as in the published results
+   )
+
+From a shapefile — Ecoregions2017
+---------------------------------
+
+Assigns each cell to a WWF Ecoregions2017 polygon by spatial join. This path needs the
+``[ecoregions]`` extra (GeoPandas) and a :class:`~climclusterpy.data.DataRegistry`
+describing the grid.
+
+.. code-block:: python
+
+   sup = compute_supervision(
+       "ecoregions",
+       registry=registry,
+       ecoregions_shapefile="Ecoregions2017/Ecoregions2017.shp",
+       ecoregion_id_column="ECO_ID",
+   )
+
+Ecoregions with only a few cells on your grid make poor training classes: metric learning
+draws several same-class neighbours for every cell. So by default every ecoregion with fewer
+than 10 cells is merged into the nearest larger one, preferring a region of the same biome and
+realm within 1,500 km, then one of the same realm, then any; only a region with nothing large
+within 1,500 km (a remote island) is merged further away. On the global half-degree land grid
+this turns the 815 Ecoregions2017 regions present into 623 classes. Change the minimum with
+``ecoregion_min_cells=`` (``0`` keeps one class per ecoregion); the merges, with the distance
+and the rule that chose each target, are written to ``ecoregion_merges_min<n>.csv`` beside the
+labels. The preference for biome and realm uses the ``BIOME_NUM`` and ``REALM`` columns of the
+shapefile; with a shapefile that lacks them, distance alone decides.
+:func:`~climclusterpy.create_regions`, which uses the map itself as the regions, does not merge
+unless you pass ``ecoregion_min_cells``. A cell centre on the border of two ecoregions, or
+equally near two when no polygon covers it, gets the lower id, with a warning.
+
+Missing the extra raises an ``ImportError`` naming ``[ecoregions]``. Get ``registry`` with
+``DataRegistry.from_soil_code("soil_code.nc")`` from the soil-code file of your input, with
+``DataRegistry.load("<output_dir>/original_grid.nc")`` from a finished run, or as
+``clusters.registry`` from a :func:`~climclusterpy.create_clusters` result.
+
+Using the signal
+-----------------
+
+.. code-block:: python
+
+   from climclusterpy import cluster_matrix
+
+   result = cluster_matrix(X, n_clusters=7, locally_weighted=True, supervision=sup, lmnn_mode="global")
+
+The labels must be aligned row-for-row with the feature matrix ``X``; a length mismatch
+raises a ``ValueError``.
+
+In one call
+-----------
+
+:func:`~climclusterpy.create_clusters` builds the signal itself; ``supervision=`` names it:
+
+.. code-block:: python
+
+   from climclusterpy import create_clusters
+
+   # climate zones computed from the climate input -- no extra data
+   create_clusters(input_dir, n_clusters=2000, locally_weighted=True, supervision="koppen_geiger")
+
+   # ecoregion polygons -- no model output, a shapefile and the [ecoregions] extra
+   create_clusters(
+       input_dir, n_clusters=2000, locally_weighted=True,
+       supervision="ecoregions", ecoregions_shapefile="Ecoregions2017/Ecoregions2017.shp",
+   )
+
+   # model-output traits -- these need the model output in supervision_data
+   create_clusters(
+       input_dir, n_clusters=2000, locally_weighted=True,
+       supervision="biomass", supervision_data="/data/model_output/trait_grids",
+   )
+
+Left out, ``supervision`` is the four traits ``("sla", "wooddens", "height", "biomass")`` when
+``supervision_data`` is given and Köppen–Geiger otherwise.
+
+Saved results are reused only for the same inputs
+-------------------------------------------------
+
+The trait dendrogram and the ecoregion assignment are saved in ``output_dir`` and read back on
+the next call, because they are slow to build. They are read back only when the inputs match
+the ones that produced them (the trait matrix and linkage; the grid, shapefile and id column);
+anything else is computed afresh. ``force_recompute=True`` rebuilds regardless. Before 0.3.0
+the file name alone decided, so a second call with other inputs in the same folder silently got
+the first call's labels.

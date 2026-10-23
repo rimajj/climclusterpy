@@ -1,0 +1,679 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>climclusterpy.supervision.koppen_geiger &mdash; climclusterpy 0.5</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/custom.css?v=f2cc2102" />
+
+  
+    <link rel="shortcut icon" href="../../../_static/logo.svg"/>
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=1dd76d02"></script>
+      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            climclusterpy
+              <img src="../../../_static/logo.svg" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorials/index.html">Tutorials</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../tutorials/one_call_roundtrip.html">Tutorial 0 — the whole workflow in two calls</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/one_call_roundtrip.html#the-idea">The idea</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/one_call_roundtrip.html#call-1-build-the-reduced-grid">Call 1 — build the reduced grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/one_call_roundtrip.html#call-2-rebuild-the-original-grid">Call 2 — rebuild the original grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/one_call_roundtrip.html#the-complete-script">The complete script</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/one_call_roundtrip.html#run-it">Run it</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/one_call_roundtrip.html#next-steps">Next steps</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../tutorials/euclidean_clustering.html">Tutorial 1 — Euclidean clustering</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/euclidean_clustering.html#load-data-and-build-a-feature-matrix">Load data and build a feature matrix</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/euclidean_clustering.html#cluster">Cluster</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/euclidean_clustering.html#the-complete-script">The complete script</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/euclidean_clustering.html#run-it">Run it</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/euclidean_clustering.html#next-steps">Next steps</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../tutorials/lmnn_clustering.html">Tutorial 2 — LMNN metric-learning clustering</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/lmnn_clustering.html#provide-a-supervision-signal">Provide a supervision signal</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/lmnn_clustering.html#learn-a-metric-and-cluster">Learn a metric and cluster</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/lmnn_clustering.html#the-complete-script">The complete script</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/lmnn_clustering.html#run-it">Run it</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/lmnn_clustering.html#next-steps">Next steps</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../tutorials/supervision.html">Tutorial 3 — Supervision signals</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/supervision.html#koppengeiger-from-monthly-climatology">Köppen–Geiger from monthly climatology</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/supervision.html#model-output-trait-clustering">Model-output (trait) clustering</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/supervision.html#the-complete-script">The complete script</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/supervision.html#run-it">Run it</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/supervision.html#ecoregion-supervision">Ecoregion supervision</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../tutorials/reconstruction.html">Tutorial 4 — Reconstruct the original grid</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/reconstruction.html#the-round-trip">The round trip</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/reconstruction.html#verify">Verify</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/reconstruction.html#the-complete-script">The complete script</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/reconstruction.html#run-it">Run it</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/reconstruction.html#next-steps">Next steps</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../tutorials/index.html#a-note-on-the-synthetic-data">A note on the synthetic data</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">How-to guides</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../howto/index.html">How-to guides</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../howto/install.html">Install climclusterpy</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/install.html#base-install">Base install</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/install.html#optional-extras">Optional extras</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/install.html#installing-the-geospatial-extras-with-conda">Installing the geospatial extras with conda</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/install.html#pytorch-cpu-vs-gpu">PyTorch (CPU vs. GPU)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/install.html#environment-variables">Environment variables</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/install.html#building-the-documentation">Building the documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../howto/inputs.html">Prepare the input files</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/inputs.html#check-your-input-first">Check your input first</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/inputs.html#the-files">The files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/inputs.html#grid-and-coordinates">Grid and coordinates</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/inputs.html#which-cells-exist-the-soil-code">Which cells exist: the soil code</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/inputs.html#the-time-axis">The time axis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/inputs.html#missing-values">Missing values</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/inputs.html#another-vegetation-model-s-input">Another vegetation model’s input</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/inputs.html#output-files">Output files</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../howto/clustering.html">Cluster a feature matrix (choose a mode)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/clustering.html#euclidean-mode-no-supervision">Euclidean mode (no supervision)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/clustering.html#lmnn-mode-supervised-metric-learning">LMNN mode (supervised metric learning)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/clustering.html#lower-level-control">Lower-level control</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../howto/supervision.html">Build an LMNN supervision signal</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/supervision.html#from-climate-koppengeiger">From climate — Köppen–Geiger</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/supervision.html#from-model-output-traits">From model output — traits</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/supervision.html#from-a-shapefile-ecoregions2017">From a shapefile — Ecoregions2017</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/supervision.html#using-the-signal">Using the signal</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/supervision.html#in-one-call">In one call</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/supervision.html#saved-results-are-reused-only-for-the-same-inputs">Saved results are reused only for the same inputs</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../howto/cell_selection.html">Choosing the cells a cluster is simulated on</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/cell_selection.html#the-patch-budget">The patch budget</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/cell_selection.html#what-the-drawn-cells-carry">What the drawn cells carry</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/cell_selection.html#reproducibility">Reproducibility</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/cell_selection.html#looking-at-a-draw-without-building-a-grid">Looking at a draw without building a grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/cell_selection.html#back-to-the-full-grid">Back to the full grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/cell_selection.html#a-model-that-reads-its-own-inputs-the-grid-only-then-cut-the-rest">A model that reads its own inputs: the grid only, then cut the rest</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../howto/reconstruct.html">Reconstruct the original grid</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/reconstruct.html#the-usual-call">The usual call</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/reconstruct.html#picking-up-where-you-left-off">Picking up where you left off</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/reconstruct.html#without-a-result-or-run-folder">Without a result or run folder</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/reconstruct.html#required-mapping-files">Required mapping files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/reconstruct.html#reconstruction-paths-kind">Reconstruction paths (<code class="docutils literal notranslate"><span class="pre">kind</span></code>)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../howto/reconstruct.html#verifying-the-result">Verifying the result</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../reference/index.html">Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../reference/api.html">Public API — <code class="xref py py-mod docutils literal notranslate"><span class="pre">climclusterpy</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/api.html#the-two-headline-functions">The two headline functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/api.html#before-and-after-the-model-run">Before and after the model run</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/api.html#input-for-a-model-other-than-lpjml">Input for a model other than LPJmL</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/api.html#other-ways-to-build-the-reduced-grid">Other ways to build the reduced grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/api.html#reusing-a-trained-metric">Reusing a trained metric</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/api.html#the-model-s-other-inputs">The model’s other inputs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/api.html#writing-the-reduced-grid-yourself">Writing the reduced grid yourself</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/api.html#building-blocks">Building blocks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/api.html#result-objects">Result objects</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../reference/toplevel.html">Data, timeseries, I/O &amp; plotting</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/toplevel.html#module-climclusterpy.data">Data loading &amp; the grid registry</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/toplevel.html#how-much-the-package-reports">How much the package reports</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/toplevel.html#coordinates">Coordinates</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/toplevel.html#module-climclusterpy.timeseries">Per-cluster timeseries</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/toplevel.html#module-climclusterpy.io">File input/output</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/toplevel.html#module-climclusterpy.preprocessing">Preprocessing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/toplevel.html#module-climclusterpy.viz">Plotting</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../reference/features.html">Feature engineering</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/features.html#ecological-summaries">Ecological summaries</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/features.html#vegetation-model-traits">Vegetation-model traits</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/features.html#standardization-filtering">Standardization &amp; filtering</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../reference/clustering.html">Clustering &amp; metric learning</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/clustering.html#hierarchical-clustering">Hierarchical clustering</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/clustering.html#module-climclusterpy.clustering.lmnn">LMNN metric learning</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../reference/supervision.html">Supervision labels</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/supervision.html#koppengeiger-climate-zones">Köppen–Geiger climate zones</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/supervision.html#vegetation-model-output-traits">Vegetation-model output traits</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/supervision.html#ecoregion-polygons">Ecoregion polygons</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/supervision.html#daily-input-helpers">Daily-input helpers</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../reference/grid.html">Grid building &amp; reconstruction</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/grid.html#where-each-reduced-cell-is-placed">Where each reduced cell is placed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/grid.html#writing-the-reduced-grid">Writing the reduced grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/grid.html#reconstruction">Reconstruction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/grid.html#lpjml-clm-conversion">LPJmL CLM conversion</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../reference/cli.html">Command-line interface (<code class="docutils literal notranslate"><span class="pre">climclu</span></code>)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/cli.html#the-two-headline-commands">The two headline commands</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/cli.html#building-blocks">Building blocks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/cli.html#options-shared-by-every-action-command">Options shared by every action command</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/cli.html#errors-and-exit-codes">Errors and exit codes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../reference/index.html#which-function-do-i-need">Which function do I need?</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Explanation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../explanation/index.html">Explanation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../explanation/overview.html">Overview</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/overview.html#design-philosophy">Design Philosophy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/overview.html#workflow-summary">Workflow Summary</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/overview.html#key-innovations">Key Innovations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/overview.html#use-cases">Use Cases</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/overview.html#limitations">Limitations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/overview.html#future-directions">Future Directions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/overview.html#references">References</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../explanation/methods.html">Scientific Methods</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/methods.html#data-acquisition-and-preprocessing">Data Acquisition and Preprocessing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/methods.html#ecoregion-assignment">Ecoregion Assignment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/methods.html#ecological-feature-summarization">Ecological Feature Summarization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/methods.html#feature-standardization-and-filtering">Feature Standardization and Filtering</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/methods.html#large-margin-nearest-neighbor-lmnn-metric-learning">Large Margin Nearest Neighbor (LMNN) Metric Learning</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/methods.html#hierarchical-clustering">Hierarchical Clustering</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/methods.html#representative-cell-selection">Representative Cell Selection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/methods.html#evaluation-metrics">Evaluation Metrics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/methods.html#netcdf-processing">NetCDF Processing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../explanation/methods.html#computational-implementation">Computational Implementation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../explanation/index.html#reconstruction-correctness">Reconstruction correctness</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">climclusterpy</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">climclusterpy.supervision.koppen_geiger</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for climclusterpy.supervision.koppen_geiger</h1><div class="highlight"><pre>
+<span></span><span class="sd">"""Supervision from Köppen–Geiger climate zones.</span>
+
+<span class="sd">Assigns each grid cell one of the 30 Köppen–Geiger subclasses (Peel et al.,</span>
+<span class="sd">2007) from its monthly temperature and precipitation climatology, and writes the</span>
+<span class="sd">standard ``cell_id, latitude, longitude, cluster_label`` supervision table. This</span>
+<span class="sd">is the zero-extra-data option: the labels come from the same climate input that</span>
+<span class="sd">is being clustered, so no shapefile or model output is required.</span>
+
+<span class="sd">Input is the monthly climatology already computed by</span>
+<span class="sd">:mod:`climclusterpy.features`. To classify straight from</span>
+<span class="sd">daily files, reduce them first with</span>
+<span class="sd">:func:`climclusterpy.features.climate.monthly_climatology_from_daily`.</span>
+<span class="sd">"""</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+
+<span class="c1">#: Integer code -&gt; Köppen–Geiger subclass label (Peel et al. 2007, 30 classes).</span>
+<span class="n">KG_LABELS</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="mi">1</span><span class="p">:</span> <span class="s2">"Af"</span><span class="p">,</span>
+    <span class="mi">2</span><span class="p">:</span> <span class="s2">"Am"</span><span class="p">,</span>
+    <span class="mi">3</span><span class="p">:</span> <span class="s2">"Aw"</span><span class="p">,</span>
+    <span class="mi">4</span><span class="p">:</span> <span class="s2">"BWh"</span><span class="p">,</span>
+    <span class="mi">5</span><span class="p">:</span> <span class="s2">"BWk"</span><span class="p">,</span>
+    <span class="mi">6</span><span class="p">:</span> <span class="s2">"BSh"</span><span class="p">,</span>
+    <span class="mi">7</span><span class="p">:</span> <span class="s2">"BSk"</span><span class="p">,</span>
+    <span class="mi">8</span><span class="p">:</span> <span class="s2">"Csa"</span><span class="p">,</span>
+    <span class="mi">9</span><span class="p">:</span> <span class="s2">"Csb"</span><span class="p">,</span>
+    <span class="mi">10</span><span class="p">:</span> <span class="s2">"Csc"</span><span class="p">,</span>
+    <span class="mi">11</span><span class="p">:</span> <span class="s2">"Cfa"</span><span class="p">,</span>
+    <span class="mi">12</span><span class="p">:</span> <span class="s2">"Cfb"</span><span class="p">,</span>
+    <span class="mi">13</span><span class="p">:</span> <span class="s2">"Cfc"</span><span class="p">,</span>
+    <span class="mi">14</span><span class="p">:</span> <span class="s2">"Cwa"</span><span class="p">,</span>
+    <span class="mi">15</span><span class="p">:</span> <span class="s2">"Cwb"</span><span class="p">,</span>
+    <span class="mi">16</span><span class="p">:</span> <span class="s2">"Cwc"</span><span class="p">,</span>
+    <span class="mi">17</span><span class="p">:</span> <span class="s2">"Dsa"</span><span class="p">,</span>
+    <span class="mi">18</span><span class="p">:</span> <span class="s2">"Dsb"</span><span class="p">,</span>
+    <span class="mi">19</span><span class="p">:</span> <span class="s2">"Dsc"</span><span class="p">,</span>
+    <span class="mi">20</span><span class="p">:</span> <span class="s2">"Dsd"</span><span class="p">,</span>
+    <span class="mi">21</span><span class="p">:</span> <span class="s2">"Dfa"</span><span class="p">,</span>
+    <span class="mi">22</span><span class="p">:</span> <span class="s2">"Dfb"</span><span class="p">,</span>
+    <span class="mi">23</span><span class="p">:</span> <span class="s2">"Dfc"</span><span class="p">,</span>
+    <span class="mi">24</span><span class="p">:</span> <span class="s2">"Dfd"</span><span class="p">,</span>
+    <span class="mi">25</span><span class="p">:</span> <span class="s2">"Dwa"</span><span class="p">,</span>
+    <span class="mi">26</span><span class="p">:</span> <span class="s2">"Dwb"</span><span class="p">,</span>
+    <span class="mi">27</span><span class="p">:</span> <span class="s2">"Dwc"</span><span class="p">,</span>
+    <span class="mi">28</span><span class="p">:</span> <span class="s2">"Dwd"</span><span class="p">,</span>
+    <span class="mi">29</span><span class="p">:</span> <span class="s2">"ET"</span><span class="p">,</span>
+    <span class="mi">30</span><span class="p">:</span> <span class="s2">"EF"</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="c1"># Reverse mapping</span>
+<span class="n">LABEL_TO_CODE</span> <span class="o">=</span> <span class="p">{</span><span class="n">v</span><span class="p">:</span> <span class="n">k</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">KG_LABELS</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
+
+
+<div class="viewcode-block" id="classify_koppen_from_features">
+<a class="viewcode-back" href="../../../reference/supervision.html#climclusterpy.supervision.classify_koppen_from_features">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">classify_koppen_from_features</span><span class="p">(</span>
+    <span class="n">features_df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span>
+    <span class="n">cold_threshold</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""</span>
+<span class="sd">    Classify cells into Köppen-Geiger zones using pre-computed monthly features.</span>
+
+<span class="sd">    This function expects the features DataFrame to contain:</span>
+<span class="sd">    - tas_month_01 through tas_month_12: Monthly mean temperature (°C)</span>
+<span class="sd">    - pr_month_01 through pr_month_12: Monthly mean precipitation (mm/month)</span>
+<span class="sd">    - latitude: Cell latitude (for hemisphere determination)</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        features_df: DataFrame with monthly climatology features from summarize_climate_features</span>
+<span class="sd">        cold_threshold: Temperature threshold (°C) separating C and D climates.</span>
+<span class="sd">            Common values: 0.0 (standard) or -3.0 (variant).</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">        1D array of KG class codes (integers 1-30) for each cell.</span>
+<span class="sd">        0 indicates unclassified/invalid cells.</span>
+
+<span class="sd">    Raises</span>
+<span class="sd">    ------</span>
+<span class="sd">        ValueError: If required monthly features are missing from DataFrame.</span>
+<span class="sd">    """</span>
+    <span class="n">n_cells</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">features_df</span><span class="p">)</span>
+
+    <span class="c1"># Verify required columns exist</span>
+    <span class="n">temp_cols</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s2">"tas_month_</span><span class="si">{</span><span class="n">m</span><span class="si">:</span><span class="s2">02d</span><span class="si">}</span><span class="s2">"</span> <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">13</span><span class="p">)]</span>
+    <span class="n">prec_cols</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s2">"pr_month_</span><span class="si">{</span><span class="n">m</span><span class="si">:</span><span class="s2">02d</span><span class="si">}</span><span class="s2">"</span> <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">13</span><span class="p">)]</span>
+
+    <span class="n">missing_temp</span> <span class="o">=</span> <span class="p">[</span><span class="n">c</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">temp_cols</span> <span class="k">if</span> <span class="n">c</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">features_df</span><span class="o">.</span><span class="n">columns</span><span class="p">]</span>
+    <span class="n">missing_prec</span> <span class="o">=</span> <span class="p">[</span><span class="n">c</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">prec_cols</span> <span class="k">if</span> <span class="n">c</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">features_df</span><span class="o">.</span><span class="n">columns</span><span class="p">]</span>
+
+    <span class="k">if</span> <span class="n">missing_temp</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">"Missing temperature monthly features: </span><span class="si">{</span><span class="n">missing_temp</span><span class="si">}</span><span class="s2">. "</span>
+            <span class="sa">f</span><span class="s2">"Ensure include_monthly_climatology=True in summarize_climate_features()."</span>
+        <span class="p">)</span>
+    <span class="k">if</span> <span class="n">missing_prec</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">"Missing precipitation monthly features: </span><span class="si">{</span><span class="n">missing_prec</span><span class="si">}</span><span class="s2">. "</span>
+            <span class="sa">f</span><span class="s2">"Ensure include_monthly_climatology=True in summarize_climate_features()."</span>
+        <span class="p">)</span>
+
+    <span class="k">if</span> <span class="s2">"latitude"</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">features_df</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"Missing 'latitude' column needed for hemisphere determination."</span><span class="p">)</span>
+
+    <span class="c1"># Extract monthly data as arrays: shape (n_cells, 12)</span>
+    <span class="n">Tm</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">column_stack</span><span class="p">([</span><span class="n">features_df</span><span class="p">[</span><span class="n">c</span><span class="p">]</span><span class="o">.</span><span class="n">values</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">temp_cols</span><span class="p">])</span>  <span class="c1"># (n_cells, 12)</span>
+    <span class="n">Pm</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">column_stack</span><span class="p">([</span><span class="n">features_df</span><span class="p">[</span><span class="n">c</span><span class="p">]</span><span class="o">.</span><span class="n">values</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">prec_cols</span><span class="p">])</span>  <span class="c1"># (n_cells, 12)</span>
+    <span class="n">lat</span> <span class="o">=</span> <span class="n">features_df</span><span class="p">[</span><span class="s2">"latitude"</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>  <span class="c1"># (n_cells,)</span>
+
+    <span class="c1"># Initialize output</span>
+    <span class="n">kg</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">n_cells</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int16</span><span class="p">)</span>
+
+    <span class="c1"># Basic temperature statistics</span>
+    <span class="n">T_ann</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmean</span><span class="p">(</span><span class="n">Tm</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># Annual mean temperature</span>
+    <span class="n">T_warm</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmax</span><span class="p">(</span><span class="n">Tm</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># Warmest month temperature</span>
+    <span class="n">T_cold</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmin</span><span class="p">(</span><span class="n">Tm</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># Coldest month temperature</span>
+
+    <span class="c1"># Basic precipitation statistics</span>
+    <span class="n">P_ann</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nansum</span><span class="p">(</span><span class="n">Pm</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># Annual total precipitation (mm/year)</span>
+    <span class="n">P_min</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmin</span><span class="p">(</span><span class="n">Pm</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># Driest month</span>
+    <span class="n">np</span><span class="o">.</span><span class="n">nanmax</span><span class="p">(</span><span class="n">Pm</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># Wettest month</span>
+
+    <span class="c1"># Valid cells mask (no NaN in critical variables)</span>
+    <span class="n">mask_valid</span> <span class="o">=</span> <span class="o">~</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">T_ann</span><span class="p">)</span> <span class="o">|</span> <span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">P_ann</span><span class="p">))</span>
+
+    <span class="c1"># --- A: Tropical climates (T_cold &gt;= 18°C) ---</span>
+    <span class="n">is_A</span> <span class="o">=</span> <span class="n">T_cold</span> <span class="o">&gt;=</span> <span class="mf">18.0</span>
+    <span class="c1"># Af: No dry season (P_min &gt;= 60 mm)</span>
+    <span class="n">Af</span> <span class="o">=</span> <span class="n">is_A</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">P_min</span> <span class="o">&gt;=</span> <span class="mf">60.0</span><span class="p">)</span>
+    <span class="c1"># Am: Monsoon (P_min &lt; 60 but P_min &gt;= 100 - P_ann/25)</span>
+    <span class="n">Am</span> <span class="o">=</span> <span class="n">is_A</span> <span class="o">&amp;</span> <span class="p">(</span><span class="o">~</span><span class="n">Af</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">P_min</span> <span class="o">&gt;=</span> <span class="p">(</span><span class="mf">100.0</span> <span class="o">-</span> <span class="n">P_ann</span> <span class="o">/</span> <span class="mf">25.0</span><span class="p">))</span>
+    <span class="c1"># Aw: Savanna (everything else in A)</span>
+    <span class="n">Aw</span> <span class="o">=</span> <span class="n">is_A</span> <span class="o">&amp;</span> <span class="p">(</span><span class="o">~</span><span class="n">Af</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="o">~</span><span class="n">Am</span><span class="p">)</span>
+
+    <span class="c1"># --- B: Arid climates ---</span>
+    <span class="c1"># Aridity threshold depends on precipitation seasonality</span>
+    <span class="c1"># Determine warm-half months based on hemisphere</span>
+    <span class="c1"># Northern hemisphere: Apr-Sep (months 4-9), Southern: Oct-Mar (10-12, 1-3)</span>
+    <span class="n">wh_mask</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n_cells</span><span class="p">,</span> <span class="mi">12</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">bool</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_cells</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">lat</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">wh_mask</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">3</span><span class="p">:</span><span class="mi">9</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>  <span class="c1"># months 4-9 (0-indexed: 3-8)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">wh_mask</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="p">[</span><span class="mi">9</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">True</span>  <span class="c1"># months 10-12, 1-3</span>
+
+    <span class="c1"># Fraction of precipitation in warm half</span>
+    <span class="n">P_warm_half</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nansum</span><span class="p">(</span><span class="n">Pm</span> <span class="o">*</span> <span class="n">wh_mask</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">frac_warm</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">P_ann</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">,</span> <span class="n">P_warm_half</span> <span class="o">/</span> <span class="n">P_ann</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">)</span>
+
+    <span class="c1"># Aridity threshold</span>
+    <span class="n">adjust</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">n_cells</span><span class="p">)</span>
+    <span class="n">adjust</span><span class="p">[</span><span class="n">frac_warm</span> <span class="o">&gt;=</span> <span class="mf">0.7</span><span class="p">]</span> <span class="o">=</span> <span class="mf">280.0</span>
+    <span class="n">adjust</span><span class="p">[</span><span class="n">frac_warm</span> <span class="o">&lt;</span> <span class="mf">0.3</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span>
+    <span class="n">adjust</span><span class="p">[(</span><span class="n">frac_warm</span> <span class="o">&gt;=</span> <span class="mf">0.3</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">frac_warm</span> <span class="o">&lt;</span> <span class="mf">0.7</span><span class="p">)]</span> <span class="o">=</span> <span class="mf">140.0</span>
+    <span class="n">P_th</span> <span class="o">=</span> <span class="mf">20.0</span> <span class="o">*</span> <span class="n">T_ann</span> <span class="o">+</span> <span class="n">adjust</span>
+    <span class="n">P_th</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">maximum</span><span class="p">(</span><span class="n">P_th</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
+
+    <span class="n">is_B</span> <span class="o">=</span> <span class="n">P_ann</span> <span class="o">&lt;</span> <span class="n">P_th</span>
+    <span class="n">is_BW</span> <span class="o">=</span> <span class="n">is_B</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">P_ann</span> <span class="o">&lt;</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">P_th</span><span class="p">)</span>  <span class="c1"># Desert</span>
+    <span class="n">is_BS</span> <span class="o">=</span> <span class="n">is_B</span> <span class="o">&amp;</span> <span class="p">(</span><span class="o">~</span><span class="n">is_BW</span><span class="p">)</span>  <span class="c1"># Steppe</span>
+
+    <span class="c1"># --- E: Polar climates (T_warm &lt; 10°C) ---</span>
+    <span class="n">is_E</span> <span class="o">=</span> <span class="n">T_warm</span> <span class="o">&lt;</span> <span class="mf">10.0</span>
+    <span class="n">is_ET</span> <span class="o">=</span> <span class="n">is_E</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">T_warm</span> <span class="o">&gt;=</span> <span class="mf">0.0</span><span class="p">)</span>  <span class="c1"># Tundra</span>
+    <span class="n">is_EF</span> <span class="o">=</span> <span class="n">is_E</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">T_warm</span> <span class="o">&lt;</span> <span class="mf">0.0</span><span class="p">)</span>  <span class="c1"># Ice cap</span>
+
+    <span class="c1"># --- C and D: Temperate and Continental ---</span>
+    <span class="n">remaining</span> <span class="o">=</span> <span class="o">~</span><span class="p">(</span><span class="n">is_A</span> <span class="o">|</span> <span class="n">is_B</span> <span class="o">|</span> <span class="n">is_E</span><span class="p">)</span>
+    <span class="n">is_C</span> <span class="o">=</span> <span class="n">remaining</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">T_cold</span> <span class="o">&gt;</span> <span class="n">cold_threshold</span><span class="p">)</span>
+    <span class="n">is_D</span> <span class="o">=</span> <span class="n">remaining</span> <span class="o">&amp;</span> <span class="p">(</span><span class="o">~</span><span class="n">is_C</span><span class="p">)</span>
+
+    <span class="c1"># Precipitation seasonality for C and D</span>
+    <span class="n">p_summer_only</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">wh_mask</span><span class="p">,</span> <span class="n">Pm</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span>
+    <span class="n">p_winter_only</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="o">~</span><span class="n">wh_mask</span><span class="p">,</span> <span class="n">Pm</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span>
+    <span class="n">pmin_summer</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmin</span><span class="p">(</span><span class="n">p_summer_only</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">pmin_winter</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmin</span><span class="p">(</span><span class="n">p_winter_only</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">pmax_summer</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmax</span><span class="p">(</span><span class="n">p_summer_only</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">pmax_winter</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmax</span><span class="p">(</span><span class="n">p_winter_only</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="c1"># C precipitation subtypes</span>
+    <span class="n">c_is_s</span> <span class="o">=</span> <span class="p">(</span><span class="n">pmin_summer</span> <span class="o">&lt;</span> <span class="mf">40.0</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">pmin_summer</span> <span class="o">&lt;</span> <span class="p">(</span><span class="n">P_ann</span> <span class="o">/</span> <span class="mf">3.0</span><span class="p">))</span>  <span class="c1"># Summer dry</span>
+    <span class="n">c_is_w</span> <span class="o">=</span> <span class="p">(</span><span class="n">pmin_winter</span> <span class="o">&lt;</span> <span class="mf">10.0</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">pmin_winter</span> <span class="o">&lt;</span> <span class="p">(</span><span class="n">P_ann</span> <span class="o">/</span> <span class="mf">10.0</span><span class="p">))</span>  <span class="c1"># Winter dry</span>
+    <span class="n">c_is_f</span> <span class="o">=</span> <span class="o">~</span><span class="p">(</span><span class="n">c_is_s</span> <span class="o">|</span> <span class="n">c_is_w</span><span class="p">)</span>  <span class="c1"># No dry season</span>
+
+    <span class="c1"># D precipitation subtypes (stricter criteria)</span>
+    <span class="n">d_is_w</span> <span class="o">=</span> <span class="p">(</span><span class="n">pmax_summer</span> <span class="o">&gt;=</span> <span class="mf">10.0</span> <span class="o">*</span> <span class="n">pmin_winter</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">pmin_winter</span> <span class="o">&lt;</span> <span class="mf">30.0</span><span class="p">)</span>
+    <span class="n">d_is_s</span> <span class="o">=</span> <span class="p">(</span><span class="n">pmax_winter</span> <span class="o">&gt;=</span> <span class="mf">3.0</span> <span class="o">*</span> <span class="n">pmin_summer</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">pmin_summer</span> <span class="o">&lt;</span> <span class="mf">30.0</span><span class="p">)</span>
+    <span class="n">d_is_f</span> <span class="o">=</span> <span class="o">~</span><span class="p">(</span><span class="n">d_is_s</span> <span class="o">|</span> <span class="n">d_is_w</span><span class="p">)</span>
+
+    <span class="c1"># Temperature subtypes for C and D</span>
+    <span class="n">months_above_10</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">Tm</span> <span class="o">&gt;</span> <span class="mf">10.0</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">temp_a</span> <span class="o">=</span> <span class="n">T_warm</span> <span class="o">&gt;=</span> <span class="mf">22.0</span>  <span class="c1"># Hot summer</span>
+    <span class="n">temp_b</span> <span class="o">=</span> <span class="p">(</span><span class="o">~</span><span class="n">temp_a</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">months_above_10</span> <span class="o">&gt;=</span> <span class="mi">4</span><span class="p">)</span>  <span class="c1"># Warm summer</span>
+    <span class="n">temp_c</span> <span class="o">=</span> <span class="p">(</span><span class="o">~</span><span class="n">temp_a</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">months_above_10</span> <span class="o">&gt;=</span> <span class="mi">1</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">months_above_10</span> <span class="o">&lt;</span> <span class="mi">4</span><span class="p">)</span>  <span class="c1"># Cold summer</span>
+    <span class="n">temp_d</span> <span class="o">=</span> <span class="n">T_cold</span> <span class="o">&lt;</span> <span class="o">-</span><span class="mf">38.0</span>  <span class="c1"># Extreme cold (for D only)</span>
+
+    <span class="c1"># --- Assign class codes ---</span>
+    <span class="c1"># A classes</span>
+    <span class="n">kg</span><span class="p">[</span><span class="n">Af</span> <span class="o">&amp;</span> <span class="n">mask_valid</span><span class="p">]</span> <span class="o">=</span> <span class="n">LABEL_TO_CODE</span><span class="p">[</span><span class="s2">"Af"</span><span class="p">]</span>
+    <span class="n">kg</span><span class="p">[</span><span class="n">Am</span> <span class="o">&amp;</span> <span class="n">mask_valid</span><span class="p">]</span> <span class="o">=</span> <span class="n">LABEL_TO_CODE</span><span class="p">[</span><span class="s2">"Am"</span><span class="p">]</span>
+    <span class="n">kg</span><span class="p">[</span><span class="n">Aw</span> <span class="o">&amp;</span> <span class="n">mask_valid</span><span class="p">]</span> <span class="o">=</span> <span class="n">LABEL_TO_CODE</span><span class="p">[</span><span class="s2">"Aw"</span><span class="p">]</span>
+
+    <span class="c1"># B classes</span>
+    <span class="n">kg</span><span class="p">[(</span><span class="n">is_BW</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">T_ann</span> <span class="o">&gt;=</span> <span class="mf">18.0</span><span class="p">))</span> <span class="o">&amp;</span> <span class="n">mask_valid</span><span class="p">]</span> <span class="o">=</span> <span class="n">LABEL_TO_CODE</span><span class="p">[</span><span class="s2">"BWh"</span><span class="p">]</span>
+    <span class="n">kg</span><span class="p">[(</span><span class="n">is_BW</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">T_ann</span> <span class="o">&lt;</span> <span class="mf">18.0</span><span class="p">))</span> <span class="o">&amp;</span> <span class="n">mask_valid</span><span class="p">]</span> <span class="o">=</span> <span class="n">LABEL_TO_CODE</span><span class="p">[</span><span class="s2">"BWk"</span><span class="p">]</span>
+    <span class="n">kg</span><span class="p">[(</span><span class="n">is_BS</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">T_ann</span> <span class="o">&gt;=</span> <span class="mf">18.0</span><span class="p">))</span> <span class="o">&amp;</span> <span class="n">mask_valid</span><span class="p">]</span> <span class="o">=</span> <span class="n">LABEL_TO_CODE</span><span class="p">[</span><span class="s2">"BSh"</span><span class="p">]</span>
+    <span class="n">kg</span><span class="p">[(</span><span class="n">is_BS</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">T_ann</span> <span class="o">&lt;</span> <span class="mf">18.0</span><span class="p">))</span> <span class="o">&amp;</span> <span class="n">mask_valid</span><span class="p">]</span> <span class="o">=</span> <span class="n">LABEL_TO_CODE</span><span class="p">[</span><span class="s2">"BSk"</span><span class="p">]</span>
+
+    <span class="c1"># E classes</span>
+    <span class="n">kg</span><span class="p">[</span><span class="n">is_ET</span> <span class="o">&amp;</span> <span class="n">mask_valid</span><span class="p">]</span> <span class="o">=</span> <span class="n">LABEL_TO_CODE</span><span class="p">[</span><span class="s2">"ET"</span><span class="p">]</span>
+    <span class="n">kg</span><span class="p">[</span><span class="n">is_EF</span> <span class="o">&amp;</span> <span class="n">mask_valid</span><span class="p">]</span> <span class="o">=</span> <span class="n">LABEL_TO_CODE</span><span class="p">[</span><span class="s2">"EF"</span><span class="p">]</span>
+
+    <span class="c1"># C classes (9 combinations: s/f/w × a/b/c)</span>
+    <span class="n">c_mask</span> <span class="o">=</span> <span class="n">is_C</span> <span class="o">&amp;</span> <span class="n">mask_valid</span>
+    <span class="n">kg</span><span class="p">[</span><span class="n">c_mask</span> <span class="o">&amp;</span> <span class="n">c_is_s</span> <span class="o">&amp;</span> <span class="n">temp_a</span><span class="p">]</span> <span class="o">=</span> <span class="n">LABEL_TO_CODE</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"Csa"</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="n">kg</span><span class="p">[</span><span class="n">c_mask</span> <span class="o">&amp;</span> <span class="n">c_is_s</span> <span class="o">&amp;</span> <span class="n">temp_b</span><span class="p">]</span> <span class="o">=</span> <span class="n">LABEL_TO_CODE</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"Csb"</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="n">kg</span><span class="p">[</span><span class="n">c_mask</span> <span class="o">&amp;</span> <span class="n">c_is_s</span> <span class="o">&amp;</span> <span class="n">temp_c</span><span class="p">]</span> <span class="o">=</span> <span class="n">LABEL_TO_CODE</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"Csc"</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="n">kg</span><span class="p">[</span><span class="n">c_mask</span> <span class="o">&amp;</span> <span class="n">c_is_f</span> <span class="o">&amp;</span> <span class="n">temp_a</span><span class="p">]</span> <span class="o">=</span> <span class="n">LABEL_TO_CODE</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"Cfa"</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="n">kg</span><span class="p">[</span><span class="n">c_mask</span> <span class="o">&amp;</span> <span class="n">c_is_f</span> <span class="o">&amp;</span> <span class="n">temp_b</span><span class="p">]</span> <span class="o">=</span> <span class="n">LABEL_TO_CODE</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"Cfb"</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="n">kg</span><span class="p">[</span><span class="n">c_mask</span> <span class="o">&amp;</span> <span class="n">c_is_f</span> <span class="o">&amp;</span> <span class="n">temp_c</span><span class="p">]</span> <span class="o">=</span> <span class="n">LABEL_TO_CODE</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"Cfc"</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="n">kg</span><span class="p">[</span><span class="n">c_mask</span> <span class="o">&amp;</span> <span class="n">c_is_w</span> <span class="o">&amp;</span> <span class="n">temp_a</span><span class="p">]</span> <span class="o">=</span> <span class="n">LABEL_TO_CODE</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"Cwa"</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="n">kg</span><span class="p">[</span><span class="n">c_mask</span> <span class="o">&amp;</span> <span class="n">c_is_w</span> <span class="o">&amp;</span> <span class="n">temp_b</span><span class="p">]</span> <span class="o">=</span> <span class="n">LABEL_TO_CODE</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"Cwb"</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="n">kg</span><span class="p">[</span><span class="n">c_mask</span> <span class="o">&amp;</span> <span class="n">c_is_w</span> <span class="o">&amp;</span> <span class="n">temp_c</span><span class="p">]</span> <span class="o">=</span> <span class="n">LABEL_TO_CODE</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"Cwc"</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+
+    <span class="c1"># D classes (12 combinations: s/f/w × a/b/c/d)</span>
+    <span class="n">d_mask</span> <span class="o">=</span> <span class="n">is_D</span> <span class="o">&amp;</span> <span class="n">mask_valid</span>
+    <span class="n">kg</span><span class="p">[</span><span class="n">d_mask</span> <span class="o">&amp;</span> <span class="n">d_is_f</span> <span class="o">&amp;</span> <span class="n">temp_a</span><span class="p">]</span> <span class="o">=</span> <span class="n">LABEL_TO_CODE</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"Dfa"</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="n">kg</span><span class="p">[</span><span class="n">d_mask</span> <span class="o">&amp;</span> <span class="n">d_is_f</span> <span class="o">&amp;</span> <span class="n">temp_b</span><span class="p">]</span> <span class="o">=</span> <span class="n">LABEL_TO_CODE</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"Dfb"</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="n">kg</span><span class="p">[</span><span class="n">d_mask</span> <span class="o">&amp;</span> <span class="n">d_is_f</span> <span class="o">&amp;</span> <span class="n">temp_c</span><span class="p">]</span> <span class="o">=</span> <span class="n">LABEL_TO_CODE</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"Dfc"</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="n">kg</span><span class="p">[</span><span class="n">d_mask</span> <span class="o">&amp;</span> <span class="n">d_is_f</span> <span class="o">&amp;</span> <span class="n">temp_d</span><span class="p">]</span> <span class="o">=</span> <span class="n">LABEL_TO_CODE</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"Dfd"</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="n">kg</span><span class="p">[</span><span class="n">d_mask</span> <span class="o">&amp;</span> <span class="n">d_is_w</span> <span class="o">&amp;</span> <span class="n">temp_a</span><span class="p">]</span> <span class="o">=</span> <span class="n">LABEL_TO_CODE</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"Dwa"</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="n">kg</span><span class="p">[</span><span class="n">d_mask</span> <span class="o">&amp;</span> <span class="n">d_is_w</span> <span class="o">&amp;</span> <span class="n">temp_b</span><span class="p">]</span> <span class="o">=</span> <span class="n">LABEL_TO_CODE</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"Dwb"</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="n">kg</span><span class="p">[</span><span class="n">d_mask</span> <span class="o">&amp;</span> <span class="n">d_is_w</span> <span class="o">&amp;</span> <span class="n">temp_c</span><span class="p">]</span> <span class="o">=</span> <span class="n">LABEL_TO_CODE</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"Dwc"</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="n">kg</span><span class="p">[</span><span class="n">d_mask</span> <span class="o">&amp;</span> <span class="n">d_is_w</span> <span class="o">&amp;</span> <span class="n">temp_d</span><span class="p">]</span> <span class="o">=</span> <span class="n">LABEL_TO_CODE</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"Dwd"</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="n">kg</span><span class="p">[</span><span class="n">d_mask</span> <span class="o">&amp;</span> <span class="n">d_is_s</span> <span class="o">&amp;</span> <span class="n">temp_a</span><span class="p">]</span> <span class="o">=</span> <span class="n">LABEL_TO_CODE</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"Dsa"</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="n">kg</span><span class="p">[</span><span class="n">d_mask</span> <span class="o">&amp;</span> <span class="n">d_is_s</span> <span class="o">&amp;</span> <span class="n">temp_b</span><span class="p">]</span> <span class="o">=</span> <span class="n">LABEL_TO_CODE</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"Dsb"</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="n">kg</span><span class="p">[</span><span class="n">d_mask</span> <span class="o">&amp;</span> <span class="n">d_is_s</span> <span class="o">&amp;</span> <span class="n">temp_c</span><span class="p">]</span> <span class="o">=</span> <span class="n">LABEL_TO_CODE</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"Dsc"</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="n">kg</span><span class="p">[</span><span class="n">d_mask</span> <span class="o">&amp;</span> <span class="n">d_is_s</span> <span class="o">&amp;</span> <span class="n">temp_d</span><span class="p">]</span> <span class="o">=</span> <span class="n">LABEL_TO_CODE</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"Dsd"</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">kg</span></div>
+
+
+
+<div class="viewcode-block" id="assign_cells_to_koppen_geiger">
+<a class="viewcode-back" href="../../../reference/supervision.html#climclusterpy.supervision.assign_cells_to_koppen_geiger">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">assign_cells_to_koppen_geiger</span><span class="p">(</span>
+    <span class="n">features_df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span>
+    <span class="n">cold_threshold</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""</span>
+<span class="sd">    Assign each cell to a Köppen-Geiger climate zone.</span>
+
+<span class="sd">    Uses the monthly climatology features from the features DataFrame to</span>
+<span class="sd">    classify cells. The output format matches the ecoregion assignment format.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        features_df: DataFrame with columns:</span>
+<span class="sd">            - cell_id, latitude, longitude</span>
+<span class="sd">            - tas_month_01..tas_month_12 (monthly mean temperature °C)</span>
+<span class="sd">            - pr_month_01..pr_month_12 (monthly precipitation mm/month)</span>
+<span class="sd">        cold_threshold: Temperature threshold for C/D boundary (default 0.0°C)</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">        DataFrame with columns: cell_id, latitude, longitude, cluster_label</span>
+<span class="sd">        where cluster_label is the KG class code (1-30).</span>
+<span class="sd">        Cells with code 0 (unclassified) are excluded.</span>
+<span class="sd">    """</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"[KöppenGeiger] Classifying </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">features_df</span><span class="p">)</span><span class="si">}</span><span class="s2"> cells into KG climate zones..."</span><span class="p">)</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"[KöppenGeiger] Using cold-month threshold: </span><span class="si">{</span><span class="n">cold_threshold</span><span class="si">}</span><span class="s2">°C"</span><span class="p">)</span>
+
+    <span class="c1"># Classify cells</span>
+    <span class="n">kg_codes</span> <span class="o">=</span> <span class="n">classify_koppen_from_features</span><span class="p">(</span><span class="n">features_df</span><span class="p">,</span> <span class="n">cold_threshold</span><span class="p">)</span>
+
+    <span class="c1"># Build output DataFrame</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+        <span class="p">{</span>
+            <span class="s2">"cell_id"</span><span class="p">:</span> <span class="n">features_df</span><span class="p">[</span><span class="s2">"cell_id"</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">,</span>
+            <span class="s2">"latitude"</span><span class="p">:</span> <span class="n">features_df</span><span class="p">[</span><span class="s2">"latitude"</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">,</span>
+            <span class="s2">"longitude"</span><span class="p">:</span> <span class="n">features_df</span><span class="p">[</span><span class="s2">"longitude"</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">,</span>
+            <span class="s2">"cluster_label"</span><span class="p">:</span> <span class="n">kg_codes</span><span class="p">,</span>
+        <span class="p">}</span>
+    <span class="p">)</span>
+
+    <span class="c1"># Filter out unclassified cells (code 0)</span>
+    <span class="n">n_unclassified</span> <span class="o">=</span> <span class="p">(</span><span class="n">kg_codes</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">n_unclassified</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">"[KöppenGeiger] Warning: </span><span class="si">{</span><span class="n">n_unclassified</span><span class="si">}</span><span class="s2"> cells could not be classified (NaN values)"</span>
+        <span class="p">)</span>
+
+    <span class="n">result</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="n">result</span><span class="p">[</span><span class="s2">"cluster_label"</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="c1"># Report statistics</span>
+    <span class="n">n_zones</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="s2">"cluster_label"</span><span class="p">]</span><span class="o">.</span><span class="n">nunique</span><span class="p">()</span>
+    <span class="n">zone_counts</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="s2">"cluster_label"</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">sort_index</span><span class="p">()</span>
+
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"[KöppenGeiger] Assigned </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">result</span><span class="p">)</span><span class="si">}</span><span class="s2"> cells to </span><span class="si">{</span><span class="n">n_zones</span><span class="si">}</span><span class="s2"> KG zones"</span><span class="p">)</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"[KöppenGeiger] Zone distribution:"</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">code</span><span class="p">,</span> <span class="n">count</span> <span class="ow">in</span> <span class="n">zone_counts</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="n">label</span> <span class="o">=</span> <span class="n">KG_LABELS</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">code</span><span class="p">,</span> <span class="s2">"?"</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"  </span><span class="si">{</span><span class="n">label</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="n">code</span><span class="si">}</span><span class="s2">): </span><span class="si">{</span><span class="n">count</span><span class="si">}</span><span class="s2"> cells"</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">result</span></div>
+
+
+
+<div class="viewcode-block" id="perform_koppen_geiger_assignment">
+<a class="viewcode-back" href="../../../reference/supervision.html#climclusterpy.supervision.perform_koppen_geiger_assignment">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">perform_koppen_geiger_assignment</span><span class="p">(</span>
+    <span class="n">features_df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span>
+    <span class="n">output_dir</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">aggregation</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"koppen_geiger"</span><span class="p">,</span>
+    <span class="n">cold_threshold</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""</span>
+<span class="sd">    Perform Köppen-Geiger assignment and save results.</span>
+
+<span class="sd">    This function mirrors the interface of perform_ecoregion_assignment()</span>
+<span class="sd">    to allow seamless substitution in the LMNN pipeline.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        features_df: DataFrame with cell features including monthly climatologies</span>
+<span class="sd">        output_dir: Directory to save output files</span>
+<span class="sd">        aggregation: Output subfolder name (default "koppen_geiger")</span>
+<span class="sd">        cold_threshold: Temperature threshold for C/D boundary</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">        Dict with keys:</span>
+<span class="sd">        - labels_csv: Path to saved labels CSV file</span>
+<span class="sd">        - n_clusters: Number of KG zones found</span>
+<span class="sd">        - zone_counts: Dict mapping KG codes to cell counts</span>
+<span class="sd">    """</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">output_dir</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="c1"># Assign cells</span>
+    <span class="n">labels_df</span> <span class="o">=</span> <span class="n">assign_cells_to_koppen_geiger</span><span class="p">(</span><span class="n">features_df</span><span class="p">,</span> <span class="n">cold_threshold</span><span class="p">)</span>
+
+    <span class="c1"># Save labels CSV</span>
+    <span class="n">labels_file</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">output_dir</span><span class="p">,</span> <span class="sa">f</span><span class="s2">"koppen_geiger_labels_</span><span class="si">{</span><span class="n">aggregation</span><span class="si">}</span><span class="s2">.csv"</span><span class="p">)</span>
+    <span class="n">labels_df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">labels_file</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"[KöppenGeiger] Saved labels to: </span><span class="si">{</span><span class="n">labels_file</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+    <span class="c1"># Compute statistics</span>
+    <span class="n">n_zones</span> <span class="o">=</span> <span class="n">labels_df</span><span class="p">[</span><span class="s2">"cluster_label"</span><span class="p">]</span><span class="o">.</span><span class="n">nunique</span><span class="p">()</span>
+    <span class="n">zone_counts</span> <span class="o">=</span> <span class="n">labels_df</span><span class="p">[</span><span class="s2">"cluster_label"</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()</span>
+
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="s2">"labels_csv"</span><span class="p">:</span> <span class="n">labels_file</span><span class="p">,</span>
+        <span class="s2">"n_clusters"</span><span class="p">:</span> <span class="n">n_zones</span><span class="p">,</span>
+        <span class="s2">"zone_counts"</span><span class="p">:</span> <span class="n">zone_counts</span><span class="p">,</span>
+        <span class="s2">"zone_labels"</span><span class="p">:</span> <span class="n">KG_LABELS</span><span class="p">,</span>
+    <span class="p">}</span></div>
+
+
+
+<div class="viewcode-block" id="get_koppen_geiger_label">
+<a class="viewcode-back" href="../../../reference/supervision.html#climclusterpy.supervision.get_koppen_geiger_label">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_koppen_geiger_label</span><span class="p">(</span><span class="n">code</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""</span>
+<span class="sd">    Get the string label for a KG class code.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        code: Integer class code (1-30)</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">        String label (e.g., "Cfa", "BWh") or "Unknown" if invalid</span>
+<span class="sd">    """</span>
+    <span class="k">return</span> <span class="n">KG_LABELS</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">code</span><span class="p">,</span> <span class="s2">"Unknown"</span><span class="p">)</span></div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, Jamir Priesner.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

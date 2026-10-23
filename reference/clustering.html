@@ -1,0 +1,856 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Clustering &amp; metric learning &mdash; climclusterpy 0.5</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=f2cc2102" />
+
+  
+    <link rel="shortcut icon" href="../_static/logo.svg"/>
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=1dd76d02"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Supervision labels" href="supervision.html" />
+    <link rel="prev" title="Feature engineering" href="features.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            climclusterpy
+              <img src="../_static/logo.svg" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">Tutorials</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/one_call_roundtrip.html">Tutorial 0 — the whole workflow in two calls</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/one_call_roundtrip.html#the-idea">The idea</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/one_call_roundtrip.html#call-1-build-the-reduced-grid">Call 1 — build the reduced grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/one_call_roundtrip.html#call-2-rebuild-the-original-grid">Call 2 — rebuild the original grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/one_call_roundtrip.html#the-complete-script">The complete script</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/one_call_roundtrip.html#run-it">Run it</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/one_call_roundtrip.html#next-steps">Next steps</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/euclidean_clustering.html">Tutorial 1 — Euclidean clustering</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/euclidean_clustering.html#load-data-and-build-a-feature-matrix">Load data and build a feature matrix</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/euclidean_clustering.html#cluster">Cluster</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/euclidean_clustering.html#the-complete-script">The complete script</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/euclidean_clustering.html#run-it">Run it</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/euclidean_clustering.html#next-steps">Next steps</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/lmnn_clustering.html">Tutorial 2 — LMNN metric-learning clustering</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/lmnn_clustering.html#provide-a-supervision-signal">Provide a supervision signal</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/lmnn_clustering.html#learn-a-metric-and-cluster">Learn a metric and cluster</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/lmnn_clustering.html#the-complete-script">The complete script</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/lmnn_clustering.html#run-it">Run it</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/lmnn_clustering.html#next-steps">Next steps</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/supervision.html">Tutorial 3 — Supervision signals</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/supervision.html#koppengeiger-from-monthly-climatology">Köppen–Geiger from monthly climatology</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/supervision.html#model-output-trait-clustering">Model-output (trait) clustering</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/supervision.html#the-complete-script">The complete script</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/supervision.html#run-it">Run it</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/supervision.html#ecoregion-supervision">Ecoregion supervision</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/reconstruction.html">Tutorial 4 — Reconstruct the original grid</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/reconstruction.html#the-round-trip">The round trip</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/reconstruction.html#verify">Verify</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/reconstruction.html#the-complete-script">The complete script</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/reconstruction.html#run-it">Run it</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/reconstruction.html#next-steps">Next steps</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/index.html#a-note-on-the-synthetic-data">A note on the synthetic data</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">How-to guides</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../howto/index.html">How-to guides</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../howto/install.html">Install climclusterpy</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../howto/install.html#base-install">Base install</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/install.html#optional-extras">Optional extras</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/install.html#installing-the-geospatial-extras-with-conda">Installing the geospatial extras with conda</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/install.html#pytorch-cpu-vs-gpu">PyTorch (CPU vs. GPU)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/install.html#environment-variables">Environment variables</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/install.html#building-the-documentation">Building the documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../howto/inputs.html">Prepare the input files</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../howto/inputs.html#check-your-input-first">Check your input first</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/inputs.html#the-files">The files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/inputs.html#grid-and-coordinates">Grid and coordinates</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/inputs.html#which-cells-exist-the-soil-code">Which cells exist: the soil code</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/inputs.html#the-time-axis">The time axis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/inputs.html#missing-values">Missing values</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/inputs.html#another-vegetation-model-s-input">Another vegetation model’s input</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/inputs.html#output-files">Output files</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../howto/clustering.html">Cluster a feature matrix (choose a mode)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../howto/clustering.html#euclidean-mode-no-supervision">Euclidean mode (no supervision)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/clustering.html#lmnn-mode-supervised-metric-learning">LMNN mode (supervised metric learning)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/clustering.html#lower-level-control">Lower-level control</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../howto/supervision.html">Build an LMNN supervision signal</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../howto/supervision.html#from-climate-koppengeiger">From climate — Köppen–Geiger</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/supervision.html#from-model-output-traits">From model output — traits</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/supervision.html#from-a-shapefile-ecoregions2017">From a shapefile — Ecoregions2017</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/supervision.html#using-the-signal">Using the signal</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/supervision.html#in-one-call">In one call</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/supervision.html#saved-results-are-reused-only-for-the-same-inputs">Saved results are reused only for the same inputs</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../howto/cell_selection.html">Choosing the cells a cluster is simulated on</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../howto/cell_selection.html#the-patch-budget">The patch budget</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/cell_selection.html#what-the-drawn-cells-carry">What the drawn cells carry</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/cell_selection.html#reproducibility">Reproducibility</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/cell_selection.html#looking-at-a-draw-without-building-a-grid">Looking at a draw without building a grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/cell_selection.html#back-to-the-full-grid">Back to the full grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/cell_selection.html#a-model-that-reads-its-own-inputs-the-grid-only-then-cut-the-rest">A model that reads its own inputs: the grid only, then cut the rest</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../howto/reconstruct.html">Reconstruct the original grid</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../howto/reconstruct.html#the-usual-call">The usual call</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/reconstruct.html#picking-up-where-you-left-off">Picking up where you left off</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/reconstruct.html#without-a-result-or-run-folder">Without a result or run folder</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/reconstruct.html#required-mapping-files">Required mapping files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/reconstruct.html#reconstruction-paths-kind">Reconstruction paths (<code class="docutils literal notranslate"><span class="pre">kind</span></code>)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/reconstruct.html#verifying-the-result">Verifying the result</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="api.html">Public API — <code class="xref py py-mod docutils literal notranslate"><span class="pre">climclusterpy</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api.html#the-two-headline-functions">The two headline functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api.html#before-and-after-the-model-run">Before and after the model run</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api.html#input-for-a-model-other-than-lpjml">Input for a model other than LPJmL</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api.html#other-ways-to-build-the-reduced-grid">Other ways to build the reduced grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api.html#reusing-a-trained-metric">Reusing a trained metric</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api.html#the-model-s-other-inputs">The model’s other inputs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api.html#writing-the-reduced-grid-yourself">Writing the reduced grid yourself</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api.html#building-blocks">Building blocks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api.html#result-objects">Result objects</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="toplevel.html">Data, timeseries, I/O &amp; plotting</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="toplevel.html#module-climclusterpy.data">Data loading &amp; the grid registry</a></li>
+<li class="toctree-l3"><a class="reference internal" href="toplevel.html#how-much-the-package-reports">How much the package reports</a></li>
+<li class="toctree-l3"><a class="reference internal" href="toplevel.html#coordinates">Coordinates</a></li>
+<li class="toctree-l3"><a class="reference internal" href="toplevel.html#module-climclusterpy.timeseries">Per-cluster timeseries</a></li>
+<li class="toctree-l3"><a class="reference internal" href="toplevel.html#module-climclusterpy.io">File input/output</a></li>
+<li class="toctree-l3"><a class="reference internal" href="toplevel.html#module-climclusterpy.preprocessing">Preprocessing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="toplevel.html#module-climclusterpy.viz">Plotting</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="features.html">Feature engineering</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="features.html#ecological-summaries">Ecological summaries</a></li>
+<li class="toctree-l3"><a class="reference internal" href="features.html#vegetation-model-traits">Vegetation-model traits</a></li>
+<li class="toctree-l3"><a class="reference internal" href="features.html#standardization-filtering">Standardization &amp; filtering</a></li>
+</ul>
+</li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Clustering &amp; metric learning</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#hierarchical-clustering">Hierarchical clustering</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-climclusterpy.clustering.lmnn">LMNN metric learning</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="supervision.html">Supervision labels</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="supervision.html#koppengeiger-climate-zones">Köppen–Geiger climate zones</a></li>
+<li class="toctree-l3"><a class="reference internal" href="supervision.html#vegetation-model-output-traits">Vegetation-model output traits</a></li>
+<li class="toctree-l3"><a class="reference internal" href="supervision.html#ecoregion-polygons">Ecoregion polygons</a></li>
+<li class="toctree-l3"><a class="reference internal" href="supervision.html#daily-input-helpers">Daily-input helpers</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="grid.html">Grid building &amp; reconstruction</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="grid.html#where-each-reduced-cell-is-placed">Where each reduced cell is placed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="grid.html#writing-the-reduced-grid">Writing the reduced grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="grid.html#reconstruction">Reconstruction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="grid.html#lpjml-clm-conversion">LPJmL CLM conversion</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="cli.html">Command-line interface (<code class="docutils literal notranslate"><span class="pre">climclu</span></code>)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cli.html#the-two-headline-commands">The two headline commands</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cli.html#building-blocks">Building blocks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cli.html#options-shared-by-every-action-command">Options shared by every action command</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cli.html#errors-and-exit-codes">Errors and exit codes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#which-function-do-i-need">Which function do I need?</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Explanation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../explanation/index.html">Explanation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../explanation/overview.html">Overview</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../explanation/overview.html#design-philosophy">Design Philosophy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../explanation/overview.html#workflow-summary">Workflow Summary</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../explanation/overview.html#key-innovations">Key Innovations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../explanation/overview.html#use-cases">Use Cases</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../explanation/overview.html#limitations">Limitations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../explanation/overview.html#future-directions">Future Directions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../explanation/overview.html#references">References</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../explanation/methods.html">Scientific Methods</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../explanation/methods.html#data-acquisition-and-preprocessing">Data Acquisition and Preprocessing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../explanation/methods.html#ecoregion-assignment">Ecoregion Assignment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../explanation/methods.html#ecological-feature-summarization">Ecological Feature Summarization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../explanation/methods.html#feature-standardization-and-filtering">Feature Standardization and Filtering</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../explanation/methods.html#large-margin-nearest-neighbor-lmnn-metric-learning">Large Margin Nearest Neighbor (LMNN) Metric Learning</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../explanation/methods.html#hierarchical-clustering">Hierarchical Clustering</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../explanation/methods.html#representative-cell-selection">Representative Cell Selection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../explanation/methods.html#evaluation-metrics">Evaluation Metrics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../explanation/methods.html#netcdf-processing">NetCDF Processing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../explanation/methods.html#computational-implementation">Computational Implementation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../explanation/index.html#reconstruction-correctness">Reconstruction correctness</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">climclusterpy</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Reference</a></li>
+      <li class="breadcrumb-item active">Clustering &amp; metric learning</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://gitlab.pik-potsdam.de/lpjmlfit_analysis/climclusterpy/blob/main/docs/src/reference/clustering.rst" class="fa fa-gitlab"> Edit on GitLab</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-climclusterpy.clustering">
+<span id="clustering-metric-learning"></span><h1>Clustering &amp; metric learning<a class="headerlink" href="#module-climclusterpy.clustering" title="Link to this heading"></a></h1>
+<p>The clustering primitives the <a class="reference internal" href="api.html#climclusterpy.cluster_matrix" title="climclusterpy.cluster_matrix"><code class="xref py py-func docutils literal notranslate"><span class="pre">cluster_matrix()</span></code></a> facade is built on.
+Prefer the facades for ordinary use; these are exposed for finer control.
+The supervision-label generators live in <a class="reference internal" href="supervision.html"><span class="doc">Supervision labels</span></a>.</p>
+<section id="hierarchical-clustering">
+<h2>Hierarchical clustering<a class="headerlink" href="#hierarchical-clustering" title="Link to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="climclusterpy.clustering.compute_dendrogram">
+<span class="sig-name descname"><span class="pre">compute_dendrogram</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'complete'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metric</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'euclidean'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/climclusterpy/clustering/hierarchical.html#compute_dendrogram"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#climclusterpy.clustering.compute_dendrogram" title="Link to this definition"></a></dt>
+<dd><p>Compute hierarchical linkage (dendrogram) for feature matrix X.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>X</strong> (<em>-</em>)</p></li>
+<li><p><strong>method</strong> (<em>-</em>)</p></li>
+<li><p><strong>metric</strong> (<em>-</em>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>- Z</strong></p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">linkage</span> <span class="pre">matrix</span></code> of <code class="xref py py-class docutils literal notranslate"><span class="pre">shape</span> <span class="pre">(n_samples-1</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">4)</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="climclusterpy.clustering.perform_hierarchical_clustering">
+<span class="sig-name descname"><span class="pre">perform_hierarchical_clustering</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">datasets</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">registry</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_clusters</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_dir</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">aggregation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'monthly'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">precomputed_features</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">precomputed_distance_matrix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">precomputed_linkage</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/climclusterpy/clustering/hierarchical.html#perform_hierarchical_clustering"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#climclusterpy.clustering.perform_hierarchical_clustering" title="Link to this definition"></a></dt>
+<dd><p>Run hierarchical clustering using time series aggregation, precomputed features, OR distance matrix.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>datasets</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.15)"><em>dict</em></a>) – dict-like climate data as returned from loader (keys like ‘precipitation’, ‘temperature’, …)</p></li>
+<li><p><strong>registry</strong> (<a class="reference internal" href="toplevel.html#climclusterpy.data.DataRegistry" title="climclusterpy.data.registry.DataRegistry"><em>DataRegistry</em></a>) – DataRegistry instance initialized for the datasets</p></li>
+<li><p><strong>n_clusters</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><em>int</em></a>) – desired number of clusters</p></li>
+<li><p><strong>output_dir</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><em>str</em></a>) – directory to write cluster label CSV</p></li>
+<li><p><strong>aggregation</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><em>str</em></a>) – temporal aggregation (‘monthly’,’seasonal’,’yearly’) used to build
+features from raw climate on the from-scratch path; IGNORED when a
+precomputed feature/distance/linkage input is supplied.</p></li>
+<li><p><strong>precomputed_features</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.5)"><em>ndarray</em></a><em> | </em><em>None</em>) – Optional feature matrix (n_cells, n_features).
+If provided, skips time series aggregation and uses these features directly.
+This enables LMNN-based or summary-statistic-based clustering.</p></li>
+<li><p><strong>precomputed_distance_matrix</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.5)"><em>ndarray</em></a><em> | </em><em>None</em>) – Optional pairwise distance matrix (n_cells, n_cells).
+If provided, skips feature extraction and uses distance matrix directly.
+Takes priority over precomputed_features.</p></li>
+<li><p><strong>precomputed_linkage</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.5)"><em>ndarray</em></a><em> | </em><em>None</em>) – Optional scipy linkage matrix Z of shape (n_samples-1, 4).
+If provided, skips DM loading, squareform, and linkage entirely — just fcluster.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>dict with keys</strong></p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">'n_clusters'</span></code>, <code class="docutils literal notranslate"><span class="pre">'method'</span></code>, <code class="docutils literal notranslate"><span class="pre">'labels_csv'</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="climclusterpy.clustering.stack_feature_arrays">
+<span class="sig-name descname"><span class="pre">stack_feature_arrays</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">datasets</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/climclusterpy/clustering/hierarchical.html#stack_feature_arrays"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#climclusterpy.clustering.stack_feature_arrays" title="Link to this definition"></a></dt>
+<dd><p>Flatten gridded DataArrays into one <code class="docutils literal notranslate"><span class="pre">(n_cells,</span> <span class="pre">n_features)</span></code> matrix.</p>
+<p>Each input is expected in <code class="docutils literal notranslate"><span class="pre">(latitude,</span> <span class="pre">longitude,</span> <span class="pre">[time</span> <span class="pre">dims])</span></code> order; the
+trailing dimensions of each array become feature columns, and the arrays are
+concatenated along the feature axis.</p>
+<p>Not to be confused with
+<a class="reference internal" href="features.html#climclusterpy.features.combine_features" title="climclusterpy.features.combine_features"><code class="xref py py-func docutils literal notranslate"><span class="pre">climclusterpy.features.combine_features()</span></code></a>, which joins two <em>tables</em>
+(climate and soil DataFrames) on cell identity.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>*datasets</strong> (<a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2026.9.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a>) – Gridded arrays sharing the same latitude/longitude grid.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Feature matrix of shape <code class="docutils literal notranslate"><span class="pre">(n_lat</span> <span class="pre">*</span> <span class="pre">n_lon,</span> <span class="pre">sum_of_trailing_sizes)</span></code>.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.5)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="climclusterpy.clustering.process_cluster_labels">
+<span class="sig-name descname"><span class="pre">process_cluster_labels</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">climate_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">registry</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">aggregation</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_clusters</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_dir</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_lat_diff</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">precomputed_features</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">precomputed_distance_matrix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">precomputed_linkage</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/climclusterpy/clustering/hierarchical.html#process_cluster_labels"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#climclusterpy.clustering.process_cluster_labels" title="Link to this definition"></a></dt>
+<dd><p>Compute or load dendrogram, cut into n clusters, and write CSV of labels with coords.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>climate_data</strong> – dict of climate datasets (used if precomputed_features/distance_matrix is None)</p></li>
+<li><p><strong>registry</strong> (<a class="reference internal" href="toplevel.html#climclusterpy.data.DataRegistry" title="climclusterpy.data.registry.DataRegistry"><em>DataRegistry</em></a>) – DataRegistry with valid cell information</p></li>
+<li><p><strong>aggregation</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><em>str</em></a>) – temporal aggregation type (‘monthly’/’seasonal’/’yearly’); only used
+on the from-raw-climate path (ignored when a precomputed input is given)</p></li>
+<li><p><strong>n_clusters</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><em>int</em></a>) – number of clusters to create</p></li>
+<li><p><strong>out_dir</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><em>str</em></a>) – output directory</p></li>
+<li><p><strong>max_lat_diff</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.15)"><em>float</em></a><em> | </em><em>None</em>) – optional latitude-based subclustering</p></li>
+<li><p><strong>precomputed_features</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.5)"><em>ndarray</em></a><em> | </em><em>None</em>) – Optional (n_cells, n_features) array.
+If provided, skips time series aggregation and uses these features.</p></li>
+<li><p><strong>precomputed_distance_matrix</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.5)"><em>ndarray</em></a><em> | </em><em>None</em>) – Optional (n_cells, n_cells) distance matrix.
+If provided, uses distance matrix directly (takes priority over features).</p></li>
+<li><p><strong>precomputed_linkage</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.5)"><em>ndarray</em></a><em> | </em><em>None</em>) – Optional linkage matrix Z of shape (n_samples-1, 4).
+If provided, skips DM + squareform + linkage — just fcluster
+(takes priority over both of the above).</p></li>
+</ul>
+</dd>
+</dl>
+<p>Every input must have exactly one row per valid cell of <code class="docutils literal notranslate"><span class="pre">registry</span></code>, in its order, and
+no missing value: a <code class="docutils literal notranslate"><span class="pre">ValueError</span></code> says otherwise, because dropping or misaligning rows
+would put labels on the wrong cells.</p>
+<p>Returns the output CSV path. Only MPI rank 0 writes it.</p>
+</dd></dl>
+
+</section>
+<section id="module-climclusterpy.clustering.lmnn">
+<span id="lmnn-metric-learning"></span><h2>LMNN metric learning<a class="headerlink" href="#module-climclusterpy.clustering.lmnn" title="Link to this heading"></a></h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Every LMNN mode needs <code class="docutils literal notranslate"><span class="pre">torch</span></code>, through the <code class="docutils literal notranslate"><span class="pre">[lmnn]</span></code> extra. See
+<a class="reference internal" href="../howto/install.html"><span class="doc">Install climclusterpy</span></a>. Importing <code class="docutils literal notranslate"><span class="pre">climclusterpy.clustering.lmnn</span></code> does not import
+it; a mode loads it when it trains.</p>
+</div>
+<dl class="py function">
+<dt class="sig sig-object py" id="climclusterpy.clustering.lmnn.run_lmnn_clustering">
+<span class="sig-name descname"><span class="pre">run_lmnn_clustering</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">labels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_clusters</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'global'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">linkage_method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'complete'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rank</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_distance_matrix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_model</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">lmnn_kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/climclusterpy/clustering/lmnn/pipeline.html#run_lmnn_clustering"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#climclusterpy.clustering.lmnn.run_lmnn_clustering" title="Link to this definition"></a></dt>
+<dd><p>Learn an LMNN metric from supervision labels, then hierarchically cluster.</p>
+<p>This is the in-memory, path-free core of the LMNN clustering pipeline. It</p>
+<ol class="arabic simple">
+<li><p>trains an LMNN metric on <code class="docutils literal notranslate"><span class="pre">X</span></code> supervised by <code class="docutils literal notranslate"><span class="pre">labels</span></code> via
+<a class="reference internal" href="#climclusterpy.clustering.lmnn.train_lmnn" title="climclusterpy.clustering.lmnn.train_lmnn"><code class="xref py py-func docutils literal notranslate"><span class="pre">climclusterpy.clustering.lmnn.train_lmnn()</span></code></a>, then</p></li>
+<li><p>builds a SciPy linkage and cuts it to <code class="docutils literal notranslate"><span class="pre">n_clusters</span></code>.</p></li>
+</ol>
+<p>The bridge from metric to linkage depends on the mode:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">&quot;global&quot;</span></code> — learns a linear transform <code class="docutils literal notranslate"><span class="pre">L</span></code>; clustering runs on the
+transformed features <code class="docutils literal notranslate"><span class="pre">X</span> <span class="pre">&#64;</span> <span class="pre">L.T</span></code> with ordinary Euclidean linkage (cheap; no
+dense distance matrix is materialized).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&quot;local&quot;</span></code> / <code class="docutils literal notranslate"><span class="pre">&quot;enhanced&quot;</span></code> — learns a per-cell (diagonal) metric realized
+as a dense precomputed distance matrix <code class="docutils literal notranslate"><span class="pre">D</span></code>; clustering runs on <code class="docutils literal notranslate"><span class="pre">D</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&quot;lowrank&quot;</span></code> — learns a per-cell <strong>low-rank Mahalanobis</strong> metric
+(<code class="docutils literal notranslate"><span class="pre">M_i</span> <span class="pre">=</span> <span class="pre">L_i</span> <span class="pre">L_iᵀ</span></code>, <code class="docutils literal notranslate"><span class="pre">L_i</span></code> of shape <code class="docutils literal notranslate"><span class="pre">(d,</span> <span class="pre">rank)</span></code>), also realized as a
+dense <code class="docutils literal notranslate"><span class="pre">D</span></code>. Unlike the diagonal modes it captures cross-feature
+interaction; this is the configuration the published results deploy.</p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>X</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.5)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a>) – Standardized feature matrix, shape <code class="docutils literal notranslate"><span class="pre">(n_cells,</span> <span class="pre">n_features)</span></code>.</p></li>
+<li><p><strong>labels</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.5)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a>) – Supervision labels, shape <code class="docutils literal notranslate"><span class="pre">(n_cells,)</span></code> — e.g. Köppen-Geiger codes,
+ecoregion IDs, or output-cluster labels. For <code class="docutils literal notranslate"><span class="pre">&quot;local&quot;</span></code>/<code class="docutils literal notranslate"><span class="pre">&quot;enhanced&quot;</span></code>
+modes the labels are integer-encoded internally (the torch trainers require
+contiguous integer classes); <code class="docutils literal notranslate"><span class="pre">&quot;global&quot;</span></code> accepts arbitrary label values.</p></li>
+<li><p><strong>n_clusters</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>) – Number of clusters to cut the dendrogram into.</p></li>
+<li><p><strong>mode</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <em>optional</em>) – LMNN mode: <code class="docutils literal notranslate"><span class="pre">&quot;global&quot;</span></code> (default), <code class="docutils literal notranslate"><span class="pre">&quot;local&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;enhanced&quot;</span></code> or <code class="docutils literal notranslate"><span class="pre">&quot;lowrank&quot;</span></code>.</p></li>
+<li><p><strong>linkage_method</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <em>optional</em>) – SciPy linkage method (default <code class="docutils literal notranslate"><span class="pre">&quot;complete&quot;</span></code>, matching the production path).</p></li>
+<li><p><strong>rank</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a> or <a class="reference external" href="https://docs.python.org/3/builtins/constants.html#None" title="(in Python v3.15)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>, <em>optional</em>) – Rank of the learned metric, for the two modes that have one.
+<code class="docutils literal notranslate"><span class="pre">mode=&quot;global&quot;</span></code>: number of rows of the linear map <code class="docutils literal notranslate"><span class="pre">L</span></code> (<code class="docutils literal notranslate"><span class="pre">None</span></code> = full
+rank). <code class="docutils literal notranslate"><span class="pre">mode=&quot;lowrank&quot;</span></code>: rank <code class="docutils literal notranslate"><span class="pre">r</span></code> of each cell’s Mahalanobis factor
+(<code class="docutils literal notranslate"><span class="pre">None</span></code> = 16, the setting the published results use on 25 features).
+A rank above the number of features is lowered to it. The diagonal modes
+(<code class="docutils literal notranslate"><span class="pre">&quot;local&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;enhanced&quot;</span></code>) have no rank and raise if given one.</p></li>
+<li><p><strong>k</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a> or <a class="reference external" href="https://docs.python.org/3/builtins/constants.html#None" title="(in Python v3.15)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>, <em>optional</em>) – LMNN target-neighbour count (default 5). Not accepted by
+<code class="docutils literal notranslate"><span class="pre">mode=&quot;lowrank&quot;</span></code>, which derives it per anchor.</p></li>
+<li><p><strong>seed</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a> or <a class="reference external" href="https://docs.python.org/3/builtins/constants.html#None" title="(in Python v3.15)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>, <em>optional</em>) – Seed every RNG the torch-backed modes draw from. <code class="docutils literal notranslate"><span class="pre">None</span></code> (default)
+leaves them untouched, so <code class="docutils literal notranslate"><span class="pre">local</span></code>/<code class="docutils literal notranslate"><span class="pre">enhanced</span></code>/<code class="docutils literal notranslate"><span class="pre">lowrank</span></code> are <strong>not
+reproducible</strong>; pass a seed for any run whose numbers you will cite.</p></li>
+<li><p><strong>verbose</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a>, <em>optional</em>) – Forwarded to <a class="reference internal" href="#climclusterpy.clustering.lmnn.train_lmnn" title="climclusterpy.clustering.lmnn.train_lmnn"><code class="xref py py-func docutils literal notranslate"><span class="pre">train_lmnn()</span></code></a>.</p></li>
+<li><p><strong>return_distance_matrix</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a>, <em>optional</em>) – Keep the dense per-cell distance matrix in the result (default False).
+Required to select medoid representatives downstream.</p></li>
+<li><p><strong>return_model</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a>, <em>optional</em>) – Keep the trained per-cell metric network in the result (default False).
+Not available for <code class="docutils literal notranslate"><span class="pre">mode=&quot;global&quot;</span></code>, which learns no network.</p></li>
+<li><p><strong>**lmnn_kwargs</strong> – Extra keyword arguments forwarded verbatim to <a class="reference internal" href="#climclusterpy.clustering.lmnn.train_lmnn" title="climclusterpy.clustering.lmnn.train_lmnn"><code class="xref py py-func docutils literal notranslate"><span class="pre">train_lmnn()</span></code></a> (e.g.
+<code class="docutils literal notranslate"><span class="pre">max_iter</span></code> for global mode, or <code class="docutils literal notranslate"><span class="pre">max_epochs</span></code>/<code class="docutils literal notranslate"><span class="pre">margin</span></code> for local modes).
+A name the selected trainer does not accept raises <code class="docutils literal notranslate"><span class="pre">TypeError</span></code>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The cluster labels, linkage, and metric artifacts.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#climclusterpy.clustering.lmnn.LmnnClusteringResult" title="climclusterpy.clustering.lmnn.LmnnClusteringResult"><code class="xref py py-class docutils literal notranslate"><span class="pre">LmnnClusteringResult</span></code></a></p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><a class="reference external" href="https://docs.python.org/3/builtins/exceptions.html#ValueError" title="(in Python v3.15)"><strong>ValueError</strong></a> – If <code class="docutils literal notranslate"><span class="pre">mode</span></code> is not one of <code class="docutils literal notranslate"><span class="pre">&quot;global&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;local&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;enhanced&quot;</span></code>,
+    <code class="docutils literal notranslate"><span class="pre">&quot;lowrank&quot;</span></code>, or <code class="docutils literal notranslate"><span class="pre">rank</span></code> is given to a diagonal mode.</p></li>
+<li><p><a class="reference external" href="https://docs.python.org/3/builtins/exceptions.html#ImportError" title="(in Python v3.15)"><strong>ImportError</strong></a> – If <code class="docutils literal notranslate"><span class="pre">torch</span></code> (the <code class="docutils literal notranslate"><span class="pre">[lmnn]</span></code> extra) is not installed.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="climclusterpy.clustering.lmnn.LmnnClusteringResult">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">LmnnClusteringResult</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">labels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">linkage</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_clusters</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">diagnostics=&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transform=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mahalanobis=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">distance_matrix=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model=None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/climclusterpy/clustering/lmnn/pipeline.html#LmnnClusteringResult"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#climclusterpy.clustering.lmnn.LmnnClusteringResult" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/builtins/functions.html#object" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Result of <a class="reference internal" href="#climclusterpy.clustering.lmnn.run_lmnn_clustering" title="climclusterpy.clustering.lmnn.run_lmnn_clustering"><code class="xref py py-func docutils literal notranslate"><span class="pre">run_lmnn_clustering()</span></code></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>labels</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.5)"><em>ndarray</em></a>)</p></li>
+<li><p><strong>linkage</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.5)"><em>ndarray</em></a>)</p></li>
+<li><p><strong>n_clusters</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><em>int</em></a>)</p></li>
+<li><p><strong>mode</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><em>str</em></a>)</p></li>
+<li><p><strong>diagnostics</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.15)"><em>dict</em></a>)</p></li>
+<li><p><strong>transform</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.5)"><em>ndarray</em></a><em> | </em><em>None</em>)</p></li>
+<li><p><strong>mahalanobis</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.5)"><em>ndarray</em></a><em> | </em><em>None</em>)</p></li>
+<li><p><strong>distance_matrix</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.5)"><em>ndarray</em></a><em> | </em><em>None</em>)</p></li>
+<li><p><strong>model</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#object" title="(in Python v3.15)"><em>object</em></a><em> | </em><em>None</em>)</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="climclusterpy.clustering.lmnn.LmnnClusteringResult.labels">
+<span class="sig-name descname"><span class="pre">labels</span></span><a class="headerlink" href="#climclusterpy.clustering.lmnn.LmnnClusteringResult.labels" title="Link to this definition"></a></dt>
+<dd><p>1-indexed cluster label per cell (<code class="docutils literal notranslate"><span class="pre">1..n_clusters</span></code>), shape <code class="docutils literal notranslate"><span class="pre">(n_cells,)</span></code>,
+from <a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.cluster.hierarchy.fcluster.html#scipy.cluster.hierarchy.fcluster" title="(in SciPy v1.18.0)"><code class="xref py py-func docutils literal notranslate"><span class="pre">scipy.cluster.hierarchy.fcluster()</span></code></a> with <code class="docutils literal notranslate"><span class="pre">criterion=&quot;maxclust&quot;</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.5)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="climclusterpy.clustering.lmnn.LmnnClusteringResult.linkage">
+<span class="sig-name descname"><span class="pre">linkage</span></span><a class="headerlink" href="#climclusterpy.clustering.lmnn.LmnnClusteringResult.linkage" title="Link to this definition"></a></dt>
+<dd><p>The SciPy linkage matrix <code class="docutils literal notranslate"><span class="pre">Z</span></code> of shape <code class="docutils literal notranslate"><span class="pre">(n_cells</span> <span class="pre">-</span> <span class="pre">1,</span> <span class="pre">4)</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.5)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="climclusterpy.clustering.lmnn.LmnnClusteringResult.n_clusters">
+<span class="sig-name descname"><span class="pre">n_clusters</span></span><a class="headerlink" href="#climclusterpy.clustering.lmnn.LmnnClusteringResult.n_clusters" title="Link to this definition"></a></dt>
+<dd><p>Requested number of clusters.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="climclusterpy.clustering.lmnn.LmnnClusteringResult.mode">
+<span class="sig-name descname"><span class="pre">mode</span></span><a class="headerlink" href="#climclusterpy.clustering.lmnn.LmnnClusteringResult.mode" title="Link to this definition"></a></dt>
+<dd><p>The LMNN mode used (<code class="docutils literal notranslate"><span class="pre">&quot;global&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;local&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;enhanced&quot;</span></code> or <code class="docutils literal notranslate"><span class="pre">&quot;lowrank&quot;</span></code>).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="climclusterpy.clustering.lmnn.LmnnClusteringResult.diagnostics">
+<span class="sig-name descname"><span class="pre">diagnostics</span></span><a class="headerlink" href="#climclusterpy.clustering.lmnn.LmnnClusteringResult.diagnostics" title="Link to this definition"></a></dt>
+<dd><p>Training diagnostics returned by <a class="reference internal" href="#climclusterpy.clustering.lmnn.train_lmnn" title="climclusterpy.clustering.lmnn.train_lmnn"><code class="xref py py-func docutils literal notranslate"><span class="pre">train_lmnn()</span></code></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="climclusterpy.clustering.lmnn.LmnnClusteringResult.transform">
+<span class="sig-name descname"><span class="pre">transform</span></span><a class="headerlink" href="#climclusterpy.clustering.lmnn.LmnnClusteringResult.transform" title="Link to this definition"></a></dt>
+<dd><p>Global-mode linear transform <code class="docutils literal notranslate"><span class="pre">L</span></code> (<code class="docutils literal notranslate"><span class="pre">X</span> <span class="pre">&#64;</span> <span class="pre">L.T</span></code> is the metric space);
+<code class="docutils literal notranslate"><span class="pre">None</span></code> for local/enhanced modes.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.5)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a> or <a class="reference external" href="https://docs.python.org/3/builtins/constants.html#None" title="(in Python v3.15)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="climclusterpy.clustering.lmnn.LmnnClusteringResult.mahalanobis">
+<span class="sig-name descname"><span class="pre">mahalanobis</span></span><a class="headerlink" href="#climclusterpy.clustering.lmnn.LmnnClusteringResult.mahalanobis" title="Link to this definition"></a></dt>
+<dd><p>Global-mode Mahalanobis matrix <code class="docutils literal notranslate"><span class="pre">M</span> <span class="pre">=</span> <span class="pre">L.T</span> <span class="pre">&#64;</span> <span class="pre">L</span></code>; <code class="docutils literal notranslate"><span class="pre">None</span></code> otherwise.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.5)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a> or <a class="reference external" href="https://docs.python.org/3/builtins/constants.html#None" title="(in Python v3.15)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="climclusterpy.clustering.lmnn.LmnnClusteringResult.distance_matrix">
+<span class="sig-name descname"><span class="pre">distance_matrix</span></span><a class="headerlink" href="#climclusterpy.clustering.lmnn.LmnnClusteringResult.distance_matrix" title="Link to this definition"></a></dt>
+<dd><p>Local/enhanced dense <code class="docutils literal notranslate"><span class="pre">(n_cells,</span> <span class="pre">n_cells)</span></code> distance matrix, only kept when
+<code class="docutils literal notranslate"><span class="pre">return_distance_matrix=True</span></code> (it is memory-heavy for large grids).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.5)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a> or <a class="reference external" href="https://docs.python.org/3/builtins/constants.html#None" title="(in Python v3.15)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="climclusterpy.clustering.lmnn.LmnnClusteringResult.model">
+<span class="sig-name descname"><span class="pre">model</span></span><a class="headerlink" href="#climclusterpy.clustering.lmnn.LmnnClusteringResult.model" title="Link to this definition"></a></dt>
+<dd><p>The trained per-cell metric network (a <code class="docutils literal notranslate"><span class="pre">torch.nn.Module</span></code>), only kept when
+<code class="docutils literal notranslate"><span class="pre">return_model=True</span></code>; <code class="docutils literal notranslate"><span class="pre">None</span></code> for global mode, whose learned metric is the
+pair <code class="docutils literal notranslate"><span class="pre">transform</span></code>/<code class="docutils literal notranslate"><span class="pre">mahalanobis</span></code> and involves no network.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#object" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a> or <a class="reference external" href="https://docs.python.org/3/builtins/constants.html#None" title="(in Python v3.15)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="climclusterpy.clustering.lmnn.train_lmnn">
+<span class="sig-name descname"><span class="pre">train_lmnn</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">labels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'global'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_iter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hidden_dims</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">margin</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">learning_rate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">128</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_epochs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dropout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weight_decay</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0001</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">patience</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rank</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/climclusterpy/clustering/lmnn/train.html#train_lmnn"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#climclusterpy.clustering.lmnn.train_lmnn" title="Link to this definition"></a></dt>
+<dd><p>Train an LMNN metric-learning model in one of four modes.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>X</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.5)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a>) – Feature matrix <code class="docutils literal notranslate"><span class="pre">(n_samples,</span> <span class="pre">n_features)</span></code>; should be standardized.</p></li>
+<li><p><strong>labels</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.5)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a>) – Class labels (e.g. ecoregion IDs), shape <code class="docutils literal notranslate"><span class="pre">(n_samples,)</span></code>.</p></li>
+<li><p><strong>mode</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <em>optional</em>) – <code class="docutils literal notranslate"><span class="pre">&quot;global&quot;</span></code> learns one linear map <code class="docutils literal notranslate"><span class="pre">L</span></code> for all cells (classic LMNN);
+<code class="docutils literal notranslate"><span class="pre">&quot;local&quot;</span></code> learns feature-conditioned <strong>diagonal</strong> local weights via a
+neural network; <code class="docutils literal notranslate"><span class="pre">&quot;enhanced&quot;</span></code> adds prototypes and oversampling to the
+diagonal metric; <code class="docutils literal notranslate"><span class="pre">&quot;lowrank&quot;</span></code> learns a per-cell <strong>low-rank Mahalanobis</strong>
+metric that captures cross-feature interaction (the published
+configuration, <code class="docutils literal notranslate"><span class="pre">rank=16</span></code> on 25 features). Default <code class="docutils literal notranslate"><span class="pre">&quot;global&quot;</span></code>.</p></li>
+<li><p><strong>k</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a> or <a class="reference external" href="https://docs.python.org/3/builtins/constants.html#None" title="(in Python v3.15)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>, <em>optional</em>) – Number of target neighbours (default 5). Not accepted by
+<code class="docutils literal notranslate"><span class="pre">mode=&quot;lowrank&quot;</span></code>, which derives <code class="docutils literal notranslate"><span class="pre">k</span></code> per anchor from <code class="docutils literal notranslate"><span class="pre">k_min</span></code>,
+<code class="docutils literal notranslate"><span class="pre">k_max</span></code> and <code class="docutils literal notranslate"><span class="pre">beta</span></code>.</p></li>
+<li><p><strong>max_iter</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>, <em>optional</em>) – Global mode only: maximum number of training iterations (default 1000).</p></li>
+<li><p><strong>hidden_dims</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></a> of <a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>, <em>optional</em>) – Local/enhanced modes: hidden-layer sizes for the network (default
+<code class="docutils literal notranslate"><span class="pre">[64,</span> <span class="pre">32]</span></code>).</p></li>
+<li><p><strong>margin</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>, <em>optional</em>) – Global, local and enhanced modes: impostor separation margin (default 1.0).</p></li>
+<li><p><strong>learning_rate</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a> or <a class="reference external" href="https://docs.python.org/3/builtins/constants.html#None" title="(in Python v3.15)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>, <em>optional</em>) – Optimiser step size. <code class="docutils literal notranslate"><span class="pre">None</span></code> (default) uses the mode’s own default:
+1e-2 for global mode (Adam on the entries of <code class="docutils literal notranslate"><span class="pre">L</span></code>), 1e-3 for the
+network modes.</p></li>
+<li><p><strong>batch_size</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>, <em>optional</em>) – Network modes only: training batch size (default 128).</p></li>
+<li><p><strong>max_epochs</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>, <em>optional</em>) – Network modes only: maximum training epochs (default 100).</p></li>
+<li><p><strong>dropout</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>, <em>optional</em>) – Network modes only: dropout probability (default 0.1).</p></li>
+<li><p><strong>weight_decay</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>, <em>optional</em>) – Local/enhanced/lowrank only: L2 regularization strength (default 1e-4).</p></li>
+<li><p><strong>patience</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>, <em>optional</em>) – Network modes only: early-stopping patience (default 10).</p></li>
+<li><p><strong>rank</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a> or <a class="reference external" href="https://docs.python.org/3/builtins/constants.html#None" title="(in Python v3.15)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>, <em>optional</em>) – Rank of the learned metric. <code class="docutils literal notranslate"><span class="pre">mode=&quot;global&quot;</span></code>: number of rows of <code class="docutils literal notranslate"><span class="pre">L</span></code>
+(<code class="docutils literal notranslate"><span class="pre">None</span></code> = full rank, <code class="docutils literal notranslate"><span class="pre">n_features</span></code>). <code class="docutils literal notranslate"><span class="pre">mode=&quot;lowrank&quot;</span></code>: rank of each
+cell’s metric factor (<code class="docutils literal notranslate"><span class="pre">None</span></code> = 16, the published setting on 25
+features). A rank above <code class="docutils literal notranslate"><span class="pre">n_features</span></code> is lowered to <code class="docutils literal notranslate"><span class="pre">n_features</span></code>.
+The diagonal modes (<code class="docutils literal notranslate"><span class="pre">&quot;local&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;enhanced&quot;</span></code>) have no rank, so
+passing it there raises.</p></li>
+<li><p><strong>seed</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a> or <a class="reference external" href="https://docs.python.org/3/builtins/constants.html#None" title="(in Python v3.15)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>, <em>optional</em>) – Seed for every RNG the trainer draws from. <code class="docutils literal notranslate"><span class="pre">None</span></code> (default) leaves the
+global RNGs untouched, so the network modes are <strong>not reproducible</strong>;
+pass a seed for any run whose numbers you intend to cite. Global mode
+has no random component and is reproducible either way.</p></li>
+<li><p><strong>verbose</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a>, <em>optional</em>) – Log training progress (default <code class="docutils literal notranslate"><span class="pre">False</span></code>).</p></li>
+<li><p><strong>**kwargs</strong> – Further options of the trainer the mode runs:
+<code class="xref py py-func docutils literal notranslate"><span class="pre">train_global_lmnn()</span></code>
+(e.g. <code class="docutils literal notranslate"><span class="pre">push_weight</span></code>, <code class="docutils literal notranslate"><span class="pre">n_candidates</span></code>, <code class="docutils literal notranslate"><span class="pre">refresh_every</span></code>),
+<code class="xref py py-func docutils literal notranslate"><span class="pre">train_local_lmnn()</span></code>,
+<code class="xref py py-func docutils literal notranslate"><span class="pre">train_enhanced_local_lmnn()</span></code> or
+<code class="xref py py-func docutils literal notranslate"><span class="pre">train_local_mahalanobis_lmnn()</span></code>.
+A name that trainer does not accept raises <code class="docutils literal notranslate"><span class="pre">TypeError</span></code>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>For <code class="docutils literal notranslate"><span class="pre">mode=&quot;global&quot;</span></code>: <code class="docutils literal notranslate"><span class="pre">(L,</span> <span class="pre">M,</span> <span class="pre">diagnostics)</span></code> – the linear map <code class="docutils literal notranslate"><span class="pre">L</span></code> of
+shape <code class="docutils literal notranslate"><span class="pre">(rank,</span> <span class="pre">n_features)</span></code>, the Mahalanobis matrix <code class="docutils literal notranslate"><span class="pre">M</span> <span class="pre">=</span> <span class="pre">L.T</span> <span class="pre">&#64;</span> <span class="pre">L</span></code> of
+shape <code class="docutils literal notranslate"><span class="pre">(n_features,</span> <span class="pre">n_features)</span></code>, and a diagnostics dict (loss history,
+convergence info, the rank used).
+For the other modes: <code class="docutils literal notranslate"><span class="pre">(model,</span> <span class="pre">distance_fn,</span> <span class="pre">diagnostics)</span></code> – the trained
+network, a callable computing the pairwise distance matrix
+(<code class="docutils literal notranslate"><span class="pre">distance_fn(X)</span> <span class="pre">-&gt;</span> <span class="pre">D</span></code>), and a diagnostics dict.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#tuple" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code></a></p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><a class="reference external" href="https://docs.python.org/3/builtins/exceptions.html#ImportError" title="(in Python v3.15)"><strong>ImportError</strong></a> – If PyTorch (the <code class="docutils literal notranslate"><span class="pre">[lmnn]</span></code> extra) is not installed.</p></li>
+<li><p><a class="reference external" href="https://docs.python.org/3/builtins/exceptions.html#ValueError" title="(in Python v3.15)"><strong>ValueError</strong></a> – For an unknown mode, or <code class="docutils literal notranslate"><span class="pre">rank</span></code>/<code class="docutils literal notranslate"><span class="pre">k</span></code> given to a mode that cannot honour it.</p></li>
+<li><p><a class="reference external" href="https://docs.python.org/3/builtins/exceptions.html#TypeError" title="(in Python v3.15)"><strong>TypeError</strong></a> – For a keyword argument the selected trainer does not accept.</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>Global mode assumes one universal feature weighting across all cells, while
+the per-cell modes let the metric vary with local environmental context
+(e.g. temperature matters more in the tropics).</p>
+<p class="rubric">Examples</p>
+<p>Global LMNN:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">L</span><span class="p">,</span> <span class="n">M</span><span class="p">,</span> <span class="n">diag</span> <span class="o">=</span> <span class="n">train_lmnn</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">labels</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">"global"</span><span class="p">,</span> <span class="n">rank</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">X_transformed</span> <span class="o">=</span> <span class="n">transform_features</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">L</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Local LMNN:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">model</span><span class="p">,</span> <span class="n">distance_fn</span><span class="p">,</span> <span class="n">diag</span> <span class="o">=</span> <span class="n">train_lmnn</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">labels</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">"local"</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">D</span> <span class="o">=</span> <span class="n">distance_fn</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>  <span class="c1"># pairwise distances</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="climclusterpy.clustering.lmnn.transform_features">
+<span class="sig-name descname"><span class="pre">transform_features</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">L</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/climclusterpy/clustering/lmnn/train.html#transform_features"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#climclusterpy.clustering.lmnn.transform_features" title="Link to this definition"></a></dt>
+<dd><p>Apply LMNN transformation to features.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>X</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.5)"><em>ndarray</em></a>) – Feature matrix (n_samples, n_features)</p></li>
+<li><p><strong>L</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.5)"><em>ndarray</em></a>) – Transformation matrix (rank, n_features)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>X_transformed</strong></p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Transformed</span> <span class="pre">features</span> <span class="pre">(n_samples</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">rank)</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="climclusterpy.clustering.lmnn.compute_mahalanobis_distances">
+<span class="sig-name descname"><span class="pre">compute_mahalanobis_distances</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">M</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/climclusterpy/clustering/lmnn/train.html#compute_mahalanobis_distances"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#climclusterpy.clustering.lmnn.compute_mahalanobis_distances" title="Link to this definition"></a></dt>
+<dd><p>Compute pairwise Mahalanobis distances.</p>
+<p>D[i, j] = sqrt((x_i - x_j).T &#64; M &#64; (x_i - x_j))</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>X</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.5)"><em>ndarray</em></a>) – Feature matrix (n_samples, n_features)</p></li>
+<li><p><strong>M</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.5)"><em>ndarray</em></a>) – Mahalanobis matrix (n_features, n_features)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Distance</span> <span class="pre">matrix</span> <span class="pre">(n_samples</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">n_samples)</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="climclusterpy.clustering.lmnn.compute_feature_importance">
+<span class="sig-name descname"><span class="pre">compute_feature_importance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">M</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">feature_names</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/climclusterpy/clustering/lmnn/train.html#compute_feature_importance"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#climclusterpy.clustering.lmnn.compute_feature_importance" title="Link to this definition"></a></dt>
+<dd><p>Compute feature importance from Mahalanobis matrix.</p>
+<p>Importance = diagonal of M (weight on each feature’s squared distance).
+Higher values indicate features that contribute more to the learned metric.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>M</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.5)"><em>ndarray</em></a>) – Mahalanobis matrix (n_features, n_features)</p></li>
+<li><p><strong>feature_names</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.15)"><em>list</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><em>str</em></a><em>]</em>) – List of feature names</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">DataFrame</span> <span class="pre">with</span> <span class="pre">columns</span> <span class="pre">[``</span></code>’feature’<code class="docutils literal notranslate"><span class="pre">,</span> <span class="pre">``'importance'</span></code><code class="xref py py-class docutils literal notranslate"><span class="pre">]</span> <span class="pre">sorted</span> <span class="pre">by</span> <span class="pre">importance</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="climclusterpy.clustering.lmnn.LDAMetricLearner">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">LDAMetricLearner</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">supervision</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'kg'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cache_dir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">force_recompute</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/climclusterpy/clustering/lmnn/train.html#LDAMetricLearner"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#climclusterpy.clustering.lmnn.LDAMetricLearner" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/builtins/functions.html#object" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>LDA-based metric learner for ecological clustering.</p>
+<p>Fits scikit-learn’s <code class="docutils literal notranslate"><span class="pre">LinearDiscriminantAnalysis</span></code> with <code class="docutils literal notranslate"><span class="pre">solver='eigen'</span></code>
+and <code class="docutils literal notranslate"><span class="pre">shrinkage='auto'</span></code> (Ledoit-Wolf shrinkage) on a feature matrix <em>X</em>
+supervised by either Köppen-Geiger zone labels or ecoregion labels.</p>
+<p>The fitted discriminant axes define a lower-dimensional space (at most
+<code class="docutils literal notranslate"><span class="pre">n_classes</span> <span class="pre">−</span> <span class="pre">1</span></code> dimensions) in which same-class cells cluster tightly
+and different-class cells are well separated, analogous to what LMNN
+achieves via a Mahalanobis matrix.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>supervision</strong> (<code class="docutils literal notranslate"><span class="pre">{'kg',</span> <span class="pre">'ecoregion'}</span></code>) – Which label set was used for supervision.  Stored as metadata and
+reflected in the default cache filename.</p></li>
+<li><p><strong>cache_dir</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a> or <code class="xref py py-class docutils literal notranslate"><span class="pre">Path</span></code>, <em>optional</em>) – Directory in which to persist the fitted model as
+<code class="docutils literal notranslate"><span class="pre">lda_&lt;supervision&gt;_&lt;fingerprint&gt;.pkl</span></code>, the fingerprint being that of the
+<code class="docutils literal notranslate"><span class="pre">X</span></code> and <code class="docutils literal notranslate"><span class="pre">y</span></code> it was fitted on. When that file already exists and
+<code class="docutils literal notranslate"><span class="pre">force_recompute=False</span></code>, the stored model is loaded instead of
+refitting; a model fitted on other data is never loaded.</p></li>
+<li><p><strong>force_recompute</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a>) – When <em>True</em>, ignore any existing cache and always refit.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="climclusterpy.clustering.lmnn.LDAMetricLearner.lda_">
+<span class="sig-name descname"><span class="pre">lda_</span></span><a class="headerlink" href="#climclusterpy.clustering.lmnn.LDAMetricLearner.lda_" title="Link to this definition"></a></dt>
+<dd><p>The fitted sklearn LDA estimator (set after calling <code class="xref py py-meth docutils literal notranslate"><span class="pre">fit()</span></code>).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">LinearDiscriminantAnalysis</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="climclusterpy.clustering.lmnn.LDAMetricLearner.scalings_">
+<span class="sig-name descname"><span class="pre">scalings_</span></span><a class="headerlink" href="#climclusterpy.clustering.lmnn.LDAMetricLearner.scalings_" title="Link to this definition"></a></dt>
+<dd><p>Discriminant axis loadings (columns = LDA components).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">np.ndarray</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">shape</span> <span class="pre">(n_features</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">n_components)</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="climclusterpy.clustering.lmnn.LDAMetricLearner.feature_importance_">
+<span class="sig-name descname"><span class="pre">feature_importance_</span></span><a class="headerlink" href="#climclusterpy.clustering.lmnn.LDAMetricLearner.feature_importance_" title="Link to this definition"></a></dt>
+<dd><p>Absolute mean loading per original feature across all discriminant
+axes, normalised to sum to 1.  Analogous to the diagonal of the
+Mahalanobis matrix <em>M</em> used by global LMNN.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">np.ndarray</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">shape</span> <span class="pre">(n_features,)</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="climclusterpy.clustering.lmnn.LDAMetricLearner.n_components_">
+<span class="sig-name descname"><span class="pre">n_components_</span></span><a class="headerlink" href="#climclusterpy.clustering.lmnn.LDAMetricLearner.n_components_" title="Link to this definition"></a></dt>
+<dd><p>Number of discriminant components retained (≤ n_classes − 1).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<section id="the-per-cell-trainers-and-their-distance-matrices">
+<h3>The per-cell trainers and their distance matrices<a class="headerlink" href="#the-per-cell-trainers-and-their-distance-matrices" title="Link to this heading"></a></h3>
+<p>The pieces behind the per-cell modes, for anyone tuning or extending them. They need
+<code class="docutils literal notranslate"><span class="pre">torch</span></code> and are loaded on first use:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">train_local_lmnn</span></code>, <code class="docutils literal notranslate"><span class="pre">train_enhanced_local_lmnn</span></code>, <code class="docutils literal notranslate"><span class="pre">train_local_mahalanobis_lmnn</span></code> —
+the three per-cell trainers behind <code class="docutils literal notranslate"><span class="pre">lmnn_mode=&quot;local&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;enhanced&quot;</span></code> and
+<code class="docutils literal notranslate"><span class="pre">&quot;lowrank&quot;</span></code>;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">compute_distance_matrix_local</span></code>, <code class="docutils literal notranslate"><span class="pre">compute_local_mahalanobis_distance_matrix</span></code> — the
+n × n distance matrix under a trained diagonal or low-rank network.</p></li>
+</ul>
+<p>Their docstrings are the reference: <code class="docutils literal notranslate"><span class="pre">help(climclusterpy.clustering.lmnn.train_local_lmnn)</span></code>.</p>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="features.html" class="btn btn-neutral float-left" title="Feature engineering" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="supervision.html" class="btn btn-neutral float-right" title="Supervision labels" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, Jamir Priesner.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

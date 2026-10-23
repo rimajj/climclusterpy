@@ -1,0 +1,17 @@
+How-to guides
+=============
+
+Task-oriented recipes for people who already know what they want to do. New to the
+package? Start with the :doc:`../tutorials/index` instead.
+
+.. toctree::
+   :maxdepth: 2
+
+   install
+   inputs
+   clustering
+   supervision
+   cell_selection
+   reconstruct
+
+For the command-line equivalent of these recipes, see the :doc:`../reference/cli`.

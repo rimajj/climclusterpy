@@ -1,0 +1,62 @@
+Tutorial 1 — Euclidean clustering
+=================================
+
+**Capability 1: produce clusters for a climate + soil input.** In this tutorial you build
+a synthetic climate + soil grid, derive a per-cell feature matrix, and group the cells
+into *K* clusters with plain Euclidean clustering — the simplest mode, needing no
+supervision and only the core install.
+
+Load data and build a feature matrix
+-------------------------------------
+
+The shared helper writes synthetic NetCDFs and loads them through the real data entry
+point, returning a :class:`~climclusterpy.data.DataRegistry` and a feature matrix
+``X`` of shape ``(n_valid_cells, n_features)``:
+
+.. code-block:: python
+
+   from _synthetic import feature_matrix, load_synthetic
+
+   _paths, datasets, registry = load_synthetic(tmp, n_cells=64)
+   X, meta = feature_matrix(datasets, registry)   # X: (64, 8); meta: cell_id/lat/lon
+
+Cluster
+-------
+
+:func:`~climclusterpy.cluster_matrix` with ``locally_weighted=False`` runs agglomerative clustering.
+``standardize=True`` z-scores each feature first so no single feature dominates:
+
+.. code-block:: python
+
+   from climclusterpy import cluster_matrix
+
+   result = cluster_matrix(X, n_clusters=6, locally_weighted=False, standardize=True)
+   result.labels           # 1-indexed label per cell, shape (64,)
+   result.to_frame()       # cell_id + cluster_label
+
+The result carries the SciPy ``linkage`` matrix (so you can re-cut to a different *K*
+without re-clustering) and, when you pass a DataFrame, the metadata columns.
+
+The complete script
+-------------------
+
+.. literalinclude:: ../../../examples/example_1_cluster_euclidean.py
+   :language: python
+   :caption: examples/example_1_cluster_euclidean.py
+
+Run it
+------
+
+.. code-block:: console
+
+   $ python examples/example_1_cluster_euclidean.py
+   Feature matrix: 64 cells x 8 features
+   Euclidean clustering -> 6 clusters (mode=euclidean)
+   ...
+   OK: example 1 (Euclidean clustering) complete.
+
+Next steps
+----------
+
+* Supervise the metric with :doc:`lmnn_clustering`.
+* Understand the algorithm: :doc:`../explanation/methods`.

@@ -1,0 +1,33 @@
+Tutorials
+=========
+
+Learning-oriented, end-to-end walkthroughs. **Read :doc:`one_call_roundtrip` first** — it
+does the entire workflow (reduce a grid, run a model on it, rebuild the original) in two
+function calls. The remaining tutorials take one building block each, for when you want to
+drive the steps yourself.
+
+Every tutorial runs on tiny **synthetic** climate + soil data built in-memory, so you can
+follow along with only the core install (the LMNN tutorial additionally needs the
+``[lmnn]`` extra). No ``/p`` mounts, no real data, no downloads.
+
+The complete, runnable script for each tutorial lives under ``examples/`` in the
+repository; the tutorial embeds it and explains it step by step.
+
+.. toctree::
+   :maxdepth: 1
+
+   one_call_roundtrip
+   euclidean_clustering
+   lmnn_clustering
+   supervision
+   reconstruction
+
+A note on the synthetic data
+----------------------------
+
+The examples share a helper, ``examples/_synthetic.py``, that writes small climate + soil
+NetCDFs on a regular 8×8 grid and loads them exactly the way the package loads real data
+(via :func:`~climclusterpy.data.create_test_data`), then derives a per-cell feature
+matrix. In production those feature matrices come from
+:func:`~climclusterpy.features.summarize_climate_features`; the helper keeps the tutorials
+dependency-light.

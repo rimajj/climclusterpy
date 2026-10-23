@@ -1,0 +1,1150 @@
+Scientific Methods
+==================
+
+This section provides a detailed scientific description of the algorithms, data transformations, and computational methods implemented in the climclusterpy package.
+
+Data Acquisition and Preprocessing
+-----------------------------------
+
+Climate and Soil Data Loading
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The :mod:`climclusterpy.data.loader` module implements robust NetCDF data loading with the following characteristics:
+
+**Chunked Processing**
+
+Climate datasets are loaded using Dask with configurable chunk sizes (default 500 time steps):
+
+.. code-block:: python
+
+   ds = xr.open_dataset(path, chunks={"time": 500})
+
+This enables:
+
+* Parallel computation across chunks
+* Memory-efficient processing of large datasets (>10 GB)
+* Lazy evaluation of array operations
+
+**Memory Optimization**
+
+All float64 data variables are automatically converted to float32:
+
+.. math::
+
+   \text{Memory}_{\text{optimized}} = 0.5 \times \text{Memory}_{\text{original}}
+
+This transformation preserves sufficient numerical precision (7 significant digits) for climate data while halving memory consumption.
+
+**Coordinate Standardization**
+
+Latitude and longitude coordinates are:
+
+1. Canonicalized to standard names (``latitude``, ``longitude``)
+2. Rounded to 5 decimal places (:math:`10^{-5}` degrees ≈ 1.1 m spatial resolution)
+3. Validated for grid compatibility across datasets
+
+Variable names are resolved through these synonyms (a file with a single data variable is
+used whatever the variable is called):
+
+.. code-block:: text
+
+   precipitation: tpr, pr, precip, precipitation_flux, tp
+   temperature: TMean, tmean, tas, t2m, temp
+   radiation: SWR, rsds, SWdown, swdown, LWR, rlds, LWdown
+   humidity: hurs, humid, rh, relative_humidity
+
+**Grid Compatibility Validation**
+
+The ``climclusterpy.data.coords.check_grid_compatibility()`` function ensures spatial alignment:
+
+.. math::
+
+   \forall i,j: |\text{lat}^A_i - \text{lat}^B_i| < \epsilon \land |\text{lon}^A_j - \text{lon}^B_j| < \epsilon
+
+where :math:`\epsilon = 10^{-5}` degrees, i.e. the coordinates must be identical after rounding
+to 5 decimals. A climate input that is not on the soil-code grid is an error, not regridded:
+regrid it before loading. Only the soil-depth input is mapped onto the soil-code grid, by
+nearest neighbour.
+
+Data Registry
+~~~~~~~~~~~~~
+
+The :class:`climclusterpy.data.DataRegistry` manages spatial grids and valid cell identification.
+
+**Valid Cell Identification**
+
+A boolean mask :math:`\mathbf{M} \in \{0,1\}^{n_{\text{lat}} \times n_{\text{lon}}}` identifies valid cells:
+
+.. math::
+
+   M_{ij} = \begin{cases}
+   1 & \text{if soil\_code}_{ij} \neq \text{sentinel} \land \neg \text{isnan}(\text{soil\_code}_{ij}) \\
+   0 & \text{otherwise}
+   \end{cases}
+
+Sentinel values are detected hierarchically:
+
+1. NetCDF encoding attributes (``_FillValue``, ``missing_value``)
+2. Common integer sentinels, when neither attribute is set: :math:`-9999, -999, 9999, -32768, -10^6`
+3. NaN values in floating-point arrays
+
+**Flattening Operation**
+
+The :meth:`climclusterpy.data.DataRegistry.flatten_on_valid` method projects multi-dimensional arrays onto the 1D valid cell space:
+
+.. math::
+
+   \mathbf{X}_{\text{flat}} = \text{extract}(\mathbf{X}_{\text{grid}}, \mathbf{M}) \in \mathbb{R}^{n_{\text{valid}} \times n_{\text{time}}}
+
+where :math:`n_{\text{valid}} = \sum_{i,j} M_{ij}`.
+
+This operation:
+
+* Reduces memory by eliminating invalid cells (ocean, missing data)
+* Accelerates computation by operating on contiguous arrays
+* Maintains spatial correspondence through the registry's ID mapping
+
+Ecoregion Assignment
+--------------------
+
+The :mod:`climclusterpy.supervision.ecoregions` module assigns grid cells to ecological regions through spatial intersection.
+
+**Spatial Join Algorithm**
+
+Given:
+
+* Ecoregion polygons :math:`\{P_1, P_2, \ldots, P_K\}` with identifiers :math:`\{e_1, e_2, \ldots, e_K\}`
+* Grid cell points :math:`\{\mathbf{p}_1, \mathbf{p}_2, \ldots, \mathbf{p}_n\}` where :math:`\mathbf{p}_i = (\text{lat}_i, \text{lon}_i)`
+
+The assignment function is:
+
+.. math::
+
+   \text{ecoregion}(\mathbf{p}_i) = \begin{cases}
+   e_k & \text{if } \mathbf{p}_i \cap P_k \neq \emptyset \\
+   \text{null} & \text{otherwise}
+   \end{cases}
+
+**Coordinate Normalization**
+
+Longitude coordinates are normalized to :math:`[-180, 180)`:
+
+.. math::
+
+   \text{lon}_{\text{norm}} = ((\text{lon} + 180) \mod 360) - 180
+
+This ensures consistency with standard ecoregion shapefiles (e.g., Ecoregions2017 from Dinerstein et al., 2017).
+
+**Implementation**
+
+The :func:`climclusterpy.supervision.assign_cells_to_ecoregions` function uses GeoPandas vectorized spatial join:
+
+.. code-block:: python
+
+   matched = gpd.sjoin(
+       points_gdf,
+       ecoregions_gdf,
+       how='left',
+       predicate='intersects'
+   )
+
+The ``intersects`` predicate (rather than ``within``) includes cells lying precisely on polygon boundaries, maximizing spatial coverage.
+
+Ecological Feature Summarization
+---------------------------------
+
+Time series climate data are transformed into interpretable ecological summary statistics by the :mod:`climclusterpy.features` module.
+
+Temperature Features
+~~~~~~~~~~~~~~~~~~~~
+
+For temperature time series :math:`\{T_1, T_2, \ldots, T_{n_t}\}`, the following statistics are computed by ``climclusterpy.features.climate._summarize_temperature()``:
+
+**Annual Mean**
+
+.. math::
+
+   \mu_T = \frac{1}{n_t} \sum_{t=1}^{n_t} T_t
+
+**Annual Standard Deviation**
+
+.. math::
+
+   \sigma_T = \sqrt{\frac{1}{n_t} \sum_{t=1}^{n_t} (T_t - \mu_T)^2}
+
+**Annual Range**
+
+.. math::
+
+   R_T = \max_t(T_t) - \min_t(T_t)
+
+**Seasonality**
+
+Monthly climatology is computed by averaging each calendar month across all years:
+
+.. math::
+
+   \bar{T}_m = \frac{1}{n_y} \sum_{y=1}^{n_y} T_{y,m} \quad \text{for } m \in \{1, 2, \ldots, 12\}
+
+Seasonality is then defined as the standard deviation of monthly means:
+
+.. math::
+
+   S_T = \sqrt{\frac{1}{12} \sum_{m=1}^{12} (\bar{T}_m - \mu_T)^2}
+
+This captures the amplitude of seasonal temperature variation.
+
+Precipitation Features
+~~~~~~~~~~~~~~~~~~~~~~
+
+For precipitation time series :math:`\{P_1, P_2, \ldots, P_{n_t}\}`, ``climclusterpy.features.climate._summarize_precipitation()`` computes:
+
+**Annual Mean**
+
+.. math::
+
+   \mu_P = \frac{1}{n_t} \sum_{t=1}^{n_t} P_t
+
+**Coefficient of Variation**
+
+.. math::
+
+   \text{CV}_P = \frac{\sigma_P}{\mu_P}
+
+where :math:`\sigma_P` is the temporal standard deviation. CV quantifies relative precipitation variability.
+
+**Wet-Day Frequency**
+
+.. math::
+
+   f_{\text{wet}} = \frac{1}{n_t} \sum_{t=1}^{n_t} \mathbb{1}(P_t > \theta)
+
+where :math:`\theta = 1` mm is the wet-day threshold and :math:`\mathbb{1}(\cdot)` is the indicator function.
+
+**Maximum Monthly Precipitation**
+
+.. math::
+
+   P_{\max} = \max_{t \in \{1, \ldots, n_t\}} P_t
+
+This captures extreme precipitation events.
+
+Radiation Features
+~~~~~~~~~~~~~~~~~~
+
+For shortwave (:math:`R_s`) and longwave (:math:`R_l`) radiation, ``climclusterpy.features.climate._summarize_radiation()`` computes:
+
+.. math::
+
+   \begin{align}
+   \mu_R &= \frac{1}{n_t} \sum_{t=1}^{n_t} R_t \quad \text{(annual mean)} \\
+   \sigma_R &= \sqrt{\frac{1}{n_t} \sum_{t=1}^{n_t} (R_t - \mu_R)^2} \quad \text{(annual std)} \\
+   A_R &= \max_t(R_t) - \min_t(R_t) \quad \text{(seasonal amplitude)}
+   \end{align}
+
+Humidity Features
+~~~~~~~~~~~~~~~~~
+
+For relative humidity :math:`\{H_1, H_2, \ldots, H_{n_t}\}`, ``climclusterpy.features.climate._summarize_humidity()`` computes:
+
+.. math::
+
+   \begin{align}
+   \mu_H &= \frac{1}{n_t} \sum_{t=1}^{n_t} H_t \quad \text{(annual mean)} \\
+   \sigma_H &= \sqrt{\frac{1}{n_t} \sum_{t=1}^{n_t} (H_t - \mu_H)^2} \quad \text{(annual std)} \\
+   H_{\min} &= \min_t(H_t) \quad \text{(dry-season minimum)}
+   \end{align}
+
+Soil Features
+~~~~~~~~~~~~~
+
+:func:`climclusterpy.features.summarize_soil_features` extracts:
+
+* **Soil depth**: Continuous variable (cm or m)
+* **Soil code**: Integer-valued categorical texture classification
+
+For temporally varying soil datasets, the first time step is extracted under the assumption of temporal invariance.
+
+Köppen–Geiger Diagnostic Scalar Features
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Eight continuous KG-diagnostic scalar features are computed directly from the monthly climatologies and latitude by :func:`climclusterpy.features.compute_kg_diagnostic_features`, capturing the core rule quantities used by Köppen–Geiger classification:
+
+* **kg_diag_T_cold**, **kg_diag_T_warm**: Coldest and warmest month temperature
+* **kg_diag_P_dry_min**, **kg_diag_P_wet_max**: Driest and wettest month precipitation
+* **kg_diag_P_dry_summer**, **kg_diag_P_dry_winter**: Hemisphere-aware dry-season precipitation minima
+* **kg_diag_P_seasonality_ratio**: Wettest-to-driest precipitation ratio, clipped to :math:`[1, 100]`
+* **kg_diag_aridity_index**: Aridity index offset from the KG threshold :math:`P_{\text{ann}} - (2 T_{\text{ann}} + 28)`
+
+These ``kg_diag_`` features are protected from removal in the filtering stages.
+
+Ecology Diagnostic Features
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Thirteen ecophysiological features are computed from the monthly climatologies by :func:`climclusterpy.features.compute_all_ecology_diagnostic_features`, capturing water-balance characteristics and thermal thresholds relevant to vegetation dynamics. These ``eco_diag_`` features are protected from removal during correlation and PCA filtering stages.
+
+**Vapour Pressure Deficit (VPD)**
+
+Monthly VPD is computed from monthly temperature :math:`\bar{T}_m` and relative humidity :math:`\bar{H}_m`:
+
+.. math::
+
+   \mathrm{VPD}_m = e_s(\bar{T}_m)\,(1 - \bar{H}_m / 100), \qquad e_s(T) = 0.6108 \exp\!\left(\frac{17.27\,T}{T + 237.3}\right)\ \text{[kPa]}
+
+Three features are derived:
+
+* **eco_diag_vpd_mean**: Annual mean :math:`\overline{\mathrm{VPD}} = \tfrac{1}{12}\sum_m \mathrm{VPD}_m`
+* **eco_diag_vpd_max_monthly**: Maximum monthly value :math:`\max_m \mathrm{VPD}_m`
+* **eco_diag_vpd_stress_months**: Count of months with :math:`\mathrm{VPD}_m > 1.5` kPa
+
+**Growing Degree Days (GDD)**
+
+Thermal accumulation indices computed from monthly temperature:
+
+.. math::
+
+   \mathrm{GDD}_b = \sum_{m=1}^{12} \max(0,\;\bar{T}_m - b)\,\cdot\, n_{\mathrm{days},m}
+
+* **eco_diag_gdd_5**: Base :math:`b = 5\,°\text{C}` (cool-season crops, boreal vegetation)
+* **eco_diag_gdd_10**: Base :math:`b = 10\,°\text{C}` (warm-season crops, temperate vegetation)
+
+**Frost-Free Days**
+
+.. math::
+
+   F = \sum_{m=1}^{12} \mathbb{1}(\bar{T}_m > 0)\,\cdot\, n_{\mathrm{days},m}
+
+* **eco_diag_frost_free_days**: Distinguishes transitional climates where frost occurrence is intermittent.
+
+**Potential Evapotranspiration and Moisture Balance**
+
+Monthly PET is estimated via the Priestley–Taylor method (where radiation data are available) or Thornthwaite approximation:
+
+* **eco_diag_pet_mean**: Annual mean PET (mm day\ :sup:`-1`)
+* **eco_diag_p_pet_ratio**: Annual precipitation-to-PET ratio :math:`\overline{P}/\overline{\mathrm{PET}}` (moisture index)
+* **eco_diag_water_deficit_months**: Count of months where :math:`\bar{P}_m < \mathrm{PET}_m`
+
+**Dry Spells**
+
+Consecutive runs of months with :math:`\bar{P}_m < 30` mm are identified:
+
+* **eco_diag_dry_spell_max**: Maximum spell length across the annual cycle
+* **eco_diag_dry_spell_mean**: Mean spell length
+
+These capture the persistence of dry seasons beyond their total duration.
+
+**Precipitation Intensity and Seasonality**
+
+* **eco_diag_precip_intensity_wet_days**: Mean precipitation per wet month :math:`\bar{P}_{\mathrm{wet}} = \sum_m \bar{P}_m \mathbb{1}(\bar{P}_m > 30) / \sum_m \mathbb{1}(\bar{P}_m > 30)`
+* **eco_diag_precip_wettest_quarter_frac**: Fraction of annual precipitation falling in the wettest quarter :math:`f_{\mathrm{wq}} = P_{\mathrm{wq}} / P_{\mathrm{ann}}`
+
+Feature Combination
+~~~~~~~~~~~~~~~~~~~
+
+:func:`climclusterpy.features.combine_features` merges climate and soil DataFrames through an inner join on ``cell_id``, ``latitude``, and ``longitude``, producing the raw feature matrix:
+
+.. math::
+
+   \mathbf{X}_{\text{raw}} \in \mathbb{R}^{n \times p}
+
+where :math:`n` is the number of cells and :math:`p` is the total feature count (typically :math:`p \approx 20`–50 before filtering).
+
+Feature Standardization and Filtering
+--------------------------------------
+
+Z-Score Standardization
+~~~~~~~~~~~~~~~~~~~~~~~
+
+:func:`climclusterpy.features.standardize_features` applies z-score transformation:
+
+.. math::
+
+   \mathbf{X}_{ij}^{\text{std}} = \frac{\mathbf{X}_{ij}^{\text{raw}} - \mu_j}{\sigma_j}
+
+where:
+
+.. math::
+
+   \begin{align}
+   \mu_j &= \frac{1}{n} \sum_{i=1}^n \mathbf{X}_{ij}^{\text{raw}} \\
+   \sigma_j &= \sqrt{\frac{1}{n} \sum_{i=1}^n (\mathbf{X}_{ij}^{\text{raw}} - \mu_j)^2}
+   \end{align}
+
+This ensures:
+
+* Zero mean: :math:`\mathbb{E}[\mathbf{X}_{:j}^{\text{std}}] = 0`
+* Unit variance: :math:`\text{Var}(\mathbf{X}_{:j}^{\text{std}}) = 1`
+* Comparability across features with disparate units
+
+Correlation-Based Feature Removal
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+:func:`climclusterpy.features.remove_correlated_features` eliminates highly correlated features to mitigate multicollinearity.
+
+**Correlation Computation**
+
+Spearman rank correlation coefficients are computed for all feature pairs:
+
+.. math::
+
+   \rho_{jk} = \text{corr}_{\text{Spearman}}(\mathbf{X}_{:j}^{\text{std}}, \mathbf{X}_{:k}^{\text{std}})
+
+Spearman correlation is preferred over Pearson as it captures monotonic (not just linear) relationships and is robust to outliers.
+
+**Iterative Removal**
+
+For each pair :math:`(j, k)` satisfying :math:`|\rho_{jk}| > \theta_{\text{corr}}` (default :math:`\theta_{\text{corr}} = 0.9`):
+
+1. Compute mean absolute correlation for each feature:
+
+   .. math::
+
+      \bar{\rho}_j = \frac{1}{p-1} \sum_{k \neq j} |\rho_{jk}|
+
+2. Remove the feature with higher :math:`\bar{\rho}`:
+
+   .. math::
+
+      \text{remove}(j) \text{ if } \bar{\rho}_j > \bar{\rho}_k
+
+This greedy strategy preserves features with lower overall correlation.
+
+Soil features are excluded from correlation analysis as they represent static, discrete properties.
+
+Block PCA Compression of Monthly Profiles
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+:func:`climclusterpy.features.apply_block_pca_compression` reduces redundancy in the 12-dimensional monthly climatology profiles while preserving seasonal structure.
+
+A separate PCA is fit to the temperature-monthly block (``tas_month_01..12``) and the precipitation-monthly block (``pr_month_01..12``). For each block, the minimum number of components explaining at least 99% of within-block variance is retained. Raw monthly columns are dropped and replaced by **whitened** PC scores:
+
+.. math::
+
+   \tilde{z}_{ik} = \frac{z_{ik}}{\sqrt{\lambda_k^{\text{block}}}}
+
+where :math:`z_{ik}` is the raw PCA score of cell :math:`i` on block-PC :math:`k` and :math:`\lambda_k^{\text{block}}` is the corresponding eigenvalue (explained variance). Whitening ensures that all PC scores have unit variance, consistent with the z-scored summary features, and prevents high-variance leading PCs from dominating the downstream LMNN metric.
+
+The resulting features are named ``tas_month_PC1..N_T`` and ``pr_month_PC1..N_P``. Fitted PCA objects are cached to disk (``block_pca_tas.pkl``, ``block_pca_pr.pkl``) to ensure consistent reuse across runs.
+
+PCA-Based Diagnostic Filtering
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+:func:`climclusterpy.features.diagnostic_pca_filter` uses PCA to identify low-contribution features without dimensionality reduction.
+
+**Algorithm**
+
+1. Compute full PCA decomposition of :math:`\mathbf{X}^{\text{decorr}}`:
+
+   .. math::
+
+      \mathbf{X}^{\text{decorr}} = \sum_{i=1}^p \lambda_i \mathbf{u}_i \mathbf{v}_i^\top
+
+   where :math:`\lambda_i` are eigenvalues (explained variances) and :math:`\mathbf{v}_i` are principal component loadings.
+
+2. Determine minimum :math:`m` satisfying variance threshold :math:`\theta_{\text{var}} = 0.95`:
+
+   .. math::
+
+      m = \min \left\{ k : \sum_{i=1}^k \lambda_i \geq \theta_{\text{var}} \sum_{i=1}^p \lambda_i \right\}
+
+3. For each original feature :math:`j`, compute total absolute contribution across the first :math:`m` components:
+
+   .. math::
+
+      C_j = \frac{1}{m} \sum_{i=1}^m |v_{ij}|
+
+4. Normalize contributions:
+
+   .. math::
+
+      C_j^{\text{norm}} = \frac{C_j}{\sum_{k=1}^p C_k}
+
+5. Remove features with :math:`C_j^{\text{norm}} < \theta_{\text{contrib}}` (default :math:`\theta_{\text{contrib}} = 0.01`).
+
+This retains features substantially contributing to the dominant variance modes while eliminating redundant or low-information variables.
+
+**Output**
+
+The final feature set :math:`\mathbf{X} \in \mathbb{R}^{n \times d}` (where :math:`d \ll p`) combines:
+
+* Filtered climate features (correlation + PCA filtered)
+* Unfiltered soil features (preserved as static environmental descriptors)
+
+Large Margin Nearest Neighbor (LMNN) Metric Learning
+-----------------------------------------------------
+
+The :mod:`climclusterpy.clustering` module implements three LMNN variants for learning ecoregion-informed distance metrics.
+
+Global LMNN
+~~~~~~~~~~~
+
+:mod:`climclusterpy.clustering.lmnn` implements classic LMNN (Weinberger & Saul, 2009) with a single global Mahalanobis distance.
+
+**Mahalanobis Distance**
+
+The learned metric is defined by transformation matrix :math:`\mathbf{L} \in \mathbb{R}^{d' \times d}`:
+
+.. math::
+
+   D_M(\mathbf{x}_i, \mathbf{x}_j) = \sqrt{(\mathbf{x}_i - \mathbf{x}_j)^\top \mathbf{M} (\mathbf{x}_i - \mathbf{x}_j)}
+
+where:
+
+.. math::
+
+   \mathbf{M} = \mathbf{L}^\top \mathbf{L} \in \mathbb{R}^{d \times d}
+
+is the learned Mahalanobis matrix.
+
+**Optimization Objective**
+
+LMNN minimizes:
+
+.. math::
+
+   \mathcal{L}_{\text{LMNN}} = (1-\mu) \mathcal{L}_{\text{pull}} + \mu \mathcal{L}_{\text{margin}}
+
+where:
+
+.. math::
+
+   \begin{align}
+   \mathcal{L}_{\text{pull}} &= \sum_{i=1}^n \sum_{j \in \mathcal{T}_i} D_M^2(\mathbf{x}_i, \mathbf{x}_j) \\
+   \mathcal{L}_{\text{margin}} &= \sum_{i=1}^n \sum_{j \in \mathcal{T}_i} \sum_{l \notin \mathcal{T}_i} \xi_{ijl}
+   \end{align}
+
+subject to:
+
+.. math::
+
+   D_M^2(\mathbf{x}_i, \mathbf{x}_l) - D_M^2(\mathbf{x}_i, \mathbf{x}_j) \geq 1 - \xi_{ijl}, \quad \xi_{ijl} \geq 0
+
+Here:
+
+* :math:`\mathcal{T}_i` = set of :math:`k` nearest same-ecoregion neighbors (target neighbors)
+* :math:`l` indexes different-ecoregion cells (impostors)
+* :math:`\mu \in [0,1]` balances pull vs. margin terms
+* :math:`\xi_{ijl}` are slack variables for soft constraints
+
+**Interpretation**
+
+* **Pull term**: Minimizes distances to same-ecoregion neighbors
+* **Margin term**: Enforces separation from different-ecoregion cells with margin = 1
+
+**Feature Importance**
+
+Feature importance is extracted from the diagonal of :math:`\mathbf{M}`:
+
+.. math::
+
+   I_j = M_{jj}
+
+with normalization:
+
+.. math::
+
+   I_j^{\text{norm}} = \frac{I_j}{\sum_{k=1}^d I_k}
+
+Large values indicate features strongly influencing the learned metric.
+
+**Feature Transformation**
+
+:func:`climclusterpy.clustering.lmnn.transform_features` projects data into the learned metric space:
+
+.. math::
+
+   \mathbf{X}^{\text{LMNN}} = \mathbf{X} \mathbf{L}^\top
+
+In this space, Euclidean distance equals the original Mahalanobis distance:
+
+.. math::
+
+   \|\mathbf{x}_i^{\text{LMNN}} - \mathbf{x}_j^{\text{LMNN}}\|_2 = D_M(\mathbf{x}_i, \mathbf{x}_j)
+
+Local LMNN
+~~~~~~~~~~
+
+``climclusterpy.clustering.lmnn.local`` implements feature-conditioned LMNN where feature weights vary spatially.
+
+**Neural Network Architecture**
+
+A multilayer perceptron :math:`f_\theta: \mathbb{R}^d \to \mathbb{R}^d` predicts cell-specific weight vectors:
+
+.. math::
+
+   \mathbf{w}_i = f_\theta(\mathbf{x}_i)
+
+The network architecture (``climclusterpy.clustering.lmnn.local.LocalWeightNetwork``) is:
+
+.. math::
+
+   \begin{align}
+   \mathbf{h}_1 &= \text{ReLU}(\mathbf{W}_1 \mathbf{x}_i + \mathbf{b}_1) \\
+   \mathbf{h}_2 &= \text{Dropout}(\mathbf{h}_1, p=0.1) \\
+   \mathbf{h}_3 &= \text{ReLU}(\mathbf{W}_2 \mathbf{h}_2 + \mathbf{b}_2) \\
+   \mathbf{h}_4 &= \text{Dropout}(\mathbf{h}_3, p=0.1) \\
+   \mathbf{w}_i^{\text{raw}} &= \mathbf{W}_3 \mathbf{h}_4 + \mathbf{b}_3 \\
+   \mathbf{w}_i &= \frac{\text{Softplus}(\mathbf{w}_i^{\text{raw}})}{\|\text{Softplus}(\mathbf{w}_i^{\text{raw}})\|_1}
+   \end{align}
+
+where:
+
+* :math:`\text{Softplus}(x) = \log(1 + \exp(x))` ensures positivity
+* L1 normalization guarantees :math:`\sum_{j=1}^d w_{ij} = 1`
+* Default hidden dimensions: [64, 32]
+
+**Symmetrized Local Distance**
+
+``climclusterpy.clustering.lmnn.local.compute_local_distance()`` computes:
+
+.. math::
+
+   D_{\text{local}}(\mathbf{x}_i, \mathbf{x}_j) = \sqrt{\sum_{k=1}^d \frac{w_{ik} + w_{jk}}{2} (x_{ik} - x_{jk})^2}
+
+The weight averaging ensures:
+
+.. math::
+
+   D_{\text{local}}(\mathbf{x}_i, \mathbf{x}_j) = D_{\text{local}}(\mathbf{x}_j, \mathbf{x}_i)
+
+maintaining the metric property.
+
+**Loss Function**
+
+``climclusterpy.clustering.lmnn.local.LocalLMNNLoss`` minimizes:
+
+.. math::
+
+   \mathcal{L}_{\text{local}} = (1-\alpha) \mathcal{L}_{\text{pull}} + \alpha \mathcal{L}_{\text{margin}}
+
+where:
+
+.. math::
+
+   \begin{align}
+   \mathcal{L}_{\text{pull}} &= \frac{1}{nk} \sum_{i=1}^n \sum_{j \in \mathcal{N}_k^+(i)} D_{\text{local}}^2(\mathbf{x}_i, \mathbf{x}_j) \\
+   \mathcal{L}_{\text{margin}} &= \frac{1}{n|\mathcal{I}|} \sum_{i=1}^n \sum_{l \in \mathcal{I}_i} \sum_{j \in \mathcal{N}_k^+(i)} \max(0, D_{\text{local}}^2(\mathbf{x}_i, \mathbf{x}_j) - D_{\text{local}}^2(\mathbf{x}_i, \mathbf{x}_l) + \Delta)^2
+   \end{align}
+
+Here:
+
+* :math:`\mathcal{N}_k^+(i)` = :math:`k` nearest same-ecoregion neighbors
+* :math:`\mathcal{I}_i` = different-ecoregion cells (impostors)
+* :math:`\Delta` = margin hyperparameter (default 1.0)
+* :math:`\alpha` = loss balance weight (default 0.5)
+
+**Training**
+
+:func:`climclusterpy.clustering.lmnn.train_local_lmnn` uses:
+
+* **Optimizer**: Adam with learning rate :math:`\eta = 10^{-3}`
+* **Regularization**: Weight decay :math:`\lambda = 10^{-4}`, dropout :math:`p = 0.1`
+* **Batch size**: 128
+* **Early stopping**: Patience 10 epochs on validation loss
+
+Enhanced LMNN
+~~~~~~~~~~~~~
+
+``climclusterpy.clustering.lmnn.enhanced`` extends local LMNN for datasets with variable-sized ecoregions.
+
+**Proportional Adaptive Neighbor Count**
+
+For each anchor cell :math:`i` in ecoregion :math:`c` with size :math:`n_c`:
+
+.. math::
+
+   k_i = \min\!\left(n_c - 1,\; k_{\text{max}},\; \max\!\left(k_{\text{min}},\; \lfloor \beta \cdot n_c \rfloor\right)\right)
+
+where:
+
+* :math:`k_{\text{min}}` (default: 3) sets the minimum neighborhood size
+* :math:`k_{\text{max}}` (default: 15) prevents excessive computation
+* :math:`\beta` (default: 0.005) is the proportionality factor
+* The leading :math:`n_c - 1` cap ensures feasibility
+
+The function-level defaults in ``train_enhanced_local_lmnn`` are :math:`k_{\min}=3`, :math:`k_{\max}=15`, :math:`\beta=0.05`, but the production pipelines override :math:`\beta` to 0.005 for more conservative scaling.
+
+**Example scaling** with :math:`\beta = 0.005` (production default):
+
+* Small class (10 samples): :math:`k_i = \max(3, \lfloor 0.005 \times 10 \rfloor) = 3`
+* Medium class (200 samples): :math:`k_i = \lfloor 0.005 \times 200 \rfloor = 1 \to 3` (clamped to :math:`k_{\min}`)
+* Large class (1000 samples): :math:`k_i = \min(15, \lfloor 0.005 \times 1000 \rfloor) = 5`
+
+Proportional adaptive-k allows:
+
+* Small classes: avoid overfitting through conservative :math:`k_{\min}`
+* Large classes: maintain internal cohesion through scaled neighborhoods
+
+**Prototype-Based Pull Loss**
+
+For tiny ecoregions (:math:`n_c < 5`), a class prototype is computed:
+
+.. math::
+
+   \boldsymbol{\mu}_c = \frac{1}{n_c} \sum_{i: y_i = c} \mathbf{x}_i
+
+The pull loss becomes:
+
+.. math::
+
+   \mathcal{L}_{\text{pull}}^{(i)} = D_{\text{local}}^2(\mathbf{x}_i, \boldsymbol{\mu}_{y_i})
+
+replacing k-NN targets with the prototype (``climclusterpy.clustering.lmnn.enhanced.ClassPrototypeManager``).
+
+**Oversampling with Ecological Jittering**
+
+Small ecoregions (:math:`n_c < 20`) are oversampled by factor:
+
+.. math::
+
+   \beta_{\text{oversample}} = \min\left(10, 3 + 7\left(1 - \frac{n_c}{20}\right)\right)
+
+Synthetic samples are generated via ``climclusterpy.clustering.lmnn.enhanced.OversamplingDataset``:
+
+.. math::
+
+   x_{ij}^{\text{jitter}} = x_{ij} + \epsilon_{ij}
+
+where :math:`\epsilon_{ij}` is feature-type dependent:
+
+* **Temperature**: :math:`\epsilon \sim \mathcal{N}(0, 0.25^2)` (≈ ±0.5°C in standardized space)
+* **Precipitation**: Multiplicative :math:`\epsilon \sim \mathcal{N}(1, 0.025^2)` (±5%)
+* **Radiation**: Multiplicative :math:`\epsilon \sim \mathcal{N}(1, 0.01^2)` (±2%)
+* **Other**: :math:`\epsilon \sim \mathcal{N}(0, (0.015|\bar{x}_j|)^2)` (±3% of mean)
+
+Jittered values are clipped to :math:`[-5, 5]` in standardized space.
+
+**k_i Statistics Tracking**
+
+During training, the module computes and logs k_i statistics:
+
+* :math:`k_{i,\min}` = minimum neighborhood size across all anchors
+* :math:`k_{i,\max}` = maximum neighborhood size
+* :math:`k_{i,\text{mean}}` = average neighborhood size
+* :math:`k_{i,\text{median}}` = median neighborhood size
+* Per-class averages: :math:`\overline{k_i}_c = \frac{1}{n_c} \sum_{i: y_i=c} k_i`
+
+This enables diagnostic monitoring of whether proportional scaling is working as intended.
+
+Local Mahalanobis LMNN
+~~~~~~~~~~~~~~~~~~~~~~
+
+``climclusterpy.clustering.lmnn.local.LocalMahalanobisMLP`` and ``climclusterpy.clustering.lmnn.local.LocalMahalanobisLMNNLoss`` implement a low-rank local Mahalanobis variant that captures **cross-feature interactions** unlike the diagonal weighted Euclidean metric.
+
+**Motivation**
+
+The diagonal local metric weights each feature independently, which implicitly assumes that the ecological signal decomposes along the original feature axes. In reality, features interact—temperature seasonality and precipitation timing jointly determine dry-season stress, for example. A purely diagonal metric cannot capture such cross-feature dependencies. Local Mahalanobis LMNN extends the framework by replacing the diagonal weight vector :math:`\mathbf{w}_i \in \mathbb{R}^d` with a full positive semi-definite (PSD) metric matrix :math:`\mathbf{M}_i \in \mathbb{R}^{d \times d}`.
+
+**Low-Rank Parameterisation**
+
+Direct prediction of a :math:`d \times d` PSD matrix would require :math:`d(d+1)/2` outputs per cell and an explicit PSD projection. Instead, the MLP :math:`g_\phi: \mathbb{R}^d \to \mathbb{R}^{d \times r}` predicts a low-rank factor :math:`\mathbf{L}_i` of rank :math:`r \ll d`:
+
+.. math::
+
+   \mathbf{M}_i = \mathbf{L}_i \mathbf{L}_i^\top
+
+Because :math:`\mathbf{M}_i` is constructed as a Gram product, it is guaranteed PSD by construction—no eigenvalue clipping or Cholesky correction is needed.
+
+The rank :math:`r` controls the trade-off between expressiveness and cost:
+
+* :math:`r = 1`: Rank-1 outer product, capturing a single direction of interaction
+* :math:`r = d`: Full-rank local Mahalanobis (most expensive)
+* :math:`r = 8` (default for :math:`d = 51`): Captures dominant cross-feature interactions; MLP outputs :math:`d \cdot r = 408` values vs. :math:`d = 51` for diagonal
+
+**MLP Architecture**
+
+``climclusterpy.clustering.lmnn.local.LocalMahalanobisMLP`` has the same hidden-layer structure as the diagonal ``LocalWeightNetwork``:
+
+.. math::
+
+   \begin{align}
+   \mathbf{h}_1 &= \text{ReLU}(\mathbf{W}_1 \mathbf{x}_i + \mathbf{b}_1) \\
+   \mathbf{h}_2 &= \text{Dropout}(\mathbf{h}_1, p) \\
+   \mathbf{h}_3 &= \text{ReLU}(\mathbf{W}_2 \mathbf{h}_2 + \mathbf{b}_2) \\
+   \mathbf{h}_4 &= \text{Dropout}(\mathbf{h}_3, p) \\
+   \text{vec}(\mathbf{L}_i) &= \mathbf{W}_3 \mathbf{h}_4 + \mathbf{b}_3
+   \end{align}
+
+The output layer has :math:`d \cdot r` units, reshaped to :math:`\mathbf{L}_i \in \mathbb{R}^{d \times r}`. Unlike the diagonal variant, **no Softplus or L1-normalisation** is applied—PSD-ness is guaranteed by the Gram construction. Output layer weights are initialised with :math:`\mathcal{N}(0, 0.01^2)` and zero bias so that :math:`\mathbf{M}_i \approx \mathbf{0}` initially.
+
+Constructor parameters:
+
+.. code-block:: python
+
+   LocalMahalanobisMLP(
+       d=51,                    # input feature dimension
+       r=8,                     # low-rank factor dimension
+       hidden_width_factor=2.0, # hidden = int(d * factor)
+       dropout_rate=0.2,
+   )
+
+Convenience method ``compute_M()`` returns :math:`\mathbf{M}_i = \mathbf{L}_i \mathbf{L}_i^\top` directly:
+
+.. code-block:: python
+
+   model = LocalMahalanobisMLP(d=51, r=8)
+   L = model(X)          # (batch, 51, 8) low-rank factors
+   M = model.compute_M(X) # (batch, 51, 51) PSD metric matrices
+
+**Symmetrised Local Mahalanobis Distance**
+
+The distance between cells :math:`i` and :math:`j` uses the symmetrised average of their local metric matrices:
+
+.. math::
+
+   D_{\text{maha}}(\mathbf{x}_i, \mathbf{x}_j) = \sqrt{(\mathbf{x}_i - \mathbf{x}_j)^\top \frac{\mathbf{M}_i + \mathbf{M}_j}{2} (\mathbf{x}_i - \mathbf{x}_j)}
+
+Symmetrisation ensures :math:`D_{\text{maha}}(\mathbf{x}_i, \mathbf{x}_j) = D_{\text{maha}}(\mathbf{x}_j, \mathbf{x}_i)`.
+
+Special cases:
+
+* When :math:`r = d` and all :math:`\mathbf{M}_i` are equal → standard global Mahalanobis distance
+* When :math:`\mathbf{M}_i = \text{diag}(\mathbf{w}_i)` → diagonal local distance (existing ``compute_local_distance``)
+
+**Loss Function**
+
+``climclusterpy.clustering.lmnn.local.LocalMahalanobisLMNNLoss`` retains the pull-plus-margin structure and adds mandatory Frobenius regularisation:
+
+.. math::
+
+   \mathcal{L}_{\text{maha}} = (1 - \alpha)\, \mathcal{L}_{\text{pull}} + \alpha\, \mathcal{L}_{\text{margin}} + \lambda_{\text{reg}}\, \mathcal{L}_{\text{reg}}
+
+where:
+
+.. math::
+
+   \begin{align}
+   \mathcal{L}_{\text{pull}} &= \frac{1}{k} \sum_{j \in \mathcal{T}_i} D_{\text{maha}}^2(\mathbf{x}_i, \mathbf{x}_j) \\
+   \mathcal{L}_{\text{margin}} &= \frac{1}{k \cdot |\mathcal{I}_i|} \sum_{j \in \mathcal{T}_i} \sum_{l \in \mathcal{I}_i} \max\!\left(0,\, D_{\text{maha}}^2(\mathbf{x}_i, \mathbf{x}_j) - D_{\text{maha}}^2(\mathbf{x}_i, \mathbf{x}_l) + \Delta\right)^2 \\
+   \mathcal{L}_{\text{reg}} &= \frac{1}{n} \sum_{i=1}^n \|\mathbf{M}_i - \mathbf{I}_d\|_F^2
+   \end{align}
+
+The regularisation term prevents:
+
+* **Metric collapse** (:math:`\mathbf{M}_i \to \mathbf{0}`): All distances become zero
+* **Metric explosion**: Unbounded eigenvalues destabilise training
+
+Constructor parameters:
+
+.. code-block:: python
+
+   LocalMahalanobisLMNNLoss(
+       alpha=0.7,           # pull/margin trade-off
+       delta=1.0,           # margin hyperparameter
+       lambda_reg=1e-3,     # regularisation coefficient (mandatory)
+       max_impostors=50,    # cap per anchor
+   )
+
+The ``forward`` method accepts pre-computed :math:`\mathbf{M}` matrices for anchors, targets, and impostors:
+
+.. code-block:: python
+
+   total, pull, margin, reg = loss(
+       x_anchor, x_targets, x_impostors,
+       M_anchor, M_targets, M_impostors,
+       labels_anchor,
+   )
+
+**Distance Matrix Computation**
+
+:func:`climclusterpy.clustering.lmnn.compute_local_mahalanobis_distance_matrix` computes the full :math:`n \times n` pairwise distance matrix using a **double inner-loop** strategy for GPU memory management:
+
+1. **Phase 1 — Precompute M**: All :math:`\{\mathbf{M}_i\}_{i=1}^n` are computed in batches and stored on CPU. Memory: :math:`n \times d \times d \times 4` bytes (e.g., :math:`n \times 10\,\text{KB}` for :math:`d = 51`).
+
+2. **Phase 2 — Pairwise distances**: For each row-batch :math:`i \in [i_0, i_0+b)`, an inner loop over column-batches :math:`j \in [j_0, j_0+b')` loads the corresponding :math:`\mathbf{M}_i, \mathbf{M}_j` to GPU and computes the :math:`b \times b'` distance submatrix via batched matrix multiplication. Peak GPU memory: :math:`O(b \cdot b' \cdot d^2)`.
+
+3. **Symmetrisation**: :math:`\mathbf{D} \leftarrow (\mathbf{D} + \mathbf{D}^\top) / 2` for numerical precision.
+
+.. code-block:: python
+
+   D = compute_local_mahalanobis_distance_matrix(
+       X,                    # (n, d) feature matrix
+       model,                # trained LocalMahalanobisMLP
+       device=torch.device('cuda'),
+       batch_size=512,       # anchor rows per GPU batch
+   )
+   # Returns: (n, n) symmetric float32 distance matrix
+
+**Feature Importance**
+
+Feature importance under the Mahalanobis metric is extracted from the diagonal of the cell-averaged metric matrix:
+
+.. math::
+
+   I_j = \left[\frac{1}{n} \sum_{i=1}^n \mathbf{M}_i\right]_{jj}
+
+with normalised importances :math:`I_j^{\text{norm}} = I_j / \sum_{k=1}^d I_k`. Off-diagonal elements of :math:`\bar{\mathbf{M}}` additionally reveal which feature pairs interact most strongly.
+
+**Pipeline Integration**
+
+The ``local_mahalanobis`` mode is activated by setting ``LMNN_MODE = "local_mahalanobis"`` in the GPU pipeline. Configuration parameters:
+
+.. code-block:: python
+
+   LMNN_MODE = "local_mahalanobis"
+   MAHALANOBIS_RANK = 8        # r: low-rank factor dimension
+   MAHALANOBIS_LAMBDA_REG = 1e-3  # λ_reg: regularisation weight
+
+Cache filenames include ``_mahalanobis_r{r}`` to prevent collision with diagonal-mode artefacts.
+
+**Relationship to Diagonal Variant**
+
+.. list-table::
+   :header-rows: 1
+   :widths: 30 35 35
+
+   * - Property
+     - Diagonal (``LocalWeightNetwork``)
+     - Mahalanobis (``LocalMahalanobisMLP``)
+   * - Output per cell
+     - :math:`\mathbf{w}_i \in \mathbb{R}^d` (weights)
+     - :math:`\mathbf{L}_i \in \mathbb{R}^{d \times r}` (low-rank factor)
+   * - Metric matrix
+     - :math:`\text{diag}(\mathbf{w}_i)` (diagonal)
+     - :math:`\mathbf{L}_i \mathbf{L}_i^\top` (full PSD)
+   * - Cross-feature interactions
+     - None
+     - Captured via off-diagonal entries
+   * - MLP outputs
+     - :math:`d` (e.g. 51)
+     - :math:`d \times r` (e.g. 408)
+   * - Distance computation
+     - Element-wise weighted sum
+     - Matrix-vector product
+   * - Regularisation
+     - L1 normalisation + weight decay
+     - :math:`\lambda_{\text{reg}} \|\mathbf{M}_i - \mathbf{I}\|_F^2`
+
+Hierarchical Clustering
+-----------------------
+
+:mod:`climclusterpy.clustering.hierarchical` implements agglomerative hierarchical clustering. The linkage method is a configurable pipeline parameter; available options include Ward, complete, average, and single linkage.
+
+Linkage Methods
+~~~~~~~~~~~~~~~
+
+:func:`scipy.cluster.hierarchy.linkage` (called via :func:`climclusterpy.clustering.compute_dendrogram`) computes pairwise cluster distances. The choice of linkage defines the inter-cluster distance function:
+
+**Ward's linkage** minimizes within-cluster variance at each merge:
+
+.. math::
+
+   d_{\text{Ward}}(C_1, C_2) = \sqrt{\frac{2 n_1 n_2}{n_1 + n_2}} \|\mathbf{c}_1 - \mathbf{c}_2\|_2
+
+where :math:`\mathbf{c}_k` is the centroid and :math:`n_k = |C_k|` the size of cluster :math:`C_k`.
+
+**Complete linkage** merges based on the maximum inter-cluster distance, producing compact, well-separated clusters:
+
+.. math::
+
+   d_{\text{complete}}(C_1, C_2) = \max_{\mathbf{x} \in C_1,\, \mathbf{y} \in C_2} d(\mathbf{x}, \mathbf{y})
+
+**Average linkage** uses the mean of all pairwise inter-cluster distances:
+
+.. math::
+
+   d_{\text{average}}(C_1, C_2) = \frac{1}{n_1 n_2} \sum_{\mathbf{x} \in C_1} \sum_{\mathbf{y} \in C_2} d(\mathbf{x}, \mathbf{y})
+
+For local and enhanced LMNN modes, the precomputed symmetrized distance matrix :math:`\mathbf{D}_{\text{local}}` is passed directly to the linkage function.
+
+**Dendrogram Representation**
+
+The linkage matrix :math:`\mathbf{Z} \in \mathbb{R}^{(n-1) \times 4}` encodes:
+
+* Column 0, 1: Indices of merged clusters
+* Column 2: Merge distance
+* Column 3: Number of samples in resulting cluster
+
+**Cluster Assignment**
+
+:func:`scipy.cluster.hierarchy.fcluster` cuts the dendrogram to produce :math:`K` clusters:
+
+.. math::
+
+   \mathbf{y}^{\text{cluster}} = \text{fcluster}(\mathbf{Z}, K, \text{criterion='maxclust'})
+
+yielding labels :math:`\mathbf{y}^{\text{cluster}} \in \{1, 2, \ldots, K\}^n`.
+
+
+Representative Cell Selection
+------------------------------
+
+:mod:`climclusterpy.timeseries` selects cells that best represent cluster climate.
+
+Selection Methods
+~~~~~~~~~~~~~~~~~
+
+:func:`climclusterpy.timeseries.extract_representative_cells` supports three strategies:
+
+**1. Mean-Based Selection**
+
+Select cell :math:`i^*` minimizing Euclidean distance to cluster centroid :math:`\boldsymbol{\mu}_k`:
+
+.. math::
+
+   i^* = \arg\min_{i \in C_k} \|\mathbf{x}_i - \boldsymbol{\mu}_k\|_2
+
+**2. Median-Based Selection**
+
+Select cell minimizing distance to cluster median :math:`\text{median}(C_k)`:
+
+.. math::
+
+   i^* = \arg\min_{i \in C_k} \|\mathbf{x}_i - \text{median}(C_k)\|_2
+
+**3. Random Sampling**
+
+Uniform random selection:
+
+.. math::
+
+   i^* \sim \text{Uniform}(C_k)
+
+Optionally feature-weighted:
+
+.. math::
+
+   P(i) \propto \exp(-\|\mathbf{x}_i - \boldsymbol{\mu}_k\|_2^2 / \tau)
+
+where :math:`\tau` is a temperature parameter.
+
+Parallel Processing and Memory
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The number of parallel workers is the ``n_jobs`` argument of
+:func:`~climclusterpy.create_clusters` (``-1`` = all cores), and whether the climate is held
+in memory during extraction is its ``preload_climate`` argument. A few environment variables
+tune how much is read at once (chunk lengths, the size at which repeated distributed cells
+are held once); none of them changes what is computed. They are listed in
+:ref:`environment-variables`.
+
+Evaluation Metrics
+------------------
+
+The metrics below are the ones used to evaluate clusterings produced with this method. The
+package does not implement them — it is kept to clustering and grid building, and the
+evaluation code lives in the separate ``climclusterpy-research`` repository — but the
+formulas are documented here because they define what a "good" clustering means.
+
+Adjusted Rand Index
+~~~~~~~~~~~~~~~~~~~~
+
+:func:`sklearn.metrics.adjusted_rand_score` computes:
+
+.. math::
+
+   \text{ARI} = \frac{\sum_{ij} \binom{n_{ij}}{2} - \left[\sum_i \binom{a_i}{2} \sum_j \binom{b_j}{2}\right] / \binom{n}{2}}{\frac{1}{2}\left[\sum_i \binom{a_i}{2} + \sum_j \binom{b_j}{2}\right] - \left[\sum_i \binom{a_i}{2} \sum_j \binom{b_j}{2}\right] / \binom{n}{2}}
+
+where:
+
+* :math:`n_{ij}` = number of cells in cluster :math:`i` and ecoregion :math:`j`
+* :math:`a_i = \sum_j n_{ij}` (cluster :math:`i` size)
+* :math:`b_j = \sum_i n_{ij}` (ecoregion :math:`j` size)
+
+**Range**: :math:`[-1, 1]`
+
+* :math:`+1`: Perfect agreement
+* :math:`0`: Random clustering
+* :math:`-1`: Worse than random
+
+Normalized Mutual Information
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+:func:`sklearn.metrics.normalized_mutual_info_score` computes:
+
+.. math::
+
+   \text{NMI} = \frac{2 \cdot I(Y^{\text{cluster}}, Y^{\text{eco}})}{H(Y^{\text{cluster}}) + H(Y^{\text{eco}})}
+
+where:
+
+.. math::
+
+   \begin{align}
+   I(Y^{\text{cluster}}, Y^{\text{eco}}) &= \sum_{i,j} P(i,j) \log \frac{P(i,j)}{P(i)P(j)} \quad \text{(mutual information)} \\
+   H(Y) &= -\sum_k P(k) \log P(k) \quad \text{(entropy)}
+   \end{align}
+
+**Range**: :math:`[0, 1]`
+
+* :math:`1`: Perfect correspondence
+* :math:`0`: Independent partitions
+
+NetCDF Processing
+-----------------
+
+Cluster NetCDF Creation
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+:func:`climclusterpy.grid.build_reduced_grid` exports cluster representative timeseries to
+NetCDF format. Its per-cluster input dataset carries:
+
+* ``cluster_label``: Cluster ID (:math:`\in \{1, \ldots, K\}`)
+* ``center_lat``, ``center_lon``: Representative cell coordinates
+* ``n_cells``: Number of cells in cluster
+* Climate variables: ``precipitation``, ``temperature``, ``radiation``, ``humidity``
+
+**Dimensions**
+
+.. code-block:: text
+
+   cluster: K (number of clusters)
+   time: n_t (number of timesteps)
+
+Reconstruction
+~~~~~~~~~~~~~~
+
+:func:`climclusterpy.reconstruct_original_grid` maps cluster results back to the original
+grid (one simulated cell per cluster: :func:`climclusterpy.grid.reconstruct_output_netcdf`):
+
+1. Loads the mapping files and the output on the reduced grid
+2. For each original cell :math:`i` in cluster :math:`k`:
+
+   .. math::
+
+      \text{value}_i(t) = \text{representative}_k(t) \quad \forall t
+
+3. Writes reconstructed NetCDF with original spatial dimensions
+
+CLM Conversion
+~~~~~~~~~~~~~~
+
+:func:`climclusterpy.io.convert_netcdf_to_clm` provides shell interfaces to LPJ-ML binary converters:
+
+* ``cdf2soil``: Convert NetCDF soil data to LPJ-ML binary format
+* ``cdf2clm``: Convert NetCDF climate data to LPJ-ML binary format
+
+The converters are looked up, in order, from explicit ``cdf2clm_path`` / ``cdf2soil_path``
+arguments, a ``tools_dir``, ``$LPJROOT/bin``, and finally ``PATH``.
+
+Computational Implementation
+-----------------------------
+
+**Languages and Libraries**
+
+* Python 3.11
+* Core: NumPy, pandas, xarray
+* ML: scikit-learn, PyTorch
+* Geospatial: GeoPandas, Shapely
+* Parallel: Dask, Joblib
+
+**Memory Optimizations**
+
+* Dask chunking (500 timesteps default)
+* Float32 conversion (-50% memory)
+* Valid-cell masking (eliminates ocean/missing)
+* Lazy evaluation (avoid loading unnecessary data)
+
+**Caching Strategy**
+
+Intermediate results cached at:
+
+1. Raw features (pre-standardization)
+2. Standardized features
+3. Correlation-filtered features
+4. PCA-filtered features
+5. LMNN-transformed features (global mode)
+6. LMNN distance matrix (local/enhanced modes)
+7. Cluster labels and dendrograms
+
+This enables rapid iteration without expensive recomputation.

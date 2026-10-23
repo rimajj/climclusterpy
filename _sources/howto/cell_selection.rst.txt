@@ -1,0 +1,168 @@
+Choosing the cells a cluster is simulated on
+============================================
+
+Once the grid is cut into clusters, the vegetation model is run on a few real cells per
+cluster, and :func:`~climclusterpy.reconstruct_original_grid` gives every original cell its
+cluster's result. *Which* cells are run is the ``representative`` argument of
+:func:`~climclusterpy.create_clusters` and :func:`~climclusterpy.create_regions`.
+
+.. list-table::
+   :header-rows: 1
+   :widths: 16 34 50
+
+   * - ``representative``
+     - Cells simulated per cluster
+     - What it needs / when to use it
+   * - ``"medoid"``
+     - 1, the member closest to all others
+     - A learned metric (``locally_weighted=True``). The default whenever one exists.
+   * - ``"centroid"``
+     - 1, the member nearest the cluster mean
+     - Nothing extra. The default for Euclidean clustering.
+   * - ``"random"``
+     - 1, drawn at random
+     - Nothing to compute. A baseline, or when no representative can be justified.
+   * - ``"distributed"``
+     - ``cells_per_cluster``, drawn at random
+     - Nothing to compute. Spreads the patch budget over several real cells, so the cluster
+       result samples the cluster's spread instead of one cell's climate.
+
+The two drawn choices (``"random"``, ``"distributed"``) compute no representative at all,
+which is also why they are cheap: no distance matrix, no centroid.
+
+The patch budget
+----------------
+
+``npatch`` is the number of patches **per cluster** you are willing to pay for. A one-cell
+choice spends all of it in that cell. ``"distributed"`` splits it evenly, so every choice
+costs the vegetation model the same and the results are comparable:
+
+.. code-block:: python
+
+   from climclusterpy import create_clusters
+
+   one = create_clusters("climate/", n_clusters=67, representative="random",
+                         npatch=25, seed=1, output_dir="grid_random/")
+   one.patches_per_cell        # 25  -> 67 cells x 25 patches
+
+   many = create_clusters("climate/", n_clusters=67, representative="distributed",
+                          npatch=25, cells_per_cluster=25, seed=1,
+                          output_dir="grid_distributed/")
+   many.patches_per_cell       # 1   -> 1675 cells x 1 patch
+   many.selected_cells.head()  # cluster_label, cell_id, latitude, longitude, slot
+
+Set the vegetation model's patch count (LPJmL's ``npatch``) to ``patches_per_cell``. It is
+also written into every NetCDF's global attributes (``patches_per_cell``,
+``npatch_per_cluster``, ``cells_per_cluster``, ``cell_selection``), so a run script can read
+it from the file instead of re-deriving it. A split that does not divide evenly
+(``npatch=25, cells_per_cluster=4``) is refused rather than rounded.
+
+What the drawn cells carry
+--------------------------
+
+* **Their own climate and soil.** Nothing is averaged: a drawn cell's forcing is that cell's
+  forcing, and its soil is its own, not the cluster's most common soil.
+* **Their own latitude.** ``"random"`` places the drawn cell at its own latitude on the
+  written grid; ``"distributed"`` writes every drawn cell at its own position on the source
+  grid. Latitude sets day length, which is how position reaches the vegetation when radiation
+  comes from a forcing file. Since 0.3.0 ``"medoid"`` and ``"centroid"`` do the same by
+  default (``placement="native"``); ``placement="cluster_center"`` restores the earlier
+  layout at the cluster's centre latitude, which put some cells up to 107° away from the
+  latitude of the climate they carry.
+* **Repeats when a cluster is small.** A cluster with fewer members than
+  ``cells_per_cluster`` has every member repeated as often as fits, plus a random remainder.
+  A repeat is written at another longitude of the same latitude row (extra columns are added
+  east of the grid at the same spacing if a row is full), so it is a separate model cell with
+  its own random draws. ``diagnostics["n_repeated_slots"]`` counts them.
+
+Reproducibility
+---------------
+
+``seed`` seeds the draw (default 0). The same seed and the same clustering give the same
+cells at any ``n_jobs``; with ``seed=None`` every call draws afresh.
+
+Looking at a draw without building a grid
+-----------------------------------------
+
+:func:`~climclusterpy.draw_cells` makes the same draw from a label table and returns the
+same cells as ``selected_cells`` would, without extracting any climate or writing any file:
+
+.. code-block:: python
+
+   import pandas as pd
+   from climclusterpy import draw_cells
+
+   labels = pd.read_csv(many.labels_csv)   # cluster_labels_with_coords_nr_of_clusters_67.csv
+   cells = draw_cells(labels, "distributed", cells_per_cluster=25, seed=1)
+   cells.groupby("cluster_label").cell_id.nunique()   # distinct cells per cluster
+
+Use it to check a draw before paying for a build, to draw many seeds cheaply, or, when the
+vegetation model has already been run on every cell, to emulate a choice on that output.
+
+Back to the full grid
+---------------------
+
+Run the model on the written grid, then:
+
+.. code-block:: python
+
+   from climclusterpy import reconstruct_original_grid
+
+   full = reconstruct_original_grid("lpjml_output/vegc.nc", many)             # mean
+   robust = reconstruct_original_grid("lpjml_output/vegc.nc", many,
+                                      aggregate="median")                     # median
+
+The distributed path is picked from the result, so nothing else has to be passed. The
+model output can use LPJmL's ``lat``/``lon`` names, may have its empty margins trimmed, and
+may have any file name: the chosen cells are found by coordinate.
+
+``aggregate`` says how a cluster's cells are combined into the value every member receives:
+
+``"mean"`` (default)
+   The same thing the vegetation model does across the patches *inside* one cell, so 25 cells
+   × 1 patch is directly comparable to 1 cell × 25 patches.
+``"median"``
+   Less sensitive to one outlying cell.
+
+Missing values in the output are ignored; a cluster none of whose cells has a value stays NaN
+and is logged.
+
+A model that reads its own inputs: the grid only, then cut the rest
+--------------------------------------------------------------------
+
+A real model run opens more per-cell inputs than the climate and soil the package clustered on
+(LPJmL with nitrogen: wind, wet days, deposition, soil pH, slopes, ...). Build only the grid and
+its mapping, then cut every input the run opens to the drawn cells:
+
+.. code-block:: python
+
+   from climclusterpy import convert_netcdf_to_clm, create_regions, subset_inputs
+
+   grid = create_regions(
+       "climate/", "deploy/cluster_labels.csv", fraction=0.01,   # the cut nearest 1 % of the cells
+       representative="distributed", npatch=25, cells_per_cluster=25, seed=1,
+       write_fields=("soil_code",),                              # no climate read or written
+       output_dir="grid_1pct/",
+   )
+   convert_netcdf_to_clm(grid.cluster_files, "grid_1pct/clm/",
+                         soil_code_file=grid.netcdf_files["soil_code"])
+   subset_inputs(
+       grid,
+       ["input/wind.clm", "input/soil.bin", "input/ndep.clm.json", "input/extra.nc"],
+       "grid_1pct/inputs/",
+       source_grid="input/grid.bin",                             # the full run's grid file
+       target_grid="grid_1pct/clm/<the .grid.clm written above>",
+   )
+
+Two hazards this takes care of, and which a hand-written cutter has to handle itself:
+
+* **Cell order.** LPJmL reads ``.clm`` inputs by position. The package numbers cells
+  latitude-major, LPJmL's global ``grid.bin`` is longitude-major, so a positional join between
+  them is silently wrong. :func:`~climclusterpy.subset_inputs` and
+  :func:`~climclusterpy.cell_index_in_grid` match every cell by coordinate.
+* **Repeated cells sit at shifted longitudes.** A region with fewer cells than
+  ``cells_per_cluster`` repeats cells at the next free longitude of the same row (2 317 of
+  16 850 slots at 674 regions × 25 on the global half-degree grid). An input the model finds
+  *by coordinate* -- a NetCDF -- would read the wrong place there. ``grid.slot_sources`` lists
+  every slot's position and source; :func:`~climclusterpy.subset_inputs` writes NetCDF inputs
+  on the reduced grid's lattice with each slot holding its source cell's values, which is safe.
