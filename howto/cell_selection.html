@@ -15,7 +15,7 @@
     <link rel="shortcut icon" href="../_static/logo.svg"/>
       <script src="../_static/jquery.js?v=5d32c60e"></script>
       <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../_static/documentation_options.js?v=1dd76d02"></script>
+      <script src="../_static/documentation_options.js?v=b9afe91b"></script>
       <script src="../_static/doctools.js?v=9bcbadda"></script>
       <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/js/theme.js"></script>
@@ -106,13 +106,14 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="inputs.html">Prepare the input files</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="inputs.html#describe-the-input">Describe the input</a></li>
+<li class="toctree-l3"><a class="reference internal" href="inputs.html#what-the-climate-fields-are-used-for">What the climate fields are used for</a></li>
 <li class="toctree-l3"><a class="reference internal" href="inputs.html#check-your-input-first">Check your input first</a></li>
-<li class="toctree-l3"><a class="reference internal" href="inputs.html#the-files">The files</a></li>
 <li class="toctree-l3"><a class="reference internal" href="inputs.html#grid-and-coordinates">Grid and coordinates</a></li>
-<li class="toctree-l3"><a class="reference internal" href="inputs.html#which-cells-exist-the-soil-code">Which cells exist: the soil code</a></li>
 <li class="toctree-l3"><a class="reference internal" href="inputs.html#the-time-axis">The time axis</a></li>
 <li class="toctree-l3"><a class="reference internal" href="inputs.html#missing-values">Missing values</a></li>
-<li class="toctree-l3"><a class="reference internal" href="inputs.html#another-vegetation-model-s-input">Another vegetation model’s input</a></li>
+<li class="toctree-l3"><a class="reference internal" href="inputs.html#what-is-written">What is written</a></li>
+<li class="toctree-l3"><a class="reference internal" href="inputs.html#the-lpjml-fit-file-layout">The LPJmL-FIT file layout</a></li>
 <li class="toctree-l3"><a class="reference internal" href="inputs.html#output-files">Output files</a></li>
 </ul>
 </li>
@@ -158,7 +159,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../reference/api.html">Public API — <code class="xref py py-mod docutils literal notranslate"><span class="pre">climclusterpy</span></code></a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../reference/api.html#the-two-headline-functions">The two headline functions</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../reference/api.html#before-and-after-the-model-run">Before and after the model run</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../reference/api.html#input-for-a-model-other-than-lpjml">Input for a model other than LPJmL</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/api.html#describing-the-input">Describing the input</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../reference/api.html#other-ways-to-build-the-reduced-grid">Other ways to build the reduced grid</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../reference/api.html#reusing-a-trained-metric">Reusing a trained metric</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../reference/api.html#the-model-s-other-inputs">The model’s other inputs</a></li>
@@ -398,9 +399,13 @@ and is logged.</p>
 </section>
 <section id="a-model-that-reads-its-own-inputs-the-grid-only-then-cut-the-rest">
 <h2>A model that reads its own inputs: the grid only, then cut the rest<a class="headerlink" href="#a-model-that-reads-its-own-inputs-the-grid-only-then-cut-the-rest" title="Link to this heading"></a></h2>
-<p>A real model run opens more per-cell inputs than the climate and soil the package clustered on
-(LPJmL with nitrogen: wind, wet days, deposition, soil pH, slopes, …). Build only the grid and
-its mapping, then cut every input the run opens to the drawn cells:</p>
+<p>A real model run opens more per-cell inputs than the climate and static fields the package
+clustered on (wind, deposition, soil chemistry, slopes, …). Build only the grid and its
+mapping, then cut every input the run opens to the drawn cells.
+<a class="reference internal" href="../reference/api.html#climclusterpy.subset_inputs" title="climclusterpy.subset_inputs"><code class="xref py py-func docutils literal notranslate"><span class="pre">subset_inputs()</span></code></a> cuts NetCDF inputs for any model and also reads LPJmL’s
+binary formats; the example below is the LPJmL-FIT one (its <code class="docutils literal notranslate"><span class="pre">climate/</span></code> directory is the
+fixed file layout, with a <code class="docutils literal notranslate"><span class="pre">soil_code</span></code> file, and the <code class="docutils literal notranslate"><span class="pre">.clm</span></code> conversion is LPJmL-specific).
+For another model, pass <code class="docutils literal notranslate"><span class="pre">climate=</span></code>/<code class="docutils literal notranslate"><span class="pre">static=</span></code> as usual and cut your own NetCDF inputs:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">climclusterpy</span><span class="w"> </span><span class="kn">import</span> <span class="n">convert_netcdf_to_clm</span><span class="p">,</span> <span class="n">create_regions</span><span class="p">,</span> <span class="n">subset_inputs</span>
 
 <span class="n">grid</span> <span class="o">=</span> <span class="n">create_regions</span><span class="p">(</span>

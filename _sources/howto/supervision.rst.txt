@@ -87,9 +87,11 @@ unless you pass ``ecoregion_min_cells``. A cell centre on the border of two ecor
 equally near two when no polygon covers it, gets the lower id, with a warning.
 
 Missing the extra raises an ``ImportError`` naming ``[ecoregions]``. Get ``registry`` with
-``DataRegistry.from_soil_code("soil_code.nc")`` from the soil-code file of your input, with
-``DataRegistry.load("<output_dir>/original_grid.nc")`` from a finished run, or as
-``clusters.registry`` from a :func:`~climclusterpy.create_clusters` result.
+``DataRegistry.load("<output_dir>/original_grid.nc")`` from a finished run, as
+``clusters.registry`` from a :func:`~climclusterpy.create_clusters` result, or from what
+defines your cells: ``DataRegistry.from_mask("land.nc")``,
+``DataRegistry.from_cell_list("gridlist.csv")``, or for the LPJmL-FIT layout
+``DataRegistry.from_soil_code("soil_code.nc")``.
 
 Using the signal
 -----------------

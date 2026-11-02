@@ -14,7 +14,7 @@
     <link rel="shortcut icon" href="../../_static/logo.svg"/>
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=1dd76d02"></script>
+      <script src="../../_static/documentation_options.js?v=b9afe91b"></script>
       <script src="../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/js/theme.js"></script>
@@ -103,13 +103,14 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../howto/inputs.html">Prepare the input files</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../howto/inputs.html#describe-the-input">Describe the input</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../howto/inputs.html#what-the-climate-fields-are-used-for">What the climate fields are used for</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../howto/inputs.html#check-your-input-first">Check your input first</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../howto/inputs.html#the-files">The files</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../howto/inputs.html#grid-and-coordinates">Grid and coordinates</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../howto/inputs.html#which-cells-exist-the-soil-code">Which cells exist: the soil code</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../howto/inputs.html#the-time-axis">The time axis</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../howto/inputs.html#missing-values">Missing values</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../howto/inputs.html#another-vegetation-model-s-input">Another vegetation model’s input</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../howto/inputs.html#what-is-written">What is written</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../howto/inputs.html#the-lpjml-fit-file-layout">The LPJmL-FIT file layout</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../howto/inputs.html#output-files">Output files</a></li>
 </ul>
 </li>
@@ -155,7 +156,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../reference/api.html">Public API — <code class="xref py py-mod docutils literal notranslate"><span class="pre">climclusterpy</span></code></a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../reference/api.html#the-two-headline-functions">The two headline functions</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../reference/api.html#before-and-after-the-model-run">Before and after the model run</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../reference/api.html#input-for-a-model-other-than-lpjml">Input for a model other than LPJmL</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/api.html#describing-the-input">Describing the input</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../reference/api.html#other-ways-to-build-the-reduced-grid">Other ways to build the reduced grid</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../reference/api.html#reusing-a-trained-metric">Reusing a trained metric</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../reference/api.html#the-model-s-other-inputs">The model’s other inputs</a></li>
@@ -544,6 +545,13 @@
 <span class="sd">        The label signal the metric was trained on (LMNN mode only).</span>
 <span class="sd">    feature_columns : list of str</span>
 <span class="sd">        Feature columns that survived filtering and were clustered on.</span>
+<span class="sd">    features : pandas.DataFrame or None</span>
+<span class="sd">        The per-cell feature table the cells were clustered on: ``cell_id, latitude,</span>
+<span class="sd">        longitude`` followed by ``feature_columns`` (standardized, de-correlated, PCA-filtered),</span>
+<span class="sd">        one row per valid cell in the order of ``labels``. Use it to cut one tree at several</span>
+<span class="sd">        cluster counts with :func:`cluster_matrix`, or to inspect the features. ``None`` when</span>
+<span class="sd">        no feature table was built (a drawn cell choice from :func:`create_regions`) and for a</span>
+<span class="sd">        result read back by :func:`load_clusters`.</span>
 <span class="sd">    diagnostics : dict</span>
 <span class="sd">        Mode-specific diagnostics (LMNN training info, feature counts, timings).</span>
 <span class="sd">    learned_metric_dir : str or None</span>
@@ -571,6 +579,7 @@
     <span class="n">distributed_mapping_csv</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">placement</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"native"</span>
     <span class="n">learned_metric_dir</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">features</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">cluster_files</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
@@ -1132,31 +1141,48 @@
 
 <div class="viewcode-block" id="check_inputs">
 <a class="viewcode-back" href="../../reference/api.html#climclusterpy.check_inputs">[docs]</a>
-<span class="k">def</span><span class="w"> </span><span class="nf">check_inputs</span><span class="p">(</span><span class="n">climate_input</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">n_clusters</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">climate_variables</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">"""Check a climate + soil input before a long run, and report what is wrong with it.</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">check_inputs</span><span class="p">(</span>
+    <span class="n">climate_input</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="o">*</span><span class="p">,</span>
+    <span class="n">climate</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">static</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">land_mask</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">grid</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">n_clusters</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">climate_variables</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Check a gridded climate (and static-field) input before a long run, and report what is wrong with it.</span>
 
 <span class="sd">    Runs everything :func:`create_clusters` would check, plus a full scan for missing</span>
 <span class="sd">    values, without building features or clustering. Use it before submitting a job::</span>
 
-<span class="sd">        report = check_inputs("/data/climate_input", n_clusters=2000)</span>
+<span class="sd">        report = check_inputs(</span>
+<span class="sd">            climate={"temperature": "tas.nc", "precipitation": "pr.nc"},</span>
+<span class="sd">            static={"soil": ("soil.nc", "categorical")},</span>
+<span class="sd">            n_clusters=2000,</span>
+<span class="sd">        )</span>
 <span class="sd">        print(report)          # grid, time axes, units, and every problem found</span>
 <span class="sd">        report.ok              # False if create_clusters would refuse or go wrong</span>
 
 <span class="sd">    What it checks:</span>
 
 <span class="sd">    * the input resolves -- every required file present (see :func:`create_clusters`);</span>
-<span class="sd">    * every climate file is on exactly the ``soil_code`` grid;</span>
+<span class="sd">    * every climate file is on exactly the grid that defines the cells (the land mask, the</span>
+<span class="sd">      cell list, or for the LPJmL-FIT layout the ``soil_code`` file);</span>
 <span class="sd">    * the climate files share one time axis (same number of steps, all daily or all monthly);</span>
 <span class="sd">    * units, judged from the values: temperature in °C or K; precipitation in mm per time</span>
 <span class="sd">      step, not a flux in kg m-2 s-1; radiation in W m-2; humidity in %;</span>
-<span class="sd">    * no missing values on land cells (cells with a valid ``soil_code``) in any input;</span>
+<span class="sd">    * no missing values on the cells to be clustered in any input;</span>
 <span class="sd">    * ``n_clusters``, if given, is a whole number between 1 and the number of land cells;</span>
 <span class="sd">    * ``climate_variables``, if given, names known variables the input provides.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    climate_input : DataPaths, GenericInputs, dict or str</span>
+<span class="sd">    climate_input : GenericInputs, DataPaths, dict or str, optional</span>
 <span class="sd">        As for :func:`create_clusters`.</span>
+<span class="sd">    climate, static, land_mask, grid : optional</span>
+<span class="sd">        As for :func:`create_clusters`: the input described directly, instead of</span>
+<span class="sd">        ``climate_input``.</span>
 <span class="sd">    n_clusters : int, optional</span>
 <span class="sd">        The number of clusters you intend to ask for.</span>
 <span class="sd">    climate_variables : sequence of str, optional</span>
@@ -1177,6 +1203,7 @@
 <span class="sd">    """</span>
     <span class="kn">from</span><span class="w"> </span><span class="nn">.data.checks</span><span class="w"> </span><span class="kn">import</span> <span class="n">InputCheck</span><span class="p">,</span> <span class="n">check_loaded_inputs</span><span class="p">,</span> <span class="n">full_missing_scan</span>
 
+    <span class="n">climate_input</span> <span class="o">=</span> <span class="n">_input_spec</span><span class="p">(</span><span class="n">climate_input</span><span class="p">,</span> <span class="n">climate</span><span class="p">,</span> <span class="n">static</span><span class="p">,</span> <span class="n">land_mask</span><span class="p">,</span> <span class="n">grid</span><span class="p">,</span> <span class="s2">"check_inputs"</span><span class="p">)</span>
     <span class="k">try</span><span class="p">:</span>
         <span class="n">datasets</span><span class="p">,</span> <span class="n">registry</span> <span class="o">=</span> <span class="n">_load_input</span><span class="p">(</span><span class="n">climate_input</span><span class="p">)</span>
     <span class="k">except</span> <span class="p">(</span><span class="ne">FileNotFoundError</span><span class="p">,</span> <span class="ne">ValueError</span><span class="p">,</span> <span class="ne">OSError</span><span class="p">,</span> <span class="ne">KeyError</span><span class="p">)</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
@@ -1197,6 +1224,38 @@
             <span class="n">report</span><span class="o">.</span><span class="n">problems</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
     <span class="k">return</span> <span class="n">report</span></div>
 
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_input_spec</span><span class="p">(</span><span class="n">climate_input</span><span class="p">,</span> <span class="n">climate</span><span class="p">,</span> <span class="n">static</span><span class="p">,</span> <span class="n">land_mask</span><span class="p">,</span> <span class="n">grid</span><span class="p">,</span> <span class="n">function</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""The input a public call describes: ``climate_input`` as given, or a GenericInputs</span>
+<span class="sd">    built from the ``climate=``/``static=``/``land_mask=``/``grid=`` arguments.</span>
+
+<span class="sd">    Exactly one of the two must be given; the spec arguments without ``climate=`` are refused</span>
+<span class="sd">    rather than ignored.</span>
+<span class="sd">    """</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">.data.generic_input</span><span class="w"> </span><span class="kn">import</span> <span class="n">GenericInputs</span>
+
+    <span class="n">spec_args</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"static"</span><span class="p">:</span> <span class="n">static</span><span class="p">,</span> <span class="s2">"land_mask"</span><span class="p">:</span> <span class="n">land_mask</span><span class="p">,</span> <span class="s2">"grid"</span><span class="p">:</span> <span class="n">grid</span><span class="p">}</span>
+    <span class="n">given</span> <span class="o">=</span> <span class="p">[</span><span class="n">k</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">spec_args</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">v</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">climate</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">given</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">function</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="s1">', '</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s1">='</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">k</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">given</span><span class="p">)</span><span class="si">}</span><span class="s2"> describe the input together "</span>
+                <span class="s2">"with climate=, which is missing. Pass climate={name: path, ...} as well."</span>
+            <span class="p">)</span>
+        <span class="k">if</span> <span class="n">climate_input</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">function</span><span class="si">}</span><span class="s2"> needs an input: climate=</span><span class="se">{{</span><span class="s2">name: path, ...</span><span class="se">}}</span><span class="s2"> (plus static=, "</span>
+                <span class="s2">"land_mask= or grid= as needed), a GenericInputs, or a DataPaths for the "</span>
+                <span class="s2">"LPJmL-FIT file layout."</span>
+            <span class="p">)</span>
+        <span class="k">return</span> <span class="n">climate_input</span>
+    <span class="k">if</span> <span class="n">climate_input</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">function</span><span class="si">}</span><span class="s2">: give the input either as climate_input or as climate=/static=/"</span>
+            <span class="s2">"land_mask=/grid=, not both."</span>
+        <span class="p">)</span>
+    <span class="k">return</span> <span class="n">GenericInputs</span><span class="p">(</span><span class="n">climate</span><span class="o">=</span><span class="n">climate</span><span class="p">,</span> <span class="n">static</span><span class="o">=</span><span class="n">static</span> <span class="ow">or</span> <span class="p">{},</span> <span class="n">land_mask</span><span class="o">=</span><span class="n">land_mask</span><span class="p">,</span> <span class="n">grid</span><span class="o">=</span><span class="n">grid</span><span class="p">)</span>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">_load_input</span><span class="p">(</span><span class="n">climate_input</span><span class="p">):</span>
@@ -1598,6 +1657,16 @@
     <span class="k">return</span> <span class="n">written</span>
 
 
+<span class="k">def</span><span class="w"> </span><span class="nf">_feature_table_for_result</span><span class="p">(</span><span class="n">features_df</span><span class="p">,</span> <span class="n">feature_columns</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""The identifying columns plus the clustered feature columns, as a copy; ``None`` when no</span>
+<span class="sd">    feature table was built.</span>
+<span class="sd">    """</span>
+    <span class="k">if</span> <span class="n">features_df</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">feature_columns</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">None</span>
+    <span class="n">ids</span> <span class="o">=</span> <span class="p">[</span><span class="n">c</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">"cell_id"</span><span class="p">,</span> <span class="s2">"latitude"</span><span class="p">,</span> <span class="s2">"longitude"</span><span class="p">)</span> <span class="k">if</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">features_df</span><span class="o">.</span><span class="n">columns</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">features_df</span><span class="p">[</span><span class="n">ids</span> <span class="o">+</span> <span class="nb">list</span><span class="p">(</span><span class="n">feature_columns</span><span class="p">)]</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+
 <span class="k">def</span><span class="w"> </span><span class="nf">_finalize_reduced_grid</span><span class="p">(</span>
     <span class="o">*</span><span class="p">,</span>
     <span class="n">datasets</span><span class="p">,</span>
@@ -1680,14 +1749,7 @@
         <span class="n">df_labels</span><span class="p">,</span> <span class="n">climate</span> <span class="o">=</span> <span class="n">_load_extraction_inputs</span><span class="p">(</span>
             <span class="n">datasets</span><span class="p">,</span> <span class="n">registry</span><span class="p">,</span> <span class="n">labels_csv</span><span class="p">,</span> <span class="n">preload_climate</span><span class="o">=</span><span class="kc">False</span>
         <span class="p">)</span>
-        <span class="k">if</span> <span class="s2">"soil_code"</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">datasets</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                <span class="s2">"representative='distributed' needs a 'soil_code' field (LPJmL's own soil "</span>
-                <span class="s2">"map, or a static field named 'soil_code' in a generic input) -- it is an "</span>
-                <span class="s2">"LPJmL-specific placement option. Use the default representative='auto' for "</span>
-                <span class="s2">"a non-LPJmL input."</span>
-            <span class="p">)</span>
-        <span class="n">soil_code</span> <span class="o">=</span> <span class="n">datasets</span><span class="p">[</span><span class="s2">"soil_code"</span><span class="p">]</span>
+        <span class="n">soil_code</span> <span class="o">=</span> <span class="n">datasets</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"soil_code"</span><span class="p">)</span>
         <span class="n">soil_depth</span> <span class="o">=</span> <span class="n">datasets</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"soil_depth"</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">fields</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="c1"># A field nobody asked for is not read at all: on a daily global forcing the</span>
@@ -1697,7 +1759,7 @@
             <span class="nb">sorted</span><span class="p">(</span><span class="n">df_labels</span><span class="p">[</span><span class="s2">"cluster_label"</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()),</span>
             <span class="n">df_labels</span><span class="p">,</span>
             <span class="n">climate</span><span class="p">,</span>
-            <span class="n">soil_code</span><span class="o">.</span><span class="n">to_dataframe</span><span class="p">()</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(),</span>
+            <span class="n">soil_code</span><span class="o">.</span><span class="n">to_dataframe</span><span class="p">()</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span> <span class="k">if</span> <span class="n">soil_code</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="kc">None</span><span class="p">,</span>
             <span class="n">soil_depth</span><span class="o">.</span><span class="n">to_dataframe</span><span class="p">()</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span> <span class="k">if</span> <span class="n">soil_depth</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="kc">None</span><span class="p">,</span>
             <span class="n">soil_code</span><span class="p">,</span>
             <span class="n">soil_depth</span><span class="p">,</span>
@@ -1848,6 +1910,7 @@
         <span class="n">distributed_mapping_csv</span><span class="o">=</span><span class="n">distributed_mapping_csv</span><span class="p">,</span>
         <span class="n">placement</span><span class="o">=</span><span class="n">placement</span><span class="p">,</span>
         <span class="n">learned_metric_dir</span><span class="o">=</span><span class="n">learned_metric_dir</span><span class="p">,</span>
+        <span class="n">features</span><span class="o">=</span><span class="n">_feature_table_for_result</span><span class="p">(</span><span class="n">features_df</span><span class="p">,</span> <span class="n">feature_columns</span><span class="p">),</span>
     <span class="p">)</span>
     <span class="n">static_files</span> <span class="o">=</span> <span class="n">_write_static_fields</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">datasets</span><span class="p">,</span> <span class="nb">list</span><span class="p">(</span><span class="n">static_fields</span><span class="p">),</span> <span class="n">overwrite</span><span class="o">=</span><span class="n">overwrite</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">static_files</span><span class="p">:</span>
@@ -2110,9 +2173,13 @@
 <div class="viewcode-block" id="create_clusters">
 <a class="viewcode-back" href="../../reference/api.html#climclusterpy.create_clusters">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">create_clusters</span><span class="p">(</span>
-    <span class="n">climate_input</span><span class="p">,</span>
+    <span class="n">climate_input</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="n">n_clusters</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="o">*</span><span class="p">,</span>
+    <span class="n">climate</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">static</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">land_mask</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">grid</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="n">fraction</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">locally_weighted</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="n">learned_metric</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
@@ -2155,17 +2222,41 @@
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    climate_input : DataPaths, GenericInputs, dict or str</span>
-<span class="sd">        The climate and soil input: a</span>
-<span class="sd">        :class:`~climclusterpy.data.loader.DataPaths`, a mapping of its field names</span>
-<span class="sd">        to paths, or a directory holding one NetCDF per input named after the field</span>
-<span class="sd">        (``temperature.nc``, ``precipitation.nc``, ``soil_code.nc``, …). For a model other</span>
-<span class="sd">        than LPJmL, a :class:`~climclusterpy.GenericInputs`: any named climate and static</span>
-<span class="sd">        fields and any land mask. Its static fields are used for clustering and written to</span>
-<span class="sd">        the reduced grid under their own names.</span>
+<span class="sd">    climate_input : GenericInputs, DataPaths, dict or str, optional</span>
+<span class="sd">        The input as one object, instead of ``climate=`` and the arguments after it: a</span>
+<span class="sd">        :class:`~climclusterpy.GenericInputs` (the same description, built beforehand), or</span>
+<span class="sd">        the fixed file layout LPJmL-FIT reads -- a :class:`~climclusterpy.data.DataPaths`, a</span>
+<span class="sd">        mapping of its field names to paths, or a directory holding ``temperature.nc``,</span>
+<span class="sd">        ``precipitation.nc``, ``short_wave_radiation.nc``, ``long_wave_radiation.nc``,</span>
+<span class="sd">        ``soil_code.nc``, ``soil_depth.nc`` (and optionally ``humid.nc``), in which the soil</span>
+<span class="sd">        code defines the land cells.</span>
 <span class="sd">    n_clusters : int, optional</span>
 <span class="sd">        Number of clusters (the paper's ``K``) — i.e. how many cells the reduced</span>
 <span class="sd">        grid will have. Give this or ``fraction``, not both.</span>
+<span class="sd">    climate : dict, optional</span>
+<span class="sd">        The climate fields, ``{name: path}``, e.g. ``{"temperature": "tas.nc",</span>
+<span class="sd">        "precipitation": "pr.nc"}``: at least one, under any names, each a NetCDF with a</span>
+<span class="sd">        ``time`` dimension. A value may be a :class:`~climclusterpy.ClimateField` instead of</span>
+<span class="sd">        a path, to name the variable inside the file or how it is averaged. A field</span>
+<span class="sd">        recognised as temperature, precipitation, short- or long-wave radiation or humidity</span>
+<span class="sd">        (by its name or its variable's, e.g. ``tas``, ``pr``, ``rsds``) gets that variable's</span>
+<span class="sd">        features, unit handling and Köppen–Geiger use; any other field is summarised by its</span>
+<span class="sd">        annual mean (or sum, see ``ClimateField``), its spread and its monthly cycle. Same as passing</span>
+<span class="sd">        ``GenericInputs(climate=..., static=..., land_mask=..., grid=...)`` as</span>
+<span class="sd">        ``climate_input``.</span>
+<span class="sd">    static : dict, optional</span>
+<span class="sd">        With ``climate``: fields without a time axis (soil, elevation, land cover, …),</span>
+<span class="sd">        ``{name: (path, kind)}`` with ``kind`` ``"categorical"`` (a class code, one-hot</span>
+<span class="sd">        encoded) or ``"continuous"`` (a measurement), or a</span>
+<span class="sd">        :class:`~climclusterpy.StaticField`. They are clustered on with the climate and</span>
+<span class="sd">        written to the reduced grid under their own names.</span>
+<span class="sd">    land_mask : str or tuple, optional</span>
+<span class="sd">        With ``climate``: a NetCDF marking the cells to cluster (non-zero and not missing);</span>
+<span class="sd">        ``(path, variable)`` when the file holds several variables.</span>
+<span class="sd">    grid : str or pandas.DataFrame, optional</span>
+<span class="sd">        With ``climate``, and used only without ``land_mask``: the model's own cell list, a</span>
+<span class="sd">        CSV (or table) with ``lat`` and ``lon`` columns. With neither, the cells are those</span>
+<span class="sd">        where every field has data.</span>
 <span class="sd">    fraction : float, optional</span>
 <span class="sd">        The number of clusters as a share of the input's valid (land) cells, in ``(0, 1]``:</span>
 <span class="sd">        ``fraction=0.01`` on the 67 420-cell half-degree land grid is ``n_clusters=674``</span>
@@ -2384,10 +2475,21 @@
 
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>
-<span class="sd">    &gt;&gt;&gt; clusters = create_clusters("/data/climate", n_clusters=2000)  # doctest: +SKIP</span>
+<span class="sd">    &gt;&gt;&gt; clusters = create_clusters(                                  # doctest: +SKIP</span>
+<span class="sd">    ...     climate={"temperature": "tas.nc", "precipitation": "pr.nc"},</span>
+<span class="sd">    ...     static={"soil": ("soil.nc", "categorical")},</span>
+<span class="sd">    ...     n_clusters=2000,</span>
+<span class="sd">    ... )</span>
 <span class="sd">    &gt;&gt;&gt; sorted(clusters.netcdf_files)                                 # doctest: +SKIP</span>
-<span class="sd">    ['__id_mapping__', 'long_wave_radiation', 'precipitation', ...]</span>
+<span class="sd">    ['__id_mapping__', '__placement__', 'precipitation', 'soil', 'temperature']</span>
+
+<span class="sd">    The same input built beforehand, or the LPJmL-FIT file layout:</span>
+
+<span class="sd">    &gt;&gt;&gt; spec = GenericInputs(climate={"temperature": "tas.nc"})       # doctest: +SKIP</span>
+<span class="sd">    &gt;&gt;&gt; clusters = create_clusters(spec, n_clusters=2000)             # doctest: +SKIP</span>
+<span class="sd">    &gt;&gt;&gt; clusters = create_clusters("/data/lpjml_input", n_clusters=2000)  # doctest: +SKIP</span>
 <span class="sd">    """</span>
+    <span class="n">climate_input</span> <span class="o">=</span> <span class="n">_input_spec</span><span class="p">(</span><span class="n">climate_input</span><span class="p">,</span> <span class="n">climate</span><span class="p">,</span> <span class="n">static</span><span class="p">,</span> <span class="n">land_mask</span><span class="p">,</span> <span class="n">grid</span><span class="p">,</span> <span class="s2">"create_clusters"</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">representative</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">{</span><span class="s2">"auto"</span><span class="p">,</span> <span class="s2">"medoid"</span><span class="p">,</span> <span class="s2">"centroid"</span><span class="p">,</span> <span class="o">*</span><span class="n">_SAMPLED_CELL_CHOICES</span><span class="p">}:</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
             <span class="s2">"representative must be 'auto', 'medoid', 'centroid', 'random' or "</span>
@@ -2818,9 +2920,13 @@
 <div class="viewcode-block" id="create_regions">
 <a class="viewcode-back" href="../../reference/api.html#climclusterpy.create_regions">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">create_regions</span><span class="p">(</span>
-    <span class="n">climate_input</span><span class="p">,</span>
-    <span class="n">partition</span><span class="p">,</span>
+    <span class="n">climate_input</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">partition</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="o">*</span><span class="p">,</span>
+    <span class="n">climate</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">static</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">land_mask</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">grid</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="n">column</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">fraction</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">ecoregions_shapefile</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -2866,9 +2972,9 @@
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    climate_input : DataPaths, GenericInputs, dict or str</span>
-<span class="sd">        As :func:`create_clusters`: a ``DataPaths``, a ``GenericInputs``, a mapping of field</span>
-<span class="sd">        names to paths, or a directory of ``&lt;field&gt;.nc`` files.</span>
+<span class="sd">    climate_input : GenericInputs, DataPaths, dict or str, optional</span>
+<span class="sd">        As :func:`create_clusters`; or describe the input with ``climate=``, ``static=``,</span>
+<span class="sd">        ``land_mask=`` and ``grid=``, as there.</span>
 <span class="sd">    partition : SupervisionResult, str, pandas.DataFrame or array-like</span>
 <span class="sd">        The map. One of:</span>
 
@@ -3022,6 +3128,12 @@
 <span class="sd">    &gt;&gt;&gt; # run the vegetation model on reduced_grid/, then:</span>
 <span class="sd">    &gt;&gt;&gt; full = reconstruct_original_grid("model_out/", clusters=regions)   # doctest: +SKIP</span>
 <span class="sd">    """</span>
+    <span class="n">climate_input</span> <span class="o">=</span> <span class="n">_input_spec</span><span class="p">(</span><span class="n">climate_input</span><span class="p">,</span> <span class="n">climate</span><span class="p">,</span> <span class="n">static</span><span class="p">,</span> <span class="n">land_mask</span><span class="p">,</span> <span class="n">grid</span><span class="p">,</span> <span class="s2">"create_regions"</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">partition</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span>
+            <span class="s2">"create_regions() needs partition= (the region map: 'koppen_geiger', "</span>
+            <span class="s2">"'ecoregions', a label table, or an array of labels)."</span>
+        <span class="p">)</span>
     <span class="k">if</span> <span class="n">representative</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">{</span><span class="s2">"centroid"</span><span class="p">,</span> <span class="s2">"medoid"</span><span class="p">,</span> <span class="o">*</span><span class="n">_SAMPLED_CELL_CHOICES</span><span class="p">}:</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
             <span class="s2">"representative must be 'centroid', 'medoid', 'random' or 'distributed'; got "</span>

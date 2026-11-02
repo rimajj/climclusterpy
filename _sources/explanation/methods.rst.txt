@@ -6,10 +6,13 @@ This section provides a detailed scientific description of the algorithms, data 
 Data Acquisition and Preprocessing
 -----------------------------------
 
-Climate and Soil Data Loading
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Climate and Static-Field Loading
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The :mod:`climclusterpy.data.loader` module implements robust NetCDF data loading with the following characteristics:
+NetCDF input is read by :mod:`climclusterpy.data.loader` (the fixed LPJmL-FIT file layout)
+and :mod:`climclusterpy.data.generic_input` (any named climate and static fields). Both
+share the characteristics below, and both align every field to one grid that the land mask
+or cell list defines.
 
 **Chunked Processing**
 
@@ -62,9 +65,10 @@ The ``climclusterpy.data.coords.check_grid_compatibility()`` function ensures sp
    \forall i,j: |\text{lat}^A_i - \text{lat}^B_i| < \epsilon \land |\text{lon}^A_j - \text{lon}^B_j| < \epsilon
 
 where :math:`\epsilon = 10^{-5}` degrees, i.e. the coordinates must be identical after rounding
-to 5 decimals. A climate input that is not on the soil-code grid is an error, not regridded:
-regrid it before loading. Only the soil-depth input is mapped onto the soil-code grid, by
-nearest neighbour.
+to 5 decimals. A climate input that is not on the grid of the land mask (or cell list, or
+first field) is an error, not regridded: regrid it before loading. Static fields may sit on a
+slightly different grid and are then mapped onto the reference grid by nearest neighbour,
+with a warning.
 
 Data Registry
 ~~~~~~~~~~~~~
@@ -73,7 +77,10 @@ The :class:`climclusterpy.data.DataRegistry` manages spatial grids and valid cel
 
 **Valid Cell Identification**
 
-A boolean mask :math:`\mathbf{M} \in \{0,1\}^{n_{\text{lat}} \times n_{\text{lon}}}` identifies valid cells:
+A boolean mask :math:`\mathbf{M} \in \{0,1\}^{n_{\text{lat}} \times n_{\text{lon}}}` identifies valid cells.
+It is built from whatever defines the model's cells: a land-mask file (non-zero and not
+missing), a list of cell coordinates, or, with neither, every cell where all fields have data.
+For the LPJmL-FIT file layout the mask is the soil code:
 
 .. math::
 
@@ -82,7 +89,7 @@ A boolean mask :math:`\mathbf{M} \in \{0,1\}^{n_{\text{lat}} \times n_{\text{lon
    0 & \text{otherwise}
    \end{cases}
 
-Sentinel values are detected hierarchically:
+Missing values in a mask file or soil code are detected hierarchically:
 
 1. NetCDF encoding attributes (``_FillValue``, ``missing_value``)
 2. Common integer sentinels, when neither attribute is set: :math:`-9999, -999, 9999, -32768, -10^6`
@@ -255,15 +262,16 @@ For relative humidity :math:`\{H_1, H_2, \ldots, H_{n_t}\}`, ``climclusterpy.fea
    H_{\min} &= \min_t(H_t) \quad \text{(dry-season minimum)}
    \end{align}
 
-Soil Features
-~~~~~~~~~~~~~
+Static-Field Features
+~~~~~~~~~~~~~~~~~~~~~
 
-:func:`climclusterpy.features.summarize_soil_features` extracts:
+Every static field (soil, elevation, land cover, …) is declared ``"continuous"`` (kept as one
+numeric feature) or ``"categorical"`` (an integer class code, one-hot encoded so all classes
+are equally far apart). For the LPJmL-FIT layout,
+:func:`climclusterpy.features.summarize_soil_features` extracts the soil depth as a continuous
+feature and the soil code as a categorical one.
 
-* **Soil depth**: Continuous variable (cm or m)
-* **Soil code**: Integer-valued categorical texture classification
-
-For temporally varying soil datasets, the first time step is extracted under the assumption of temporal invariance.
+For a static field with a time dimension, the first time step is used, under the assumption of temporal invariance.
 
 Köppen–Geiger Diagnostic Scalar Features
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

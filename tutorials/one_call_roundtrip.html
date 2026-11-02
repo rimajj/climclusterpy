@@ -15,7 +15,7 @@
     <link rel="shortcut icon" href="../_static/logo.svg"/>
       <script src="../_static/jquery.js?v=5d32c60e"></script>
       <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../_static/documentation_options.js?v=1dd76d02"></script>
+      <script src="../_static/documentation_options.js?v=b9afe91b"></script>
       <script src="../_static/doctools.js?v=9bcbadda"></script>
       <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/js/theme.js"></script>
@@ -106,13 +106,14 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../howto/inputs.html">Prepare the input files</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../howto/inputs.html#describe-the-input">Describe the input</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/inputs.html#what-the-climate-fields-are-used-for">What the climate fields are used for</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../howto/inputs.html#check-your-input-first">Check your input first</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../howto/inputs.html#the-files">The files</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../howto/inputs.html#grid-and-coordinates">Grid and coordinates</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../howto/inputs.html#which-cells-exist-the-soil-code">Which cells exist: the soil code</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../howto/inputs.html#the-time-axis">The time axis</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../howto/inputs.html#missing-values">Missing values</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../howto/inputs.html#another-vegetation-model-s-input">Another vegetation model’s input</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/inputs.html#what-is-written">What is written</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/inputs.html#the-lpjml-fit-file-layout">The LPJmL-FIT file layout</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../howto/inputs.html#output-files">Output files</a></li>
 </ul>
 </li>
@@ -158,7 +159,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../reference/api.html">Public API — <code class="xref py py-mod docutils literal notranslate"><span class="pre">climclusterpy</span></code></a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../reference/api.html#the-two-headline-functions">The two headline functions</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../reference/api.html#before-and-after-the-model-run">Before and after the model run</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../reference/api.html#input-for-a-model-other-than-lpjml">Input for a model other than LPJmL</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/api.html#describing-the-input">Describing the input</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../reference/api.html#other-ways-to-build-the-reduced-grid">Other ways to build the reduced grid</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../reference/api.html#reusing-a-trained-metric">Reusing a trained metric</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../reference/api.html#the-model-s-other-inputs">The model’s other inputs</a></li>
@@ -283,7 +284,11 @@ giving every original cell its cluster’s value.</p>
 <p><code class="docutils literal notranslate"><span class="pre">climclusterpy</span></code> does the two ends of that:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">climclusterpy</span><span class="w"> </span><span class="kn">import</span> <span class="n">create_clusters</span><span class="p">,</span> <span class="n">reconstruct_original_grid</span>
 
-<span class="n">clusters</span> <span class="o">=</span> <span class="n">create_clusters</span><span class="p">(</span><span class="s2">"/data/climate_input"</span><span class="p">,</span> <span class="n">n_clusters</span><span class="o">=</span><span class="mi">2000</span><span class="p">)</span>
+<span class="n">clusters</span> <span class="o">=</span> <span class="n">create_clusters</span><span class="p">(</span>
+    <span class="n">climate</span><span class="o">=</span><span class="p">{</span><span class="s2">"temperature"</span><span class="p">:</span> <span class="s2">"/data/tas.nc"</span><span class="p">,</span> <span class="s2">"precipitation"</span><span class="p">:</span> <span class="s2">"/data/pr.nc"</span><span class="p">},</span>
+    <span class="n">static</span><span class="o">=</span><span class="p">{</span><span class="s2">"soil"</span><span class="p">:</span> <span class="p">(</span><span class="s2">"/data/soil.nc"</span><span class="p">,</span> <span class="s2">"categorical"</span><span class="p">)},</span>
+    <span class="n">n_clusters</span><span class="o">=</span><span class="mi">2000</span><span class="p">,</span>
+<span class="p">)</span>
 <span class="c1"># ... run your model on clusters.netcdf_files ...</span>
 <span class="n">full</span> <span class="o">=</span> <span class="n">reconstruct_original_grid</span><span class="p">(</span><span class="s2">"vegc_output.nc"</span><span class="p">,</span> <span class="n">clusters</span><span class="o">=</span><span class="n">clusters</span><span class="p">)</span>
 </pre></div>
@@ -291,22 +296,26 @@ giving every original cell its cluster’s value.</p>
 </section>
 <section id="call-1-build-the-reduced-grid">
 <h2>Call 1 — build the reduced grid<a class="headerlink" href="#call-1-build-the-reduced-grid" title="Link to this heading"></a></h2>
-<p><a class="reference internal" href="../reference/api.html#climclusterpy.create_clusters" title="climclusterpy.create_clusters"><code class="xref py py-func docutils literal notranslate"><span class="pre">create_clusters()</span></code></a> takes a directory holding one NetCDF per input
-(<code class="docutils literal notranslate"><span class="pre">temperature.nc</span></code>, <code class="docutils literal notranslate"><span class="pre">precipitation.nc</span></code>, <code class="docutils literal notranslate"><span class="pre">short_wave_radiation.nc</span></code>,
-<code class="docutils literal notranslate"><span class="pre">long_wave_radiation.nc</span></code>, <code class="docutils literal notranslate"><span class="pre">soil_code.nc</span></code>, <code class="docutils literal notranslate"><span class="pre">soil_depth.nc</span></code>) — or a
-<a class="reference internal" href="../reference/toplevel.html#climclusterpy.data.DataPaths" title="climclusterpy.data.DataPaths"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataPaths</span></code></a>, or a mapping — and does everything in
-between:</p>
+<p><a class="reference internal" href="../reference/api.html#climclusterpy.create_clusters" title="climclusterpy.create_clusters"><code class="xref py py-func docutils literal notranslate"><span class="pre">create_clusters()</span></code></a> takes the climate fields by name (<code class="docutils literal notranslate"><span class="pre">climate=</span></code>,
+each a NetCDF with a time axis) and any static fields (<code class="docutils literal notranslate"><span class="pre">static=</span></code>, each declared
+categorical or continuous) — see <a class="reference internal" href="../howto/inputs.html"><span class="doc">Prepare the input files</span></a> for the other ways to give the
+input — and does everything in between:</p>
 <ol class="arabic simple">
 <li><p>load the input and build the valid-cell registry;</p></li>
 <li><p>summarize each cell into ecological features (annual means, seasonality, Köppen
-diagnostics, soil), then standardize, de-correlate, and PCA-filter them;</p></li>
+diagnostics, the static fields), then standardize, de-correlate, and PCA-filter them;</p></li>
 <li><p>cluster the cells;</p></li>
 <li><p>pick the cell that best represents each cluster;</p></li>
 <li><p>write the reduced-grid NetCDFs <strong>plus the two mapping CSVs</strong> that record which
 original cells each reduced cell stands for.</p></li>
 </ol>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">clusters</span> <span class="o">=</span> <span class="n">create_clusters</span><span class="p">(</span>
-    <span class="n">input_dir</span><span class="p">,</span>
+    <span class="n">climate</span><span class="o">=</span><span class="p">{</span>
+        <span class="s2">"temperature"</span><span class="p">:</span> <span class="n">files</span><span class="o">.</span><span class="n">temperature</span><span class="p">,</span>
+        <span class="s2">"precipitation"</span><span class="p">:</span> <span class="n">files</span><span class="o">.</span><span class="n">precipitation</span><span class="p">,</span>
+        <span class="s2">"short_wave_radiation"</span><span class="p">:</span> <span class="n">files</span><span class="o">.</span><span class="n">short_wave_radiation</span><span class="p">,</span>
+    <span class="p">},</span>
+    <span class="n">static</span><span class="o">=</span><span class="p">{</span><span class="s2">"soil_depth"</span><span class="p">:</span> <span class="p">(</span><span class="n">files</span><span class="o">.</span><span class="n">soil_depth</span><span class="p">,</span> <span class="s2">"continuous"</span><span class="p">)},</span>
     <span class="n">n_clusters</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span>
     <span class="n">output_dir</span><span class="o">=</span><span class="s2">"./clusters"</span><span class="p">,</span>
 <span class="p">)</span>
@@ -322,7 +331,7 @@ original cells each reduced cell stands for.</p></li>
 <code class="docutils literal notranslate"><span class="pre">locally_weighted=True</span></code> to learn a distance metric first, so directions in feature space
 that separate <em>ecologically</em> different cells count for more (needs the <code class="docutils literal notranslate"><span class="pre">[lmnn]</span></code> extra):</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">clusters</span> <span class="o">=</span> <span class="n">create_clusters</span><span class="p">(</span>
-    <span class="n">input_dir</span><span class="p">,</span>
+    <span class="n">climate</span><span class="o">=</span><span class="p">{</span><span class="s2">"temperature"</span><span class="p">:</span> <span class="s2">"/data/tas.nc"</span><span class="p">,</span> <span class="s2">"precipitation"</span><span class="p">:</span> <span class="s2">"/data/pr.nc"</span><span class="p">},</span>
     <span class="n">n_clusters</span><span class="o">=</span><span class="mi">2000</span><span class="p">,</span>
     <span class="n">locally_weighted</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
     <span class="n">supervision_data</span><span class="o">=</span><span class="s2">"/data/model_output/trait_grids"</span><span class="p">,</span>   <span class="c1"># or a per-cell CSV</span>
@@ -361,10 +370,11 @@ grid reorders or drops cells; cells outside the valid mask stay <code class="doc
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
 <span class="sd">"""The whole package in two calls: reduce a grid, then rebuild it.</span>
 
-<span class="sd">This is the example to read first. ``create_clusters`` takes a directory of climate</span>
-<span class="sd">and soil NetCDFs and writes a *reduced* grid — one cell per cluster — that a</span>
-<span class="sd">vegetation model can run on directly, plus the mapping CSVs that record which</span>
-<span class="sd">original cells each reduced cell stands for. ``reconstruct_original_grid`` uses</span>
+<span class="sd">This is the example to read first. ``create_clusters`` takes the climate (and any</span>
+<span class="sd">static fields such as soil) as NetCDF files, named however your model names them, and</span>
+<span class="sd">writes a *reduced* grid — one cell per cluster — that a vegetation model can run on</span>
+<span class="sd">directly, plus the mapping CSVs that record which original cells each reduced cell</span>
+<span class="sd">stands for. ``reconstruct_original_grid`` uses</span>
 <span class="sd">those mappings to put simulated output back onto the full grid.</span>
 
 <span class="sd">Runs on tiny synthetic data with only the lightweight core dependencies::</span>
@@ -412,7 +422,7 @@ grid reorders or drops cells; cells outside the valid mask stay <code class="doc
 <span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
     <span class="k">with</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">TemporaryDirectory</span><span class="p">(</span><span class="n">prefix</span><span class="o">=</span><span class="s2">"climclu_ex0_"</span><span class="p">)</span> <span class="k">as</span> <span class="n">tmp</span><span class="p">:</span>
         <span class="n">input_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">tmp</span><span class="p">,</span> <span class="s2">"climate_input"</span><span class="p">)</span>
-        <span class="n">write_synthetic_inputs</span><span class="p">(</span><span class="n">input_dir</span><span class="p">,</span> <span class="n">nlat</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">nlon</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">nmonths</span><span class="o">=</span><span class="mi">24</span><span class="p">)</span>
+        <span class="n">files</span> <span class="o">=</span> <span class="n">write_synthetic_inputs</span><span class="p">(</span><span class="n">input_dir</span><span class="p">,</span> <span class="n">nlat</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">nlon</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">nmonths</span><span class="o">=</span><span class="mi">24</span><span class="p">)</span>
 
         <span class="c1"># --- Call 1: grid in, model-ready cluster grid out ------------------------</span>
         <span class="c1"># For a metric learned from your model's own output instead of plain</span>
@@ -420,8 +430,20 @@ grid reorders or drops cells; cells outside the valid mask stay <code class="doc
         <span class="c1">#     locally_weighted=True,</span>
         <span class="c1">#     supervision_data="/path/to/trait_netcdfs_or_table.csv",</span>
         <span class="c1">#     supervision=["sla", "wooddens", "height", "biomass"],</span>
+        <span class="c1">#</span>
+        <span class="c1"># The input: climate fields by name (a field recognised as temperature,</span>
+        <span class="c1"># precipitation, radiation or humidity gets its own features and unit handling;</span>
+        <span class="c1"># any other name is summarised generically) and static fields declared</span>
+        <span class="c1"># categorical or continuous. Every cell where all fields have data is clustered;</span>
+        <span class="c1"># pass land_mask= or grid= to choose the cells instead. The same input can be</span>
+        <span class="c1"># built first as GenericInputs(climate=..., static=...) and passed in its place.</span>
         <span class="n">clusters</span> <span class="o">=</span> <span class="n">create_clusters</span><span class="p">(</span>
-            <span class="n">input_dir</span><span class="p">,</span>
+            <span class="n">climate</span><span class="o">=</span><span class="p">{</span>
+                <span class="s2">"temperature"</span><span class="p">:</span> <span class="n">files</span><span class="o">.</span><span class="n">temperature</span><span class="p">,</span>
+                <span class="s2">"precipitation"</span><span class="p">:</span> <span class="n">files</span><span class="o">.</span><span class="n">precipitation</span><span class="p">,</span>
+                <span class="s2">"short_wave_radiation"</span><span class="p">:</span> <span class="n">files</span><span class="o">.</span><span class="n">short_wave_radiation</span><span class="p">,</span>
+            <span class="p">},</span>
+            <span class="n">static</span><span class="o">=</span><span class="p">{</span><span class="s2">"soil_depth"</span><span class="p">:</span> <span class="p">(</span><span class="n">files</span><span class="o">.</span><span class="n">soil_depth</span><span class="p">,</span> <span class="s2">"continuous"</span><span class="p">)},</span>
             <span class="n">n_clusters</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span>
             <span class="n">output_dir</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">tmp</span><span class="p">,</span> <span class="s2">"clusters"</span><span class="p">),</span>
             <span class="n">min_grid_spacing</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>  <span class="c1"># the synthetic grid is 0.5°</span>

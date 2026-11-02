@@ -19,22 +19,25 @@ giving every original cell its cluster's value.
 
    from climclusterpy import create_clusters, reconstruct_original_grid
 
-   clusters = create_clusters("/data/climate_input", n_clusters=2000)
+   clusters = create_clusters(
+       climate={"temperature": "/data/tas.nc", "precipitation": "/data/pr.nc"},
+       static={"soil": ("/data/soil.nc", "categorical")},
+       n_clusters=2000,
+   )
    # ... run your model on clusters.netcdf_files ...
    full = reconstruct_original_grid("vegc_output.nc", clusters=clusters)
 
 Call 1 — build the reduced grid
 -------------------------------
 
-:func:`~climclusterpy.create_clusters` takes a directory holding one NetCDF per input
-(``temperature.nc``, ``precipitation.nc``, ``short_wave_radiation.nc``,
-``long_wave_radiation.nc``, ``soil_code.nc``, ``soil_depth.nc``) — or a
-:class:`~climclusterpy.data.DataPaths`, or a mapping — and does everything in
-between:
+:func:`~climclusterpy.create_clusters` takes the climate fields by name (``climate=``,
+each a NetCDF with a time axis) and any static fields (``static=``, each declared
+categorical or continuous) — see :doc:`../howto/inputs` for the other ways to give the
+input — and does everything in between:
 
 1. load the input and build the valid-cell registry;
 2. summarize each cell into ecological features (annual means, seasonality, Köppen
-   diagnostics, soil), then standardize, de-correlate, and PCA-filter them;
+   diagnostics, the static fields), then standardize, de-correlate, and PCA-filter them;
 3. cluster the cells;
 4. pick the cell that best represents each cluster;
 5. write the reduced-grid NetCDFs **plus the two mapping CSVs** that record which
@@ -43,7 +46,12 @@ between:
 .. code-block:: python
 
    clusters = create_clusters(
-       input_dir,
+       climate={
+           "temperature": files.temperature,
+           "precipitation": files.precipitation,
+           "short_wave_radiation": files.short_wave_radiation,
+       },
+       static={"soil_depth": (files.soil_depth, "continuous")},
        n_clusters=6,
        output_dir="./clusters",
    )
@@ -62,7 +70,7 @@ that separate *ecologically* different cells count for more (needs the ``[lmnn]`
 .. code-block:: python
 
    clusters = create_clusters(
-       input_dir,
+       climate={"temperature": "/data/tas.nc", "precipitation": "/data/pr.nc"},
        n_clusters=2000,
        locally_weighted=True,
        supervision_data="/data/model_output/trait_grids",   # or a per-cell CSV

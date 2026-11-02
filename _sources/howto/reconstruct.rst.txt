@@ -57,7 +57,8 @@ grid was built from (which gives every cell the same ``cell_id``):
    from climclusterpy import DataRegistry, reconstruct_original_grid
 
    registry = DataRegistry.load("clusters_67/original_grid.nc")
-   # or: registry = DataRegistry.from_soil_code("/data/climate_input/soil_code.nc")
+   # or rebuild it from what defined the cells, e.g. DataRegistry.from_mask("land.nc"),
+   # DataRegistry.from_cell_list("gridlist.csv") or DataRegistry.from_soil_code("soil_code.nc")
 
    out_path = reconstruct_original_grid(
        "vegc_clustered.nc",             # output simulated on the cluster grid

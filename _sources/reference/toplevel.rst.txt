@@ -14,13 +14,19 @@ Data loading & the grid registry
 .. py:module:: climclusterpy.data
 
 A :class:`~climclusterpy.data.DataRegistry` describes the original grid: its coordinates,
-which cells exist (those with a soil code) and their ``cell_id``. You rarely build one
+which cells exist and their ``cell_id``. You rarely build one
 yourself — :func:`~climclusterpy.create_clusters` makes it and saves it as
 ``original_grid.nc`` in the output folder. When a function asks for one, use
 :meth:`DataRegistry.load(path) <climclusterpy.data.DataRegistry.load>` on that file, or
-:meth:`DataRegistry.from_soil_code(path) <climclusterpy.data.DataRegistry.from_soil_code>`
-on the soil-code input the grid was built from; both give the same ``cell_id`` for every
-cell.
+rebuild it from what defined the cells:
+:meth:`~climclusterpy.data.DataRegistry.from_mask` (a land mask),
+:meth:`~climclusterpy.data.DataRegistry.from_cell_list` (a cell list), or
+:meth:`~climclusterpy.data.DataRegistry.from_soil_code` (the soil code of the LPJmL-FIT
+layout); each gives the same ``cell_id`` for every cell as the run did.
+
+:class:`~climclusterpy.data.DataPaths` and
+:func:`~climclusterpy.data.load_climate_and_soil_data` are the LPJmL-FIT file layout and its
+loader; :class:`~climclusterpy.GenericInputs` describes any other input.
 
 .. autoclass:: climclusterpy.data.DataPaths
    :members:

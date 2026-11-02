@@ -8,9 +8,11 @@ climclusterpy
 **Ecologically-informed spatial clustering of climate and soil grids.**
 
 ``climclusterpy`` groups climatically-similar grid cells so that a land-surface /
-vegetation model (LPJmL-FIT) can run on a small **artificial cluster grid** instead of
-the full grid, and then reconstructs the full original grid from the per-cluster model
-output — cutting simulation cost by the reduction factor you choose.
+vegetation model can run on a small **artificial cluster grid** instead of the full grid,
+and then reconstructs the full original grid from the per-cluster model output — cutting
+simulation cost by the reduction factor you choose. The input is any set of gridded
+climate fields plus any static fields (soil, elevation, land cover, …), under the names
+your model uses.
 
 Two calls do the whole job:
 
@@ -19,7 +21,11 @@ Two calls do the whole job:
    from climclusterpy import create_clusters, reconstruct_original_grid
 
    # 1. Reduce the grid: writes model-ready NetCDFs + the mapping CSVs.
-   clusters = create_clusters("/data/climate_input", n_clusters=2000)
+   clusters = create_clusters(
+       climate={"temperature": "/data/tas.nc", "precipitation": "/data/pr.nc"},
+       static={"soil": ("/data/soil.nc", "categorical")},
+       n_clusters=2000,
+   )
 
    # ... run your vegetation model on clusters.netcdf_files ...
 
@@ -33,12 +39,16 @@ classes derived from the climate input:
 .. code-block:: python
 
    clusters = create_clusters(
-       "/data/climate_input",
+       climate={"temperature": "/data/tas.nc", "precipitation": "/data/pr.nc"},
        n_clusters=2000,
        locally_weighted=True,
        supervision_data="/data/model_output/trait_grids",   # or a per-cell CSV
        supervision=["sla", "wooddens", "height", "biomass"],
    )
+
+The input can also be built beforehand as a :class:`~climclusterpy.GenericInputs`, and
+the six-file input layout of the vegetation model LPJmL-FIT, which the package was
+developed with, is accepted as a directory (see :doc:`howto/inputs`).
 
 The model run between the two calls usually takes days; ``load_clusters("<output_dir>")``
 gets the result back in a new session (see :doc:`howto/reconstruct`). Not sure which

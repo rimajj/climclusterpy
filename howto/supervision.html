@@ -15,7 +15,7 @@
     <link rel="shortcut icon" href="../_static/logo.svg"/>
       <script src="../_static/jquery.js?v=5d32c60e"></script>
       <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../_static/documentation_options.js?v=1dd76d02"></script>
+      <script src="../_static/documentation_options.js?v=b9afe91b"></script>
       <script src="../_static/doctools.js?v=9bcbadda"></script>
       <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/js/theme.js"></script>
@@ -106,13 +106,14 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="inputs.html">Prepare the input files</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="inputs.html#describe-the-input">Describe the input</a></li>
+<li class="toctree-l3"><a class="reference internal" href="inputs.html#what-the-climate-fields-are-used-for">What the climate fields are used for</a></li>
 <li class="toctree-l3"><a class="reference internal" href="inputs.html#check-your-input-first">Check your input first</a></li>
-<li class="toctree-l3"><a class="reference internal" href="inputs.html#the-files">The files</a></li>
 <li class="toctree-l3"><a class="reference internal" href="inputs.html#grid-and-coordinates">Grid and coordinates</a></li>
-<li class="toctree-l3"><a class="reference internal" href="inputs.html#which-cells-exist-the-soil-code">Which cells exist: the soil code</a></li>
 <li class="toctree-l3"><a class="reference internal" href="inputs.html#the-time-axis">The time axis</a></li>
 <li class="toctree-l3"><a class="reference internal" href="inputs.html#missing-values">Missing values</a></li>
-<li class="toctree-l3"><a class="reference internal" href="inputs.html#another-vegetation-model-s-input">Another vegetation model’s input</a></li>
+<li class="toctree-l3"><a class="reference internal" href="inputs.html#what-is-written">What is written</a></li>
+<li class="toctree-l3"><a class="reference internal" href="inputs.html#the-lpjml-fit-file-layout">The LPJmL-FIT file layout</a></li>
 <li class="toctree-l3"><a class="reference internal" href="inputs.html#output-files">Output files</a></li>
 </ul>
 </li>
@@ -158,7 +159,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../reference/api.html">Public API — <code class="xref py py-mod docutils literal notranslate"><span class="pre">climclusterpy</span></code></a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../reference/api.html#the-two-headline-functions">The two headline functions</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../reference/api.html#before-and-after-the-model-run">Before and after the model run</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../reference/api.html#input-for-a-model-other-than-lpjml">Input for a model other than LPJmL</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/api.html#describing-the-input">Describing the input</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../reference/api.html#other-ways-to-build-the-reduced-grid">Other ways to build the reduced grid</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../reference/api.html#reusing-a-trained-metric">Reusing a trained metric</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../reference/api.html#the-model-s-other-inputs">The model’s other inputs</a></li>
@@ -347,9 +348,11 @@ shapefile; with a shapefile that lacks them, distance alone decides.
 unless you pass <code class="docutils literal notranslate"><span class="pre">ecoregion_min_cells</span></code>. A cell centre on the border of two ecoregions, or
 equally near two when no polygon covers it, gets the lower id, with a warning.</p>
 <p>Missing the extra raises an <code class="docutils literal notranslate"><span class="pre">ImportError</span></code> naming <code class="docutils literal notranslate"><span class="pre">[ecoregions]</span></code>. Get <code class="docutils literal notranslate"><span class="pre">registry</span></code> with
-<code class="docutils literal notranslate"><span class="pre">DataRegistry.from_soil_code(&quot;soil_code.nc&quot;)</span></code> from the soil-code file of your input, with
-<code class="docutils literal notranslate"><span class="pre">DataRegistry.load(&quot;&lt;output_dir&gt;/original_grid.nc&quot;)</span></code> from a finished run, or as
-<code class="docutils literal notranslate"><span class="pre">clusters.registry</span></code> from a <a class="reference internal" href="../reference/api.html#climclusterpy.create_clusters" title="climclusterpy.create_clusters"><code class="xref py py-func docutils literal notranslate"><span class="pre">create_clusters()</span></code></a> result.</p>
+<code class="docutils literal notranslate"><span class="pre">DataRegistry.load(&quot;&lt;output_dir&gt;/original_grid.nc&quot;)</span></code> from a finished run, as
+<code class="docutils literal notranslate"><span class="pre">clusters.registry</span></code> from a <a class="reference internal" href="../reference/api.html#climclusterpy.create_clusters" title="climclusterpy.create_clusters"><code class="xref py py-func docutils literal notranslate"><span class="pre">create_clusters()</span></code></a> result, or from what
+defines your cells: <code class="docutils literal notranslate"><span class="pre">DataRegistry.from_mask(&quot;land.nc&quot;)</span></code>,
+<code class="docutils literal notranslate"><span class="pre">DataRegistry.from_cell_list(&quot;gridlist.csv&quot;)</span></code>, or for the LPJmL-FIT layout
+<code class="docutils literal notranslate"><span class="pre">DataRegistry.from_soil_code(&quot;soil_code.nc&quot;)</span></code>.</p>
 </section>
 <section id="using-the-signal">
 <h2>Using the signal<a class="headerlink" href="#using-the-signal" title="Link to this heading"></a></h2>

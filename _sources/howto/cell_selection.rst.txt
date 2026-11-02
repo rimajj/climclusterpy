@@ -130,9 +130,13 @@ and is logged.
 A model that reads its own inputs: the grid only, then cut the rest
 --------------------------------------------------------------------
 
-A real model run opens more per-cell inputs than the climate and soil the package clustered on
-(LPJmL with nitrogen: wind, wet days, deposition, soil pH, slopes, ...). Build only the grid and
-its mapping, then cut every input the run opens to the drawn cells:
+A real model run opens more per-cell inputs than the climate and static fields the package
+clustered on (wind, deposition, soil chemistry, slopes, ...). Build only the grid and its
+mapping, then cut every input the run opens to the drawn cells.
+:func:`~climclusterpy.subset_inputs` cuts NetCDF inputs for any model and also reads LPJmL's
+binary formats; the example below is the LPJmL-FIT one (its ``climate/`` directory is the
+fixed file layout, with a ``soil_code`` file, and the ``.clm`` conversion is LPJmL-specific).
+For another model, pass ``climate=``/``static=`` as usual and cut your own NetCDF inputs:
 
 .. code-block:: python
 

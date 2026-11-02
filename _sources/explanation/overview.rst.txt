@@ -1,7 +1,7 @@
 Overview
 ========
 
-``climclusterpy`` is a comprehensive Python package for performing ecologically-informed spatial clustering of climate and soil data. The package is designed to reduce computational complexity in land surface models while preserving essential spatial heterogeneity patterns.
+``climclusterpy`` is a comprehensive Python package for performing ecologically-informed spatial clustering of gridded climate and static (soil, elevation, land-cover, …) data. It is model-independent: the input is any set of named climate fields and static fields, and the LPJmL-FIT file layout is one supported format among others. The package is designed to reduce computational complexity in land surface and vegetation models while preserving essential spatial heterogeneity patterns.
 
 The package was developed to address the challenge of downscaling global land surface models by identifying climatically-similar grid cells that can be aggregated without significant loss of ecological information.
 

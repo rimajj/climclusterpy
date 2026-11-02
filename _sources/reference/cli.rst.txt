@@ -30,15 +30,21 @@ The two headline commands
 ``climclu create-clusters``
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Build a model-ready reduced grid from a directory of climate and soil NetCDFs
-(``temperature.nc``, ``precipitation.nc``, ``short_wave_radiation.nc``,
-``long_wave_radiation.nc``, ``soil_code.nc``, ``soil_depth.nc``, optional ``humid.nc``).
+Build a model-ready reduced grid. Name the input fields as ``create_clusters`` takes
+them: ``--climate NAME=PATH`` once per climate field, ``--static NAME=PATH:KIND`` once per
+static field (``KIND`` is ``categorical`` or ``continuous``), and optionally
+``--land-mask FILE`` or ``--grid CELLS.csv``. Or give a directory in the LPJmL-FIT file
+layout (``temperature.nc``, ``precipitation.nc``, ``short_wave_radiation.nc``,
+``long_wave_radiation.nc``, ``soil_code.nc``, ``soil_depth.nc``, optional ``humid.nc``) as
+the argument instead.
 
 .. code-block:: console
 
-   $ climclu create-clusters /data/climate_input -k 2000 --output-dir ./clusters
+   $ climclu create-clusters --climate temperature=/data/tas.nc \
+       --climate precipitation=/data/pr.nc --static soil=/data/soil.nc:categorical \
+       -k 2000 --output-dir ./clusters
 
-   $ climclu create-clusters /data/climate_input -k 2000 --locally-weighted \
+   $ climclu create-clusters /data/lpjml_input -k 2000 --locally-weighted \
        --supervision-data /data/model_output/trait_grids \
        --supervision sla,wooddens,height,biomass \
        --output-dir ./clusters
@@ -68,13 +74,14 @@ without clustering anything: it prints a short report and exits with code 0 if
 
 .. code-block:: console
 
-   $ climclu create-clusters /data/climate_input -k 2000 --dry-run
+   $ climclu create-clusters --climate temperature=/data/tas.nc -k 2000 --dry-run
 
 ``climclu create-regions``
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Build a reduced grid from a map you already have -- no metric is learned and nothing is
-clustered, so this is the cheapest route. The second argument is the map:
+clustered, so this is the cheapest route. The input is given as for ``create-clusters``;
+the argument after it (the only argument, with ``--climate``) is the map:
 ``koppen_geiger`` (computed from the climate), ``ecoregions`` (with
 ``--ecoregions-shapefile``), or a labels CSV with a ``cell_id`` column. A CSV that holds
 several cuts of one dendrogram (``cluster_k7`` ... ``cluster_k21320``) needs ``--column`` to
@@ -82,9 +89,10 @@ name one, or ``--fraction`` to take the cut nearest that share of the valid cell
 
 .. code-block:: console
 
-   $ climclu create-regions /data/climate_input koppen_geiger --output-dir ./regions
+   $ climclu create-regions --climate temperature=/data/tas.nc \
+       --climate precipitation=/data/pr.nc koppen_geiger --output-dir ./regions
 
-   $ climclu create-regions /data/climate_input deploy/cluster_labels.csv --fraction 0.01 \
+   $ climclu create-regions /data/lpjml_input deploy/cluster_labels.csv --fraction 0.01 \
        --representative distributed --npatch 25 --cells-per-cluster 25 --seed 1 \
        --write-fields soil_code --output-dir ./grid_1pct
 

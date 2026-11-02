@@ -15,7 +15,7 @@
     <link rel="shortcut icon" href="../_static/logo.svg"/>
       <script src="../_static/jquery.js?v=5d32c60e"></script>
       <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../_static/documentation_options.js?v=1dd76d02"></script>
+      <script src="../_static/documentation_options.js?v=b9afe91b"></script>
       <script src="../_static/doctools.js?v=9bcbadda"></script>
       <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "displayMath": [["$$", "$$"], ["\\[", "\\]"]]}}</script>
@@ -107,13 +107,14 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../howto/inputs.html">Prepare the input files</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../howto/inputs.html#describe-the-input">Describe the input</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/inputs.html#what-the-climate-fields-are-used-for">What the climate fields are used for</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../howto/inputs.html#check-your-input-first">Check your input first</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../howto/inputs.html#the-files">The files</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../howto/inputs.html#grid-and-coordinates">Grid and coordinates</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../howto/inputs.html#which-cells-exist-the-soil-code">Which cells exist: the soil code</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../howto/inputs.html#the-time-axis">The time axis</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../howto/inputs.html#missing-values">Missing values</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../howto/inputs.html#another-vegetation-model-s-input">Another vegetation model’s input</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/inputs.html#what-is-written">What is written</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/inputs.html#the-lpjml-fit-file-layout">The LPJmL-FIT file layout</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../howto/inputs.html#output-files">Output files</a></li>
 </ul>
 </li>
@@ -159,7 +160,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../reference/api.html">Public API — <code class="xref py py-mod docutils literal notranslate"><span class="pre">climclusterpy</span></code></a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../reference/api.html#the-two-headline-functions">The two headline functions</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../reference/api.html#before-and-after-the-model-run">Before and after the model run</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../reference/api.html#input-for-a-model-other-than-lpjml">Input for a model other than LPJmL</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/api.html#describing-the-input">Describing the input</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../reference/api.html#other-ways-to-build-the-reduced-grid">Other ways to build the reduced grid</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../reference/api.html#reusing-a-trained-metric">Reusing a trained metric</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../reference/api.html#the-model-s-other-inputs">The model’s other inputs</a></li>
@@ -275,9 +276,12 @@
 <p>This section provides a detailed scientific description of the algorithms, data transformations, and computational methods implemented in the climclusterpy package.</p>
 <section id="data-acquisition-and-preprocessing">
 <h2>Data Acquisition and Preprocessing<a class="headerlink" href="#data-acquisition-and-preprocessing" title="Link to this heading"></a></h2>
-<section id="climate-and-soil-data-loading">
-<h3>Climate and Soil Data Loading<a class="headerlink" href="#climate-and-soil-data-loading" title="Link to this heading"></a></h3>
-<p>The <code class="xref py py-mod docutils literal notranslate"><span class="pre">climclusterpy.data.loader</span></code> module implements robust NetCDF data loading with the following characteristics:</p>
+<section id="climate-and-static-field-loading">
+<h3>Climate and Static-Field Loading<a class="headerlink" href="#climate-and-static-field-loading" title="Link to this heading"></a></h3>
+<p>NetCDF input is read by <code class="xref py py-mod docutils literal notranslate"><span class="pre">climclusterpy.data.loader</span></code> (the fixed LPJmL-FIT file layout)
+and <code class="xref py py-mod docutils literal notranslate"><span class="pre">climclusterpy.data.generic_input</span></code> (any named climate and static fields). Both
+share the characteristics below, and both align every field to one grid that the land mask
+or cell list defines.</p>
 <p><strong>Chunked Processing</strong></p>
 <p>Climate datasets are loaded using Dask with configurable chunk sizes (default 500 time steps):</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ds</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">open_dataset</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">chunks</span><span class="o">=</span><span class="p">{</span><span class="s2">"time"</span><span class="p">:</span> <span class="mi">500</span><span class="p">})</span>
@@ -314,21 +318,25 @@ humidity: hurs, humid, rh, relative_humidity
 <div class="math notranslate nohighlight">
 \[\forall i,j: |\text{lat}^A_i - \text{lat}^B_i| &lt; \epsilon \land |\text{lon}^A_j - \text{lon}^B_j| &lt; \epsilon\]</div>
 <p>where <span class="math notranslate nohighlight">\(\epsilon = 10^{-5}\)</span> degrees, i.e. the coordinates must be identical after rounding
-to 5 decimals. A climate input that is not on the soil-code grid is an error, not regridded:
-regrid it before loading. Only the soil-depth input is mapped onto the soil-code grid, by
-nearest neighbour.</p>
+to 5 decimals. A climate input that is not on the grid of the land mask (or cell list, or
+first field) is an error, not regridded: regrid it before loading. Static fields may sit on a
+slightly different grid and are then mapped onto the reference grid by nearest neighbour,
+with a warning.</p>
 </section>
 <section id="data-registry">
 <h3>Data Registry<a class="headerlink" href="#data-registry" title="Link to this heading"></a></h3>
 <p>The <a class="reference internal" href="../reference/toplevel.html#climclusterpy.data.DataRegistry" title="climclusterpy.data.DataRegistry"><code class="xref py py-class docutils literal notranslate"><span class="pre">climclusterpy.data.DataRegistry</span></code></a> manages spatial grids and valid cell identification.</p>
 <p><strong>Valid Cell Identification</strong></p>
-<p>A boolean mask <span class="math notranslate nohighlight">\(\mathbf{M} \in \{0,1\}^{n_{\text{lat}} \times n_{\text{lon}}}\)</span> identifies valid cells:</p>
+<p>A boolean mask <span class="math notranslate nohighlight">\(\mathbf{M} \in \{0,1\}^{n_{\text{lat}} \times n_{\text{lon}}}\)</span> identifies valid cells.
+It is built from whatever defines the model’s cells: a land-mask file (non-zero and not
+missing), a list of cell coordinates, or, with neither, every cell where all fields have data.
+For the LPJmL-FIT file layout the mask is the soil code:</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}M_{ij} = \begin{cases}
 1 &amp; \text{if soil\_code}_{ij} \neq \text{sentinel} \land \neg \text{isnan}(\text{soil\_code}_{ij}) \\
 0 &amp; \text{otherwise}
 \end{cases}\end{split}\]</div>
-<p>Sentinel values are detected hierarchically:</p>
+<p>Missing values in a mask file or soil code are detected hierarchically:</p>
 <ol class="arabic simple">
 <li><p>NetCDF encoding attributes (<code class="docutils literal notranslate"><span class="pre">_FillValue</span></code>, <code class="docutils literal notranslate"><span class="pre">missing_value</span></code>)</p></li>
 <li><p>Common integer sentinels, when neither attribute is set: <span class="math notranslate nohighlight">\(-9999, -999, 9999, -32768, -10^6\)</span></p></li>
@@ -442,14 +450,14 @@ A_R &amp;= \max_t(R_t) - \min_t(R_t) \quad \text{(seasonal amplitude)}
 H_{\min} &amp;= \min_t(H_t) \quad \text{(dry-season minimum)}
 \end{align}\end{split}\]</div>
 </section>
-<section id="soil-features">
-<h3>Soil Features<a class="headerlink" href="#soil-features" title="Link to this heading"></a></h3>
-<p><a class="reference internal" href="../reference/features.html#climclusterpy.features.summarize_soil_features" title="climclusterpy.features.summarize_soil_features"><code class="xref py py-func docutils literal notranslate"><span class="pre">climclusterpy.features.summarize_soil_features()</span></code></a> extracts:</p>
-<ul class="simple">
-<li><p><strong>Soil depth</strong>: Continuous variable (cm or m)</p></li>
-<li><p><strong>Soil code</strong>: Integer-valued categorical texture classification</p></li>
-</ul>
-<p>For temporally varying soil datasets, the first time step is extracted under the assumption of temporal invariance.</p>
+<section id="static-field-features">
+<h3>Static-Field Features<a class="headerlink" href="#static-field-features" title="Link to this heading"></a></h3>
+<p>Every static field (soil, elevation, land cover, …) is declared <code class="docutils literal notranslate"><span class="pre">&quot;continuous&quot;</span></code> (kept as one
+numeric feature) or <code class="docutils literal notranslate"><span class="pre">&quot;categorical&quot;</span></code> (an integer class code, one-hot encoded so all classes
+are equally far apart). For the LPJmL-FIT layout,
+<a class="reference internal" href="../reference/features.html#climclusterpy.features.summarize_soil_features" title="climclusterpy.features.summarize_soil_features"><code class="xref py py-func docutils literal notranslate"><span class="pre">climclusterpy.features.summarize_soil_features()</span></code></a> extracts the soil depth as a continuous
+feature and the soil code as a categorical one.</p>
+<p>For a static field with a time dimension, the first time step is used, under the assumption of temporal invariance.</p>
 </section>
 <section id="koppengeiger-diagnostic-scalar-features">
 <h3>Köppen–Geiger Diagnostic Scalar Features<a class="headerlink" href="#koppengeiger-diagnostic-scalar-features" title="Link to this heading"></a></h3>

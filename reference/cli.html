@@ -15,7 +15,7 @@
     <link rel="shortcut icon" href="../_static/logo.svg"/>
       <script src="../_static/jquery.js?v=5d32c60e"></script>
       <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../_static/documentation_options.js?v=1dd76d02"></script>
+      <script src="../_static/documentation_options.js?v=b9afe91b"></script>
       <script src="../_static/doctools.js?v=9bcbadda"></script>
       <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/js/theme.js"></script>
@@ -106,13 +106,14 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../howto/inputs.html">Prepare the input files</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../howto/inputs.html#describe-the-input">Describe the input</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/inputs.html#what-the-climate-fields-are-used-for">What the climate fields are used for</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../howto/inputs.html#check-your-input-first">Check your input first</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../howto/inputs.html#the-files">The files</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../howto/inputs.html#grid-and-coordinates">Grid and coordinates</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../howto/inputs.html#which-cells-exist-the-soil-code">Which cells exist: the soil code</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../howto/inputs.html#the-time-axis">The time axis</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../howto/inputs.html#missing-values">Missing values</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../howto/inputs.html#another-vegetation-model-s-input">Another vegetation model’s input</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/inputs.html#what-is-written">What is written</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/inputs.html#the-lpjml-fit-file-layout">The LPJmL-FIT file layout</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../howto/inputs.html#output-files">Output files</a></li>
 </ul>
 </li>
@@ -158,7 +159,7 @@
 <li class="toctree-l2"><a class="reference internal" href="api.html">Public API — <code class="xref py py-mod docutils literal notranslate"><span class="pre">climclusterpy</span></code></a><ul>
 <li class="toctree-l3"><a class="reference internal" href="api.html#the-two-headline-functions">The two headline functions</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api.html#before-and-after-the-model-run">Before and after the model run</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api.html#input-for-a-model-other-than-lpjml">Input for a model other than LPJmL</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api.html#describing-the-input">Describing the input</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api.html#other-ways-to-build-the-reduced-grid">Other ways to build the reduced grid</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api.html#reusing-a-trained-metric">Reusing a trained metric</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api.html#the-model-s-other-inputs">The model’s other inputs</a></li>
@@ -311,12 +312,18 @@ the common ones.</p>
 <h2>The two headline commands<a class="headerlink" href="#the-two-headline-commands" title="Link to this heading"></a></h2>
 <section id="climclu-create-clusters">
 <h3><code class="docutils literal notranslate"><span class="pre">climclu</span> <span class="pre">create-clusters</span></code><a class="headerlink" href="#climclu-create-clusters" title="Link to this heading"></a></h3>
-<p>Build a model-ready reduced grid from a directory of climate and soil NetCDFs
-(<code class="docutils literal notranslate"><span class="pre">temperature.nc</span></code>, <code class="docutils literal notranslate"><span class="pre">precipitation.nc</span></code>, <code class="docutils literal notranslate"><span class="pre">short_wave_radiation.nc</span></code>,
-<code class="docutils literal notranslate"><span class="pre">long_wave_radiation.nc</span></code>, <code class="docutils literal notranslate"><span class="pre">soil_code.nc</span></code>, <code class="docutils literal notranslate"><span class="pre">soil_depth.nc</span></code>, optional <code class="docutils literal notranslate"><span class="pre">humid.nc</span></code>).</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>climclu<span class="w"> </span>create-clusters<span class="w"> </span>/data/climate_input<span class="w"> </span>-k<span class="w"> </span><span class="m">2000</span><span class="w"> </span>--output-dir<span class="w"> </span>./clusters
+<p>Build a model-ready reduced grid. Name the input fields as <code class="docutils literal notranslate"><span class="pre">create_clusters</span></code> takes
+them: <code class="docutils literal notranslate"><span class="pre">--climate</span> <span class="pre">NAME=PATH</span></code> once per climate field, <code class="docutils literal notranslate"><span class="pre">--static</span> <span class="pre">NAME=PATH:KIND</span></code> once per
+static field (<code class="docutils literal notranslate"><span class="pre">KIND</span></code> is <code class="docutils literal notranslate"><span class="pre">categorical</span></code> or <code class="docutils literal notranslate"><span class="pre">continuous</span></code>), and optionally
+<code class="docutils literal notranslate"><span class="pre">--land-mask</span> <span class="pre">FILE</span></code> or <code class="docutils literal notranslate"><span class="pre">--grid</span> <span class="pre">CELLS.csv</span></code>. Or give a directory in the LPJmL-FIT file
+layout (<code class="docutils literal notranslate"><span class="pre">temperature.nc</span></code>, <code class="docutils literal notranslate"><span class="pre">precipitation.nc</span></code>, <code class="docutils literal notranslate"><span class="pre">short_wave_radiation.nc</span></code>,
+<code class="docutils literal notranslate"><span class="pre">long_wave_radiation.nc</span></code>, <code class="docutils literal notranslate"><span class="pre">soil_code.nc</span></code>, <code class="docutils literal notranslate"><span class="pre">soil_depth.nc</span></code>, optional <code class="docutils literal notranslate"><span class="pre">humid.nc</span></code>) as
+the argument instead.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>climclu<span class="w"> </span>create-clusters<span class="w"> </span>--climate<span class="w"> </span><span class="nv">temperature</span><span class="o">=</span>/data/tas.nc<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--climate<span class="w"> </span><span class="nv">precipitation</span><span class="o">=</span>/data/pr.nc<span class="w"> </span>--static<span class="w"> </span><span class="nv">soil</span><span class="o">=</span>/data/soil.nc:categorical<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-k<span class="w"> </span><span class="m">2000</span><span class="w"> </span>--output-dir<span class="w"> </span>./clusters
 
-<span class="gp">$ </span>climclu<span class="w"> </span>create-clusters<span class="w"> </span>/data/climate_input<span class="w"> </span>-k<span class="w"> </span><span class="m">2000</span><span class="w"> </span>--locally-weighted<span class="w"> </span><span class="se">\</span>
+<span class="gp">$ </span>climclu<span class="w"> </span>create-clusters<span class="w"> </span>/data/lpjml_input<span class="w"> </span>-k<span class="w"> </span><span class="m">2000</span><span class="w"> </span>--locally-weighted<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>--supervision-data<span class="w"> </span>/data/model_output/trait_grids<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>--supervision<span class="w"> </span>sla,wooddens,height,biomass<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>--output-dir<span class="w"> </span>./clusters
@@ -343,21 +350,23 @@ supervision.</p>
 <p><code class="docutils literal notranslate"><span class="pre">--dry-run</span></code> checks the climate input (files present, variables and grid readable)
 without clustering anything: it prints a short report and exits with code 0 if
 <code class="docutils literal notranslate"><span class="pre">create-clusters</span></code> would run, 1 if not.</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>climclu<span class="w"> </span>create-clusters<span class="w"> </span>/data/climate_input<span class="w"> </span>-k<span class="w"> </span><span class="m">2000</span><span class="w"> </span>--dry-run
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>climclu<span class="w"> </span>create-clusters<span class="w"> </span>--climate<span class="w"> </span><span class="nv">temperature</span><span class="o">=</span>/data/tas.nc<span class="w"> </span>-k<span class="w"> </span><span class="m">2000</span><span class="w"> </span>--dry-run
 </pre></div>
 </div>
 </section>
 <section id="climclu-create-regions">
 <h3><code class="docutils literal notranslate"><span class="pre">climclu</span> <span class="pre">create-regions</span></code><a class="headerlink" href="#climclu-create-regions" title="Link to this heading"></a></h3>
 <p>Build a reduced grid from a map you already have – no metric is learned and nothing is
-clustered, so this is the cheapest route. The second argument is the map:
+clustered, so this is the cheapest route. The input is given as for <code class="docutils literal notranslate"><span class="pre">create-clusters</span></code>;
+the argument after it (the only argument, with <code class="docutils literal notranslate"><span class="pre">--climate</span></code>) is the map:
 <code class="docutils literal notranslate"><span class="pre">koppen_geiger</span></code> (computed from the climate), <code class="docutils literal notranslate"><span class="pre">ecoregions</span></code> (with
 <code class="docutils literal notranslate"><span class="pre">--ecoregions-shapefile</span></code>), or a labels CSV with a <code class="docutils literal notranslate"><span class="pre">cell_id</span></code> column. A CSV that holds
 several cuts of one dendrogram (<code class="docutils literal notranslate"><span class="pre">cluster_k7</span></code> … <code class="docutils literal notranslate"><span class="pre">cluster_k21320</span></code>) needs <code class="docutils literal notranslate"><span class="pre">--column</span></code> to
 name one, or <code class="docutils literal notranslate"><span class="pre">--fraction</span></code> to take the cut nearest that share of the valid cells.</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>climclu<span class="w"> </span>create-regions<span class="w"> </span>/data/climate_input<span class="w"> </span>koppen_geiger<span class="w"> </span>--output-dir<span class="w"> </span>./regions
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>climclu<span class="w"> </span>create-regions<span class="w"> </span>--climate<span class="w"> </span><span class="nv">temperature</span><span class="o">=</span>/data/tas.nc<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--climate<span class="w"> </span><span class="nv">precipitation</span><span class="o">=</span>/data/pr.nc<span class="w"> </span>koppen_geiger<span class="w"> </span>--output-dir<span class="w"> </span>./regions
 
-<span class="gp">$ </span>climclu<span class="w"> </span>create-regions<span class="w"> </span>/data/climate_input<span class="w"> </span>deploy/cluster_labels.csv<span class="w"> </span>--fraction<span class="w"> </span><span class="m">0</span>.01<span class="w"> </span><span class="se">\</span>
+<span class="gp">$ </span>climclu<span class="w"> </span>create-regions<span class="w"> </span>/data/lpjml_input<span class="w"> </span>deploy/cluster_labels.csv<span class="w"> </span>--fraction<span class="w"> </span><span class="m">0</span>.01<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>--representative<span class="w"> </span>distributed<span class="w"> </span>--npatch<span class="w"> </span><span class="m">25</span><span class="w"> </span>--cells-per-cluster<span class="w"> </span><span class="m">25</span><span class="w"> </span>--seed<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>--write-fields<span class="w"> </span>soil_code<span class="w"> </span>--output-dir<span class="w"> </span>./grid_1pct
 </pre></div>

@@ -39,11 +39,14 @@ the model run in between usually takes days.
 
 .. autofunction:: load_clusters
 
-Input for a model other than LPJmL
-----------------------------------
+Describing the input
+--------------------
 
-Any named climate and static fields and any land mask, passed as ``climate_input``
-(see :doc:`../howto/inputs`).
+Any named climate and static fields and any land mask or cell list. Give them to
+:func:`create_clusters`, :func:`create_regions` or :func:`check_inputs` directly as
+``climate=``, ``static=``, ``land_mask=`` and ``grid=``, or build them first as a
+:class:`GenericInputs` and pass that (see :doc:`../howto/inputs`). The LPJmL-FIT file
+layout has its own preset, :class:`~climclusterpy.data.DataPaths`.
 
 .. autoclass:: GenericInputs
 

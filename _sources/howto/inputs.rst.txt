@@ -1,10 +1,118 @@
 Prepare the input files
 =======================
 
-:func:`~climclusterpy.create_clusters` and :func:`~climclusterpy.create_regions` read the
-climate and soil of the original grid from NetCDF files. This page states what those files
-must look like, as the code reads them, and what the functions write back. Where the code
-does not check something, the page says so.
+:func:`~climclusterpy.create_clusters`, :func:`~climclusterpy.create_regions` and
+:func:`~climclusterpy.check_inputs` read the climate (and any static fields such as soil)
+of the original grid from NetCDF files. This page states how to describe that input, what
+the files must look like as the code reads them, and what the functions write back. Where
+the code does not check something, the page says so.
+
+Describe the input
+------------------
+
+Four arguments describe the input, under the names your model uses:
+
+.. code-block:: python
+
+   from climclusterpy import create_clusters
+
+   clusters = create_clusters(
+       climate={
+           "temperature": "/data/tas.nc",
+           "precipitation": "/data/pr.nc",
+           "short_wave_radiation": "/data/rsds.nc",
+       },
+       static={
+           "soil": ("/data/soil_class.nc", "categorical"),
+           "elevation": ("/data/dem.nc", "continuous"),
+       },
+       grid="/data/gridlist.csv",       # or land_mask="/data/land.nc", or neither
+       n_clusters=500,
+   )
+
+``climate``
+   ``{name: path}``: at least one NetCDF with a ``time`` dimension, under any names.
+``static``
+   ``{name: (path, kind)}``: fields without a time axis. ``kind`` is ``"categorical"`` for
+   a class code, which becomes one 0/1 feature per class (so class 5 is not "more" than
+   class 2), or ``"continuous"`` for a measurement. There is no default kind.
+``land_mask``
+   A NetCDF marking the cells to cluster: a cell is included where the mask is non-zero
+   and not missing. For a file with several variables, ``(path, variable)`` names the one
+   to use — e.g. ``land_mask=("soil.nc", "soil_class")`` to cluster every cell with a soil
+   class.
+``grid``
+   The model's own cell list, a CSV (or a ``pandas.DataFrame``) with ``lat`` and ``lon``
+   columns; used only without ``land_mask``. The grid's axes are the distinct latitudes and
+   longitudes in the list, and only the listed cells are clustered.
+
+With neither ``land_mask`` nor ``grid``, the cells are those where **every** field has
+data (its first time step, for a climate field).
+
+The same description can be built first as a :class:`~climclusterpy.GenericInputs` and
+passed in their place — useful when one input is used for several runs:
+
+.. code-block:: python
+
+   from climclusterpy import ClimateField, GenericInputs, StaticField
+
+   spec = GenericInputs(
+       climate={
+           "temperature": "/data/tas.nc",
+           "precipitation": ClimateField("/data/era5.nc", variable="tp"),
+       },
+       static={"soil": StaticField("/data/soil.nc", kind="categorical", variable="class")},
+       land_mask="/data/land.nc",
+   )
+   report = check_inputs(spec, n_clusters=500)
+   clusters = create_clusters(spec, n_clusters=500)
+
+A file holding one data variable needs nothing more. When it holds several, or its
+variable is not named after the field, name it with ``ClimateField(path, variable=...)`` or
+``StaticField(path, kind, variable=...)``. ``ClimateField(..., aggregation="sum")`` makes
+a field that is not one of the recognised variables below accumulate over a month (like a
+second precipitation) instead of being averaged.
+
+The input can also be given in the fixed file layout of LPJmL-FIT, the vegetation model
+the package was developed with; see :ref:`lpjml-layout` below.
+
+What the climate fields are used for
+------------------------------------
+
+A climate field recognised as one of these variables, by its name or the name of its
+variable (``tas`` or ``t2m``, ``pr`` or ``tp``, ``rsds`` or ``SWdown``, ``rlds`` or
+``LWdown``, ``hurs`` or ``rh``), gets that variable's own features and unit checks:
+
+.. list-table::
+   :header-rows: 1
+   :widths: 24 76
+
+   * - Variable
+     - Units and use
+   * - temperature
+     - **°C or K**. Kelvin is recognised by its magnitude (a mean above 200 over the cells)
+       and converted to °C for the features; the units attribute is not consulted.
+   * - precipitation
+     - **Per time step**: mm/month for monthly data, mm/day for daily data. A flux in
+       kg m⁻² s⁻¹ is **not** converted (``check_inputs`` reports it as a problem): multiply
+       by 86 400 for daily data, or by the seconds in each month for monthly data.
+   * - short-wave radiation
+     - Downward short-wave radiation, W m⁻².
+   * - long-wave radiation
+     - Downward long-wave radiation, W m⁻².
+   * - humidity
+     - Relative humidity, %.
+
+With both temperature and precipitation present, the Köppen–Geiger diagnostics are added
+too, and ``supervision="koppen_geiger"`` becomes available. Any other climate field is
+summarised generically: its annual mean (or sum), its spread, and — when the series is
+whole years — its 12 monthly values and their seasonality, in its own units.
+
+Units only matter where the code compares against a fixed number: the Köppen–Geiger
+classes (thresholds in °C and mm/month) and the wet-step frequency (the share of time
+steps with more than 1 mm of precipitation). Every other feature is standardized before
+clustering. The reduced-grid NetCDFs that are written for your model carry your values
+**unchanged**, in your units.
 
 Check your input first
 ----------------------
@@ -17,7 +125,7 @@ and *warnings* (worth knowing, the run goes ahead):
 
    from climclusterpy import check_inputs
 
-   report = check_inputs("/data/climate_input", n_clusters=2000)
+   report = check_inputs(climate={...}, static={...}, n_clusters=2000)
    print(report)        # grid size, land cells, time steps, units, sampled ranges
    report.ok            # False if create_clusters would refuse the input or go wrong
    report.problems      # plain sentences, one per problem
@@ -27,93 +135,22 @@ and *warnings* (worth knowing, the run goes ahead):
 from the first 24 time steps) on every call. ``check_inputs`` additionally reads every time
 step to look for missing values.
 
-The files
----------
-
-Pass a directory holding one file per input, named exactly as below; or a
-:class:`~climclusterpy.data.DataPaths`; or a ``dict`` mapping these names to paths.
-A directory missing a required file is refused with a list of what it does contain.
-
-.. list-table::
-   :header-rows: 1
-   :widths: 26 12 62
-
-   * - File
-     - Required
-     - Content and units
-   * - ``temperature.nc``
-     - yes
-     - Air temperature, **°C or K**. Kelvin is recognised by its magnitude (a mean above
-       200 over the land cells) and converted to °C for the features; the units attribute
-       is not consulted.
-   * - ``precipitation.nc``
-     - yes
-     - Precipitation **per time step**: mm/month for monthly data, mm/day for daily data.
-       A flux in kg m⁻² s⁻¹ is **not** converted (``check_inputs`` reports it as a problem):
-       multiply by 86 400 for daily data, or by the seconds in each month for monthly data.
-   * - ``short_wave_radiation.nc``
-     - yes
-     - Downward short-wave radiation, W m⁻².
-   * - ``long_wave_radiation.nc``
-     - yes
-     - Downward long-wave radiation, W m⁻².
-   * - ``soil_code.nc``
-     - yes
-     - Soil type as an integer code per cell. **Defines the grid** — see below.
-   * - ``soil_depth.nc``
-     - yes
-     - Soil depth per cell. Used as one continuous feature; its unit does not matter,
-       because every feature is standardized.
-   * - ``humid.nc``
-     - no
-     - Relative humidity, %.
-
-Each file may hold one data variable of any name; if it holds several, the one matching
-the input name or a common alias is used (``tas``/``t2m`` for temperature, ``pr``/``tp``
-for precipitation, ``rsds``/``SWdown``, ``rlds``/``LWdown``, ``hurs``/``rh``,
-``soiltexture`` for the soil code, ``soildepth`` for the depth).
-
-Units only matter where the code compares against a fixed number: the Köppen–Geiger
-classes (thresholds in °C and mm/month) and the wet-step frequency (the share of time
-steps with more than 1 mm of precipitation). Every other feature is standardized before clustering. The reduced-grid NetCDFs
-that are written for your model carry your values **unchanged**, in your units.
-
 Grid and coordinates
 --------------------
 
 * Coordinates may be named ``latitude``, ``lat``, ``Latitude`` or ``LAT`` and
   ``longitude``, ``lon``, ``Longitude`` or ``LON``. They are renamed to ``latitude`` /
   ``longitude``, rounded to 5 decimals, and longitudes in 0–360° become −180–180°.
-* Every climate file must be on **exactly** the grid of ``soil_code.nc``: the same
-  latitude and longitude values in the same order (after that rounding). Otherwise the
-  load stops and says which axis differs. Regrid first (for example with CDO
+* The grid that defines the cells is the land mask's, the cell list's, or (with neither)
+  the first field's. A field on a slightly different grid is mapped onto it by nearest
+  neighbour, with a warning saying how far the largest shift is; a field more than half a
+  grid cell away from some cell is refused. Regrid such a field first (for example with CDO
   ``remapnn``).
-* ``soil_depth.nc`` may be on a different grid; it is mapped to the soil-code grid by
-  nearest neighbour, with a warning saying how far the largest shift is.
 * The code is written for a regular latitude–longitude grid whose 1-D ``latitude`` and
   ``longitude`` coordinates are also its dimensions. Curvilinear grids (2-D coordinate
   arrays on ``x``/``y`` dimensions) are not supported.
 * The dimension order does not matter (``time, lat, lon`` and ``lat, lon, time`` both
   work).
-
-Which cells exist: the soil code
---------------------------------
-
-The **soil code defines the grid**. A cell is a land cell, and gets a ``cell_id``, when
-its soil code is not missing: not NaN and not equal to the file's ``_FillValue`` or
-``missing_value``. If the file declares neither, the code looks for the common fill values
-−9999, −999, 9999, −32768 and −1 000 000 in the data and treats the first one it finds as
-missing. ``cell_id`` numbers the land cells from 0 in row order (latitude, then
-longitude).
-
-A soil code of **0 is not land**: LPJmL has no soil type 0 and skips such a cell, so it is
-left out of the grid too, with a warning that counts them (before 0.3.0 it counted as land).
-If your file uses another value for water or ice, set those cells to missing first, or they
-become land cells.
-
-The codes are categories: each distinct code becomes its own 0/1 feature column
-(``soil_code_<value>``), so code 5 is not treated as "more" than code 2. A ``time``
-dimension on either soil file is dropped by taking its first step.
 
 The time axis
 -------------
@@ -140,49 +177,91 @@ Missing values
 
 Nothing is filled in.
 
-* Cells with a missing soil code are not part of the grid, whatever their climate.
+* Cells outside the land mask or the cell list (or, for the LPJmL-FIT layout, with a
+  missing soil code) are not part of the grid, whatever their climate.
 * A land cell whose climate is missing at **every** time step of some input makes its
   features NaN, and :func:`~climclusterpy.create_clusters` stops with an error naming the
   input, the number of cells and a few of their coordinates.
 * A land cell with **some** missing time steps is not stopped by ``create_clusters``: its
   summaries are computed from the values that are present. If that cell is chosen to be
   simulated, the gaps go into the reduced-grid file for your model unchanged.
-  :func:`~climclusterpy.check_inputs` reports every such cell; fill the gaps, or mark
-  those cells missing in ``soil_code``.
+  :func:`~climclusterpy.check_inputs` reports every such cell; fill the gaps, or leave
+  those cells out of the land mask or the cell list.
 
-Another vegetation model's input
---------------------------------
+What is written
+---------------
 
-The fixed names above are LPJmL-FIT's. For any other model, describe the input with a
-:class:`~climclusterpy.GenericInputs`: any climate fields under the model's own names (at
-least one), any static fields each declared ``"categorical"`` (a class code, one-hot
-encoded) or ``"continuous"``, and which cells exist — a land-mask NetCDF (``land_mask=``),
-a plain list of cell coordinates (``grid=``, a CSV with ``lat`` and ``lon`` columns), or,
-when neither is given, every cell where all supplied fields have data.
+Every climate field and every static field is written to the reduced grid under its own
+name, with each written cell holding its source cell's value. The pre-0.3.0 layout
+``placement="cluster_center"`` cannot carry static fields: it refuses them, unless you
+leave them out of the output with ``write_fields=``.
 
-.. code-block:: python
+.. _lpjml-layout:
 
-   from climclusterpy import GenericInputs, StaticField, check_inputs, create_clusters
+The LPJmL-FIT file layout
+-------------------------
 
-   spec = GenericInputs(
-       climate={
-           "temperature": "/data/temperature.nc",
-           "precipitation": "/data/precipitation.nc",
-           "short_wave_radiation": "/data/swrad.nc",
-       },
-       static={"soil_texture": StaticField(path="/data/soil_texture.nc", kind="continuous")},
-       grid="/data/gridlist.csv",
-   )
-   print(check_inputs(spec))
-   clusters = create_clusters(spec, n_clusters=500)
+LPJmL-FIT reads six fixed files. A directory holding them, named exactly as below, can be
+passed as it is — ``create_clusters("/data/lpjml_input", n_clusters=2000)`` — or as a
+:class:`~climclusterpy.data.DataPaths`, or as a ``dict`` mapping these names to paths. A
+directory missing a required file is refused with a list of what it does contain.
 
-A file whose variable is not named after the field takes ``ClimateField(path, variable=...)``
-or ``StaticField(path, kind, variable=...)``. Every climate field is written to the reduced
-grid, and so is every static field, under its own name, with each written cell holding its
-source cell's value. ``soil_code`` and ``soil_depth`` are written only if the input has them.
-The pre-0.3.0 layout ``placement="cluster_center"`` cannot carry static fields: it refuses
-them, unless you leave them out of the output with ``write_fields=``.
-``representative="distributed"`` needs a static field named ``soil_code``.
+.. list-table::
+   :header-rows: 1
+   :widths: 26 12 62
+
+   * - File
+     - Required
+     - Content and units
+   * - ``temperature.nc``
+     - yes
+     - Air temperature, °C or K (units as in the table above).
+   * - ``precipitation.nc``
+     - yes
+     - Precipitation per time step.
+   * - ``short_wave_radiation.nc``
+     - yes
+     - Downward short-wave radiation, W m⁻².
+   * - ``long_wave_radiation.nc``
+     - yes
+     - Downward long-wave radiation, W m⁻².
+   * - ``soil_code.nc``
+     - yes
+     - Soil type as an integer code per cell. **Defines the grid** — see below.
+   * - ``soil_depth.nc``
+     - yes
+     - Soil depth per cell. Used as one continuous feature; its unit does not matter,
+       because every feature is standardized.
+   * - ``humid.nc``
+     - no
+     - Relative humidity, %.
+
+Each file may hold one data variable of any name; if it holds several, the one matching
+the input name or a common alias is used (``tas``/``t2m`` for temperature, ``pr``/``tp``
+for precipitation, ``rsds``/``SWdown``, ``rlds``/``LWdown``, ``hurs``/``rh``,
+``soiltexture`` for the soil code, ``soildepth`` for the depth).
+
+* Every climate file must be on **exactly** the grid of ``soil_code.nc``: the same
+  latitude and longitude values in the same order (after rounding to 5 decimals).
+  Otherwise the load stops and says which axis differs.
+* ``soil_depth.nc`` may be on a different grid; it is mapped to the soil-code grid by
+  nearest neighbour, with a warning saying how far the largest shift is.
+
+The **soil code defines the grid**. A cell is a land cell, and gets a ``cell_id``, when
+its soil code is not missing: not NaN and not equal to the file's ``_FillValue`` or
+``missing_value``. If the file declares neither, the code looks for the common fill values
+−9999, −999, 9999, −32768 and −1 000 000 in the data and treats the first one it finds as
+missing. ``cell_id`` numbers the land cells from 0 in row order (latitude, then
+longitude).
+
+A soil code of **0 is not land**: LPJmL has no soil type 0 and skips such a cell, so it is
+left out of the grid too, with a warning that counts them (before 0.3.0 it counted as land).
+If your file uses another value for water or ice, set those cells to missing first, or they
+become land cells.
+
+The codes are categories: each distinct code becomes its own 0/1 feature column
+(``soil_code_<value>``), so code 5 is not treated as "more" than code 2. A ``time``
+dimension on either soil file is dropped by taking its first step.
 
 Output files
 ------------
@@ -197,10 +276,8 @@ clusters, a run writes:
    * - File
      - What it is
    * - ``<input>_<K>_clusters_clustering_ncells_<n>_<choice>_<mode>.nc``
-     - One NetCDF per input (``temperature``, ``precipitation``,
-       ``short_wave_radiation``, ``long_wave_radiation``, ``soil_code``, ``soil_depth``,
-       and ``humid`` if given; for a :class:`~climclusterpy.GenericInputs`, each of its
-       own fields) on the reduced grid: **what the vegetation model runs on**.
+     - One NetCDF per input field, under its own name, on the reduced grid: **what the
+       vegetation model runs on**.
        ``<n>`` is the number of written cells. Each file also holds a ``cluster_label``
        variable and records the patch budget in its global attributes
        (``patches_per_cell``, ``npatch_per_cluster``, ``cells_per_cluster``,

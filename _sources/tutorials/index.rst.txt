@@ -6,7 +6,7 @@ does the entire workflow (reduce a grid, run a model on it, rebuild the original
 function calls. The remaining tutorials take one building block each, for when you want to
 drive the steps yourself.
 
-Every tutorial runs on tiny **synthetic** climate + soil data built in-memory, so you can
+Every tutorial runs on tiny **synthetic** climate + static-field data built in-memory, so you can
 follow along with only the core install (the LMNN tutorial additionally needs the
 ``[lmnn]`` extra). No ``/p`` mounts, no real data, no downloads.
 
