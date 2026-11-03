@@ -1,0 +1,515 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Choose the features &mdash; climclusterpy 0.6</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=f2cc2102" />
+
+  
+    <link rel="shortcut icon" href="../_static/logo.svg"/>
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=8fa8b3e9"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Cluster a feature matrix (choose a mode)" href="clustering.html" />
+    <link rel="prev" title="Prepare the input files" href="inputs.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            climclusterpy
+              <img src="../_static/logo.svg" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">Tutorials</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/one_call_roundtrip.html">Tutorial 0 — the whole workflow in two calls</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/one_call_roundtrip.html#build-the-reduced-grid">Build the reduced grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/one_call_roundtrip.html#rebuild-the-original-grid">Rebuild the original grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/one_call_roundtrip.html#the-script">The script</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/one_call_roundtrip.html#run-it">Run it</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/one_call_roundtrip.html#next-steps">Next steps</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/euclidean_clustering.html">Tutorial 1 — Euclidean clustering</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/euclidean_clustering.html#load-data-and-build-a-feature-matrix">Load data and build a feature matrix</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/euclidean_clustering.html#cluster">Cluster</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/euclidean_clustering.html#the-script">The script</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/euclidean_clustering.html#run-it">Run it</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/euclidean_clustering.html#next-steps">Next steps</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/lmnn_clustering.html">Tutorial 2 — LMNN metric-learning clustering</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/lmnn_clustering.html#provide-a-supervision-signal">Provide a supervision signal</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/lmnn_clustering.html#learn-a-metric-and-cluster">Learn a metric and cluster</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/lmnn_clustering.html#the-script">The script</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/lmnn_clustering.html#run-it">Run it</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/lmnn_clustering.html#next-steps">Next steps</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/supervision.html">Tutorial 3 — Supervision signals</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/supervision.html#koppengeiger-from-monthly-climatology">Köppen–Geiger from monthly climatology</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/supervision.html#model-output-traits">Model output (traits)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/supervision.html#the-script">The script</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/supervision.html#run-it">Run it</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/supervision.html#ecoregion-supervision">Ecoregion supervision</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/reconstruction.html">Tutorial 4 — Reconstruct the original grid</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/reconstruction.html#reconstruction">Reconstruction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/reconstruction.html#check">Check</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/reconstruction.html#the-script">The script</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/reconstruction.html#run-it">Run it</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/reconstruction.html#next-steps">Next steps</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/index.html#synthetic-data">Synthetic data</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">How-to guides</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">How-to guides</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="install.html">Install climclusterpy</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="install.html#extras">Extras</a></li>
+<li class="toctree-l3"><a class="reference internal" href="install.html#geopandas-and-cartopy-with-conda">GeoPandas and Cartopy with conda</a></li>
+<li class="toctree-l3"><a class="reference internal" href="install.html#pytorch-on-cpu-or-gpu">PyTorch on CPU or GPU</a></li>
+<li class="toctree-l3"><a class="reference internal" href="install.html#environment-variables">Environment variables</a></li>
+<li class="toctree-l3"><a class="reference internal" href="install.html#building-this-documentation">Building this documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="inputs.html">Prepare the input files</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="inputs.html#describe-the-input">Describe the input</a></li>
+<li class="toctree-l3"><a class="reference internal" href="inputs.html#what-the-climate-fields-are-used-for">What the climate fields are used for</a></li>
+<li class="toctree-l3"><a class="reference internal" href="inputs.html#check-your-input-first">Check your input first</a></li>
+<li class="toctree-l3"><a class="reference internal" href="inputs.html#grid-and-coordinates">Grid and coordinates</a></li>
+<li class="toctree-l3"><a class="reference internal" href="inputs.html#the-time-axis">The time axis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="inputs.html#missing-values">Missing values</a></li>
+<li class="toctree-l3"><a class="reference internal" href="inputs.html#what-is-written">What is written</a></li>
+<li class="toctree-l3"><a class="reference internal" href="inputs.html#the-lpjml-fit-file-layout">The LPJmL-FIT file layout</a></li>
+<li class="toctree-l3"><a class="reference internal" href="inputs.html#output-files">Output files</a></li>
+</ul>
+</li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Choose the features</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#what-is-computed">What is computed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#filtering">Filtering</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#missing-inputs">Missing inputs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#use-a-different-set">Use a different set</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="clustering.html">Cluster a feature matrix (choose a mode)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="clustering.html#euclidean-mode-no-supervision">Euclidean mode (no supervision)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="clustering.html#lmnn-mode-supervised-metric-learning">LMNN mode (supervised metric learning)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="clustering.html#lower-level-control">Lower-level control</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="supervision.html">Build an LMNN supervision signal</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="supervision.html#from-climate-koppengeiger">From climate — Köppen–Geiger</a></li>
+<li class="toctree-l3"><a class="reference internal" href="supervision.html#from-model-output-traits">From model output — traits</a></li>
+<li class="toctree-l3"><a class="reference internal" href="supervision.html#from-a-shapefile-ecoregions2017">From a shapefile — Ecoregions2017</a></li>
+<li class="toctree-l3"><a class="reference internal" href="supervision.html#using-the-signal">Using the signal</a></li>
+<li class="toctree-l3"><a class="reference internal" href="supervision.html#in-one-call">In one call</a></li>
+<li class="toctree-l3"><a class="reference internal" href="supervision.html#saved-results-are-reused-only-for-the-same-inputs">Saved results are reused only for the same inputs</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="cell_selection.html">Choose the simulated cells</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cell_selection.html#patches">Patches</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cell_selection.html#properties-of-the-selected-cells">Properties of the selected cells</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cell_selection.html#reproducibility">Reproducibility</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cell_selection.html#draw-cells-without-building-a-grid">Draw cells without building a grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cell_selection.html#reconstruction">Reconstruction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cell_selection.html#models-that-read-their-own-inputs">Models that read their own inputs</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="reconstruct.html">Reconstruct the original grid</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="reconstruct.html#the-usual-call">The usual call</a></li>
+<li class="toctree-l3"><a class="reference internal" href="reconstruct.html#restore-a-result-in-a-later-session">Restore a result in a later session</a></li>
+<li class="toctree-l3"><a class="reference internal" href="reconstruct.html#without-a-result-object">Without a result object</a></li>
+<li class="toctree-l3"><a class="reference internal" href="reconstruct.html#mapping-files">Mapping files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="reconstruct.html#reconstruction-paths">Reconstruction paths</a></li>
+<li class="toctree-l3"><a class="reference internal" href="reconstruct.html#checking-the-result">Checking the result</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../reference/index.html">Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../reference/api.html">Public API — <code class="xref py py-mod docutils literal notranslate"><span class="pre">climclusterpy</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../reference/api.html#the-two-headline-functions">The two headline functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/api.html#before-and-after-the-model-run">Before and after the model run</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/api.html#describing-the-input">Describing the input</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/api.html#other-ways-to-build-the-reduced-grid">Other ways to build the reduced grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/api.html#reusing-a-trained-metric">Reusing a trained metric</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/api.html#the-model-s-other-inputs">The model’s other inputs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/api.html#writing-the-reduced-grid-yourself">Writing the reduced grid yourself</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/api.html#building-blocks">Building blocks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/api.html#result-objects">Result objects</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/toplevel.html">Data, timeseries, I/O &amp; plotting</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../reference/toplevel.html#module-climclusterpy.data">Data loading &amp; the grid registry</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/toplevel.html#how-much-the-package-reports">How much the package reports</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/toplevel.html#coordinates">Coordinates</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/toplevel.html#module-climclusterpy.timeseries">Per-cluster timeseries</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/toplevel.html#module-climclusterpy.io">File input/output</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/toplevel.html#module-climclusterpy.preprocessing">Preprocessing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/toplevel.html#module-climclusterpy.viz">Plotting</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/features.html">Feature engineering</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../reference/features.html#ecological-summaries">Ecological summaries</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/features.html#vegetation-model-traits">Vegetation-model traits</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/features.html#standardization-filtering">Standardization &amp; filtering</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/clustering.html">Clustering &amp; metric learning</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../reference/clustering.html#hierarchical-clustering">Hierarchical clustering</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/clustering.html#module-climclusterpy.clustering.lmnn">LMNN metric learning</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/supervision.html">Supervision labels</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../reference/supervision.html#koppengeiger-climate-zones">Köppen–Geiger climate zones</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/supervision.html#vegetation-model-output-traits">Vegetation-model output traits</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/supervision.html#ecoregion-polygons">Ecoregion polygons</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/supervision.html#daily-input-helpers">Daily-input helpers</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/grid.html">Grid building &amp; reconstruction</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../reference/grid.html#where-each-reduced-cell-is-placed">Where each reduced cell is placed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/grid.html#writing-the-reduced-grid">Writing the reduced grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/grid.html#reconstruction">Reconstruction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/grid.html#lpjml-clm-conversion">LPJmL CLM conversion</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/cli.html">Command-line interface (<code class="docutils literal notranslate"><span class="pre">climclu</span></code>)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../reference/cli.html#the-two-headline-commands">The two headline commands</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/cli.html#building-blocks">Building blocks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/cli.html#options-shared-by-every-action-command">Options shared by every action command</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/cli.html#deprecated-names">Deprecated names</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/cli.html#errors-and-exit-codes">Errors and exit codes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/index.html#which-function-do-i-need">Which function do I need?</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Background</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../explanation/index.html">Background</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../explanation/overview.html">Overview</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../explanation/overview.html#workflow">Workflow</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../explanation/overview.html#package-layout">Package layout</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../explanation/overview.html#references">References</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../explanation/methods.html">Methods</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../explanation/methods.html#data-acquisition-and-preprocessing">Data Acquisition and Preprocessing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../explanation/methods.html#ecoregion-assignment">Ecoregion Assignment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../explanation/methods.html#ecological-feature-summarization">Ecological Feature Summarization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../explanation/methods.html#feature-standardization-and-filtering">Feature Standardization and Filtering</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../explanation/methods.html#large-margin-nearest-neighbor-lmnn-metric-learning">Large Margin Nearest Neighbor (LMNN) Metric Learning</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../explanation/methods.html#hierarchical-clustering">Hierarchical Clustering</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../explanation/methods.html#cell-selection">Cell Selection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../explanation/methods.html#the-reduced-grid">The Reduced Grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../explanation/methods.html#reconstruction">Reconstruction</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">climclusterpy</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">How-to guides</a></li>
+      <li class="breadcrumb-item active">Choose the features</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://gitlab.pik-potsdam.de/lpjmlfit_analysis/climclusterpy/blob/main/docs/src/howto/features.rst" class="fa fa-gitlab"> Edit on GitLab</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="choose-the-features">
+<h1>Choose the features<a class="headerlink" href="#choose-the-features" title="Link to this heading"></a></h1>
+<p>Every cell is described by a feature vector before it is clustered. The vector is built the
+same way for Euclidean and for learned distances. <a class="reference internal" href="../reference/api.html#climclusterpy.create_clusters" title="climclusterpy.create_clusters"><code class="xref py py-func docutils literal notranslate"><span class="pre">create_clusters()</span></code></a>
+builds it from the climate and static input, standardizes it and removes redundant
+features; this page lists what goes in, what is removed, what happens when an input is
+missing, and how to use a different set. The paper describes the vector as monthly climate
+and static properties (appendix “Definitions, tolerances and configuration”).</p>
+<section id="what-is-computed">
+<h2>What is computed<a class="headerlink" href="#what-is-computed" title="Link to this heading"></a></h2>
+<p><strong>Climate variables.</strong> <code class="docutils literal notranslate"><span class="pre">climate_variables</span></code> selects them. The default is <code class="docutils literal notranslate"><span class="pre">tas</span></code>
+(temperature), <code class="docutils literal notranslate"><span class="pre">pr</span></code> (precipitation), <code class="docutils literal notranslate"><span class="pre">rsds</span></code> and <code class="docutils literal notranslate"><span class="pre">rlds</span></code> (short- and long-wave
+radiation) and, only when the input has a humidity field, <code class="docutils literal notranslate"><span class="pre">hurs</span></code>. With the generic input
+(<code class="docutils literal notranslate"><span class="pre">climate={name:</span> <span class="pre">path}</span></code>) the default is every declared climate field. A field is
+recognised as one of the five variables above by its name or its variable’s name (for
+example <code class="docutils literal notranslate"><span class="pre">temperature</span></code>, <code class="docutils literal notranslate"><span class="pre">tas</span></code> and <code class="docutils literal notranslate"><span class="pre">t2m</span></code> all give <code class="docutils literal notranslate"><span class="pre">tas</span></code>; the recognised names are in <a class="reference internal" href="inputs.html"><span class="doc">Prepare the input files</span></a>). <code class="docutils literal notranslate"><span class="pre">&quot;spei&quot;</span></code> is computed only when it is named.</p>
+<p>Fixed summaries of the known variables, with the column names:</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 14.0%" />
+<col style="width: 86.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Variable</p></th>
+<th class="head"><p>Columns</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">tas</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">tas_mean_annual</span></code>, <code class="docutils literal notranslate"><span class="pre">tas_std</span></code>, <code class="docutils literal notranslate"><span class="pre">tas_range</span></code> (maximum minus minimum), <code class="docutils literal notranslate"><span class="pre">tas_seasonality</span></code>
+(standard deviation of the 12 monthly means), <code class="docutils literal notranslate"><span class="pre">tas_month_01</span></code> … <code class="docutils literal notranslate"><span class="pre">tas_month_12</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">pr</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">pr_mean_annual</span></code>, <code class="docutils literal notranslate"><span class="pre">pr_cv_monthly</span></code>, <code class="docutils literal notranslate"><span class="pre">pr_wetdays_freq</span></code> (share of time steps with
+more than 1 mm), <code class="docutils literal notranslate"><span class="pre">pr_max_monthly</span></code>, <code class="docutils literal notranslate"><span class="pre">pr_month_01</span></code> … <code class="docutils literal notranslate"><span class="pre">pr_month_12</span></code> (mm/month)</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">rsds</span></code>, <code class="docutils literal notranslate"><span class="pre">rlds</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">&lt;v&gt;_mean_annual</span></code>, <code class="docutils literal notranslate"><span class="pre">&lt;v&gt;_std</span></code>, <code class="docutils literal notranslate"><span class="pre">&lt;v&gt;_seasonal_amplitude</span></code> (maximum minus minimum)</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">hurs</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">hurs_mean_annual</span></code>, <code class="docutils literal notranslate"><span class="pre">hurs_std</span></code>, <code class="docutils literal notranslate"><span class="pre">hurs_dry_min</span></code> (minimum)</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">spei</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">spei_3_mean</span></code>, <code class="docutils literal notranslate"><span class="pre">spei_6_mean</span></code>, <code class="docutils literal notranslate"><span class="pre">spei_12_mean</span></code> (needs <code class="docutils literal notranslate"><span class="pre">tas</span></code>, <code class="docutils literal notranslate"><span class="pre">pr</span></code>, <code class="docutils literal notranslate"><span class="pre">rsds</span></code> and
+the <code class="docutils literal notranslate"><span class="pre">[spei]</span></code> extra, <code class="docutils literal notranslate"><span class="pre">pyet</span></code>)</p></td>
+</tr>
+</tbody>
+</table>
+<p>The <code class="docutils literal notranslate"><span class="pre">_month_NN</span></code> columns are the monthly climatology: the mean over all years of each
+calendar month, from monthly data or from daily data with dates.</p>
+<p><strong>Köppen–Geiger diagnostics.</strong> When <code class="docutils literal notranslate"><span class="pre">tas</span></code> and <code class="docutils literal notranslate"><span class="pre">pr</span></code> both have their 12 monthly columns,
+eight further columns are added: <code class="docutils literal notranslate"><span class="pre">kg_diag_T_cold</span></code>, <code class="docutils literal notranslate"><span class="pre">kg_diag_T_warm</span></code>,
+<code class="docutils literal notranslate"><span class="pre">kg_diag_P_dry_min</span></code>, <code class="docutils literal notranslate"><span class="pre">kg_diag_P_wet_max</span></code>, <code class="docutils literal notranslate"><span class="pre">kg_diag_P_dry_summer</span></code>,
+<code class="docutils literal notranslate"><span class="pre">kg_diag_P_dry_winter</span></code>, <code class="docutils literal notranslate"><span class="pre">kg_diag_P_seasonality_ratio</span></code> and <code class="docutils literal notranslate"><span class="pre">kg_diag_aridity_index</span></code>.
+They are the quantities of the Köppen–Geiger rules as continuous values.</p>
+<p><strong>Other climate variables</strong> (a generic field that is none of the five). <code class="docutils literal notranslate"><span class="pre">&lt;name&gt;_mean_annual</span></code>
+and <code class="docutils literal notranslate"><span class="pre">&lt;name&gt;_std</span></code>, and, when a monthly climatology can be built (at least 12 time steps; daily
+data with dates, or monthly data covering whole years), <code class="docutils literal notranslate"><span class="pre">&lt;name&gt;_seasonality</span></code> (standard
+deviation of the 12 monthly values) and <code class="docutils literal notranslate"><span class="pre">&lt;name&gt;_month_01</span></code> … <code class="docutils literal notranslate"><span class="pre">&lt;name&gt;_month_12</span></code>. With
+<code class="docutils literal notranslate"><span class="pre">ClimateField(path,</span> <span class="pre">aggregation=&quot;sum&quot;)</span></code> the annual column is <code class="docutils literal notranslate"><span class="pre">&lt;name&gt;_sum_annual</span></code> and
+daily values are summed to months; the default is the mean. A field without a time axis gives
+<code class="docutils literal notranslate"><span class="pre">&lt;name&gt;_mean</span></code> and <code class="docutils literal notranslate"><span class="pre">&lt;name&gt;_std</span></code>. The values stay in the field’s own units; there is no
+unit conversion for these.</p>
+<p><strong>Static fields.</strong> A continuous field is one column under its own name. A categorical field
+is one-hot encoded, one 0/1 column <code class="docutils literal notranslate"><span class="pre">&lt;name&gt;_&lt;value&gt;</span></code> per class, so that class 5 is not
+“more” than class 2. With <code class="docutils literal notranslate"><span class="pre">static={name:</span> <span class="pre">(path,</span> <span class="pre">kind)}</span></code> the kind is the one given. For the
+LPJmL-FIT layout the fields are <code class="docutils literal notranslate"><span class="pre">soil_depth</span></code> (continuous) and <code class="docutils literal notranslate"><span class="pre">soil_code</span></code> (categorical).</p>
+</section>
+<section id="filtering">
+<h2>Filtering<a class="headerlink" href="#filtering" title="Link to this heading"></a></h2>
+<p>After the columns are built, three steps remove what carries no independent information
+(<code class="docutils literal notranslate"><span class="pre">correlation_threshold</span></code>, <code class="docutils literal notranslate"><span class="pre">pca_variance_threshold</span></code>, <code class="docutils literal notranslate"><span class="pre">pca_contrib_threshold</span></code> of
+<a class="reference internal" href="../reference/api.html#climclusterpy.create_clusters" title="climclusterpy.create_clusters"><code class="xref py py-func docutils literal notranslate"><span class="pre">create_clusters()</span></code></a>):</p>
+<ol class="arabic simple">
+<li><p><strong>Standardization.</strong> Every column is scaled to mean 0 and standard deviation 1 across
+cells, so units do not matter (apart from the thresholds of the Köppen–Geiger classes).</p></li>
+<li><p><strong>Correlation filter.</strong> Where two columns have a Spearman correlation with absolute value
+above <code class="docutils literal notranslate"><span class="pre">correlation_threshold</span></code> (default 0.9), the one with the larger mean absolute
+correlation to all others is removed.</p></li>
+<li><p><strong>PCA filter.</strong> A principal component analysis of the remaining columns finds the fewest
+components that explain <code class="docutils literal notranslate"><span class="pre">pca_variance_threshold</span></code> of the variance (default 0.95); a column
+whose normalized loading on these components is below <code class="docutils literal notranslate"><span class="pre">pca_contrib_threshold</span></code> (default
+0.01) is removed. The data are not projected; the columns keep their meaning.</p></li>
+</ol>
+<p><strong>Protected columns.</strong> Columns whose names start with <code class="docutils literal notranslate"><span class="pre">tas_month_</span></code>, <code class="docutils literal notranslate"><span class="pre">pr_month_</span></code>,
+<code class="docutils literal notranslate"><span class="pre">kg_diag_</span></code>, <code class="docutils literal notranslate"><span class="pre">soil_</span></code> or <code class="docutils literal notranslate"><span class="pre">eco_diag_</span></code> skip steps 2 and 3. They are always kept. A static
+field with another name (for example <code class="docutils literal notranslate"><span class="pre">elevation</span></code>) and the monthly columns of other
+variables are filtered like the rest.</p>
+<p>The final set therefore depends on the data. Read it from the result:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">clusters</span> <span class="o">=</span> <span class="n">create_clusters</span><span class="p">(</span><span class="n">climate</span><span class="o">=</span><span class="p">{</span><span class="o">...</span><span class="p">},</span> <span class="n">static</span><span class="o">=</span><span class="p">{</span><span class="o">...</span><span class="p">},</span> <span class="n">n_clusters</span><span class="o">=</span><span class="mi">500</span><span class="p">)</span>
+<span class="n">clusters</span><span class="o">.</span><span class="n">feature_columns</span>       <span class="c1"># names of the columns clustered on</span>
+<span class="n">clusters</span><span class="o">.</span><span class="n">features</span>              <span class="c1"># cell_id, latitude, longitude + those columns (standardized)</span>
+</pre></div>
+</div>
+<p>With the four variables <code class="docutils literal notranslate"><span class="pre">tas</span></code>, <code class="docutils literal notranslate"><span class="pre">pr</span></code>, <code class="docutils literal notranslate"><span class="pre">rsds</span></code> and <code class="docutils literal notranslate"><span class="pre">rlds</span></code> and a soil code, the 24 monthly
+columns, the 8 <code class="docutils literal notranslate"><span class="pre">kg_diag_</span></code> columns and the soil columns are always present; the other
+summaries are present unless a filter removed them. The paper’s global feature set of 25
+columns compresses the monthly columns by principal components, which
+<a class="reference internal" href="../reference/api.html#climclusterpy.create_clusters" title="climclusterpy.create_clusters"><code class="xref py py-func docutils literal notranslate"><span class="pre">create_clusters()</span></code></a> does not do; its 24-monthly-column set corresponds to
+what <code class="docutils literal notranslate"><span class="pre">create_clusters</span></code> builds (see below for the compression).</p>
+</section>
+<section id="missing-inputs">
+<h2>Missing inputs<a class="headerlink" href="#missing-inputs" title="Link to this heading"></a></h2>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 40.0%" />
+<col style="width: 60.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Situation</p></th>
+<th class="head"><p>What happens</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>No humidity field, default <code class="docutils literal notranslate"><span class="pre">climate_variables</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">hurs</span></code> is left out without a message.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">climate_variables</span></code> names <code class="docutils literal notranslate"><span class="pre">&quot;hurs&quot;</span></code> and there is no humidity field</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ValueError</span></code>.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">climate_variables</span></code> names a variable that is not known (LPJmL layout: other than
+<code class="docutils literal notranslate"><span class="pre">tas</span></code>, <code class="docutils literal notranslate"><span class="pre">pr</span></code>, <code class="docutils literal notranslate"><span class="pre">rsds</span></code>, <code class="docutils literal notranslate"><span class="pre">rlds</span></code>, <code class="docutils literal notranslate"><span class="pre">hurs</span></code>, <code class="docutils literal notranslate"><span class="pre">spei</span></code>) or, for a generic input, not
+declared</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ValueError</span></code> listing the valid names.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">&quot;spei&quot;</span></code> requested, <code class="docutils literal notranslate"><span class="pre">pyet</span></code> not installed</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ImportError</span></code> naming <code class="docutils literal notranslate"><span class="pre">pyet</span></code> and the <code class="docutils literal notranslate"><span class="pre">[spei]</span></code> extra.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">&quot;spei&quot;</span></code> requested, but <code class="docutils literal notranslate"><span class="pre">tas</span></code>, <code class="docutils literal notranslate"><span class="pre">pr</span></code> or <code class="docutils literal notranslate"><span class="pre">rsds</span></code> is missing</p></td>
+<td><p>The SPEI columns are left out; a warning is logged.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">tas</span></code> or <code class="docutils literal notranslate"><span class="pre">pr</span></code> missing, or the monthly series is not whole years</p></td>
+<td><p>The <code class="docutils literal notranslate"><span class="pre">kg_diag_</span></code> columns are left out (logged); a monthly series that is not whole years
+also loses its <code class="docutils literal notranslate"><span class="pre">_month_NN</span></code> columns, with a <code class="docutils literal notranslate"><span class="pre">UserWarning</span></code>. Supervision by
+<code class="docutils literal notranslate"><span class="pre">&quot;koppen_geiger&quot;</span></code> needs the monthly columns.</p></td>
+</tr>
+<tr class="row-even"><td><p>A static field named in the summary is not in the input</p></td>
+<td><p>It is left out; a warning is logged. (With <code class="docutils literal notranslate"><span class="pre">static=</span></code> every declared field is loaded,
+so this only concerns the LPJmL layout.)</p></td>
+</tr>
+<tr class="row-odd"><td><p>Missing values in a land cell, in any input</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ValueError</span></code> naming the input and the cells; nothing is filled in.</p></td>
+</tr>
+<tr class="row-even"><td><p>The filters remove every column</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ValueError</span></code> suggesting looser thresholds.</p></td>
+</tr>
+</tbody>
+</table>
+<p><code class="docutils literal notranslate"><span class="pre">check_inputs</span></code> reports several of these before a run (<a class="reference internal" href="inputs.html"><span class="doc">Prepare the input files</span></a>).</p>
+</section>
+<section id="use-a-different-set">
+<h2>Use a different set<a class="headerlink" href="#use-a-different-set" title="Link to this heading"></a></h2>
+<p><strong>Other climate variables or thresholds.</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">clusters</span> <span class="o">=</span> <span class="n">create_clusters</span><span class="p">(</span>
+    <span class="n">climate</span><span class="o">=</span><span class="p">{</span><span class="s2">"temperature"</span><span class="p">:</span> <span class="s2">"tas.nc"</span><span class="p">,</span> <span class="s2">"precipitation"</span><span class="p">:</span> <span class="s2">"pr.nc"</span><span class="p">,</span> <span class="s2">"wind"</span><span class="p">:</span> <span class="s2">"sfcwind.nc"</span><span class="p">},</span>
+    <span class="n">static</span><span class="o">=</span><span class="p">{</span><span class="s2">"soil"</span><span class="p">:</span> <span class="p">(</span><span class="s2">"soil.nc"</span><span class="p">,</span> <span class="s2">"categorical"</span><span class="p">),</span> <span class="s2">"elevation"</span><span class="p">:</span> <span class="p">(</span><span class="s2">"dem.nc"</span><span class="p">,</span> <span class="s2">"continuous"</span><span class="p">)},</span>
+    <span class="n">climate_variables</span><span class="o">=</span><span class="p">[</span><span class="s2">"tas"</span><span class="p">,</span> <span class="s2">"pr"</span><span class="p">,</span> <span class="s2">"wind"</span><span class="p">],</span>   <span class="c1"># leave out radiation; "spei" only if named</span>
+    <span class="n">correlation_threshold</span><span class="o">=</span><span class="mf">0.95</span><span class="p">,</span>                <span class="c1"># keep more correlated columns</span>
+    <span class="n">pca_variance_threshold</span><span class="o">=</span><span class="mf">0.99</span><span class="p">,</span>
+    <span class="n">pca_contrib_threshold</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>                 <span class="c1"># 0 turns the PCA filter off</span>
+    <span class="n">n_clusters</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">climate_variables</span></code> is checked: the names are the logical ones (<code class="docutils literal notranslate"><span class="pre">tas</span></code>) or, for a generic
+input, the field names you declared. A static field is dropped by not declaring it; its
+kind (continuous or categorical) is set in <code class="docutils literal notranslate"><span class="pre">static=</span></code>. To switch a filter off, set
+<code class="docutils literal notranslate"><span class="pre">correlation_threshold=1</span></code> or <code class="docutils literal notranslate"><span class="pre">pca_contrib_threshold=0</span></code>.</p>
+<p><strong>A fully custom feature table.</strong> <code class="docutils literal notranslate"><span class="pre">create_clusters</span></code> builds its own table. To choose every
+column, build the table with the public building blocks and give it to
+<a class="reference internal" href="../reference/api.html#climclusterpy.cluster_matrix" title="climclusterpy.cluster_matrix"><code class="xref py py-func docutils literal notranslate"><span class="pre">cluster_matrix()</span></code></a>, which returns the labels of the cells:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">climclusterpy</span><span class="w"> </span><span class="kn">import</span> <span class="n">cluster_matrix</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">climclusterpy.data</span><span class="w"> </span><span class="kn">import</span> <span class="n">DataPaths</span><span class="p">,</span> <span class="n">load_climate_and_soil_data</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">climclusterpy.features</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">combine_features</span><span class="p">,</span> <span class="n">standardize_features</span><span class="p">,</span>
+    <span class="n">summarize_climate_features</span><span class="p">,</span> <span class="n">summarize_soil_features</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">datasets</span><span class="p">,</span> <span class="n">registry</span> <span class="o">=</span> <span class="n">load_climate_and_soil_data</span><span class="p">(</span><span class="n">DataPaths</span><span class="p">(</span><span class="o">...</span><span class="p">))</span>
+<span class="n">climate</span> <span class="o">=</span> <span class="n">summarize_climate_features</span><span class="p">(</span><span class="n">datasets</span><span class="p">,</span> <span class="n">registry</span><span class="p">,</span> <span class="n">variables</span><span class="o">=</span><span class="p">[</span><span class="s2">"tas"</span><span class="p">,</span> <span class="s2">"pr"</span><span class="p">])</span>
+<span class="n">static</span> <span class="o">=</span> <span class="n">summarize_soil_features</span><span class="p">(</span><span class="n">datasets</span><span class="p">,</span> <span class="n">registry</span><span class="p">,</span> <span class="n">soil_vars</span><span class="o">=</span><span class="p">[</span><span class="s2">"soil_depth"</span><span class="p">])</span>
+<span class="n">table</span> <span class="o">=</span> <span class="n">combine_features</span><span class="p">(</span><span class="n">climate</span><span class="p">,</span> <span class="n">static</span><span class="p">)</span>
+
+<span class="n">cols</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"tas_mean_annual"</span><span class="p">,</span> <span class="s2">"tas_seasonality"</span><span class="p">,</span> <span class="s2">"pr_mean_annual"</span><span class="p">,</span>
+        <span class="s2">"pr_cv_monthly"</span><span class="p">,</span> <span class="s2">"kg_diag_aridity_index"</span><span class="p">,</span> <span class="s2">"soil_depth"</span><span class="p">]</span>
+<span class="n">table</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">standardize_features</span><span class="p">(</span><span class="n">table</span><span class="p">,</span> <span class="n">cols</span><span class="p">)</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">cluster_matrix</span><span class="p">(</span><span class="n">table</span><span class="p">,</span> <span class="n">n_clusters</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span> <span class="n">feature_columns</span><span class="o">=</span><span class="n">cols</span><span class="p">)</span>
+<span class="n">result</span><span class="o">.</span><span class="n">to_frame</span><span class="p">()</span>          <span class="c1"># cell_id, latitude, longitude, cluster_label</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">cluster_matrix</span></code> standardizes only with <code class="docutils literal notranslate"><span class="pre">standardize=True</span></code> (default <code class="docutils literal notranslate"><span class="pre">False</span></code>), so
+standardize the columns first or pass that argument. Without <code class="docutils literal notranslate"><span class="pre">feature_columns</span></code> every numeric
+column of a DataFrame that is not <code class="docutils literal notranslate"><span class="pre">cell_id</span></code>, <code class="docutils literal notranslate"><span class="pre">latitude</span></code>, <code class="docutils literal notranslate"><span class="pre">longitude</span></code>, <code class="docutils literal notranslate"><span class="pre">lat</span></code>, <code class="docutils literal notranslate"><span class="pre">lon</span></code>,
+<code class="docutils literal notranslate"><span class="pre">ecoregion_id</span></code> or <code class="docutils literal notranslate"><span class="pre">cluster_label</span></code> is used. A learned distance works on such a table too:
+<code class="docutils literal notranslate"><span class="pre">cluster_matrix(table,</span> <span class="pre">n_clusters=500,</span> <span class="pre">feature_columns=cols,</span> <span class="pre">locally_weighted=True,</span>
+<span class="pre">supervision=sup)</span></code> with <code class="docutils literal notranslate"><span class="pre">sup</span></code> from <a class="reference internal" href="../reference/api.html#climclusterpy.compute_supervision" title="climclusterpy.compute_supervision"><code class="xref py py-func docutils literal notranslate"><span class="pre">compute_supervision()</span></code></a>, aligned
+row for row with the table (<a class="reference internal" href="clustering.html"><span class="doc">Cluster a feature matrix (choose a mode)</span></a>).</p>
+<p><code class="docutils literal notranslate"><span class="pre">cluster_matrix</span></code> writes no reduced grid. To get one from your labels, pass them to
+<a class="reference internal" href="../reference/api.html#climclusterpy.create_regions" title="climclusterpy.create_regions"><code class="xref py py-func docutils literal notranslate"><span class="pre">create_regions()</span></code></a> as a label table (columns <code class="docutils literal notranslate"><span class="pre">cell_id</span></code> and
+<code class="docutils literal notranslate"><span class="pre">cluster_label</span></code>): it builds the grid, and with <code class="docutils literal notranslate"><span class="pre">cell_selection=&quot;medoid&quot;</span></code> or
+<code class="docutils literal notranslate"><span class="pre">&quot;centroid&quot;</span></code> computes the selected cells from its own default feature table, whereas
+<code class="docutils literal notranslate"><span class="pre">&quot;random&quot;</span></code> and <code class="docutils literal notranslate"><span class="pre">&quot;distributed&quot;</span></code> need no features (<a class="reference internal" href="cell_selection.html"><span class="doc">Choose the simulated cells</span></a>).</p>
+<p><strong>Compressing the monthly columns.</strong> <a class="reference internal" href="../reference/features.html#climclusterpy.features.apply_block_pca_compression" title="climclusterpy.features.apply_block_pca_compression"><code class="xref py py-func docutils literal notranslate"><span class="pre">apply_block_pca_compression()</span></code></a>
+replaces the 12 <code class="docutils literal notranslate"><span class="pre">tas_month_</span></code> and the 12 <code class="docutils literal notranslate"><span class="pre">pr_month_</span></code> columns by whitened principal
+components (<code class="docutils literal notranslate"><span class="pre">tas_month_PC1</span></code> …), as in the paper’s global feature set; use it on the table above
+before <code class="docutils literal notranslate"><span class="pre">cluster_matrix</span></code>. <a class="reference internal" href="../reference/features.html#climclusterpy.features.compute_all_ecology_diagnostic_features" title="climclusterpy.features.compute_all_ecology_diagnostic_features"><code class="xref py py-func docutils literal notranslate"><span class="pre">compute_all_ecology_diagnostic_features()</span></code></a>
+adds thirteen <code class="docutils literal notranslate"><span class="pre">eco_diag_</span></code> columns (vapour pressure deficit, growing-degree days, water balance,
+dry spells) from the monthly columns; neither is applied by <code class="docutils literal notranslate"><span class="pre">create_clusters</span></code>.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="inputs.html" class="btn btn-neutral float-left" title="Prepare the input files" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="clustering.html" class="btn btn-neutral float-right" title="Cluster a feature matrix (choose a mode)" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, Jamir Priesner.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

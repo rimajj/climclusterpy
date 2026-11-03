@@ -1,50 +1,61 @@
 Install climclusterpy
 =====================
 
-``climclusterpy`` requires **Python ≥ 3.11**. It follows a **light-core + extras** model:
-the base install carries only lightweight dependencies and covers Euclidean clustering,
-Köppen–Geiger supervision, and reconstruction. Heavy or install-fragile dependencies
-(PyTorch, GeoPandas, Cartopy) live behind optional extras you add only when you need them.
+``climclusterpy`` requires Python 3.11 or later. It is built as two distributions from one
+repository, with the same code and the same ``import climclusterpy``:
 
-Base install
-------------
-
-.. important::
-
-   ``climclusterpy`` is **not on PyPI yet**, so ``pip install climclusterpy`` will not find
-   it. Install it from its GitLab repository, as below.
-
-Straight from the repository (pip clones it, so you need to be able to reach
-``gitlab.pik-potsdam.de`` and, if the project is not public to you, have read access):
+``climclusterpy``
+   The full package. Installs ``climclusterpy-base`` together with PyTorch (learned
+   distances), GeoPandas (ecoregion maps) and Cartopy (map plots).
+``climclusterpy-base``
+   The same code without PyTorch, GeoPandas and Cartopy. It covers Euclidean clustering,
+   Köppen–Geiger supervision and reconstruction. A feature that needs a missing dependency
+   raises an ``ImportError`` that names what to install.
 
 .. code-block:: console
 
-   $ pip install "climclusterpy @ git+https://gitlab.pik-potsdam.de/lpjmlfit_analysis/climclusterpy.git"
+   $ pip install climclusterpy          # full package
+   $ pip install climclusterpy-base     # without PyTorch, GeoPandas and Cartopy
 
-Or clone it and install the checkout in editable mode, which is the better choice if you
-want to read or change the code:
+.. important::
+
+   Neither distribution is on PyPI yet. Until then, install from the GitLab repository
+   (the repository's own distribution is ``climclusterpy-base``; the ``[all]`` extra adds
+   what the full package adds), or build both distributions from a checkout.
+
+From the repository (pip clones it, so ``gitlab.pik-potsdam.de`` must be reachable and, if
+the project is not public to you, you need read access):
+
+.. code-block:: console
+
+   $ pip install "climclusterpy-base[all] @ git+https://gitlab.pik-potsdam.de/lpjmlfit_analysis/climclusterpy.git"
+
+From a checkout, which is the better choice for reading or changing the code:
 
 .. code-block:: console
 
    $ git clone https://gitlab.pik-potsdam.de/lpjmlfit_analysis/climclusterpy.git
    $ cd climclusterpy
-   $ pip install -e .
+   $ pip install -e '.[all]'
 
-Verify:
+``scripts/build_dists.sh`` builds both distributions into ``dist/``; installing the full
+package from there needs ``pip install --find-links dist climclusterpy``.
+
+Check the installation:
 
 .. code-block:: console
 
    $ python -c "import climclusterpy; print(climclusterpy.__version__)"
    $ climclu --help
 
-Both succeed with **no** heavy dependencies installed — ``import climclusterpy`` is lazy,
-so PyTorch / GeoPandas / Cartopy are never imported until a feature that needs them is
-called.
+Both work without any optional dependency: ``import climclusterpy`` loads PyTorch,
+GeoPandas and Cartopy only when a feature that needs them is called.
 
-Optional extras
----------------
+Extras
+------
 
-These are exactly the extras ``pyproject.toml`` defines:
+Extras add optional dependencies to either distribution (``climclusterpy[spei]`` or
+``climclusterpy-base[lmnn]``).
 
 .. list-table::
    :header-rows: 1
@@ -55,76 +66,56 @@ These are exactly the extras ``pyproject.toml`` defines:
      - Enables
    * - ``[lmnn]``
      - ``torch``
-     - LMNN metric-learning clustering (``locally_weighted=True``), every mode.
+     - Learned distances (``locally_weighted=True``), every mode. Part of ``climclusterpy``.
    * - ``[ecoregions]``
      - ``geopandas``
-     - Ecoregion supervision, or regions, from a shapefile
+     - Ecoregion supervision, and regions from a shapefile. Part of ``climclusterpy``.
    * - ``[viz]``
      - ``cartopy``
-     - Map plotting helpers
-   * - ``[features]``
+     - Map plots. Part of ``climclusterpy``.
+   * - ``[spei]``
      - ``pyet``
-     - SPEI drought and potential-evapotranspiration features
-       (``climate_variables=[..., "spei"]``)
+     - The SPEI and potential-evapotranspiration features
+       (``climate_variables=[..., "spei"]``). ``[features]`` is the former name and still
+       works.
+   * - ``[mpi]``
+     - ``mpi4py``
+     - Clustering and grid writing across MPI ranks.
    * - ``[all]``
-     - everything in the four extras above
-     - Every optional capability
-   * - ``[test]``
-     - ``pytest``, ``pytest-cov``
-     - Running the test suite
-   * - ``[docs]``
-     - ``sphinx``, ``sphinx-rtd-theme``
-     - Building this documentation
-   * - ``[dev]``
-     - ``pytest``, ``pytest-cov``, ``ruff``, ``build``, ``twine``, ``pre-commit``
-     - Development and release tooling
+     - ``[lmnn]``, ``[ecoregions]``, ``[viz]``, ``[spei]``
+     - Every optional capability except MPI.
+   * - ``[test]``, ``[docs]``, ``[dev]``
+     - test, documentation and development tools
+     - Repository checkouts only (``climclusterpy-base``).
 
-Install one or several, from the repository or from a checkout:
+The SPEI features are not computed by default.
+:func:`~climclusterpy.create_clusters` summarizes ``tas``, ``pr``, ``rsds``, ``rlds`` and
+``hurs`` unless ``"spei"`` is added to ``climate_variables``. Without ``pyet`` that request
+fails with a message naming the package.
 
-.. code-block:: console
+GeoPandas and Cartopy with conda
+--------------------------------
 
-   $ pip install "climclusterpy[lmnn] @ git+https://gitlab.pik-potsdam.de/lpjmlfit_analysis/climclusterpy.git"
-   $ pip install "climclusterpy[lmnn,features] @ git+https://gitlab.pik-potsdam.de/lpjmlfit_analysis/climclusterpy.git"
-   $ pip install -e '.[all]'          # from a checkout
-
-.. note::
-
-   Attempting an LMNN or ecoregion operation without the matching extra raises a clear
-   ``ImportError`` naming the extra to install — it never fails silently.
-
-.. note::
-
-   The SPEI / potential-evapotranspiration drought features in
-   :func:`~climclusterpy.features.summarize_climate_features` use the ``pyet`` package,
-   which the ``[features]`` extra (and ``[all]``) installs. They are not computed by
-   default: :func:`~climclusterpy.create_clusters` summarizes ``tas``, ``pr``, ``rsds``,
-   ``rlds`` and ``hurs`` unless you add ``"spei"`` to ``climate_variables``.
-
-Installing the geospatial extras with conda
--------------------------------------------
-
-``cartopy`` (``[viz]``) and ``geopandas`` (``[ecoregions]``) depend on native GEOS / PROJ
-/ GDAL libraries and are often fragile to install with pip alone. If a pip install of
-those extras fails, install the native packages from ``conda-forge`` first, then pip the
-rest:
+GeoPandas and Cartopy depend on the native GEOS, PROJ and GDAL libraries, which pip
+sometimes cannot build. Install them from conda-forge first, then the package:
 
 .. code-block:: console
 
    $ conda install -c conda-forge cartopy geopandas
-   $ pip install -e '.[lmnn,features]'
+   $ pip install -e '.[lmnn,spei]'
 
-PyTorch (CPU vs. GPU)
+PyTorch on CPU or GPU
 ---------------------
 
-The ``[lmnn]`` extra pulls a default PyTorch build. To pin a CPU-only or a specific CUDA
-build, install ``torch`` from the PyTorch index first, then the extra:
+To select a CPU-only or a specific CUDA build of PyTorch, install ``torch`` from the PyTorch
+index first, then the package:
 
 .. code-block:: console
 
    $ pip install torch --index-url https://download.pytorch.org/whl/cpu
    $ pip install -e '.[lmnn]'
 
-The full metric-learning pipeline runs perfectly well on CPU.
+Learned distances run on CPU.
 
 .. _environment-variables:
 
@@ -150,7 +141,7 @@ error naming the variable.
        can move them in the last floating-point digit, never more.
    * - ``CLIMCLUSTERPY_DISTRIBUTED_TIME_CHUNK``
      - 2000
-     - Time steps read at once when the cells of a ``representative="distributed"`` grid
+     - Time steps read at once when the cells of a ``cell_selection="distributed"`` grid
        are extracted.
    * - ``CLIMCLUSTERPY_DISTRIBUTED_EXPAND_THRESHOLD_GB``
      - 50
@@ -179,8 +170,8 @@ tools in ``$LPJROOT/bin`` before the ``PATH`` (or pass ``tools_dir=``).
    silently shortened the climate series used for clustering, is gone: to cluster on a
    shorter period, select it from the input before passing it in.
 
-Building the documentation
---------------------------
+Building this documentation
+---------------------------
 
 .. code-block:: console
 

@@ -1,17 +1,13 @@
 Tutorials
 =========
 
-Learning-oriented, end-to-end walkthroughs. **Read :doc:`one_call_roundtrip` first** — it
-does the entire workflow (reduce a grid, run a model on it, rebuild the original) in two
-function calls. The remaining tutorials take one building block each, for when you want to
-drive the steps yourself.
+Start with :doc:`one_call_roundtrip`, which does the whole workflow (reduce a grid, run a
+model on it, rebuild the original) in two function calls. The other tutorials each take one
+building block, for driving the steps yourself.
 
-Every tutorial runs on tiny **synthetic** climate + static-field data built in-memory, so you can
-follow along with only the core install (the LMNN tutorial additionally needs the
-``[lmnn]`` extra). No ``/p`` mounts, no real data, no downloads.
-
-The complete, runnable script for each tutorial lives under ``examples/`` in the
-repository; the tutorial embeds it and explains it step by step.
+Every tutorial runs on small synthetic climate and static-field data built in memory, with
+the base install (the learned-distance tutorial also needs PyTorch, ``[lmnn]``). The script
+of each tutorial is in ``examples/`` and is embedded in the tutorial.
 
 .. toctree::
    :maxdepth: 1
@@ -22,12 +18,10 @@ repository; the tutorial embeds it and explains it step by step.
    supervision
    reconstruction
 
-A note on the synthetic data
-----------------------------
+Synthetic data
+--------------
 
-The examples share a helper, ``examples/_synthetic.py``, that writes small climate + soil
-NetCDFs on a regular 8×8 grid and loads them exactly the way the package loads real data
-(via :func:`~climclusterpy.data.create_test_data`), then derives a per-cell feature
-matrix. In production those feature matrices come from
-:func:`~climclusterpy.features.summarize_climate_features`; the helper keeps the tutorials
-dependency-light.
+The examples share a helper, ``examples/_synthetic.py``, that writes small climate and soil
+NetCDF files on a regular 8×8 grid, loads them as the package loads real data (via
+:func:`~climclusterpy.data.create_test_data`) and derives a per-cell feature matrix. For real
+data the feature matrix comes from :func:`~climclusterpy.features.summarize_climate_features`.

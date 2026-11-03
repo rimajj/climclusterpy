@@ -1,16 +1,15 @@
 Tutorial 1 — Euclidean clustering
 =================================
 
-**Capability 1: produce clusters for a climate + soil input.** In this tutorial you build
-a synthetic climate + soil grid, derive a per-cell feature matrix, and group the cells
-into *K* clusters with plain Euclidean clustering — the simplest mode, needing no
-supervision and only the core install.
+This tutorial builds a synthetic climate and soil grid, derives a per-cell feature matrix
+and groups the cells into *K* clusters under the Euclidean distance. This mode needs no
+supervision and only the base install.
 
 Load data and build a feature matrix
--------------------------------------
+------------------------------------
 
-The shared helper writes synthetic NetCDFs and loads them through the real data entry
-point, returning a :class:`~climclusterpy.data.DataRegistry` and a feature matrix
+The shared helper writes synthetic NetCDF files and loads them through the data loader of
+the package, returning a :class:`~climclusterpy.data.DataRegistry` and a feature matrix
 ``X`` of shape ``(n_valid_cells, n_features)``:
 
 .. code-block:: python
@@ -23,8 +22,8 @@ point, returning a :class:`~climclusterpy.data.DataRegistry` and a feature matri
 Cluster
 -------
 
-:func:`~climclusterpy.cluster_matrix` with ``locally_weighted=False`` runs agglomerative clustering.
-``standardize=True`` z-scores each feature first so no single feature dominates:
+:func:`~climclusterpy.cluster_matrix` with ``locally_weighted=False`` runs agglomerative
+clustering. ``standardize=True`` z-scores each feature first:
 
 .. code-block:: python
 
@@ -34,11 +33,11 @@ Cluster
    result.labels           # 1-indexed label per cell, shape (64,)
    result.to_frame()       # cell_id + cluster_label
 
-The result carries the SciPy ``linkage`` matrix (so you can re-cut to a different *K*
-without re-clustering) and, when you pass a DataFrame, the metadata columns.
+The result carries the SciPy ``linkage`` matrix, from which a different *K* can be cut
+without clustering again, and, for a DataFrame input, the metadata columns.
 
-The complete script
--------------------
+The script
+----------
 
 .. literalinclude:: ../../../examples/example_1_cluster_euclidean.py
    :language: python
@@ -59,4 +58,4 @@ Next steps
 ----------
 
 * Supervise the metric with :doc:`lmnn_clustering`.
-* Understand the algorithm: :doc:`../explanation/methods`.
+* The algorithm: :doc:`../explanation/methods`.

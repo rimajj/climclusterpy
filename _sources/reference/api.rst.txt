@@ -59,7 +59,7 @@ Other ways to build the reduced grid
 
 :func:`create_regions` uses a map you already have as the partition instead of
 clustering. :func:`draw_cells` makes the random cell draw of
-``representative="random"`` / ``"distributed"`` on its own, without building a grid.
+``cell_selection="random"`` / ``"distributed"`` on its own, without building a grid.
 :func:`create_regions` returns the same result object as :func:`create_clusters`, so
 :func:`reconstruct_original_grid` works on it unchanged; :func:`draw_cells` returns the
 table that result carries as ``selected_cells``.

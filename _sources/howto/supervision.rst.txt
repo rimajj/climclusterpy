@@ -15,7 +15,7 @@ to :func:`~climclusterpy.cluster_matrix`.
    sup.labels        # DataFrame: cell_id, latitude, longitude, cluster_label
    sup.labels_csv    # path to the labels CSV the generator wrote
    sup.y             # raw label values, shape (n_cells,)
-   sup.encoded_y     # 0..n_classes-1, aligned; feed this to local/enhanced LMNN
+   sup.encoded_y     # 0..n_classes-1, aligned; feed this to the per-cell LMNN modes
 
 From climate — Köppen–Geiger
 ----------------------------

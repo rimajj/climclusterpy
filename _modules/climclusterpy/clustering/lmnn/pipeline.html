@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>climclusterpy.clustering.lmnn.pipeline &mdash; climclusterpy 0.5</title>
+  <title>climclusterpy.clustering.lmnn.pipeline &mdash; climclusterpy 0.6</title>
       <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../../../_static/custom.css?v=f2cc2102" />
@@ -14,7 +14,7 @@
     <link rel="shortcut icon" href="../../../../_static/logo.svg"/>
       <script src="../../../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../../../_static/documentation_options.js?v=b9afe91b"></script>
+      <script src="../../../../_static/documentation_options.js?v=8fa8b3e9"></script>
       <script src="../../../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../../_static/js/theme.js"></script>
@@ -46,10 +46,9 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../tutorials/index.html">Tutorials</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../../../tutorials/one_call_roundtrip.html">Tutorial 0 — the whole workflow in two calls</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../../../tutorials/one_call_roundtrip.html#the-idea">The idea</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../tutorials/one_call_roundtrip.html#call-1-build-the-reduced-grid">Call 1 — build the reduced grid</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../tutorials/one_call_roundtrip.html#call-2-rebuild-the-original-grid">Call 2 — rebuild the original grid</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../tutorials/one_call_roundtrip.html#the-complete-script">The complete script</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../tutorials/one_call_roundtrip.html#build-the-reduced-grid">Build the reduced grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../tutorials/one_call_roundtrip.html#rebuild-the-original-grid">Rebuild the original grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../tutorials/one_call_roundtrip.html#the-script">The script</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../tutorials/one_call_roundtrip.html#run-it">Run it</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../tutorials/one_call_roundtrip.html#next-steps">Next steps</a></li>
 </ul>
@@ -57,7 +56,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../../tutorials/euclidean_clustering.html">Tutorial 1 — Euclidean clustering</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../../tutorials/euclidean_clustering.html#load-data-and-build-a-feature-matrix">Load data and build a feature matrix</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../tutorials/euclidean_clustering.html#cluster">Cluster</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../tutorials/euclidean_clustering.html#the-complete-script">The complete script</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../tutorials/euclidean_clustering.html#the-script">The script</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../tutorials/euclidean_clustering.html#run-it">Run it</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../tutorials/euclidean_clustering.html#next-steps">Next steps</a></li>
 </ul>
@@ -65,28 +64,28 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../../tutorials/lmnn_clustering.html">Tutorial 2 — LMNN metric-learning clustering</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../../tutorials/lmnn_clustering.html#provide-a-supervision-signal">Provide a supervision signal</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../tutorials/lmnn_clustering.html#learn-a-metric-and-cluster">Learn a metric and cluster</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../tutorials/lmnn_clustering.html#the-complete-script">The complete script</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../tutorials/lmnn_clustering.html#the-script">The script</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../tutorials/lmnn_clustering.html#run-it">Run it</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../tutorials/lmnn_clustering.html#next-steps">Next steps</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../../tutorials/supervision.html">Tutorial 3 — Supervision signals</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../../tutorials/supervision.html#koppengeiger-from-monthly-climatology">Köppen–Geiger from monthly climatology</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../tutorials/supervision.html#model-output-trait-clustering">Model-output (trait) clustering</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../tutorials/supervision.html#the-complete-script">The complete script</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../tutorials/supervision.html#model-output-traits">Model output (traits)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../tutorials/supervision.html#the-script">The script</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../tutorials/supervision.html#run-it">Run it</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../tutorials/supervision.html#ecoregion-supervision">Ecoregion supervision</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../../tutorials/reconstruction.html">Tutorial 4 — Reconstruct the original grid</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../../../tutorials/reconstruction.html#the-round-trip">The round trip</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../tutorials/reconstruction.html#verify">Verify</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../tutorials/reconstruction.html#the-complete-script">The complete script</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../tutorials/reconstruction.html#reconstruction">Reconstruction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../tutorials/reconstruction.html#check">Check</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../tutorials/reconstruction.html#the-script">The script</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../tutorials/reconstruction.html#run-it">Run it</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../tutorials/reconstruction.html#next-steps">Next steps</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../../../../tutorials/index.html#a-note-on-the-synthetic-data">A note on the synthetic data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../tutorials/index.html#synthetic-data">Synthetic data</a></li>
 </ul>
 </li>
 </ul>
@@ -94,12 +93,11 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../howto/index.html">How-to guides</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../../../howto/install.html">Install climclusterpy</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../../../howto/install.html#base-install">Base install</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../howto/install.html#optional-extras">Optional extras</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../howto/install.html#installing-the-geospatial-extras-with-conda">Installing the geospatial extras with conda</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../howto/install.html#pytorch-cpu-vs-gpu">PyTorch (CPU vs. GPU)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../howto/install.html#extras">Extras</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../howto/install.html#geopandas-and-cartopy-with-conda">GeoPandas and Cartopy with conda</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../howto/install.html#pytorch-on-cpu-or-gpu">PyTorch on CPU or GPU</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../howto/install.html#environment-variables">Environment variables</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../howto/install.html#building-the-documentation">Building the documentation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../howto/install.html#building-this-documentation">Building this documentation</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../../howto/inputs.html">Prepare the input files</a><ul>
@@ -112,6 +110,13 @@
 <li class="toctree-l3"><a class="reference internal" href="../../../../howto/inputs.html#what-is-written">What is written</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../howto/inputs.html#the-lpjml-fit-file-layout">The LPJmL-FIT file layout</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../howto/inputs.html#output-files">Output files</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../howto/features.html">Choose the features</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../howto/features.html#what-is-computed">What is computed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../howto/features.html#filtering">Filtering</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../howto/features.html#missing-inputs">Missing inputs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../howto/features.html#use-a-different-set">Use a different set</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../../howto/clustering.html">Cluster a feature matrix (choose a mode)</a><ul>
@@ -129,22 +134,22 @@
 <li class="toctree-l3"><a class="reference internal" href="../../../../howto/supervision.html#saved-results-are-reused-only-for-the-same-inputs">Saved results are reused only for the same inputs</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../../../../howto/cell_selection.html">Choosing the cells a cluster is simulated on</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../../../howto/cell_selection.html#the-patch-budget">The patch budget</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../howto/cell_selection.html#what-the-drawn-cells-carry">What the drawn cells carry</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../howto/cell_selection.html">Choose the simulated cells</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../howto/cell_selection.html#patches">Patches</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../howto/cell_selection.html#properties-of-the-selected-cells">Properties of the selected cells</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../howto/cell_selection.html#reproducibility">Reproducibility</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../howto/cell_selection.html#looking-at-a-draw-without-building-a-grid">Looking at a draw without building a grid</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../howto/cell_selection.html#back-to-the-full-grid">Back to the full grid</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../howto/cell_selection.html#a-model-that-reads-its-own-inputs-the-grid-only-then-cut-the-rest">A model that reads its own inputs: the grid only, then cut the rest</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../howto/cell_selection.html#draw-cells-without-building-a-grid">Draw cells without building a grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../howto/cell_selection.html#reconstruction">Reconstruction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../howto/cell_selection.html#models-that-read-their-own-inputs">Models that read their own inputs</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../../howto/reconstruct.html">Reconstruct the original grid</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../../howto/reconstruct.html#the-usual-call">The usual call</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../howto/reconstruct.html#picking-up-where-you-left-off">Picking up where you left off</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../howto/reconstruct.html#without-a-result-or-run-folder">Without a result or run folder</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../howto/reconstruct.html#required-mapping-files">Required mapping files</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../howto/reconstruct.html#reconstruction-paths-kind">Reconstruction paths (<code class="docutils literal notranslate"><span class="pre">kind</span></code>)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../howto/reconstruct.html#verifying-the-result">Verifying the result</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../howto/reconstruct.html#restore-a-result-in-a-later-session">Restore a result in a later session</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../howto/reconstruct.html#without-a-result-object">Without a result object</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../howto/reconstruct.html#mapping-files">Mapping files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../howto/reconstruct.html#reconstruction-paths">Reconstruction paths</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../howto/reconstruct.html#checking-the-result">Checking the result</a></li>
 </ul>
 </li>
 </ul>
@@ -204,6 +209,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/cli.html#the-two-headline-commands">The two headline commands</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/cli.html#building-blocks">Building blocks</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/cli.html#options-shared-by-every-action-command">Options shared by every action command</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/cli.html#deprecated-names">Deprecated names</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/cli.html#errors-and-exit-codes">Errors and exit codes</a></li>
 </ul>
 </li>
@@ -211,33 +217,27 @@
 </ul>
 </li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Explanation</span></p>
+<p class="caption" role="heading"><span class="caption-text">Background</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../../explanation/index.html">Explanation</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../explanation/index.html">Background</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../../../explanation/overview.html">Overview</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../../../explanation/overview.html#design-philosophy">Design Philosophy</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../explanation/overview.html#workflow-summary">Workflow Summary</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../explanation/overview.html#key-innovations">Key Innovations</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../explanation/overview.html#use-cases">Use Cases</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../explanation/overview.html#limitations">Limitations</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../explanation/overview.html#future-directions">Future Directions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../explanation/overview.html#workflow">Workflow</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../explanation/overview.html#package-layout">Package layout</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../explanation/overview.html#references">References</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../../../../explanation/methods.html">Scientific Methods</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../explanation/methods.html">Methods</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../../explanation/methods.html#data-acquisition-and-preprocessing">Data Acquisition and Preprocessing</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../explanation/methods.html#ecoregion-assignment">Ecoregion Assignment</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../explanation/methods.html#ecological-feature-summarization">Ecological Feature Summarization</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../explanation/methods.html#feature-standardization-and-filtering">Feature Standardization and Filtering</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../explanation/methods.html#large-margin-nearest-neighbor-lmnn-metric-learning">Large Margin Nearest Neighbor (LMNN) Metric Learning</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../explanation/methods.html#hierarchical-clustering">Hierarchical Clustering</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../explanation/methods.html#representative-cell-selection">Representative Cell Selection</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../explanation/methods.html#evaluation-metrics">Evaluation Metrics</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../explanation/methods.html#netcdf-processing">NetCDF Processing</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../explanation/methods.html#computational-implementation">Computational Implementation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../explanation/methods.html#cell-selection">Cell Selection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../explanation/methods.html#the-reduced-grid">The Reduced Grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../explanation/methods.html#reconstruction">Reconstruction</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../../../../explanation/index.html#reconstruction-correctness">Reconstruction correctness</a></li>
 </ul>
 </li>
 </ul>
@@ -304,16 +304,16 @@
 <span class="sd">    n_clusters : int</span>
 <span class="sd">        Requested number of clusters.</span>
 <span class="sd">    mode : str</span>
-<span class="sd">        The LMNN mode used (``"global"``, ``"local"``, ``"enhanced"`` or ``"lowrank"``).</span>
+<span class="sd">        The LMNN mode used (``"global"``, ``"lowrank"`` or ``"diagonal"``).</span>
 <span class="sd">    diagnostics : dict</span>
 <span class="sd">        Training diagnostics returned by :func:`train_lmnn`.</span>
 <span class="sd">    transform : numpy.ndarray or None</span>
 <span class="sd">        Global-mode linear transform ``L`` (``X @ L.T`` is the metric space);</span>
-<span class="sd">        ``None`` for local/enhanced modes.</span>
+<span class="sd">        ``None`` for the per-cell modes.</span>
 <span class="sd">    mahalanobis : numpy.ndarray or None</span>
 <span class="sd">        Global-mode Mahalanobis matrix ``M = L.T @ L``; ``None`` otherwise.</span>
 <span class="sd">    distance_matrix : numpy.ndarray or None</span>
-<span class="sd">        Local/enhanced dense ``(n_cells, n_cells)`` distance matrix, only kept when</span>
+<span class="sd">        Per-cell dense ``(n_cells, n_cells)`` distance matrix, only kept when</span>
 <span class="sd">        ``return_distance_matrix=True`` (it is memory-heavy for large grids).</span>
 <span class="sd">    model : object or None</span>
 <span class="sd">        The trained per-cell metric network (a ``torch.nn.Module``), only kept when</span>
@@ -363,12 +363,12 @@
 <span class="sd">    * ``"global"`` — learns a linear transform ``L``; clustering runs on the</span>
 <span class="sd">      transformed features ``X @ L.T`` with ordinary Euclidean linkage (cheap; no</span>
 <span class="sd">      dense distance matrix is materialized).</span>
-<span class="sd">    * ``"local"`` / ``"enhanced"`` — learns a per-cell (diagonal) metric realized</span>
-<span class="sd">      as a dense precomputed distance matrix ``D``; clustering runs on ``D``.</span>
 <span class="sd">    * ``"lowrank"`` — learns a per-cell **low-rank Mahalanobis** metric</span>
-<span class="sd">      (``M_i = L_i L_iᵀ``, ``L_i`` of shape ``(d, rank)``), also realized as a</span>
-<span class="sd">      dense ``D``. Unlike the diagonal modes it captures cross-feature</span>
-<span class="sd">      interaction; this is the configuration the published results deploy.</span>
+<span class="sd">      (``M_i = L_i L_iᵀ``, ``L_i`` of shape ``(d, rank)``), realized as a dense</span>
+<span class="sd">      precomputed distance matrix ``D``; clustering runs on ``D``. It captures</span>
+<span class="sd">      cross-feature interaction; this is the configuration the published results deploy.</span>
+<span class="sd">    * ``"diagonal"`` — the same trainer with one weight per feature per cell</span>
+<span class="sd">      (``M_i = diag(w_i)``), also realized as a dense ``D``.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -376,13 +376,13 @@
 <span class="sd">        Standardized feature matrix, shape ``(n_cells, n_features)``.</span>
 <span class="sd">    labels : numpy.ndarray</span>
 <span class="sd">        Supervision labels, shape ``(n_cells,)`` — e.g. Köppen-Geiger codes,</span>
-<span class="sd">        ecoregion IDs, or output-cluster labels. For ``"local"``/``"enhanced"``</span>
+<span class="sd">        ecoregion IDs, or output-cluster labels. For the per-cell</span>
 <span class="sd">        modes the labels are integer-encoded internally (the torch trainers require</span>
 <span class="sd">        contiguous integer classes); ``"global"`` accepts arbitrary label values.</span>
 <span class="sd">    n_clusters : int</span>
 <span class="sd">        Number of clusters to cut the dendrogram into.</span>
 <span class="sd">    mode : str, optional</span>
-<span class="sd">        LMNN mode: ``"global"`` (default), ``"local"``, ``"enhanced"`` or ``"lowrank"``.</span>
+<span class="sd">        LMNN mode: ``"global"`` (default), ``"lowrank"`` or ``"diagonal"``.</span>
 <span class="sd">    linkage_method : str, optional</span>
 <span class="sd">        SciPy linkage method (default ``"complete"``, matching the production path).</span>
 <span class="sd">    rank : int or None, optional</span>
@@ -390,26 +390,26 @@
 <span class="sd">        ``mode="global"``: number of rows of the linear map ``L`` (``None`` = full</span>
 <span class="sd">        rank). ``mode="lowrank"``: rank ``r`` of each cell's Mahalanobis factor</span>
 <span class="sd">        (``None`` = 16, the setting the published results use on 25 features).</span>
-<span class="sd">        A rank above the number of features is lowered to it. The diagonal modes</span>
-<span class="sd">        (``"local"``, ``"enhanced"``) have no rank and raise if given one.</span>
+<span class="sd">        A rank above the number of features is lowered to it. ``"diagonal"``</span>
+<span class="sd">        has no rank and raises if given one.</span>
 <span class="sd">    k : int or None, optional</span>
 <span class="sd">        LMNN target-neighbour count (default 5). Not accepted by</span>
 <span class="sd">        ``mode="lowrank"``, which derives it per anchor.</span>
 <span class="sd">    seed : int or None, optional</span>
 <span class="sd">        Seed every RNG the torch-backed modes draw from. ``None`` (default)</span>
-<span class="sd">        leaves them untouched, so ``local``/``enhanced``/``lowrank`` are **not</span>
+<span class="sd">        leaves them untouched, so ``lowrank``/``diagonal`` are **not</span>
 <span class="sd">        reproducible**; pass a seed for any run whose numbers you will cite.</span>
 <span class="sd">    verbose : bool, optional</span>
 <span class="sd">        Forwarded to :func:`train_lmnn`.</span>
 <span class="sd">    return_distance_matrix : bool, optional</span>
 <span class="sd">        Keep the dense per-cell distance matrix in the result (default False).</span>
-<span class="sd">        Required to select medoid representatives downstream.</span>
+<span class="sd">        Required to select medoid cells downstream.</span>
 <span class="sd">    return_model : bool, optional</span>
 <span class="sd">        Keep the trained per-cell metric network in the result (default False).</span>
 <span class="sd">        Not available for ``mode="global"``, which learns no network.</span>
 <span class="sd">    **lmnn_kwargs</span>
 <span class="sd">        Extra keyword arguments forwarded verbatim to :func:`train_lmnn` (e.g.</span>
-<span class="sd">        ``max_iter`` for global mode, or ``max_epochs``/``margin`` for local modes).</span>
+<span class="sd">        ``max_iter`` for global mode, or ``max_epochs``/``delta_scale`` for the per-cell modes).</span>
 <span class="sd">        A name the selected trainer does not accept raises ``TypeError``.</span>
 
 <span class="sd">    Returns</span>
@@ -420,8 +420,8 @@
 <span class="sd">    Raises</span>
 <span class="sd">    ------</span>
 <span class="sd">    ValueError</span>
-<span class="sd">        If ``mode`` is not one of ``"global"``, ``"local"``, ``"enhanced"``,</span>
-<span class="sd">        ``"lowrank"``, or ``rank`` is given to a diagonal mode.</span>
+<span class="sd">        If ``mode`` is not one of ``"global"``, ``"lowrank"``, ``"diagonal"``</span>
+<span class="sd">        (``"local"`` and ``"enhanced"`` were removed), or ``rank`` is given to ``"diagonal"``.</span>
 <span class="sd">    ImportError</span>
 <span class="sd">        If ``torch`` (the ``[lmnn]`` extra) is not installed.</span>
 <span class="sd">    """</span>
@@ -429,12 +429,12 @@
     <span class="kn">from</span><span class="w"> </span><span class="nn">scipy.cluster.hierarchy</span><span class="w"> </span><span class="kn">import</span> <span class="n">linkage</span> <span class="k">as</span> <span class="n">_linkage</span>
     <span class="kn">from</span><span class="w"> </span><span class="nn">scipy.spatial.distance</span><span class="w"> </span><span class="kn">import</span> <span class="n">squareform</span>
 
-    <span class="kn">from</span><span class="w"> </span><span class="nn">.train</span><span class="w"> </span><span class="kn">import</span> <span class="n">train_lmnn</span><span class="p">,</span> <span class="n">transform_features</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">.train</span><span class="w"> </span><span class="kn">import</span> <span class="n">REMOVED_MODES</span><span class="p">,</span> <span class="n">removed_mode_message</span><span class="p">,</span> <span class="n">train_lmnn</span><span class="p">,</span> <span class="n">transform_features</span>
 
-    <span class="k">if</span> <span class="n">mode</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">"global"</span><span class="p">,</span> <span class="s2">"local"</span><span class="p">,</span> <span class="s2">"enhanced"</span><span class="p">,</span> <span class="s2">"lowrank"</span><span class="p">):</span>
-        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-            <span class="sa">f</span><span class="s2">"Unknown LMNN mode: </span><span class="si">{</span><span class="n">mode</span><span class="si">!r}</span><span class="s2">. Use 'global', 'local', 'enhanced', or 'lowrank'."</span>
-        <span class="p">)</span>
+    <span class="k">if</span> <span class="n">mode</span> <span class="ow">in</span> <span class="n">REMOVED_MODES</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">removed_mode_message</span><span class="p">(</span><span class="n">mode</span><span class="p">))</span>
+    <span class="k">if</span> <span class="n">mode</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">"global"</span><span class="p">,</span> <span class="s2">"lowrank"</span><span class="p">,</span> <span class="s2">"diagonal"</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Unknown LMNN mode: </span><span class="si">{</span><span class="n">mode</span><span class="si">!r}</span><span class="s2">. Use 'global', 'lowrank' or 'diagonal'."</span><span class="p">)</span>
 
     <span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
     <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">labels</span><span class="p">)</span>
@@ -449,7 +449,7 @@
             <span class="s2">"learns a linear transform L and clusters the transformed features "</span>
             <span class="s2">"without ever materializing a dense distance matrix. Use the returned "</span>
             <span class="s2">"`transform`/`mahalanobis`, or a per-cell mode "</span>
-            <span class="s2">"('local', 'enhanced', 'lowrank')."</span>
+            <span class="s2">"('lowrank', 'diagonal')."</span>
         <span class="p">)</span>
 
     <span class="k">if</span> <span class="n">return_model</span> <span class="ow">and</span> <span class="n">mode</span> <span class="o">==</span> <span class="s2">"global"</span><span class="p">:</span>
@@ -457,7 +457,7 @@
             <span class="s2">"return_model=True is not available for mode='global', which learns a "</span>
             <span class="s2">"single Mahalanobis matrix rather than a network. Its learned metric is "</span>
             <span class="s2">"returned in full as `transform` (L) and `mahalanobis` (M); a per-cell "</span>
-            <span class="s2">"mode ('local', 'enhanced', 'lowrank') has a model to hand back."</span>
+            <span class="s2">"mode ('lowrank', 'diagonal') has a model to hand back."</span>
         <span class="p">)</span>
 
     <span class="n">transform</span> <span class="o">=</span> <span class="n">mahalanobis</span> <span class="o">=</span> <span class="n">distance_matrix</span> <span class="o">=</span> <span class="n">model</span> <span class="o">=</span> <span class="kc">None</span>
@@ -479,7 +479,7 @@
         <span class="n">Z</span> <span class="o">=</span> <span class="n">_linkage</span><span class="p">(</span><span class="n">X_metric</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="n">linkage_method</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span><span class="s2">"euclidean"</span><span class="p">)</span>
         <span class="n">transform</span><span class="p">,</span> <span class="n">mahalanobis</span> <span class="o">=</span> <span class="n">L</span><span class="p">,</span> <span class="n">M</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="c1"># torch local/enhanced/lowrank → per-cell metric realized as a precomputed</span>
+        <span class="c1"># torch lowrank/diagonal → per-cell metric realized as a precomputed</span>
         <span class="c1"># matrix. The torch trainers cast labels via LongTensor, so classes must</span>
         <span class="c1"># be contiguous integers.</span>
         <span class="n">_</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">return_inverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>

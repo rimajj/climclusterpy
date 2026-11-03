@@ -1,12 +1,10 @@
 Tutorial 3 — Supervision signals
 ================================
 
-**Capability 3: provide the LMNN supervision signal.**
-:func:`~climclusterpy.compute_supervision` builds the per-cell class labels LMNN
-learns from. This tutorial demonstrates the two sources that run on lightweight synthetic
-data — **Köppen–Geiger** (from climate) and **model-output** (from traits); the
-**ecoregions** source is outlined at the end (it needs a shapefile and the
-``[ecoregions]`` extra).
+:func:`~climclusterpy.compute_supervision` builds the per-cell class labels that LMNN learns
+from. This tutorial uses the two sources that run on small synthetic data, Köppen–Geiger
+classes (from climate) and model output (from traits). Ecoregions (a shapefile and the
+``[ecoregions]`` extra) are outlined at the end.
 
 Köppen–Geiger from monthly climatology
 --------------------------------------
@@ -25,12 +23,12 @@ temperature (°C) and precipitation (mm/month) columns per cell, plus ``cell_id`
    kg.n_classes            # number of KG classes present
    kg.encoded_y            # 0..n_classes-1 labels, aligned to the cells
 
-Model-output (trait) clustering
--------------------------------
+Model output (traits)
+---------------------
 
-Given a table of simulated traits per cell, ``kind="output"`` clusters cells by trait
-similarity. Provide the trait columns via ``continuous_cols`` and the parallel
-coordinate arrays:
+``kind="output"`` clusters cells by the similarity of simulated traits, given as a table with
+one row per cell. The trait columns are passed as ``continuous_cols``, with the coordinates
+as parallel arrays:
 
 .. code-block:: python
 
@@ -49,8 +47,8 @@ Each call returns a :class:`~climclusterpy.SupervisionResult` — ``.labels`` (t
 canonical ``cell_id/latitude/longitude/cluster_label`` table), ``.labels_csv`` (the CSV on
 disk), and ``.y`` / ``.encoded_y`` to feed :func:`~climclusterpy.cluster_matrix`.
 
-The complete script
--------------------
+The script
+----------
 
 .. literalinclude:: ../../../examples/example_3_supervision.py
    :language: python

@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Scientific Methods &mdash; climclusterpy 0.5</title>
+  <title>Methods &mdash; climclusterpy 0.6</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=f2cc2102" />
@@ -15,7 +15,7 @@
     <link rel="shortcut icon" href="../_static/logo.svg"/>
       <script src="../_static/jquery.js?v=5d32c60e"></script>
       <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../_static/documentation_options.js?v=b9afe91b"></script>
+      <script src="../_static/documentation_options.js?v=8fa8b3e9"></script>
       <script src="../_static/doctools.js?v=9bcbadda"></script>
       <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "displayMath": [["$$", "$$"], ["\\[", "\\]"]]}}</script>
@@ -50,10 +50,9 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">Tutorials</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../tutorials/one_call_roundtrip.html">Tutorial 0 — the whole workflow in two calls</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../tutorials/one_call_roundtrip.html#the-idea">The idea</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../tutorials/one_call_roundtrip.html#call-1-build-the-reduced-grid">Call 1 — build the reduced grid</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../tutorials/one_call_roundtrip.html#call-2-rebuild-the-original-grid">Call 2 — rebuild the original grid</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../tutorials/one_call_roundtrip.html#the-complete-script">The complete script</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/one_call_roundtrip.html#build-the-reduced-grid">Build the reduced grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/one_call_roundtrip.html#rebuild-the-original-grid">Rebuild the original grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/one_call_roundtrip.html#the-script">The script</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../tutorials/one_call_roundtrip.html#run-it">Run it</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../tutorials/one_call_roundtrip.html#next-steps">Next steps</a></li>
 </ul>
@@ -61,7 +60,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../tutorials/euclidean_clustering.html">Tutorial 1 — Euclidean clustering</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../tutorials/euclidean_clustering.html#load-data-and-build-a-feature-matrix">Load data and build a feature matrix</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../tutorials/euclidean_clustering.html#cluster">Cluster</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../tutorials/euclidean_clustering.html#the-complete-script">The complete script</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/euclidean_clustering.html#the-script">The script</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../tutorials/euclidean_clustering.html#run-it">Run it</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../tutorials/euclidean_clustering.html#next-steps">Next steps</a></li>
 </ul>
@@ -69,28 +68,28 @@
 <li class="toctree-l2"><a class="reference internal" href="../tutorials/lmnn_clustering.html">Tutorial 2 — LMNN metric-learning clustering</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../tutorials/lmnn_clustering.html#provide-a-supervision-signal">Provide a supervision signal</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../tutorials/lmnn_clustering.html#learn-a-metric-and-cluster">Learn a metric and cluster</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../tutorials/lmnn_clustering.html#the-complete-script">The complete script</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/lmnn_clustering.html#the-script">The script</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../tutorials/lmnn_clustering.html#run-it">Run it</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../tutorials/lmnn_clustering.html#next-steps">Next steps</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../tutorials/supervision.html">Tutorial 3 — Supervision signals</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../tutorials/supervision.html#koppengeiger-from-monthly-climatology">Köppen–Geiger from monthly climatology</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../tutorials/supervision.html#model-output-trait-clustering">Model-output (trait) clustering</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../tutorials/supervision.html#the-complete-script">The complete script</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/supervision.html#model-output-traits">Model output (traits)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/supervision.html#the-script">The script</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../tutorials/supervision.html#run-it">Run it</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../tutorials/supervision.html#ecoregion-supervision">Ecoregion supervision</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../tutorials/reconstruction.html">Tutorial 4 — Reconstruct the original grid</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../tutorials/reconstruction.html#the-round-trip">The round trip</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../tutorials/reconstruction.html#verify">Verify</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../tutorials/reconstruction.html#the-complete-script">The complete script</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/reconstruction.html#reconstruction">Reconstruction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/reconstruction.html#check">Check</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/reconstruction.html#the-script">The script</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../tutorials/reconstruction.html#run-it">Run it</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../tutorials/reconstruction.html#next-steps">Next steps</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../tutorials/index.html#a-note-on-the-synthetic-data">A note on the synthetic data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/index.html#synthetic-data">Synthetic data</a></li>
 </ul>
 </li>
 </ul>
@@ -98,12 +97,11 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../howto/index.html">How-to guides</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../howto/install.html">Install climclusterpy</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../howto/install.html#base-install">Base install</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../howto/install.html#optional-extras">Optional extras</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../howto/install.html#installing-the-geospatial-extras-with-conda">Installing the geospatial extras with conda</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../howto/install.html#pytorch-cpu-vs-gpu">PyTorch (CPU vs. GPU)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/install.html#extras">Extras</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/install.html#geopandas-and-cartopy-with-conda">GeoPandas and Cartopy with conda</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/install.html#pytorch-on-cpu-or-gpu">PyTorch on CPU or GPU</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../howto/install.html#environment-variables">Environment variables</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../howto/install.html#building-the-documentation">Building the documentation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/install.html#building-this-documentation">Building this documentation</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../howto/inputs.html">Prepare the input files</a><ul>
@@ -116,6 +114,13 @@
 <li class="toctree-l3"><a class="reference internal" href="../howto/inputs.html#what-is-written">What is written</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../howto/inputs.html#the-lpjml-fit-file-layout">The LPJmL-FIT file layout</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../howto/inputs.html#output-files">Output files</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../howto/features.html">Choose the features</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../howto/features.html#what-is-computed">What is computed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/features.html#filtering">Filtering</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/features.html#missing-inputs">Missing inputs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/features.html#use-a-different-set">Use a different set</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../howto/clustering.html">Cluster a feature matrix (choose a mode)</a><ul>
@@ -133,22 +138,22 @@
 <li class="toctree-l3"><a class="reference internal" href="../howto/supervision.html#saved-results-are-reused-only-for-the-same-inputs">Saved results are reused only for the same inputs</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../howto/cell_selection.html">Choosing the cells a cluster is simulated on</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../howto/cell_selection.html#the-patch-budget">The patch budget</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../howto/cell_selection.html#what-the-drawn-cells-carry">What the drawn cells carry</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../howto/cell_selection.html">Choose the simulated cells</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../howto/cell_selection.html#patches">Patches</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/cell_selection.html#properties-of-the-selected-cells">Properties of the selected cells</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../howto/cell_selection.html#reproducibility">Reproducibility</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../howto/cell_selection.html#looking-at-a-draw-without-building-a-grid">Looking at a draw without building a grid</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../howto/cell_selection.html#back-to-the-full-grid">Back to the full grid</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../howto/cell_selection.html#a-model-that-reads-its-own-inputs-the-grid-only-then-cut-the-rest">A model that reads its own inputs: the grid only, then cut the rest</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/cell_selection.html#draw-cells-without-building-a-grid">Draw cells without building a grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/cell_selection.html#reconstruction">Reconstruction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/cell_selection.html#models-that-read-their-own-inputs">Models that read their own inputs</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../howto/reconstruct.html">Reconstruct the original grid</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../howto/reconstruct.html#the-usual-call">The usual call</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../howto/reconstruct.html#picking-up-where-you-left-off">Picking up where you left off</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../howto/reconstruct.html#without-a-result-or-run-folder">Without a result or run folder</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../howto/reconstruct.html#required-mapping-files">Required mapping files</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../howto/reconstruct.html#reconstruction-paths-kind">Reconstruction paths (<code class="docutils literal notranslate"><span class="pre">kind</span></code>)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../howto/reconstruct.html#verifying-the-result">Verifying the result</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/reconstruct.html#restore-a-result-in-a-later-session">Restore a result in a later session</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/reconstruct.html#without-a-result-object">Without a result object</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/reconstruct.html#mapping-files">Mapping files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/reconstruct.html#reconstruction-paths">Reconstruction paths</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/reconstruct.html#checking-the-result">Checking the result</a></li>
 </ul>
 </li>
 </ul>
@@ -208,6 +213,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../reference/cli.html#the-two-headline-commands">The two headline commands</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../reference/cli.html#building-blocks">Building blocks</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../reference/cli.html#options-shared-by-every-action-command">Options shared by every action command</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/cli.html#deprecated-names">Deprecated names</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../reference/cli.html#errors-and-exit-codes">Errors and exit codes</a></li>
 </ul>
 </li>
@@ -215,33 +221,27 @@
 </ul>
 </li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Explanation</span></p>
+<p class="caption" role="heading"><span class="caption-text">Background</span></p>
 <ul class="current">
-<li class="toctree-l1 current"><a class="reference internal" href="index.html">Explanation</a><ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Background</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="overview.html">Overview</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="overview.html#design-philosophy">Design Philosophy</a></li>
-<li class="toctree-l3"><a class="reference internal" href="overview.html#workflow-summary">Workflow Summary</a></li>
-<li class="toctree-l3"><a class="reference internal" href="overview.html#key-innovations">Key Innovations</a></li>
-<li class="toctree-l3"><a class="reference internal" href="overview.html#use-cases">Use Cases</a></li>
-<li class="toctree-l3"><a class="reference internal" href="overview.html#limitations">Limitations</a></li>
-<li class="toctree-l3"><a class="reference internal" href="overview.html#future-directions">Future Directions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="overview.html#workflow">Workflow</a></li>
+<li class="toctree-l3"><a class="reference internal" href="overview.html#package-layout">Package layout</a></li>
 <li class="toctree-l3"><a class="reference internal" href="overview.html#references">References</a></li>
 </ul>
 </li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Scientific Methods</a><ul>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Methods</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#data-acquisition-and-preprocessing">Data Acquisition and Preprocessing</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#ecoregion-assignment">Ecoregion Assignment</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#ecological-feature-summarization">Ecological Feature Summarization</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#feature-standardization-and-filtering">Feature Standardization and Filtering</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#large-margin-nearest-neighbor-lmnn-metric-learning">Large Margin Nearest Neighbor (LMNN) Metric Learning</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#hierarchical-clustering">Hierarchical Clustering</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#representative-cell-selection">Representative Cell Selection</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#evaluation-metrics">Evaluation Metrics</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#netcdf-processing">NetCDF Processing</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#computational-implementation">Computational Implementation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cell-selection">Cell Selection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#the-reduced-grid">The Reduced Grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#reconstruction">Reconstruction</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="index.html#reconstruction-correctness">Reconstruction correctness</a></li>
 </ul>
 </li>
 </ul>
@@ -260,8 +260,8 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
-          <li class="breadcrumb-item"><a href="index.html">Explanation</a></li>
-      <li class="breadcrumb-item active">Scientific Methods</li>
+          <li class="breadcrumb-item"><a href="index.html">Background</a></li>
+      <li class="breadcrumb-item active">Methods</li>
       <li class="wy-breadcrumbs-aside">
               <a href="https://gitlab.pik-potsdam.de/lpjmlfit_analysis/climclusterpy/blob/main/docs/src/explanation/methods.rst" class="fa fa-gitlab"> Edit on GitLab</a>
       </li>
@@ -271,9 +271,11 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="scientific-methods">
-<h1>Scientific Methods<a class="headerlink" href="#scientific-methods" title="Link to this heading"></a></h1>
-<p>This section provides a detailed scientific description of the algorithms, data transformations, and computational methods implemented in the climclusterpy package.</p>
+  <section id="methods">
+<h1>Methods<a class="headerlink" href="#methods" title="Link to this heading"></a></h1>
+<p>The algorithms and data transformations implemented in <code class="docutils literal notranslate"><span class="pre">climclusterpy</span></code>, in the order in
+which a run applies them, followed by the reduced grid and the check that a reconstruction is
+correct.</p>
 <section id="data-acquisition-and-preprocessing">
 <h2>Data Acquisition and Preprocessing<a class="headerlink" href="#data-acquisition-and-preprocessing" title="Link to this heading"></a></h2>
 <section id="climate-and-static-field-loading">
@@ -389,7 +391,7 @@ e_k &amp; \text{if } \mathbf{p}_i \cap P_k \neq \emptyset \\
 </section>
 <section id="ecological-feature-summarization">
 <h2>Ecological Feature Summarization<a class="headerlink" href="#ecological-feature-summarization" title="Link to this heading"></a></h2>
-<p>Time series climate data are transformed into interpretable ecological summary statistics by the <a class="reference internal" href="../reference/features.html#module-climclusterpy.features" title="climclusterpy.features"><code class="xref py py-mod docutils literal notranslate"><span class="pre">climclusterpy.features</span></code></a> module.</p>
+<p>Time series climate data are transformed into interpretable ecological summary statistics by the <a class="reference internal" href="../reference/features.html#module-climclusterpy.features" title="climclusterpy.features"><code class="xref py py-mod docutils literal notranslate"><span class="pre">climclusterpy.features</span></code></a> module. The columns that <a class="reference internal" href="../reference/api.html#climclusterpy.create_clusters" title="climclusterpy.create_clusters"><code class="xref py py-func docutils literal notranslate"><span class="pre">create_clusters()</span></code></a> builds, and how to choose them, are listed in <a class="reference internal" href="../howto/features.html"><span class="doc">Choose the features</span></a>. The ecology diagnostics and the block PCA below are building blocks that <code class="docutils literal notranslate"><span class="pre">create_clusters</span></code> does not apply.</p>
 <section id="temperature-features">
 <h3>Temperature Features<a class="headerlink" href="#temperature-features" title="Link to this heading"></a></h3>
 <p>For temperature time series <span class="math notranslate nohighlight">\(\{T_1, T_2, \ldots, T_{n_t}\}\)</span>, the following statistics are computed by <code class="docutils literal notranslate"><span class="pre">climclusterpy.features.climate._summarize_temperature()</span></code>:</p>
@@ -613,7 +615,7 @@ feature and the soil code as a categorical one.</p>
 </section>
 <section id="large-margin-nearest-neighbor-lmnn-metric-learning">
 <h2>Large Margin Nearest Neighbor (LMNN) Metric Learning<a class="headerlink" href="#large-margin-nearest-neighbor-lmnn-metric-learning" title="Link to this heading"></a></h2>
-<p>The <a class="reference internal" href="../reference/clustering.html#module-climclusterpy.clustering" title="climclusterpy.clustering"><code class="xref py py-mod docutils literal notranslate"><span class="pre">climclusterpy.clustering</span></code></a> module implements three LMNN variants for learning ecoregion-informed distance metrics.</p>
+<p>The <a class="reference internal" href="../reference/clustering.html#module-climclusterpy.clustering" title="climclusterpy.clustering"><code class="xref py py-mod docutils literal notranslate"><span class="pre">climclusterpy.clustering</span></code></a> module learns a distance from a supervision signal in one of three modes (<code class="docutils literal notranslate"><span class="pre">lmnn_mode</span></code>): <code class="docutils literal notranslate"><span class="pre">&quot;global&quot;</span></code>, and the per-cell <code class="docutils literal notranslate"><span class="pre">&quot;lowrank&quot;</span></code> and <code class="docutils literal notranslate"><span class="pre">&quot;diagonal&quot;</span></code> forms.</p>
 <section id="global-lmnn">
 <h3>Global LMNN<a class="headerlink" href="#global-lmnn" title="Link to this heading"></a></h3>
 <p><a class="reference internal" href="../reference/clustering.html#module-climclusterpy.clustering.lmnn" title="climclusterpy.clustering.lmnn"><code class="xref py py-mod docutils literal notranslate"><span class="pre">climclusterpy.clustering.lmnn</span></code></a> implements classic LMNN (Weinberger &amp; Saul, 2009) with a single global Mahalanobis distance.</p>
@@ -666,456 +668,242 @@ feature and the soil code as a categorical one.</p>
 <div class="math notranslate nohighlight">
 \[\|\mathbf{x}_i^{\text{LMNN}} - \mathbf{x}_j^{\text{LMNN}}\|_2 = D_M(\mathbf{x}_i, \mathbf{x}_j)\]</div>
 </section>
-<section id="local-lmnn">
-<h3>Local LMNN<a class="headerlink" href="#local-lmnn" title="Link to this heading"></a></h3>
-<p><code class="docutils literal notranslate"><span class="pre">climclusterpy.clustering.lmnn.local</span></code> implements feature-conditioned LMNN where feature weights vary spatially.</p>
-<p><strong>Neural Network Architecture</strong></p>
-<p>A multilayer perceptron <span class="math notranslate nohighlight">\(f_\theta: \mathbb{R}^d \to \mathbb{R}^d\)</span> predicts cell-specific weight vectors:</p>
-<div class="math notranslate nohighlight">
-\[\mathbf{w}_i = f_\theta(\mathbf{x}_i)\]</div>
-<p>The network architecture (<code class="docutils literal notranslate"><span class="pre">climclusterpy.clustering.lmnn.local.LocalWeightNetwork</span></code>) is:</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}\begin{align}
-\mathbf{h}_1 &amp;= \text{ReLU}(\mathbf{W}_1 \mathbf{x}_i + \mathbf{b}_1) \\
-\mathbf{h}_2 &amp;= \text{Dropout}(\mathbf{h}_1, p=0.1) \\
-\mathbf{h}_3 &amp;= \text{ReLU}(\mathbf{W}_2 \mathbf{h}_2 + \mathbf{b}_2) \\
-\mathbf{h}_4 &amp;= \text{Dropout}(\mathbf{h}_3, p=0.1) \\
-\mathbf{w}_i^{\text{raw}} &amp;= \mathbf{W}_3 \mathbf{h}_4 + \mathbf{b}_3 \\
-\mathbf{w}_i &amp;= \frac{\text{Softplus}(\mathbf{w}_i^{\text{raw}})}{\|\text{Softplus}(\mathbf{w}_i^{\text{raw}})\|_1}
-\end{align}\end{split}\]</div>
-<p>where:</p>
-<ul class="simple">
-<li><p><span class="math notranslate nohighlight">\(\text{Softplus}(x) = \log(1 + \exp(x))\)</span> ensures positivity</p></li>
-<li><p>L1 normalization guarantees <span class="math notranslate nohighlight">\(\sum_{j=1}^d w_{ij} = 1\)</span></p></li>
-<li><p>Default hidden dimensions: [64, 32]</p></li>
-</ul>
-<p><strong>Symmetrized Local Distance</strong></p>
-<p><code class="docutils literal notranslate"><span class="pre">climclusterpy.clustering.lmnn.local.compute_local_distance()</span></code> computes:</p>
-<div class="math notranslate nohighlight">
-\[D_{\text{local}}(\mathbf{x}_i, \mathbf{x}_j) = \sqrt{\sum_{k=1}^d \frac{w_{ik} + w_{jk}}{2} (x_{ik} - x_{jk})^2}\]</div>
-<p>The weight averaging ensures:</p>
-<div class="math notranslate nohighlight">
-\[D_{\text{local}}(\mathbf{x}_i, \mathbf{x}_j) = D_{\text{local}}(\mathbf{x}_j, \mathbf{x}_i)\]</div>
-<p>maintaining the metric property.</p>
-<p><strong>Loss Function</strong></p>
-<p><code class="docutils literal notranslate"><span class="pre">climclusterpy.clustering.lmnn.local.LocalLMNNLoss</span></code> minimizes:</p>
-<div class="math notranslate nohighlight">
-\[\mathcal{L}_{\text{local}} = (1-\alpha) \mathcal{L}_{\text{pull}} + \alpha \mathcal{L}_{\text{margin}}\]</div>
-<p>where:</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}\begin{align}
-\mathcal{L}_{\text{pull}} &amp;= \frac{1}{nk} \sum_{i=1}^n \sum_{j \in \mathcal{N}_k^+(i)} D_{\text{local}}^2(\mathbf{x}_i, \mathbf{x}_j) \\
-\mathcal{L}_{\text{margin}} &amp;= \frac{1}{n|\mathcal{I}|} \sum_{i=1}^n \sum_{l \in \mathcal{I}_i} \sum_{j \in \mathcal{N}_k^+(i)} \max(0, D_{\text{local}}^2(\mathbf{x}_i, \mathbf{x}_j) - D_{\text{local}}^2(\mathbf{x}_i, \mathbf{x}_l) + \Delta)^2
-\end{align}\end{split}\]</div>
-<p>Here:</p>
-<ul class="simple">
-<li><p><span class="math notranslate nohighlight">\(\mathcal{N}_k^+(i)\)</span> = <span class="math notranslate nohighlight">\(k\)</span> nearest same-ecoregion neighbors</p></li>
-<li><p><span class="math notranslate nohighlight">\(\mathcal{I}_i\)</span> = different-ecoregion cells (impostors)</p></li>
-<li><p><span class="math notranslate nohighlight">\(\Delta\)</span> = margin hyperparameter (default 1.0)</p></li>
-<li><p><span class="math notranslate nohighlight">\(\alpha\)</span> = loss balance weight (default 0.5)</p></li>
-</ul>
-<p><strong>Training</strong></p>
-<p><code class="xref py py-func docutils literal notranslate"><span class="pre">climclusterpy.clustering.lmnn.train_local_lmnn()</span></code> uses:</p>
-<ul class="simple">
-<li><p><strong>Optimizer</strong>: Adam with learning rate <span class="math notranslate nohighlight">\(\eta = 10^{-3}\)</span></p></li>
-<li><p><strong>Regularization</strong>: Weight decay <span class="math notranslate nohighlight">\(\lambda = 10^{-4}\)</span>, dropout <span class="math notranslate nohighlight">\(p = 0.1\)</span></p></li>
-<li><p><strong>Batch size</strong>: 128</p></li>
-<li><p><strong>Early stopping</strong>: Patience 10 epochs on validation loss</p></li>
-</ul>
-</section>
-<section id="enhanced-lmnn">
-<h3>Enhanced LMNN<a class="headerlink" href="#enhanced-lmnn" title="Link to this heading"></a></h3>
-<p><code class="docutils literal notranslate"><span class="pre">climclusterpy.clustering.lmnn.enhanced</span></code> extends local LMNN for datasets with variable-sized ecoregions.</p>
-<p><strong>Proportional Adaptive Neighbor Count</strong></p>
-<p>For each anchor cell <span class="math notranslate nohighlight">\(i\)</span> in ecoregion <span class="math notranslate nohighlight">\(c\)</span> with size <span class="math notranslate nohighlight">\(n_c\)</span>:</p>
-<div class="math notranslate nohighlight">
-\[k_i = \min\!\left(n_c - 1,\; k_{\text{max}},\; \max\!\left(k_{\text{min}},\; \lfloor \beta \cdot n_c \rfloor\right)\right)\]</div>
-<p>where:</p>
-<ul class="simple">
-<li><p><span class="math notranslate nohighlight">\(k_{\text{min}}\)</span> (default: 3) sets the minimum neighborhood size</p></li>
-<li><p><span class="math notranslate nohighlight">\(k_{\text{max}}\)</span> (default: 15) prevents excessive computation</p></li>
-<li><p><span class="math notranslate nohighlight">\(\beta\)</span> (default: 0.005) is the proportionality factor</p></li>
-<li><p>The leading <span class="math notranslate nohighlight">\(n_c - 1\)</span> cap ensures feasibility</p></li>
-</ul>
-<p>The function-level defaults in <code class="docutils literal notranslate"><span class="pre">train_enhanced_local_lmnn</span></code> are <span class="math notranslate nohighlight">\(k_{\min}=3\)</span>, <span class="math notranslate nohighlight">\(k_{\max}=15\)</span>, <span class="math notranslate nohighlight">\(\beta=0.05\)</span>, but the production pipelines override <span class="math notranslate nohighlight">\(\beta\)</span> to 0.005 for more conservative scaling.</p>
-<p><strong>Example scaling</strong> with <span class="math notranslate nohighlight">\(\beta = 0.005\)</span> (production default):</p>
-<ul class="simple">
-<li><p>Small class (10 samples): <span class="math notranslate nohighlight">\(k_i = \max(3, \lfloor 0.005 \times 10 \rfloor) = 3\)</span></p></li>
-<li><p>Medium class (200 samples): <span class="math notranslate nohighlight">\(k_i = \lfloor 0.005 \times 200 \rfloor = 1 \to 3\)</span> (clamped to <span class="math notranslate nohighlight">\(k_{\min}\)</span>)</p></li>
-<li><p>Large class (1000 samples): <span class="math notranslate nohighlight">\(k_i = \min(15, \lfloor 0.005 \times 1000 \rfloor) = 5\)</span></p></li>
-</ul>
-<p>Proportional adaptive-k allows:</p>
-<ul class="simple">
-<li><p>Small classes: avoid overfitting through conservative <span class="math notranslate nohighlight">\(k_{\min}\)</span></p></li>
-<li><p>Large classes: maintain internal cohesion through scaled neighborhoods</p></li>
-</ul>
-<p><strong>Prototype-Based Pull Loss</strong></p>
-<p>For tiny ecoregions (<span class="math notranslate nohighlight">\(n_c &lt; 5\)</span>), a class prototype is computed:</p>
-<div class="math notranslate nohighlight">
-\[\boldsymbol{\mu}_c = \frac{1}{n_c} \sum_{i: y_i = c} \mathbf{x}_i\]</div>
-<p>The pull loss becomes:</p>
-<div class="math notranslate nohighlight">
-\[\mathcal{L}_{\text{pull}}^{(i)} = D_{\text{local}}^2(\mathbf{x}_i, \boldsymbol{\mu}_{y_i})\]</div>
-<p>replacing k-NN targets with the prototype (<code class="docutils literal notranslate"><span class="pre">climclusterpy.clustering.lmnn.enhanced.ClassPrototypeManager</span></code>).</p>
-<p><strong>Oversampling with Ecological Jittering</strong></p>
-<p>Small ecoregions (<span class="math notranslate nohighlight">\(n_c &lt; 20\)</span>) are oversampled by factor:</p>
-<div class="math notranslate nohighlight">
-\[\beta_{\text{oversample}} = \min\left(10, 3 + 7\left(1 - \frac{n_c}{20}\right)\right)\]</div>
-<p>Synthetic samples are generated via <code class="docutils literal notranslate"><span class="pre">climclusterpy.clustering.lmnn.enhanced.OversamplingDataset</span></code>:</p>
-<div class="math notranslate nohighlight">
-\[x_{ij}^{\text{jitter}} = x_{ij} + \epsilon_{ij}\]</div>
-<p>where <span class="math notranslate nohighlight">\(\epsilon_{ij}\)</span> is feature-type dependent:</p>
-<ul class="simple">
-<li><p><strong>Temperature</strong>: <span class="math notranslate nohighlight">\(\epsilon \sim \mathcal{N}(0, 0.25^2)\)</span> (≈ ±0.5°C in standardized space)</p></li>
-<li><p><strong>Precipitation</strong>: Multiplicative <span class="math notranslate nohighlight">\(\epsilon \sim \mathcal{N}(1, 0.025^2)\)</span> (±5%)</p></li>
-<li><p><strong>Radiation</strong>: Multiplicative <span class="math notranslate nohighlight">\(\epsilon \sim \mathcal{N}(1, 0.01^2)\)</span> (±2%)</p></li>
-<li><p><strong>Other</strong>: <span class="math notranslate nohighlight">\(\epsilon \sim \mathcal{N}(0, (0.015|\bar{x}_j|)^2)\)</span> (±3% of mean)</p></li>
-</ul>
-<p>Jittered values are clipped to <span class="math notranslate nohighlight">\([-5, 5]\)</span> in standardized space.</p>
-<p><strong>k_i Statistics Tracking</strong></p>
-<p>During training, the module computes and logs k_i statistics:</p>
-<ul class="simple">
-<li><p><span class="math notranslate nohighlight">\(k_{i,\min}\)</span> = minimum neighborhood size across all anchors</p></li>
-<li><p><span class="math notranslate nohighlight">\(k_{i,\max}\)</span> = maximum neighborhood size</p></li>
-<li><p><span class="math notranslate nohighlight">\(k_{i,\text{mean}}\)</span> = average neighborhood size</p></li>
-<li><p><span class="math notranslate nohighlight">\(k_{i,\text{median}}\)</span> = median neighborhood size</p></li>
-<li><p>Per-class averages: <span class="math notranslate nohighlight">\(\overline{k_i}_c = \frac{1}{n_c} \sum_{i: y_i=c} k_i\)</span></p></li>
-</ul>
-<p>This enables diagnostic monitoring of whether proportional scaling is working as intended.</p>
-</section>
-<section id="local-mahalanobis-lmnn">
-<h3>Local Mahalanobis LMNN<a class="headerlink" href="#local-mahalanobis-lmnn" title="Link to this heading"></a></h3>
-<p><code class="docutils literal notranslate"><span class="pre">climclusterpy.clustering.lmnn.local.LocalMahalanobisMLP</span></code> and <code class="docutils literal notranslate"><span class="pre">climclusterpy.clustering.lmnn.local.LocalMahalanobisLMNNLoss</span></code> implement a low-rank local Mahalanobis variant that captures <strong>cross-feature interactions</strong> unlike the diagonal weighted Euclidean metric.</p>
-<p><strong>Motivation</strong></p>
-<p>The diagonal local metric weights each feature independently, which implicitly assumes that the ecological signal decomposes along the original feature axes. In reality, features interact—temperature seasonality and precipitation timing jointly determine dry-season stress, for example. A purely diagonal metric cannot capture such cross-feature dependencies. Local Mahalanobis LMNN extends the framework by replacing the diagonal weight vector <span class="math notranslate nohighlight">\(\mathbf{w}_i \in \mathbb{R}^d\)</span> with a full positive semi-definite (PSD) metric matrix <span class="math notranslate nohighlight">\(\mathbf{M}_i \in \mathbb{R}^{d \times d}\)</span>.</p>
-<p><strong>Low-Rank Parameterisation</strong></p>
-<p>Direct prediction of a <span class="math notranslate nohighlight">\(d \times d\)</span> PSD matrix would require <span class="math notranslate nohighlight">\(d(d+1)/2\)</span> outputs per cell and an explicit PSD projection. Instead, the MLP <span class="math notranslate nohighlight">\(g_\phi: \mathbb{R}^d \to \mathbb{R}^{d \times r}\)</span> predicts a low-rank factor <span class="math notranslate nohighlight">\(\mathbf{L}_i\)</span> of rank <span class="math notranslate nohighlight">\(r \ll d\)</span>:</p>
-<div class="math notranslate nohighlight">
-\[\mathbf{M}_i = \mathbf{L}_i \mathbf{L}_i^\top\]</div>
-<p>Because <span class="math notranslate nohighlight">\(\mathbf{M}_i\)</span> is constructed as a Gram product, it is guaranteed PSD by construction—no eigenvalue clipping or Cholesky correction is needed.</p>
-<p>The rank <span class="math notranslate nohighlight">\(r\)</span> controls the trade-off between expressiveness and cost:</p>
-<ul class="simple">
-<li><p><span class="math notranslate nohighlight">\(r = 1\)</span>: Rank-1 outer product, capturing a single direction of interaction</p></li>
-<li><p><span class="math notranslate nohighlight">\(r = d\)</span>: Full-rank local Mahalanobis (most expensive)</p></li>
-<li><p><span class="math notranslate nohighlight">\(r = 8\)</span> (default for <span class="math notranslate nohighlight">\(d = 51\)</span>): Captures dominant cross-feature interactions; MLP outputs <span class="math notranslate nohighlight">\(d \cdot r = 408\)</span> values vs. <span class="math notranslate nohighlight">\(d = 51\)</span> for diagonal</p></li>
-</ul>
-<p><strong>MLP Architecture</strong></p>
-<p><code class="docutils literal notranslate"><span class="pre">climclusterpy.clustering.lmnn.local.LocalMahalanobisMLP</span></code> has the same hidden-layer structure as the diagonal <code class="docutils literal notranslate"><span class="pre">LocalWeightNetwork</span></code>:</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}\begin{align}
-\mathbf{h}_1 &amp;= \text{ReLU}(\mathbf{W}_1 \mathbf{x}_i + \mathbf{b}_1) \\
-\mathbf{h}_2 &amp;= \text{Dropout}(\mathbf{h}_1, p) \\
-\mathbf{h}_3 &amp;= \text{ReLU}(\mathbf{W}_2 \mathbf{h}_2 + \mathbf{b}_2) \\
-\mathbf{h}_4 &amp;= \text{Dropout}(\mathbf{h}_3, p) \\
-\text{vec}(\mathbf{L}_i) &amp;= \mathbf{W}_3 \mathbf{h}_4 + \mathbf{b}_3
-\end{align}\end{split}\]</div>
-<p>The output layer has <span class="math notranslate nohighlight">\(d \cdot r\)</span> units, reshaped to <span class="math notranslate nohighlight">\(\mathbf{L}_i \in \mathbb{R}^{d \times r}\)</span>. Unlike the diagonal variant, <strong>no Softplus or L1-normalisation</strong> is applied—PSD-ness is guaranteed by the Gram construction. Output layer weights are initialised with <span class="math notranslate nohighlight">\(\mathcal{N}(0, 0.01^2)\)</span> and zero bias so that <span class="math notranslate nohighlight">\(\mathbf{M}_i \approx \mathbf{0}\)</span> initially.</p>
-<p>Constructor parameters:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">LocalMahalanobisMLP</span><span class="p">(</span>
-    <span class="n">d</span><span class="o">=</span><span class="mi">51</span><span class="p">,</span>                    <span class="c1"># input feature dimension</span>
-    <span class="n">r</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span>                     <span class="c1"># low-rank factor dimension</span>
-    <span class="n">hidden_width_factor</span><span class="o">=</span><span class="mf">2.0</span><span class="p">,</span> <span class="c1"># hidden = int(d * factor)</span>
-    <span class="n">dropout_rate</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span>
-<span class="p">)</span>
-</pre></div>
-</div>
-<p>Convenience method <code class="docutils literal notranslate"><span class="pre">compute_M()</span></code> returns <span class="math notranslate nohighlight">\(\mathbf{M}_i = \mathbf{L}_i \mathbf{L}_i^\top\)</span> directly:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">LocalMahalanobisMLP</span><span class="p">(</span><span class="n">d</span><span class="o">=</span><span class="mi">51</span><span class="p">,</span> <span class="n">r</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
-<span class="n">L</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>          <span class="c1"># (batch, 51, 8) low-rank factors</span>
-<span class="n">M</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">compute_M</span><span class="p">(</span><span class="n">X</span><span class="p">)</span> <span class="c1"># (batch, 51, 51) PSD metric matrices</span>
-</pre></div>
-</div>
-<p><strong>Symmetrised Local Mahalanobis Distance</strong></p>
-<p>The distance between cells <span class="math notranslate nohighlight">\(i\)</span> and <span class="math notranslate nohighlight">\(j\)</span> uses the symmetrised average of their local metric matrices:</p>
-<div class="math notranslate nohighlight">
-\[D_{\text{maha}}(\mathbf{x}_i, \mathbf{x}_j) = \sqrt{(\mathbf{x}_i - \mathbf{x}_j)^\top \frac{\mathbf{M}_i + \mathbf{M}_j}{2} (\mathbf{x}_i - \mathbf{x}_j)}\]</div>
-<p>Symmetrisation ensures <span class="math notranslate nohighlight">\(D_{\text{maha}}(\mathbf{x}_i, \mathbf{x}_j) = D_{\text{maha}}(\mathbf{x}_j, \mathbf{x}_i)\)</span>.</p>
-<p>Special cases:</p>
-<ul class="simple">
-<li><p>When <span class="math notranslate nohighlight">\(r = d\)</span> and all <span class="math notranslate nohighlight">\(\mathbf{M}_i\)</span> are equal → standard global Mahalanobis distance</p></li>
-<li><p>When <span class="math notranslate nohighlight">\(\mathbf{M}_i = \text{diag}(\mathbf{w}_i)\)</span> → diagonal local distance (existing <code class="docutils literal notranslate"><span class="pre">compute_local_distance</span></code>)</p></li>
-</ul>
-<p><strong>Loss Function</strong></p>
-<p><code class="docutils literal notranslate"><span class="pre">climclusterpy.clustering.lmnn.local.LocalMahalanobisLMNNLoss</span></code> retains the pull-plus-margin structure and adds mandatory Frobenius regularisation:</p>
-<div class="math notranslate nohighlight">
-\[\mathcal{L}_{\text{maha}} = (1 - \alpha)\, \mathcal{L}_{\text{pull}} + \alpha\, \mathcal{L}_{\text{margin}} + \lambda_{\text{reg}}\, \mathcal{L}_{\text{reg}}\]</div>
-<p>where:</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}\begin{align}
-\mathcal{L}_{\text{pull}} &amp;= \frac{1}{k} \sum_{j \in \mathcal{T}_i} D_{\text{maha}}^2(\mathbf{x}_i, \mathbf{x}_j) \\
-\mathcal{L}_{\text{margin}} &amp;= \frac{1}{k \cdot |\mathcal{I}_i|} \sum_{j \in \mathcal{T}_i} \sum_{l \in \mathcal{I}_i} \max\!\left(0,\, D_{\text{maha}}^2(\mathbf{x}_i, \mathbf{x}_j) - D_{\text{maha}}^2(\mathbf{x}_i, \mathbf{x}_l) + \Delta\right)^2 \\
-\mathcal{L}_{\text{reg}} &amp;= \frac{1}{n} \sum_{i=1}^n \|\mathbf{M}_i - \mathbf{I}_d\|_F^2
-\end{align}\end{split}\]</div>
-<p>The regularisation term prevents:</p>
-<ul class="simple">
-<li><p><strong>Metric collapse</strong> (<span class="math notranslate nohighlight">\(\mathbf{M}_i \to \mathbf{0}\)</span>): All distances become zero</p></li>
-<li><p><strong>Metric explosion</strong>: Unbounded eigenvalues destabilise training</p></li>
-</ul>
-<p>Constructor parameters:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">LocalMahalanobisLMNNLoss</span><span class="p">(</span>
-    <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span>           <span class="c1"># pull/margin trade-off</span>
-    <span class="n">delta</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>           <span class="c1"># margin hyperparameter</span>
-    <span class="n">lambda_reg</span><span class="o">=</span><span class="mf">1e-3</span><span class="p">,</span>     <span class="c1"># regularisation coefficient (mandatory)</span>
-    <span class="n">max_impostors</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span>    <span class="c1"># cap per anchor</span>
-<span class="p">)</span>
-</pre></div>
-</div>
-<p>The <code class="docutils literal notranslate"><span class="pre">forward</span></code> method accepts pre-computed <span class="math notranslate nohighlight">\(\mathbf{M}\)</span> matrices for anchors, targets, and impostors:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">total</span><span class="p">,</span> <span class="n">pull</span><span class="p">,</span> <span class="n">margin</span><span class="p">,</span> <span class="n">reg</span> <span class="o">=</span> <span class="n">loss</span><span class="p">(</span>
-    <span class="n">x_anchor</span><span class="p">,</span> <span class="n">x_targets</span><span class="p">,</span> <span class="n">x_impostors</span><span class="p">,</span>
-    <span class="n">M_anchor</span><span class="p">,</span> <span class="n">M_targets</span><span class="p">,</span> <span class="n">M_impostors</span><span class="p">,</span>
-    <span class="n">labels_anchor</span><span class="p">,</span>
-<span class="p">)</span>
-</pre></div>
-</div>
-<p><strong>Distance Matrix Computation</strong></p>
-<p><code class="xref py py-func docutils literal notranslate"><span class="pre">climclusterpy.clustering.lmnn.compute_local_mahalanobis_distance_matrix()</span></code> computes the full <span class="math notranslate nohighlight">\(n \times n\)</span> pairwise distance matrix using a <strong>double inner-loop</strong> strategy for GPU memory management:</p>
-<ol class="arabic simple">
-<li><p><strong>Phase 1 — Precompute M</strong>: All <span class="math notranslate nohighlight">\(\{\mathbf{M}_i\}_{i=1}^n\)</span> are computed in batches and stored on CPU. Memory: <span class="math notranslate nohighlight">\(n \times d \times d \times 4\)</span> bytes (e.g., <span class="math notranslate nohighlight">\(n \times 10\,\text{KB}\)</span> for <span class="math notranslate nohighlight">\(d = 51\)</span>).</p></li>
-<li><p><strong>Phase 2 — Pairwise distances</strong>: For each row-batch <span class="math notranslate nohighlight">\(i \in [i_0, i_0+b)\)</span>, an inner loop over column-batches <span class="math notranslate nohighlight">\(j \in [j_0, j_0+b')\)</span> loads the corresponding <span class="math notranslate nohighlight">\(\mathbf{M}_i, \mathbf{M}_j\)</span> to GPU and computes the <span class="math notranslate nohighlight">\(b \times b'\)</span> distance submatrix via batched matrix multiplication. Peak GPU memory: <span class="math notranslate nohighlight">\(O(b \cdot b' \cdot d^2)\)</span>.</p></li>
-<li><p><strong>Symmetrisation</strong>: <span class="math notranslate nohighlight">\(\mathbf{D} \leftarrow (\mathbf{D} + \mathbf{D}^\top) / 2\)</span> for numerical precision.</p></li>
-</ol>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">D</span> <span class="o">=</span> <span class="n">compute_local_mahalanobis_distance_matrix</span><span class="p">(</span>
-    <span class="n">X</span><span class="p">,</span>                    <span class="c1"># (n, d) feature matrix</span>
-    <span class="n">model</span><span class="p">,</span>                <span class="c1"># trained LocalMahalanobisMLP</span>
-    <span class="n">device</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="s1">'cuda'</span><span class="p">),</span>
-    <span class="n">batch_size</span><span class="o">=</span><span class="mi">512</span><span class="p">,</span>       <span class="c1"># anchor rows per GPU batch</span>
-<span class="p">)</span>
-<span class="c1"># Returns: (n, n) symmetric float32 distance matrix</span>
-</pre></div>
-</div>
-<p><strong>Feature Importance</strong></p>
-<p>Feature importance under the Mahalanobis metric is extracted from the diagonal of the cell-averaged metric matrix:</p>
-<div class="math notranslate nohighlight">
-\[I_j = \left[\frac{1}{n} \sum_{i=1}^n \mathbf{M}_i\right]_{jj}\]</div>
-<p>with normalised importances <span class="math notranslate nohighlight">\(I_j^{\text{norm}} = I_j / \sum_{k=1}^d I_k\)</span>. Off-diagonal elements of <span class="math notranslate nohighlight">\(\bar{\mathbf{M}}\)</span> additionally reveal which feature pairs interact most strongly.</p>
-<p><strong>Pipeline Integration</strong></p>
-<p>The <code class="docutils literal notranslate"><span class="pre">local_mahalanobis</span></code> mode is activated by setting <code class="docutils literal notranslate"><span class="pre">LMNN_MODE</span> <span class="pre">=</span> <span class="pre">&quot;local_mahalanobis&quot;</span></code> in the GPU pipeline. Configuration parameters:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">LMNN_MODE</span> <span class="o">=</span> <span class="s2">"local_mahalanobis"</span>
-<span class="n">MAHALANOBIS_RANK</span> <span class="o">=</span> <span class="mi">8</span>        <span class="c1"># r: low-rank factor dimension</span>
-<span class="n">MAHALANOBIS_LAMBDA_REG</span> <span class="o">=</span> <span class="mf">1e-3</span>  <span class="c1"># λ_reg: regularisation weight</span>
-</pre></div>
-</div>
-<p>Cache filenames include <code class="docutils literal notranslate"><span class="pre">_mahalanobis_r{r}</span></code> to prevent collision with diagonal-mode artefacts.</p>
-<p><strong>Relationship to Diagonal Variant</strong></p>
+<section id="per-cell-metrics-low-rank-and-diagonal">
+<h3>Per-cell metrics: low-rank and diagonal<a class="headerlink" href="#per-cell-metrics-low-rank-and-diagonal" title="Link to this heading"></a></h3>
+<p>The global metric weights the features the same way everywhere. In the per-cell modes a small
+network predicts the metric of each cell from that cell’s features, so the weighting can differ
+between regions. There are two forms of the per-cell metric, selected by <code class="docutils literal notranslate"><span class="pre">lmnn_mode</span></code>; both are
+trained by one trainer
+(<code class="xref py py-func docutils literal notranslate"><span class="pre">train_local_mahalanobis_lmnn()</span></code>) with one loss, and differ
+only in what the network predicts and in how that is turned into a distance.</p>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 30.0%" />
-<col style="width: 35.0%" />
-<col style="width: 35.0%" />
+<col style="width: 24.0%" />
+<col style="width: 38.0%" />
+<col style="width: 38.0%" />
 </colgroup>
 <thead>
-<tr class="row-odd"><th class="head"><p>Property</p></th>
-<th class="head"><p>Diagonal (<code class="docutils literal notranslate"><span class="pre">LocalWeightNetwork</span></code>)</p></th>
-<th class="head"><p>Mahalanobis (<code class="docutils literal notranslate"><span class="pre">LocalMahalanobisMLP</span></code>)</p></th>
+<tr class="row-odd"><th class="head"></th>
+<th class="head"><p><code class="docutils literal notranslate"><span class="pre">lmnn_mode=&quot;lowrank&quot;</span></code> (default)</p></th>
+<th class="head"><p><code class="docutils literal notranslate"><span class="pre">lmnn_mode=&quot;diagonal&quot;</span></code></p></th>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p>Output per cell</p></td>
-<td><p><span class="math notranslate nohighlight">\(\mathbf{w}_i \in \mathbb{R}^d\)</span> (weights)</p></td>
-<td><p><span class="math notranslate nohighlight">\(\mathbf{L}_i \in \mathbb{R}^{d \times r}\)</span> (low-rank factor)</p></td>
+<tr class="row-even"><td><p>Network output per cell</p></td>
+<td><p>a factor <span class="math notranslate nohighlight">\(\mathbf{L}_i \in \mathbb{R}^{d \times r}\)</span></p></td>
+<td><p>weights <span class="math notranslate nohighlight">\(\mathbf{w}_i \in \mathbb{R}^{d}\)</span></p></td>
 </tr>
-<tr class="row-odd"><td><p>Metric matrix</p></td>
-<td><p><span class="math notranslate nohighlight">\(\text{diag}(\mathbf{w}_i)\)</span> (diagonal)</p></td>
-<td><p><span class="math notranslate nohighlight">\(\mathbf{L}_i \mathbf{L}_i^\top\)</span> (full PSD)</p></td>
+<tr class="row-odd"><td><p>Metric of the cell</p></td>
+<td><p><span class="math notranslate nohighlight">\(\mathbf{M}_i = \mathbf{L}_i \mathbf{L}_i^\top\)</span> (positive semi-definite)</p></td>
+<td><p><span class="math notranslate nohighlight">\(\mathbf{M}_i = \mathrm{diag}(\mathbf{w}_i)\)</span></p></td>
 </tr>
-<tr class="row-even"><td><p>Cross-feature interactions</p></td>
-<td><p>None</p></td>
-<td><p>Captured via off-diagonal entries</p></td>
+<tr class="row-even"><td><p>Interaction between features</p></td>
+<td><p>yes, through the off-diagonal entries</p></td>
+<td><p>no: the feature axes are only rescaled</p></td>
 </tr>
-<tr class="row-odd"><td><p>MLP outputs</p></td>
-<td><p><span class="math notranslate nohighlight">\(d\)</span> (e.g. 51)</p></td>
-<td><p><span class="math notranslate nohighlight">\(d \times r\)</span> (e.g. 408)</p></td>
+<tr class="row-odd"><td><p>Rank</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">rank</span></code> (default 16, at most <span class="math notranslate nohighlight">\(d\)</span>)</p></td>
+<td><p>none; <code class="docutils literal notranslate"><span class="pre">rank</span></code> is refused</p></td>
 </tr>
-<tr class="row-even"><td><p>Distance computation</p></td>
-<td><p>Element-wise weighted sum</p></td>
-<td><p>Matrix-vector product</p></td>
-</tr>
-<tr class="row-odd"><td><p>Regularisation</p></td>
-<td><p>L1 normalisation + weight decay</p></td>
+<tr class="row-even"><td><p>Regulariser</p></td>
 <td><p><span class="math notranslate nohighlight">\(\lambda_{\text{reg}} \|\mathbf{M}_i - \mathbf{I}\|_F^2\)</span></p></td>
+<td><p>none; <code class="docutils literal notranslate"><span class="pre">lambda_reg</span></code> is refused</p></td>
 </tr>
 </tbody>
 </table>
+<p>The weights of the diagonal form are positive (a softplus) and normalized to sum to one.</p>
+<p><strong>Distance.</strong> The distance between two cells uses the mean of their two metrics, which makes it
+symmetric:</p>
+<div class="math notranslate nohighlight">
+\[D^2(\mathbf{x}_i, \mathbf{x}_j) = \tfrac{1}{2}\left[(\mathbf{x}_i - \mathbf{x}_j)^\top \mathbf{M}_i (\mathbf{x}_i - \mathbf{x}_j)
++ (\mathbf{x}_i - \mathbf{x}_j)^\top \mathbf{M}_j (\mathbf{x}_i - \mathbf{x}_j)\right].\]</div>
+<p>For the low-rank form this is computed as <span class="math notranslate nohighlight">\(\tfrac12(\|\mathbf{L}_i^\top \mathbf{d}\|^2 + \|\mathbf{L}_j^\top \mathbf{d}\|^2)\)</span> with
+<span class="math notranslate nohighlight">\(\mathbf{d} = \mathbf{x}_i - \mathbf{x}_j\)</span>, so no <span class="math notranslate nohighlight">\(d \times d\)</span> matrix is formed; for the
+diagonal form it is <span class="math notranslate nohighlight">\(\tfrac12 \sum_k (w_{ik} + w_{jk})\, d_k^2\)</span>.
+<code class="xref py py-func docutils literal notranslate"><span class="pre">compute_local_mahalanobis_distance_matrix()</span></code> and
+<code class="xref py py-func docutils literal notranslate"><span class="pre">compute_distance_matrix_local()</span></code> return the full
+<span class="math notranslate nohighlight">\(n \times n\)</span> matrix of the two forms.</p>
+<p><strong>Loss.</strong> For each anchor <span class="math notranslate nohighlight">\(i\)</span>, the target neighbours <span class="math notranslate nohighlight">\(\mathcal{T}_i\)</span> are its nearest
+same-class cells under the current metric, and the impostors <span class="math notranslate nohighlight">\(\mathcal{I}_i\)</span> are the cells
+of other classes:</p>
+<div class="math notranslate nohighlight">
+\[\mathcal{L} = (1-\alpha)\,\overline{D^2(i, j)}_{j \in \mathcal{T}_i}
++ \alpha\,\overline{\max\!\big(0,\; \Delta + D^2(i, j) - D^2(i, l)\big)}_{j \in \mathcal{T}_i,\, l \in \mathcal{I}_i}
++ \lambda_{\text{reg}}\,\mathcal{L}_{\text{reg}},\]</div>
+<p>a pull term, a linear hinge on squared distances and, for the low-rank form only, the identity
+regulariser. The loss is computed within batches of cells. The number of targets per anchor
+grows with the size of its class:</p>
+<div class="math notranslate nohighlight">
+\[k_i = \min\!\big(n_i,\; k_{\max},\; \max(k_{\min},\; \lfloor \beta\,(n_i + 1) \rfloor)\big),\]</div>
+<p>with <span class="math notranslate nohighlight">\(n_i\)</span> the number of other cells of the anchor’s class in the batch and defaults
+<span class="math notranslate nohighlight">\(k_{\min} = 3\)</span>, <span class="math notranslate nohighlight">\(k_{\max} = 15\)</span>, <span class="math notranslate nohighlight">\(\beta = 0.005\)</span>. The margin is
+<span class="math notranslate nohighlight">\(\Delta = \texttt{delta\_scale}\sqrt{d / d_0}\)</span> with <code class="docutils literal notranslate"><span class="pre">delta_scale</span></code> 1 and <span class="math notranslate nohighlight">\(d_0\)</span>
+(<code class="docutils literal notranslate"><span class="pre">margin_d0</span></code>) equal to the number of features unless set; <span class="math notranslate nohighlight">\(\alpha\)</span> is 0.7 and
+<span class="math notranslate nohighlight">\(\lambda_{\text{reg}}\)</span> is <span class="math notranslate nohighlight">\(10^{-3}\)</span>. Classes with fewer than 20 cells are oversampled
+with a small jitter so that they can supply targets. Training uses AdamW with early stopping on a
+20 % validation split; <code class="docutils literal notranslate"><span class="pre">seed</span></code> fixes every random stream.</p>
+<p><strong>Networks.</strong> Both networks are multilayer perceptrons with ReLU and dropout. The low-rank
+network (<code class="xref py py-class docutils literal notranslate"><span class="pre">LocalMahalanobisMLP</span></code>) has two hidden layers
+of <span class="math notranslate nohighlight">\(\lfloor d \cdot \texttt{hidden\_width\_factor} \rfloor\)</span> units (factor 2 by default) and an output of
+<span class="math notranslate nohighlight">\(d \cdot r\)</span> units. The diagonal network
+(<code class="xref py py-class docutils literal notranslate"><span class="pre">LocalWeightNetwork</span></code>) has hidden layers of
+<span class="math notranslate nohighlight">\(\max(16, \mathrm{round}(d \cdot \texttt{hidden\_width\_factor}))\)</span> and half that, and an output of <span class="math notranslate nohighlight">\(d\)</span> units.</p>
+<p><strong>Feature importance.</strong> The package returns the trained model (<code class="docutils literal notranslate"><span class="pre">return_model=True</span></code>); from it, the importance of feature <span class="math notranslate nohighlight">\(j\)</span> can be read, for the low-rank form, as
+the diagonal of the mean metric <span class="math notranslate nohighlight">\([\tfrac1n \sum_i \mathbf{M}_i]_{jj}\)</span> and, for the diagonal form, as the mean weight
+<span class="math notranslate nohighlight">\(\tfrac1n \sum_i w_{ij}\)</span>. The off-diagonal entries of the mean low-rank metric show which
+pairs of features act together.</p>
 </section>
 </section>
 <section id="hierarchical-clustering">
 <h2>Hierarchical Clustering<a class="headerlink" href="#hierarchical-clustering" title="Link to this heading"></a></h2>
-<p><code class="xref py py-mod docutils literal notranslate"><span class="pre">climclusterpy.clustering.hierarchical</span></code> implements agglomerative hierarchical clustering. The linkage method is a configurable pipeline parameter; available options include Ward, complete, average, and single linkage.</p>
+<p><code class="xref py py-mod docutils literal notranslate"><span class="pre">climclusterpy.clustering.hierarchical</span></code> implements agglomerative hierarchical
+clustering. <code class="docutils literal notranslate"><span class="pre">linkage_method</span></code> accepts the criteria of SciPy; the default is <code class="docutils literal notranslate"><span class="pre">&quot;complete&quot;</span></code>.
+Complete linkage bounds the largest distance within a group, so every member of a group is
+similar to the cell simulated for it.</p>
 <section id="linkage-methods">
 <h3>Linkage Methods<a class="headerlink" href="#linkage-methods" title="Link to this heading"></a></h3>
-<p><a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.cluster.hierarchy.linkage.html#scipy.cluster.hierarchy.linkage" title="(in SciPy v1.18.0)"><code class="xref py py-func docutils literal notranslate"><span class="pre">scipy.cluster.hierarchy.linkage()</span></code></a> (called via <a class="reference internal" href="../reference/clustering.html#climclusterpy.clustering.compute_dendrogram" title="climclusterpy.clustering.compute_dendrogram"><code class="xref py py-func docutils literal notranslate"><span class="pre">climclusterpy.clustering.compute_dendrogram()</span></code></a>) computes pairwise cluster distances. The choice of linkage defines the inter-cluster distance function:</p>
-<p><strong>Ward’s linkage</strong> minimizes within-cluster variance at each merge:</p>
+<p><a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.cluster.hierarchy.linkage.html#scipy.cluster.hierarchy.linkage" title="(in SciPy v1.18.0)"><code class="xref py py-func docutils literal notranslate"><span class="pre">scipy.cluster.hierarchy.linkage()</span></code></a> (called through
+<a class="reference internal" href="../reference/clustering.html#climclusterpy.clustering.compute_dendrogram" title="climclusterpy.clustering.compute_dendrogram"><code class="xref py py-func docutils literal notranslate"><span class="pre">climclusterpy.clustering.compute_dendrogram()</span></code></a>) computes the distance between two
+groups <span class="math notranslate nohighlight">\(C_1\)</span> and <span class="math notranslate nohighlight">\(C_2\)</span> of sizes <span class="math notranslate nohighlight">\(n_1\)</span> and <span class="math notranslate nohighlight">\(n_2\)</span>. Ward linkage is
+defined for Euclidean distances only. Complete and average linkage accept the precomputed
+distance matrix of a learned per-cell distance.</p>
 <div class="math notranslate nohighlight">
-\[d_{\text{Ward}}(C_1, C_2) = \sqrt{\frac{2 n_1 n_2}{n_1 + n_2}} \|\mathbf{c}_1 - \mathbf{c}_2\|_2\]</div>
-<p>where <span class="math notranslate nohighlight">\(\mathbf{c}_k\)</span> is the centroid and <span class="math notranslate nohighlight">\(n_k = |C_k|\)</span> the size of cluster <span class="math notranslate nohighlight">\(C_k\)</span>.</p>
-<p><strong>Complete linkage</strong> merges based on the maximum inter-cluster distance, producing compact, well-separated clusters:</p>
-<div class="math notranslate nohighlight">
-\[d_{\text{complete}}(C_1, C_2) = \max_{\mathbf{x} \in C_1,\, \mathbf{y} \in C_2} d(\mathbf{x}, \mathbf{y})\]</div>
-<p><strong>Average linkage</strong> uses the mean of all pairwise inter-cluster distances:</p>
-<div class="math notranslate nohighlight">
-\[d_{\text{average}}(C_1, C_2) = \frac{1}{n_1 n_2} \sum_{\mathbf{x} \in C_1} \sum_{\mathbf{y} \in C_2} d(\mathbf{x}, \mathbf{y})\]</div>
-<p>For local and enhanced LMNN modes, the precomputed symmetrized distance matrix <span class="math notranslate nohighlight">\(\mathbf{D}_{\text{local}}\)</span> is passed directly to the linkage function.</p>
-<p><strong>Dendrogram Representation</strong></p>
-<p>The linkage matrix <span class="math notranslate nohighlight">\(\mathbf{Z} \in \mathbb{R}^{(n-1) \times 4}\)</span> encodes:</p>
+\[d_{\text{Ward}}(C_1, C_2) = \sqrt{\frac{2 n_1 n_2}{n_1 + n_2}} \|\mathbf{c}_1 - \mathbf{c}_2\|_2,
+\qquad
+d_{\text{complete}}(C_1, C_2) = \max_{\mathbf{x} \in C_1,\, \mathbf{y} \in C_2} d(\mathbf{x}, \mathbf{y}),
+\qquad
+d_{\text{average}}(C_1, C_2) = \frac{1}{n_1 n_2} \sum_{\mathbf{x} \in C_1} \sum_{\mathbf{y} \in C_2} d(\mathbf{x}, \mathbf{y}),\]</div>
+<p>where <span class="math notranslate nohighlight">\(\mathbf{c}_k\)</span> is the centroid of <span class="math notranslate nohighlight">\(C_k\)</span>.</p>
+<p><strong>Dendrogram.</strong> The linkage matrix <span class="math notranslate nohighlight">\(\mathbf{Z} \in \mathbb{R}^{(n-1) \times 4}\)</span> holds, per
+merge, the indices of the two merged groups, the merge distance and the size of the new group.
+<a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.cluster.hierarchy.fcluster.html#scipy.cluster.hierarchy.fcluster" title="(in SciPy v1.18.0)"><code class="xref py py-func docutils literal notranslate"><span class="pre">scipy.cluster.hierarchy.fcluster()</span></code></a> with <code class="docutils literal notranslate"><span class="pre">criterion='maxclust'</span></code> cuts it into
+<span class="math notranslate nohighlight">\(K\)</span> groups, with labels <span class="math notranslate nohighlight">\(1, \ldots, K\)</span>. One dendrogram serves every <span class="math notranslate nohighlight">\(K\)</span>.</p>
+</section>
+</section>
+<section id="cell-selection">
+<h2>Cell Selection<a class="headerlink" href="#cell-selection" title="Link to this heading"></a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">cell_selection</span></code> sets which cells of a group the model simulates
+(<a class="reference internal" href="../reference/toplevel.html#module-climclusterpy.timeseries" title="climclusterpy.timeseries"><code class="xref py py-mod docutils literal notranslate"><span class="pre">climclusterpy.timeseries</span></code></a>; recipes in <a class="reference internal" href="../howto/cell_selection.html"><span class="doc">Choose the simulated cells</span></a>). In the
+<em>representative mode</em> one cell per group is simulated:</p>
 <ul class="simple">
-<li><p>Column 0, 1: Indices of merged clusters</p></li>
-<li><p>Column 2: Merge distance</p></li>
-<li><p>Column 3: Number of samples in resulting cluster</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&quot;medoid&quot;</span></code>: the member with the smallest summed distance to the other members of its
+group under the learned distance, <span class="math notranslate nohighlight">\(i^* = \arg\min_{i \in C_k} \sum_{j \in C_k} d(i, j)\)</span>;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&quot;centroid&quot;</span></code>: the member nearest the group mean <span class="math notranslate nohighlight">\(\boldsymbol{\mu}_k\)</span> in feature
+space, <span class="math notranslate nohighlight">\(i^* = \arg\min_{i \in C_k} \|\mathbf{x}_i - \boldsymbol{\mu}_k\|_2\)</span>;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&quot;auto&quot;</span></code> (default): the medoid when a learned distance exists, otherwise the centroid.</p></li>
 </ul>
-<p><strong>Cluster Assignment</strong></p>
-<p><a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.cluster.hierarchy.fcluster.html#scipy.cluster.hierarchy.fcluster" title="(in SciPy v1.18.0)"><code class="xref py py-func docutils literal notranslate"><span class="pre">scipy.cluster.hierarchy.fcluster()</span></code></a> cuts the dendrogram to produce <span class="math notranslate nohighlight">\(K\)</span> clusters:</p>
-<div class="math notranslate nohighlight">
-\[\mathbf{y}^{\text{cluster}} = \text{fcluster}(\mathbf{Z}, K, \text{criterion='maxclust'})\]</div>
-<p>yielding labels <span class="math notranslate nohighlight">\(\mathbf{y}^{\text{cluster}} \in \{1, 2, \ldots, K\}^n\)</span>.</p>
-</section>
-</section>
-<section id="representative-cell-selection">
-<h2>Representative Cell Selection<a class="headerlink" href="#representative-cell-selection" title="Link to this heading"></a></h2>
-<p><a class="reference internal" href="../reference/toplevel.html#module-climclusterpy.timeseries" title="climclusterpy.timeseries"><code class="xref py py-mod docutils literal notranslate"><span class="pre">climclusterpy.timeseries</span></code></a> selects cells that best represent cluster climate.</p>
-<section id="selection-methods">
-<h3>Selection Methods<a class="headerlink" href="#selection-methods" title="Link to this heading"></a></h3>
-<p><a class="reference internal" href="../reference/toplevel.html#climclusterpy.timeseries.extract_representative_cells" title="climclusterpy.timeseries.extract_representative_cells"><code class="xref py py-func docutils literal notranslate"><span class="pre">climclusterpy.timeseries.extract_representative_cells()</span></code></a> supports three strategies:</p>
-<p><strong>1. Mean-Based Selection</strong></p>
-<p>Select cell <span class="math notranslate nohighlight">\(i^*\)</span> minimizing Euclidean distance to cluster centroid <span class="math notranslate nohighlight">\(\boldsymbol{\mu}_k\)</span>:</p>
-<div class="math notranslate nohighlight">
-\[i^* = \arg\min_{i \in C_k} \|\mathbf{x}_i - \boldsymbol{\mu}_k\|_2\]</div>
-<p><strong>2. Median-Based Selection</strong></p>
-<p>Select cell minimizing distance to cluster median <span class="math notranslate nohighlight">\(\text{median}(C_k)\)</span>:</p>
-<div class="math notranslate nohighlight">
-\[i^* = \arg\min_{i \in C_k} \|\mathbf{x}_i - \text{median}(C_k)\|_2\]</div>
-<p><strong>3. Random Sampling</strong></p>
-<p>Uniform random selection:</p>
-<div class="math notranslate nohighlight">
-\[i^* \sim \text{Uniform}(C_k)\]</div>
-<p>Optionally feature-weighted:</p>
-<div class="math notranslate nohighlight">
-\[P(i) \propto \exp(-\|\mathbf{x}_i - \boldsymbol{\mu}_k\|_2^2 / \tau)\]</div>
-<p>where <span class="math notranslate nohighlight">\(\tau\)</span> is a temperature parameter.</p>
-</section>
+<p>In the <em>random mode</em> (<code class="docutils literal notranslate"><span class="pre">&quot;random&quot;</span></code>) one member is drawn, <span class="math notranslate nohighlight">\(i^* \sim
+\mathrm{Uniform}(C_k)\)</span>. In the <em>distributed mode</em> (<code class="docutils literal notranslate"><span class="pre">&quot;distributed&quot;</span></code>)
+<code class="docutils literal notranslate"><span class="pre">cells_per_cluster</span></code> members are drawn at random and the group’s <code class="docutils literal notranslate"><span class="pre">npatch</span></code> patches are
+divided evenly between them. Both drawn modes compute no distance and no centroid.</p>
 <section id="parallel-processing-and-memory">
 <h3>Parallel Processing and Memory<a class="headerlink" href="#parallel-processing-and-memory" title="Link to this heading"></a></h3>
-<p>The number of parallel workers is the <code class="docutils literal notranslate"><span class="pre">n_jobs</span></code> argument of
-<a class="reference internal" href="../reference/api.html#climclusterpy.create_clusters" title="climclusterpy.create_clusters"><code class="xref py py-func docutils literal notranslate"><span class="pre">create_clusters()</span></code></a> (<code class="docutils literal notranslate"><span class="pre">-1</span></code> = all cores), and whether the climate is held
-in memory during extraction is its <code class="docutils literal notranslate"><span class="pre">preload_climate</span></code> argument. A few environment variables
-tune how much is read at once (chunk lengths, the size at which repeated distributed cells
-are held once); none of them changes what is computed. They are listed in
-<a class="reference internal" href="../howto/install.html#environment-variables"><span class="std std-ref">Environment variables</span></a>.</p>
+<p>The number of workers is the <code class="docutils literal notranslate"><span class="pre">n_jobs</span></code> argument of <a class="reference internal" href="../reference/api.html#climclusterpy.create_clusters" title="climclusterpy.create_clusters"><code class="xref py py-func docutils literal notranslate"><span class="pre">create_clusters()</span></code></a>
+(<code class="docutils literal notranslate"><span class="pre">-1</span></code> = all cores); <code class="docutils literal notranslate"><span class="pre">preload_climate</span></code> sets whether the climate is held in memory during
+extraction. Environment variables tune how much is read at once and never change what is
+computed (<a class="reference internal" href="../howto/install.html#environment-variables"><span class="std std-ref">Environment variables</span></a>). Intermediate results (a dendrogram, an ecoregion
+assignment) are saved in the output folder and reused only when a fingerprint of their inputs
+matches.</p>
 </section>
 </section>
-<section id="evaluation-metrics">
-<h2>Evaluation Metrics<a class="headerlink" href="#evaluation-metrics" title="Link to this heading"></a></h2>
-<p>The metrics below are the ones used to evaluate clusterings produced with this method. The
-package does not implement them — it is kept to clustering and grid building, and the
-evaluation code lives in the separate <code class="docutils literal notranslate"><span class="pre">climclusterpy-research</span></code> repository — but the
-formulas are documented here because they define what a “good” clustering means.</p>
-<section id="adjusted-rand-index">
-<h3>Adjusted Rand Index<a class="headerlink" href="#adjusted-rand-index" title="Link to this heading"></a></h3>
-<p><a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.metrics.adjusted_rand_score.html#sklearn.metrics.adjusted_rand_score" title="(in scikit-learn v1.9)"><code class="xref py py-func docutils literal notranslate"><span class="pre">sklearn.metrics.adjusted_rand_score()</span></code></a> computes:</p>
-<div class="math notranslate nohighlight">
-\[\text{ARI} = \frac{\sum_{ij} \binom{n_{ij}}{2} - \left[\sum_i \binom{a_i}{2} \sum_j \binom{b_j}{2}\right] / \binom{n}{2}}{\frac{1}{2}\left[\sum_i \binom{a_i}{2} + \sum_j \binom{b_j}{2}\right] - \left[\sum_i \binom{a_i}{2} \sum_j \binom{b_j}{2}\right] / \binom{n}{2}}\]</div>
-<p>where:</p>
-<ul class="simple">
-<li><p><span class="math notranslate nohighlight">\(n_{ij}\)</span> = number of cells in cluster <span class="math notranslate nohighlight">\(i\)</span> and ecoregion <span class="math notranslate nohighlight">\(j\)</span></p></li>
-<li><p><span class="math notranslate nohighlight">\(a_i = \sum_j n_{ij}\)</span> (cluster <span class="math notranslate nohighlight">\(i\)</span> size)</p></li>
-<li><p><span class="math notranslate nohighlight">\(b_j = \sum_i n_{ij}\)</span> (ecoregion <span class="math notranslate nohighlight">\(j\)</span> size)</p></li>
-</ul>
-<p><strong>Range</strong>: <span class="math notranslate nohighlight">\([-1, 1]\)</span></p>
-<ul class="simple">
-<li><p><span class="math notranslate nohighlight">\(+1\)</span>: Perfect agreement</p></li>
-<li><p><span class="math notranslate nohighlight">\(0\)</span>: Random clustering</p></li>
-<li><p><span class="math notranslate nohighlight">\(-1\)</span>: Worse than random</p></li>
-</ul>
-</section>
-<section id="normalized-mutual-information">
-<h3>Normalized Mutual Information<a class="headerlink" href="#normalized-mutual-information" title="Link to this heading"></a></h3>
-<p><a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.metrics.normalized_mutual_info_score.html#sklearn.metrics.normalized_mutual_info_score" title="(in scikit-learn v1.9)"><code class="xref py py-func docutils literal notranslate"><span class="pre">sklearn.metrics.normalized_mutual_info_score()</span></code></a> computes:</p>
-<div class="math notranslate nohighlight">
-\[\text{NMI} = \frac{2 \cdot I(Y^{\text{cluster}}, Y^{\text{eco}})}{H(Y^{\text{cluster}}) + H(Y^{\text{eco}})}\]</div>
-<p>where:</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}\begin{align}
-I(Y^{\text{cluster}}, Y^{\text{eco}}) &amp;= \sum_{i,j} P(i,j) \log \frac{P(i,j)}{P(i)P(j)} \quad \text{(mutual information)} \\
-H(Y) &amp;= -\sum_k P(k) \log P(k) \quad \text{(entropy)}
-\end{align}\end{split}\]</div>
-<p><strong>Range</strong>: <span class="math notranslate nohighlight">\([0, 1]\)</span></p>
-<ul class="simple">
-<li><p><span class="math notranslate nohighlight">\(1\)</span>: Perfect correspondence</p></li>
-<li><p><span class="math notranslate nohighlight">\(0\)</span>: Independent partitions</p></li>
-</ul>
-</section>
-</section>
-<section id="netcdf-processing">
-<h2>NetCDF Processing<a class="headerlink" href="#netcdf-processing" title="Link to this heading"></a></h2>
-<section id="cluster-netcdf-creation">
-<h3>Cluster NetCDF Creation<a class="headerlink" href="#cluster-netcdf-creation" title="Link to this heading"></a></h3>
-<p><a class="reference internal" href="../reference/grid.html#climclusterpy.grid.build_reduced_grid" title="climclusterpy.grid.build_reduced_grid"><code class="xref py py-func docutils literal notranslate"><span class="pre">climclusterpy.grid.build_reduced_grid()</span></code></a> exports cluster representative timeseries to
-NetCDF format. Its per-cluster input dataset carries:</p>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">cluster_label</span></code>: Cluster ID (<span class="math notranslate nohighlight">\(\in \{1, \ldots, K\}\)</span>)</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">center_lat</span></code>, <code class="docutils literal notranslate"><span class="pre">center_lon</span></code>: Representative cell coordinates</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">n_cells</span></code>: Number of cells in cluster</p></li>
-<li><p>Climate variables: <code class="docutils literal notranslate"><span class="pre">precipitation</span></code>, <code class="docutils literal notranslate"><span class="pre">temperature</span></code>, <code class="docutils literal notranslate"><span class="pre">radiation</span></code>, <code class="docutils literal notranslate"><span class="pre">humidity</span></code></p></li>
-</ul>
-<p><strong>Dimensions</strong></p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>cluster: K (number of clusters)
-time: n_t (number of timesteps)
-</pre></div>
-</div>
+<section id="the-reduced-grid">
+<h2>The Reduced Grid<a class="headerlink" href="#the-reduced-grid" title="Link to this heading"></a></h2>
+<p><a class="reference internal" href="../reference/grid.html#climclusterpy.grid.build_reduced_grid" title="climclusterpy.grid.build_reduced_grid"><code class="xref py py-func docutils literal notranslate"><span class="pre">climclusterpy.grid.build_reduced_grid()</span></code></a> writes the selected cells as NetCDF input of
+their own. Its per-group dataset carries <code class="docutils literal notranslate"><span class="pre">cluster_label</span></code> (the group, <span class="math notranslate nohighlight">\(1, \ldots, K\)</span>),
+<code class="docutils literal notranslate"><span class="pre">center_lat</span></code> and <code class="docutils literal notranslate"><span class="pre">center_lon</span></code> (coordinates of the selected cell), <code class="docutils literal notranslate"><span class="pre">n_cells</span></code> (the size of
+the group) and the climate variables, on the dimensions <code class="docutils literal notranslate"><span class="pre">cluster</span></code> (<span class="math notranslate nohighlight">\(K\)</span>) and <code class="docutils literal notranslate"><span class="pre">time</span></code>.
+Besides the NetCDF files it writes the two mapping tables that reconstruction needs:</p>
+<dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">cluster_id_mapping_&lt;K&gt;.csv</span></code></dt><dd><p>One row per original valid cell: <code class="docutils literal notranslate"><span class="pre">original_cell_id</span></code>, <code class="docutils literal notranslate"><span class="pre">new_cell_id</span></code>,
+<code class="docutils literal notranslate"><span class="pre">cluster_index</span></code> and <code class="docutils literal notranslate"><span class="pre">cluster_label</span></code>.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">cluster_compact_map_&lt;K&gt;.csv</span></code></dt><dd><p>One row per group: <code class="docutils literal notranslate"><span class="pre">cluster_label</span></code>, <code class="docutils literal notranslate"><span class="pre">lat_index</span></code> (its latitude row on the reduced
+grid) and <code class="docutils literal notranslate"><span class="pre">cluster_index_start</span></code>, <code class="docutils literal notranslate"><span class="pre">cluster_index_end</span></code> (its first and last column in
+that row).</p>
+</dd>
+</dl>
+<p><a class="reference internal" href="../reference/grid.html#climclusterpy.io.convert_netcdf_to_clm" title="climclusterpy.io.convert_netcdf_to_clm"><code class="xref py py-func docutils literal notranslate"><span class="pre">climclusterpy.io.convert_netcdf_to_clm()</span></code></a> converts the NetCDF files to the binary
+format LPJmL reads by calling LPJmL’s <code class="docutils literal notranslate"><span class="pre">cdf2clm</span></code> and <code class="docutils literal notranslate"><span class="pre">cdf2soil</span></code>, which are looked up in
+<code class="docutils literal notranslate"><span class="pre">cdf2clm_path</span></code> / <code class="docutils literal notranslate"><span class="pre">cdf2soil_path</span></code>, <code class="docutils literal notranslate"><span class="pre">tools_dir</span></code>, <code class="docutils literal notranslate"><span class="pre">$LPJROOT/bin</span></code> and <code class="docutils literal notranslate"><span class="pre">PATH</span></code>, in that
+order.</p>
 </section>
 <section id="reconstruction">
-<h3>Reconstruction<a class="headerlink" href="#reconstruction" title="Link to this heading"></a></h3>
-<p><a class="reference internal" href="../reference/api.html#climclusterpy.reconstruct_original_grid" title="climclusterpy.reconstruct_original_grid"><code class="xref py py-func docutils literal notranslate"><span class="pre">climclusterpy.reconstruct_original_grid()</span></code></a> maps cluster results back to the original
-grid (one simulated cell per cluster: <a class="reference internal" href="../reference/grid.html#climclusterpy.grid.reconstruct_output_netcdf" title="climclusterpy.grid.reconstruct_output_netcdf"><code class="xref py py-func docutils literal notranslate"><span class="pre">climclusterpy.grid.reconstruct_output_netcdf()</span></code></a>):</p>
-<ol class="arabic">
-<li><p>Loads the mapping files and the output on the reduced grid</p></li>
-<li><p>For each original cell <span class="math notranslate nohighlight">\(i\)</span> in cluster <span class="math notranslate nohighlight">\(k\)</span>:</p>
+<h2>Reconstruction<a class="headerlink" href="#reconstruction" title="Link to this heading"></a></h2>
+<p><a class="reference internal" href="../reference/api.html#climclusterpy.reconstruct_original_grid" title="climclusterpy.reconstruct_original_grid"><code class="xref py py-func docutils literal notranslate"><span class="pre">climclusterpy.reconstruct_original_grid()</span></code></a> gives every original cell the value
+simulated for its group. Writing <span class="math notranslate nohighlight">\(g(i)\)</span> for the group of original cell <span class="math notranslate nohighlight">\(i\)</span>,
+<span class="math notranslate nohighlight">\(o_g(t)\)</span> for the output simulated for group <span class="math notranslate nohighlight">\(g\)</span> and <span class="math notranslate nohighlight">\(\hat{y}_i(t)\)</span> for the
+reconstructed value,</p>
 <div class="math notranslate nohighlight">
-\[\text{value}_i(t) = \text{representative}_k(t) \quad \forall t\]</div>
-</li>
-<li><p>Writes reconstructed NetCDF with original spatial dimensions</p></li>
-</ol>
-</section>
-<section id="clm-conversion">
-<h3>CLM Conversion<a class="headerlink" href="#clm-conversion" title="Link to this heading"></a></h3>
-<p><a class="reference internal" href="../reference/grid.html#climclusterpy.io.convert_netcdf_to_clm" title="climclusterpy.io.convert_netcdf_to_clm"><code class="xref py py-func docutils literal notranslate"><span class="pre">climclusterpy.io.convert_netcdf_to_clm()</span></code></a> provides shell interfaces to LPJ-ML binary converters:</p>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">cdf2soil</span></code>: Convert NetCDF soil data to LPJ-ML binary format</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">cdf2clm</span></code>: Convert NetCDF climate data to LPJ-ML binary format</p></li>
-</ul>
-<p>The converters are looked up, in order, from explicit <code class="docutils literal notranslate"><span class="pre">cdf2clm_path</span></code> / <code class="docutils literal notranslate"><span class="pre">cdf2soil_path</span></code>
-arguments, a <code class="docutils literal notranslate"><span class="pre">tools_dir</span></code>, <code class="docutils literal notranslate"><span class="pre">$LPJROOT/bin</span></code>, and finally <code class="docutils literal notranslate"><span class="pre">PATH</span></code>.</p>
-</section>
-</section>
-<section id="computational-implementation">
-<h2>Computational Implementation<a class="headerlink" href="#computational-implementation" title="Link to this heading"></a></h2>
-<p><strong>Languages and Libraries</strong></p>
-<ul class="simple">
-<li><p>Python 3.11</p></li>
-<li><p>Core: NumPy, pandas, xarray</p></li>
-<li><p>ML: scikit-learn, PyTorch</p></li>
-<li><p>Geospatial: GeoPandas, Shapely</p></li>
-<li><p>Parallel: Dask, Joblib</p></li>
-</ul>
-<p><strong>Memory Optimizations</strong></p>
-<ul class="simple">
-<li><p>Dask chunking (500 timesteps default)</p></li>
-<li><p>Float32 conversion (-50% memory)</p></li>
-<li><p>Valid-cell masking (eliminates ocean/missing)</p></li>
-<li><p>Lazy evaluation (avoid loading unnecessary data)</p></li>
-</ul>
-<p><strong>Caching Strategy</strong></p>
-<p>Intermediate results cached at:</p>
+\[\hat{y}_i(t) = o_{g(i)}(t) \quad \text{for every valid cell } i \text{ and time step } t,\]</div>
+<p>and cells that are not valid stay missing. In the representative and random modes
+<span class="math notranslate nohighlight">\(o_g\)</span> is the output of the group’s one simulated cell
+(<a class="reference internal" href="../reference/grid.html#climclusterpy.grid.reconstruct_output_netcdf" title="climclusterpy.grid.reconstruct_output_netcdf"><code class="xref py py-func docutils literal notranslate"><span class="pre">reconstruct_output_netcdf()</span></code></a>). In the distributed mode it is the
+mean, or the median with <code class="docutils literal notranslate"><span class="pre">aggregate=&quot;median&quot;</span></code>, over the group’s drawn cells, ignoring
+missing values (<a class="reference internal" href="../reference/grid.html#climclusterpy.grid.reconstruct_from_distributed" title="climclusterpy.grid.reconstruct_from_distributed"><code class="xref py py-func docutils literal notranslate"><span class="pre">reconstruct_from_distributed()</span></code></a>). Cells are matched
+by group label through the mapping tables, never by coordinate.</p>
+<section id="checking-a-reconstruction">
+<span id="reconstruction-check"></span><h3>Checking a reconstruction<a class="headerlink" href="#checking-a-reconstruction" title="Link to this heading"></a></h3>
+<p><strong>Why.</strong> The reduced grid is a re-arrangement of the original one: groups are packed into
+latitude rows, and when <span class="math notranslate nohighlight">\(K\)</span> approaches the number of cells several groups share a row.
+A reconstruction that took a value from a neighbouring group’s column, or placed a value in
+the wrong cell, would look plausible on a map. The error would then be attributed to the
+clustering, which is judged by how closely the reconstructed field agrees with a full-grid
+simulation. The checks below separate the two: if the mapping is exact, any remaining
+difference comes from the grouping and the cell selection.</p>
+<p><strong>What is checked.</strong> Three things, in three places.</p>
 <ol class="arabic simple">
-<li><p>Raw features (pre-standardization)</p></li>
-<li><p>Standardized features</p></li>
-<li><p>Correlation-filtered features</p></li>
-<li><p>PCA-filtered features</p></li>
-<li><p>LMNN-transformed features (global mode)</p></li>
-<li><p>LMNN distance matrix (local/enhanced modes)</p></li>
-<li><p>Cluster labels and dendrograms</p></li>
+<li><p><em>Before anything is written</em>, every reconstruction checks that the inputs belong
+together. The ID mapping and the compact map must describe the same groups; the number of
+groups must equal the <code class="docutils literal notranslate"><span class="pre">n_clusters</span></code> attribute of the model output, when it has one;
+every group’s columns must exist in the output; the output must hold no values in
+columns that no group owns (which would mean it comes from another run); and every
+mapped cell must exist on the original grid. A violation raises a <code class="docutils literal notranslate"><span class="pre">ValueError</span></code> that
+names the files and counts. A group whose cells are all missing in the output stays
+missing on the full grid, with a warning.</p></li>
+<li><p><em>After writing</em>, <a class="reference internal" href="../reference/grid.html#climclusterpy.grid.validate_reconstruction_grid" title="climclusterpy.grid.validate_reconstruction_grid"><code class="xref py py-func docutils literal notranslate"><span class="pre">validate_reconstruction_grid()</span></code></a> compares the
+reconstructed file with the original grid. It returns <code class="docutils literal notranslate"><span class="pre">True</span></code> only if the variable is
+present, the latitude and longitude arrays have the original shape and values, and the
+cells that are missing are exactly the cells that are not valid on the original grid.
+On failure it returns <code class="docutils literal notranslate"><span class="pre">False</span></code> and logs which of the three failed.</p></li>
+<li><p><em>The mapping itself</em> is tested by the round-trip test of the test suite (marker
+<code class="docutils literal notranslate"><span class="pre">roundtrip</span></code>, always run). It clusters a grid, writes a synthetic model output in which
+group <span class="math notranslate nohighlight">\(g\)</span> has the known value <span class="math notranslate nohighlight">\(10 g + t\)</span> at time step <span class="math notranslate nohighlight">\(t\)</span>,
+reconstructs it, and asserts that every valid cell holds the value of its group and every invalid cell is
+missing.</p></li>
 </ol>
-<p>This enables rapid iteration without expensive recomputation.</p>
+<p><strong>How it is computed: a small example.</strong> Six valid cells with labels
+<span class="math notranslate nohighlight">\(g = (1, 1, 2, 3, 3, 3)\)</span> and a model output with one value per group at <span class="math notranslate nohighlight">\(t = 0\)</span>:
+<span class="math notranslate nohighlight">\(o = (10, 20, 30)\)</span>. The reconstruction is <span class="math notranslate nohighlight">\(\hat{y} = (10, 10, 20, 30, 30, 30)\)</span>.
+The round-trip test compares, for every valid cell and time step, the reconstructed value
+with the value of its group’s column in the model output:</p>
+<div class="math notranslate nohighlight">
+\[\max_{i,t} \left| \hat{y}_i(t) - o_{g(i)}(t) \right| \approx 0.\]</div>
+<p>The comparison is <code class="docutils literal notranslate"><span class="pre">numpy.allclose</span></code>, so it tolerates floating-point rounding and nothing
+larger. Every cell of group 3 reads <span class="math notranslate nohighlight">\(30\)</span>; had the reconstruction read the column of
+group 2 for one of them, the difference would be <span class="math notranslate nohighlight">\(10\)</span> and the test would fail. The test
+also requires every cell outside the valid mask to be missing.</p>
+<p><strong>What passes and what fails.</strong> The round-trip test passes only when every valid cell matches its group’s
+value and every invalid cell is missing. The paper reports that the mapping reproduced
+all 28 reduced grids it reconstructed (two clusterings, sixteen cluster counts from 7 to
+60 678) bit for bit. The check does <em>not</em> measure how well the groups represent their cells:
+that is the accuracy against a full-grid simulation described in the paper, computed in the
+<code class="docutils literal notranslate"><span class="pre">climclusterpy-research</span></code> repository.</p>
+<p><strong>How to run it.</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">climclusterpy</span><span class="w"> </span><span class="kn">import</span> <span class="n">reconstruct_original_grid</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">climclusterpy.grid</span><span class="w"> </span><span class="kn">import</span> <span class="n">validate_reconstruction_grid</span>
+
+<span class="n">full</span> <span class="o">=</span> <span class="n">reconstruct_original_grid</span><span class="p">(</span><span class="s2">"vegc.nc"</span><span class="p">,</span> <span class="n">clusters</span><span class="o">=</span><span class="n">clusters</span><span class="p">)</span>   <span class="c1"># step 1 runs inside</span>
+<span class="k">assert</span> <span class="n">validate_reconstruction_grid</span><span class="p">(</span><span class="n">full</span><span class="o">.</span><span class="n">path</span><span class="p">,</span> <span class="n">clusters</span><span class="o">.</span><span class="n">registry</span><span class="p">,</span> <span class="n">var_name</span><span class="o">=</span><span class="s2">"vegc"</span><span class="p">)</span>  <span class="c1"># step 2</span>
+</pre></div>
+</div>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>pytest<span class="w"> </span>-m<span class="w"> </span>roundtrip<span class="w">                       </span><span class="c1"># step 3, on the synthetic data of the test suite</span>
+<span class="gp">$ </span>python<span class="w"> </span>examples/example_4_reconstruct.py<span class="w">   </span><span class="c1"># the same round trip as a script</span>
+</pre></div>
+</div>
+<p>Own model output can be checked the same way: the reconstructed value of every cell of a
+group must equal the value in the reduced-grid output at that group’s column, which a
+<code class="docutils literal notranslate"><span class="pre">numpy</span></code> comparison of the two files verifies directly.</p>
+</section>
 </section>
 </section>
 

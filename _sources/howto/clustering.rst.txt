@@ -5,7 +5,9 @@ Cluster a feature matrix (choose a mode)
 It accepts either a NumPy array of shape ``(n_cells, n_features)`` or a
 :class:`pandas.DataFrame` (metadata columns such as ``cell_id``/``latitude``/``longitude``
 are split off automatically and carried through), and returns a
-:class:`~climclusterpy.ClusterResult`.
+:class:`~climclusterpy.ClusterResult`. The columns that
+:func:`~climclusterpy.create_clusters` builds, and how to build your own table, are in
+:doc:`features`.
 
 Euclidean mode (no supervision)
 -------------------------------
@@ -55,7 +57,7 @@ array.
        n_clusters=7,
        locally_weighted=True,
        supervision=sup,          # or an aligned 1-D label array
-       lmnn_mode="lowrank",      # the default; or "global" | "local" | "enhanced"
+       lmnn_mode="lowrank",      # the default; or "diagonal" | "global"
        standardize=True,
    )
    result.diagnostics            # mode-specific LMNN training info
@@ -66,11 +68,13 @@ Choose the LMNN sub-mode with ``lmnn_mode``:
   every cell, which also captures how features interact; the configuration of the
   published results. ``rank`` sets its rank (default 16, at most the number of features).
 * ``"global"`` — one linear Mahalanobis metric for all cells (``rank`` default: full rank).
-* ``"local"`` — a neural network predicts cell-specific feature weights (a diagonal metric).
-* ``"enhanced"`` — local mode with adaptive-*k*, prototypes and oversampling for
-  imbalanced (small/large) classes.
+* ``"diagonal"`` — the same trainer with a diagonal metric: one weight per feature for every
+  cell, so features are rescaled but cannot interact. ``rank`` is refused.
 
-Every mode trains with ``torch``. ``seed`` (default 0) makes two identical calls give
+``"local"`` and ``"enhanced"`` were removed in 0.6.0 and raise ``ValueError``; they trained a
+different objective.
+
+Every mode trains with ``torch``. The two per-cell modes share one trainer and loss. ``seed`` (default 0) makes two identical calls give
 identical clusters; ``seed=None`` draws afresh each time. Omitting ``supervision`` in LMNN
 mode raises a ``ValueError``. The mathematics of each
 sub-mode is in :doc:`../explanation/methods`.

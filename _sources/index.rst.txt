@@ -5,14 +5,13 @@ climclusterpy
    :alt: climclusterpy
    :width: 420px
 
-**Ecologically-informed spatial clustering of climate and soil grids.**
+****Ecologically-informed clustering of climate and static fields for reduced model grids.**
 
-``climclusterpy`` groups climatically-similar grid cells so that a land-surface /
-vegetation model can run on a small **artificial cluster grid** instead of the full grid,
-and then reconstructs the full original grid from the per-cluster model output — cutting
-simulation cost by the reduction factor you choose. The input is any set of gridded
-climate fields plus any static fields (soil, elevation, land cover, …), under the names
-your model uses.
+``climclusterpy`` divides the cells of a model's grid into groups of similar climate and
+static fields (soil, elevation, land cover, ...). The model is run on one or a few cells of
+each group, written as a *reduced grid*, and every original cell then receives the output
+simulated for its group. The input is any set of gridded climate fields and static fields,
+under the names the model uses. The method is described in the accompanying paper.
 
 Two calls do the whole job:
 
@@ -20,21 +19,21 @@ Two calls do the whole job:
 
    from climclusterpy import create_clusters, reconstruct_original_grid
 
-   # 1. Reduce the grid: writes model-ready NetCDFs + the mapping CSVs.
+   # 1. Reduce the grid: writes model-ready NetCDFs and the mapping CSVs.
    clusters = create_clusters(
        climate={"temperature": "/data/tas.nc", "precipitation": "/data/pr.nc"},
        static={"soil": ("/data/soil.nc", "categorical")},
        n_clusters=2000,
    )
 
-   # ... run your vegetation model on clusters.netcdf_files ...
+   # ... run the model on clusters.netcdf_files ...
 
-   # 2. Rebuild full resolution from the model's output.
+   # 2. Give every original cell the output simulated for its group.
    full = reconstruct_original_grid("vegc_output.nc", clusters=clusters)
 
-Add ``locally_weighted=True`` to learn a distance metric before clustering, supervised
-either by your model's own output traits or — with no extra data — by Köppen–Geiger
-classes derived from the climate input:
+``locally_weighted=True`` learns the distance between cells before clustering. The learned
+distance is supervised by Köppen–Geiger classes computed from the climate input, by an
+ecoregion map, or by the model's own output traits:
 
 .. code-block:: python
 
@@ -46,30 +45,22 @@ classes derived from the climate input:
        supervision=["sla", "wooddens", "height", "biomass"],
    )
 
-The input can also be built beforehand as a :class:`~climclusterpy.GenericInputs`, and
-the six-file input layout of the vegetation model LPJmL-FIT, which the package was
-developed with, is accepted as a directory (see :doc:`howto/inputs`).
+The input can also be built beforehand as a :class:`~climclusterpy.GenericInputs`. The
+six-file input layout of LPJmL-FIT, the model the package was developed with, is accepted
+as a directory (:doc:`howto/inputs`). :func:`~climclusterpy.load_clusters` restores the
+result of ``create_clusters`` in a later session (:doc:`howto/reconstruct`).
 
-The model run between the two calls usually takes days; ``load_clusters("<output_dir>")``
-gets the result back in a new session (see :doc:`howto/reconstruct`). Not sure which
-function you need? See :doc:`reference/index`.
+The individual steps are available as functions too, for example
+:func:`~climclusterpy.cluster_matrix` and :func:`~climclusterpy.compute_supervision`
+(:doc:`reference/index`). Heavy dependencies are loaded only by the features that need them
+(:doc:`howto/install`).
 
-Underneath, the package also exposes the individual building blocks
-(:func:`~climclusterpy.cluster_matrix`, :func:`~climclusterpy.compute_supervision`, and
-the concept packages such as :mod:`climclusterpy.grid`) for when you want to drive the steps
-yourself.
-Heavy/optional dependencies are only required when you actually use them — see
-:doc:`howto/install`.
+The documentation follows the `Diátaxis <https://diataxis.fr/>`_ structure:
 
-Documentation is organised along the `Diátaxis <https://diataxis.fr/>`_ framework:
-
-* :doc:`tutorials/index` — learning-oriented, end-to-end walkthroughs you can run on
-  built-in synthetic data.
-* :doc:`howto/index` — task-oriented recipes (install, prepare the input files, choose a
-  mode, attach a supervision signal, choose the simulated cells, reconstruct — including
-  in a later session, after the model run).
-* :doc:`reference/index` — the public API and CLI, generated from the source.
-* :doc:`explanation/index` — the science and design behind the package.
+* :doc:`tutorials/index`: walkthroughs on built-in synthetic data. Start here.
+* :doc:`howto/index`: recipes for single tasks.
+* :doc:`reference/index`: the public API and the command line.
+* :doc:`explanation/index`: background on the design and the methods.
 
 .. toctree::
    :hidden:
@@ -91,6 +82,6 @@ Documentation is organised along the `Diátaxis <https://diataxis.fr/>`_ framewo
 
 .. toctree::
    :hidden:
-   :caption: Explanation
+   :caption: Background
 
    explanation/index

@@ -10,10 +10,10 @@ filtering. The mathematics behind each step is in
 
 .. note::
 
-   :func:`~climclusterpy.features.summarize_climate_features` derives optional SPEI /
-   potential-evapotranspiration drought diagnostics via the ``pyet`` package, which is
-   not part of the core install: add the ``[features]`` extra (or ``[all]``) for it. The
-   rest of the feature pipeline runs on the core install.
+   The SPEI and potential-evapotranspiration diagnostics of
+   :func:`~climclusterpy.features.summarize_climate_features` use ``pyet``, which is not part
+   of either install. Add the ``[spei]`` extra (or ``[all]``) for it. The rest of the feature
+   pipeline needs no extra.
 
 Ecological summaries
 --------------------

@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Tutorials &mdash; climclusterpy 0.5</title>
+  <title>Tutorials &mdash; climclusterpy 0.6</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=f2cc2102" />
@@ -15,7 +15,7 @@
     <link rel="shortcut icon" href="../_static/logo.svg"/>
       <script src="../_static/jquery.js?v=5d32c60e"></script>
       <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../_static/documentation_options.js?v=b9afe91b"></script>
+      <script src="../_static/documentation_options.js?v=8fa8b3e9"></script>
       <script src="../_static/doctools.js?v=9bcbadda"></script>
       <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/js/theme.js"></script>
@@ -49,10 +49,9 @@
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Tutorials</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="one_call_roundtrip.html">Tutorial 0 — the whole workflow in two calls</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="one_call_roundtrip.html#the-idea">The idea</a></li>
-<li class="toctree-l3"><a class="reference internal" href="one_call_roundtrip.html#call-1-build-the-reduced-grid">Call 1 — build the reduced grid</a></li>
-<li class="toctree-l3"><a class="reference internal" href="one_call_roundtrip.html#call-2-rebuild-the-original-grid">Call 2 — rebuild the original grid</a></li>
-<li class="toctree-l3"><a class="reference internal" href="one_call_roundtrip.html#the-complete-script">The complete script</a></li>
+<li class="toctree-l3"><a class="reference internal" href="one_call_roundtrip.html#build-the-reduced-grid">Build the reduced grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="one_call_roundtrip.html#rebuild-the-original-grid">Rebuild the original grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="one_call_roundtrip.html#the-script">The script</a></li>
 <li class="toctree-l3"><a class="reference internal" href="one_call_roundtrip.html#run-it">Run it</a></li>
 <li class="toctree-l3"><a class="reference internal" href="one_call_roundtrip.html#next-steps">Next steps</a></li>
 </ul>
@@ -60,7 +59,7 @@
 <li class="toctree-l2"><a class="reference internal" href="euclidean_clustering.html">Tutorial 1 — Euclidean clustering</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="euclidean_clustering.html#load-data-and-build-a-feature-matrix">Load data and build a feature matrix</a></li>
 <li class="toctree-l3"><a class="reference internal" href="euclidean_clustering.html#cluster">Cluster</a></li>
-<li class="toctree-l3"><a class="reference internal" href="euclidean_clustering.html#the-complete-script">The complete script</a></li>
+<li class="toctree-l3"><a class="reference internal" href="euclidean_clustering.html#the-script">The script</a></li>
 <li class="toctree-l3"><a class="reference internal" href="euclidean_clustering.html#run-it">Run it</a></li>
 <li class="toctree-l3"><a class="reference internal" href="euclidean_clustering.html#next-steps">Next steps</a></li>
 </ul>
@@ -68,28 +67,28 @@
 <li class="toctree-l2"><a class="reference internal" href="lmnn_clustering.html">Tutorial 2 — LMNN metric-learning clustering</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="lmnn_clustering.html#provide-a-supervision-signal">Provide a supervision signal</a></li>
 <li class="toctree-l3"><a class="reference internal" href="lmnn_clustering.html#learn-a-metric-and-cluster">Learn a metric and cluster</a></li>
-<li class="toctree-l3"><a class="reference internal" href="lmnn_clustering.html#the-complete-script">The complete script</a></li>
+<li class="toctree-l3"><a class="reference internal" href="lmnn_clustering.html#the-script">The script</a></li>
 <li class="toctree-l3"><a class="reference internal" href="lmnn_clustering.html#run-it">Run it</a></li>
 <li class="toctree-l3"><a class="reference internal" href="lmnn_clustering.html#next-steps">Next steps</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="supervision.html">Tutorial 3 — Supervision signals</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="supervision.html#koppengeiger-from-monthly-climatology">Köppen–Geiger from monthly climatology</a></li>
-<li class="toctree-l3"><a class="reference internal" href="supervision.html#model-output-trait-clustering">Model-output (trait) clustering</a></li>
-<li class="toctree-l3"><a class="reference internal" href="supervision.html#the-complete-script">The complete script</a></li>
+<li class="toctree-l3"><a class="reference internal" href="supervision.html#model-output-traits">Model output (traits)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="supervision.html#the-script">The script</a></li>
 <li class="toctree-l3"><a class="reference internal" href="supervision.html#run-it">Run it</a></li>
 <li class="toctree-l3"><a class="reference internal" href="supervision.html#ecoregion-supervision">Ecoregion supervision</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="reconstruction.html">Tutorial 4 — Reconstruct the original grid</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="reconstruction.html#the-round-trip">The round trip</a></li>
-<li class="toctree-l3"><a class="reference internal" href="reconstruction.html#verify">Verify</a></li>
-<li class="toctree-l3"><a class="reference internal" href="reconstruction.html#the-complete-script">The complete script</a></li>
+<li class="toctree-l3"><a class="reference internal" href="reconstruction.html#reconstruction">Reconstruction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="reconstruction.html#check">Check</a></li>
+<li class="toctree-l3"><a class="reference internal" href="reconstruction.html#the-script">The script</a></li>
 <li class="toctree-l3"><a class="reference internal" href="reconstruction.html#run-it">Run it</a></li>
 <li class="toctree-l3"><a class="reference internal" href="reconstruction.html#next-steps">Next steps</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#a-note-on-the-synthetic-data">A note on the synthetic data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#synthetic-data">Synthetic data</a></li>
 </ul>
 </li>
 </ul>
@@ -97,12 +96,11 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../howto/index.html">How-to guides</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../howto/install.html">Install climclusterpy</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../howto/install.html#base-install">Base install</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../howto/install.html#optional-extras">Optional extras</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../howto/install.html#installing-the-geospatial-extras-with-conda">Installing the geospatial extras with conda</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../howto/install.html#pytorch-cpu-vs-gpu">PyTorch (CPU vs. GPU)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/install.html#extras">Extras</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/install.html#geopandas-and-cartopy-with-conda">GeoPandas and Cartopy with conda</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/install.html#pytorch-on-cpu-or-gpu">PyTorch on CPU or GPU</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../howto/install.html#environment-variables">Environment variables</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../howto/install.html#building-the-documentation">Building the documentation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/install.html#building-this-documentation">Building this documentation</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../howto/inputs.html">Prepare the input files</a><ul>
@@ -115,6 +113,13 @@
 <li class="toctree-l3"><a class="reference internal" href="../howto/inputs.html#what-is-written">What is written</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../howto/inputs.html#the-lpjml-fit-file-layout">The LPJmL-FIT file layout</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../howto/inputs.html#output-files">Output files</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../howto/features.html">Choose the features</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../howto/features.html#what-is-computed">What is computed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/features.html#filtering">Filtering</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/features.html#missing-inputs">Missing inputs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/features.html#use-a-different-set">Use a different set</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../howto/clustering.html">Cluster a feature matrix (choose a mode)</a><ul>
@@ -132,22 +137,22 @@
 <li class="toctree-l3"><a class="reference internal" href="../howto/supervision.html#saved-results-are-reused-only-for-the-same-inputs">Saved results are reused only for the same inputs</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../howto/cell_selection.html">Choosing the cells a cluster is simulated on</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../howto/cell_selection.html#the-patch-budget">The patch budget</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../howto/cell_selection.html#what-the-drawn-cells-carry">What the drawn cells carry</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../howto/cell_selection.html">Choose the simulated cells</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../howto/cell_selection.html#patches">Patches</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/cell_selection.html#properties-of-the-selected-cells">Properties of the selected cells</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../howto/cell_selection.html#reproducibility">Reproducibility</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../howto/cell_selection.html#looking-at-a-draw-without-building-a-grid">Looking at a draw without building a grid</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../howto/cell_selection.html#back-to-the-full-grid">Back to the full grid</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../howto/cell_selection.html#a-model-that-reads-its-own-inputs-the-grid-only-then-cut-the-rest">A model that reads its own inputs: the grid only, then cut the rest</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/cell_selection.html#draw-cells-without-building-a-grid">Draw cells without building a grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/cell_selection.html#reconstruction">Reconstruction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/cell_selection.html#models-that-read-their-own-inputs">Models that read their own inputs</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../howto/reconstruct.html">Reconstruct the original grid</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../howto/reconstruct.html#the-usual-call">The usual call</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../howto/reconstruct.html#picking-up-where-you-left-off">Picking up where you left off</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../howto/reconstruct.html#without-a-result-or-run-folder">Without a result or run folder</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../howto/reconstruct.html#required-mapping-files">Required mapping files</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../howto/reconstruct.html#reconstruction-paths-kind">Reconstruction paths (<code class="docutils literal notranslate"><span class="pre">kind</span></code>)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../howto/reconstruct.html#verifying-the-result">Verifying the result</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/reconstruct.html#restore-a-result-in-a-later-session">Restore a result in a later session</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/reconstruct.html#without-a-result-object">Without a result object</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/reconstruct.html#mapping-files">Mapping files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/reconstruct.html#reconstruction-paths">Reconstruction paths</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/reconstruct.html#checking-the-result">Checking the result</a></li>
 </ul>
 </li>
 </ul>
@@ -207,6 +212,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../reference/cli.html#the-two-headline-commands">The two headline commands</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../reference/cli.html#building-blocks">Building blocks</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../reference/cli.html#options-shared-by-every-action-command">Options shared by every action command</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/cli.html#deprecated-names">Deprecated names</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../reference/cli.html#errors-and-exit-codes">Errors and exit codes</a></li>
 </ul>
 </li>
@@ -214,33 +220,27 @@
 </ul>
 </li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Explanation</span></p>
+<p class="caption" role="heading"><span class="caption-text">Background</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../explanation/index.html">Explanation</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="../explanation/index.html">Background</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../explanation/overview.html">Overview</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../explanation/overview.html#design-philosophy">Design Philosophy</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../explanation/overview.html#workflow-summary">Workflow Summary</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../explanation/overview.html#key-innovations">Key Innovations</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../explanation/overview.html#use-cases">Use Cases</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../explanation/overview.html#limitations">Limitations</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../explanation/overview.html#future-directions">Future Directions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../explanation/overview.html#workflow">Workflow</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../explanation/overview.html#package-layout">Package layout</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../explanation/overview.html#references">References</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../explanation/methods.html">Scientific Methods</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../explanation/methods.html">Methods</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../explanation/methods.html#data-acquisition-and-preprocessing">Data Acquisition and Preprocessing</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../explanation/methods.html#ecoregion-assignment">Ecoregion Assignment</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../explanation/methods.html#ecological-feature-summarization">Ecological Feature Summarization</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../explanation/methods.html#feature-standardization-and-filtering">Feature Standardization and Filtering</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../explanation/methods.html#large-margin-nearest-neighbor-lmnn-metric-learning">Large Margin Nearest Neighbor (LMNN) Metric Learning</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../explanation/methods.html#hierarchical-clustering">Hierarchical Clustering</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../explanation/methods.html#representative-cell-selection">Representative Cell Selection</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../explanation/methods.html#evaluation-metrics">Evaluation Metrics</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../explanation/methods.html#netcdf-processing">NetCDF Processing</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../explanation/methods.html#computational-implementation">Computational Implementation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../explanation/methods.html#cell-selection">Cell Selection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../explanation/methods.html#the-reduced-grid">The Reduced Grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../explanation/methods.html#reconstruction">Reconstruction</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../explanation/index.html#reconstruction-correctness">Reconstruction correctness</a></li>
 </ul>
 </li>
 </ul>
@@ -271,15 +271,12 @@
              
   <section id="tutorials">
 <h1>Tutorials<a class="headerlink" href="#tutorials" title="Link to this heading"></a></h1>
-<p>Learning-oriented, end-to-end walkthroughs. <strong>Read :doc:`one_call_roundtrip` first</strong> — it
-does the entire workflow (reduce a grid, run a model on it, rebuild the original) in two
-function calls. The remaining tutorials take one building block each, for when you want to
-drive the steps yourself.</p>
-<p>Every tutorial runs on tiny <strong>synthetic</strong> climate + static-field data built in-memory, so you can
-follow along with only the core install (the LMNN tutorial additionally needs the
-<code class="docutils literal notranslate"><span class="pre">[lmnn]</span></code> extra). No <code class="docutils literal notranslate"><span class="pre">/p</span></code> mounts, no real data, no downloads.</p>
-<p>The complete, runnable script for each tutorial lives under <code class="docutils literal notranslate"><span class="pre">examples/</span></code> in the
-repository; the tutorial embeds it and explains it step by step.</p>
+<p>Start with <a class="reference internal" href="one_call_roundtrip.html"><span class="doc">Tutorial 0 — the whole workflow in two calls</span></a>, which does the whole workflow (reduce a grid, run a
+model on it, rebuild the original) in two function calls. The other tutorials each take one
+building block, for driving the steps yourself.</p>
+<p>Every tutorial runs on small synthetic climate and static-field data built in memory, with
+the base install (the learned-distance tutorial also needs PyTorch, <code class="docutils literal notranslate"><span class="pre">[lmnn]</span></code>). The script
+of each tutorial is in <code class="docutils literal notranslate"><span class="pre">examples/</span></code> and is embedded in the tutorial.</p>
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="one_call_roundtrip.html">Tutorial 0 — the whole workflow in two calls</a></li>
@@ -289,14 +286,12 @@ repository; the tutorial embeds it and explains it step by step.</p>
 <li class="toctree-l1"><a class="reference internal" href="reconstruction.html">Tutorial 4 — Reconstruct the original grid</a></li>
 </ul>
 </div>
-<section id="a-note-on-the-synthetic-data">
-<h2>A note on the synthetic data<a class="headerlink" href="#a-note-on-the-synthetic-data" title="Link to this heading"></a></h2>
-<p>The examples share a helper, <code class="docutils literal notranslate"><span class="pre">examples/_synthetic.py</span></code>, that writes small climate + soil
-NetCDFs on a regular 8×8 grid and loads them exactly the way the package loads real data
-(via <a class="reference internal" href="../reference/toplevel.html#climclusterpy.data.create_test_data" title="climclusterpy.data.create_test_data"><code class="xref py py-func docutils literal notranslate"><span class="pre">create_test_data()</span></code></a>), then derives a per-cell feature
-matrix. In production those feature matrices come from
-<a class="reference internal" href="../reference/features.html#climclusterpy.features.summarize_climate_features" title="climclusterpy.features.summarize_climate_features"><code class="xref py py-func docutils literal notranslate"><span class="pre">summarize_climate_features()</span></code></a>; the helper keeps the tutorials
-dependency-light.</p>
+<section id="synthetic-data">
+<h2>Synthetic data<a class="headerlink" href="#synthetic-data" title="Link to this heading"></a></h2>
+<p>The examples share a helper, <code class="docutils literal notranslate"><span class="pre">examples/_synthetic.py</span></code>, that writes small climate and soil
+NetCDF files on a regular 8×8 grid, loads them as the package loads real data (via
+<a class="reference internal" href="../reference/toplevel.html#climclusterpy.data.create_test_data" title="climclusterpy.data.create_test_data"><code class="xref py py-func docutils literal notranslate"><span class="pre">create_test_data()</span></code></a>) and derives a per-cell feature matrix. For real
+data the feature matrix comes from <a class="reference internal" href="../reference/features.html#climclusterpy.features.summarize_climate_features" title="climclusterpy.features.summarize_climate_features"><code class="xref py py-func docutils literal notranslate"><span class="pre">summarize_climate_features()</span></code></a>.</p>
 </section>
 </section>
 

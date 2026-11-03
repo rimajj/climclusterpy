@@ -9,6 +9,7 @@ package? Start with the :doc:`../tutorials/index` instead.
 
    install
    inputs
+   features
    clustering
    supervision
    cell_selection

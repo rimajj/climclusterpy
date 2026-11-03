@@ -43,11 +43,11 @@ day length.
 .. note::
 
    In this version :func:`~climclusterpy.create_clusters` uses :func:`build_reduced_grid`
-   for ``representative="random"``, writes ``"distributed"`` cells at their own positions
+   for ``cell_selection="random"``, writes ``"distributed"`` cells at their own positions
    with :func:`write_distributed_grid`, but still uses the centre-latitude layout of
    :func:`create_regular_grid_from_dataset` for ``"medoid"`` and ``"centroid"``. For those
    two, ``latitude_adjustments_<K>.csv`` in the output folder records each cluster's centre
-   latitude and the latitude it was written at — not the representative cell's own
+   latitude and the latitude it was written at — not the selected cell's own
    latitude, which is in ``selected_cells_<K>.csv``. Compare the two files to see how far
    a cell was moved.
 

@@ -55,10 +55,10 @@ a share of the valid cells, e.g. ``0.01``; give one of the two), ``--locally-wei
 ``--supervision-data``, ``--ecoregions-shapefile``, ``--ecoregion-id-column``,
 ``--dominant-type/--no-dominant-type``,
 ``--supervision-granularity``, ``--supervision-linkage`` (default ``complete``),
-``--lmnn-mode`` (``lowrank``, the default, ``global``, ``local`` or ``enhanced``),
+``--lmnn-mode`` (``lowrank``, the default, ``diagonal`` or ``global``),
 ``--lmnn-k``, ``--rank`` (``lowrank``: default 16, at most the number of features;
 ``global``: default full rank),
-``--representative`` (``auto``/``medoid``/``centroid``/``random``/``distributed``),
+``--cell-selection`` (``auto``/``medoid``/``centroid``/``random``/``distributed``),
 ``--placement`` (``native``/``cluster_center``),
 ``--linkage``, ``--climate-variables`` (comma list, default ``tas,pr,rsds,rlds,hurs``),
 ``--output-dir``, ``--n-repeat``, ``--npatch``, ``--cells-per-cluster``, ``--seed``
@@ -93,12 +93,12 @@ name one, or ``--fraction`` to take the cut nearest that share of the valid cell
        --climate precipitation=/data/pr.nc koppen_geiger --output-dir ./regions
 
    $ climclu create-regions /data/lpjml_input deploy/cluster_labels.csv --fraction 0.01 \
-       --representative distributed --npatch 25 --cells-per-cluster 25 --seed 1 \
+       --cell-selection distributed --npatch 25 --cells-per-cluster 25 --seed 1 \
        --write-fields soil_code --output-dir ./grid_1pct
 
 The second example builds only the grid and its mapping (one soil file, no climate), for a
 model that reads its inputs from the original files through the mapping. Main options:
-``--column``, ``--fraction``, ``--representative`` (``centroid``/``medoid``/``random``/
+``--column``, ``--fraction``, ``--cell-selection`` (``centroid``/``medoid``/``random``/
 ``distributed``), ``--placement``, ``--cold-threshold``, ``--ecoregion-id-column``,
 ``--climate-variables``, ``--n-repeat``, ``--npatch``, ``--cells-per-cluster``, ``--seed``,
 ``--min-grid-spacing``, ``--n-jobs``, ``--preload/--no-preload``, ``--write-fields``,
@@ -117,7 +117,7 @@ the model output (one NetCDF or a directory of them) and the ``--output-dir`` th
 
 ``-k`` is optional here and, when given, is checked against the clusters directory.
 ``--kind`` (``output``/``distributed``) defaults to ``distributed`` for a grid
-built with ``--representative distributed``, else ``output``; ``--aggregate``
+built with ``--cell-selection distributed``, else ``output``; ``--aggregate``
 (``mean``/``median``) applies to distributed grids only.
 
 The older route, which rebuilds the original grid from a JSON file of the input paths
@@ -150,7 +150,7 @@ For LMNN mode, pass a labels CSV with a ``cluster_label`` column:
        --locally-weighted --supervision-csv labels.csv --lmnn-mode global
 
 Options: ``-k/--n-clusters``, ``--locally-weighted/--euclidean``, ``--supervision-csv``,
-``--lmnn-mode`` (``lowrank``, the default, ``global``, ``local`` or ``enhanced``),
+``--lmnn-mode`` (``lowrank``, the default, ``diagonal`` or ``global``),
 ``--rank``, ``--seed`` (default 0), ``--linkage``, ``--standardize``, ``--output``.
 
 ``climclu supervision``
@@ -204,6 +204,12 @@ Options shared by every action command
 ``--dry-run``
    On ``create-clusters``, the input check described above. On every other command,
    check that the named input files exist and exit (code 0 if all do, 1 if not).
+
+Deprecated names
+----------------
+
+``--representative`` (and the config key ``representative``) is the former name of
+``--cell-selection`` and still works. Giving both is an error.
 
 Errors and exit codes
 ---------------------

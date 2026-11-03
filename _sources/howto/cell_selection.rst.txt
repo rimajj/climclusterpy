@@ -1,67 +1,82 @@
-Choosing the cells a cluster is simulated on
-============================================
+Choose the simulated cells
+==========================
 
-Once the grid is cut into clusters, the vegetation model is run on a few real cells per
-cluster, and :func:`~climclusterpy.reconstruct_original_grid` gives every original cell its
-cluster's result. *Which* cells are run is the ``representative`` argument of
-:func:`~climclusterpy.create_clusters` and :func:`~climclusterpy.create_regions`.
+The model is run on one or a few cells of each group, and
+:func:`~climclusterpy.reconstruct_original_grid` gives every original cell the result of its
+group. The argument ``cell_selection`` of :func:`~climclusterpy.create_clusters` and
+:func:`~climclusterpy.create_regions` sets which cells those are.
 
 .. list-table::
    :header-rows: 1
    :widths: 16 34 50
 
-   * - ``representative``
-     - Cells simulated per cluster
-     - What it needs / when to use it
+   * - ``cell_selection``
+     - Cells simulated per group
+     - Needs, and when to use it
    * - ``"medoid"``
-     - 1, the member closest to all others
-     - A learned metric (``locally_weighted=True``). The default whenever one exists.
+     - 1, the member with the smallest summed distance to the others
+     - A learned distance (``locally_weighted=True``). The default whenever one exists.
    * - ``"centroid"``
-     - 1, the member nearest the cluster mean
+     - 1, the member nearest the group mean
      - Nothing extra. The default for Euclidean clustering.
    * - ``"random"``
      - 1, drawn at random
-     - Nothing to compute. A baseline, or when no representative can be justified.
+     - Nothing to compute. A baseline.
    * - ``"distributed"``
      - ``cells_per_cluster``, drawn at random
-     - Nothing to compute. Spreads the patch budget over several real cells, so the cluster
-       result samples the cluster's spread instead of one cell's climate.
+     - Nothing to compute. Spreads the patches of the group over several cells, so the result
+       samples the range of climate within the group.
 
-The two drawn choices (``"random"``, ``"distributed"``) compute no representative at all,
-which is also why they are cheap: no distance matrix, no centroid.
+``"auto"`` (the default of :func:`~climclusterpy.create_clusters`) is ``"medoid"`` with a
+learned distance and ``"centroid"`` otherwise. The paper calls ``"auto"``, ``"medoid"`` and ``"centroid"`` the *representative mode*,
+``"random"`` the *random mode* and ``"distributed"`` the *distributed mode*. The two drawn choices
+compute no distance matrix and no centroid, so they are cheap.
 
-The patch budget
-----------------
+Patches
+-------
 
-``npatch`` is the number of patches **per cluster** you are willing to pay for. A one-cell
-choice spends all of it in that cell. ``"distributed"`` splits it evenly, so every choice
-costs the vegetation model the same and the results are comparable:
+Some vegetation models simulate several independent patches per cell and average them,
+because establishment, mortality and disturbance are stochastic and one patch is only one
+realisation of the vegetation. LPJmL-FIT simulates 25 patches per cell; LPJ-GUESS
+simulates replicate patches. Models that simulate one patch per cell can skip this section
+and use the defaults.
+
+* ``npatch`` is the number of patches simulated for each group in total. The default is
+  250.
+* ``cells_per_cluster`` is the number of cells over which these patches are spread. It
+  applies to ``"distributed"`` only, and each drawn cell is run with
+  ``npatch // cells_per_cluster`` patches. A split that does not divide evenly
+  (``npatch=25, cells_per_cluster=4``) is refused.
+
+With a single selected cell all ``npatch`` patches sample the climate of that cell. With
+``"distributed"`` they sample ``cells_per_cluster`` cells of the group. Every choice
+simulates the same total number of patches per group, so the cost is the same and the
+results are comparable:
 
 .. code-block:: python
 
    from climclusterpy import create_clusters
 
-   one = create_clusters("climate/", n_clusters=67, representative="random",
+   one = create_clusters("climate/", n_clusters=67, cell_selection="random",
                          npatch=25, seed=1, output_dir="grid_random/")
    one.patches_per_cell        # 25  -> 67 cells x 25 patches
 
-   many = create_clusters("climate/", n_clusters=67, representative="distributed",
+   many = create_clusters("climate/", n_clusters=67, cell_selection="distributed",
                           npatch=25, cells_per_cluster=25, seed=1,
                           output_dir="grid_distributed/")
    many.patches_per_cell       # 1   -> 1675 cells x 1 patch
    many.selected_cells.head()  # cluster_label, cell_id, latitude, longitude, slot
 
-Set the vegetation model's patch count (LPJmL's ``npatch``) to ``patches_per_cell``. It is
-also written into every NetCDF's global attributes (``patches_per_cell``,
-``npatch_per_cluster``, ``cells_per_cluster``, ``cell_selection``), so a run script can read
-it from the file instead of re-deriving it. A split that does not divide evenly
-(``npatch=25, cells_per_cluster=4``) is refused rather than rounded.
+Set the model's number of patches per cell (``npatch`` in LPJmL) to ``patches_per_cell``.
+The value is also written into the global attributes of every NetCDF file
+(``patches_per_cell``, ``npatch_per_cluster``, ``cells_per_cluster``, ``cell_selection``),
+so a run script can read it from the file.
 
-What the drawn cells carry
---------------------------
+Properties of the selected cells
+--------------------------------
 
-* **Their own climate and soil.** Nothing is averaged: a drawn cell's forcing is that cell's
-  forcing, and its soil is its own, not the cluster's most common soil.
+* **Their own climate and soil.** Nothing is averaged: a selected cell carries its own
+  forcing and its own soil, not the most common soil of its group.
 * **Their own latitude.** ``"random"`` places the drawn cell at its own latitude on the
   written grid; ``"distributed"`` writes every drawn cell at its own position on the source
   grid. Latitude sets day length, which is how position reaches the vegetation when radiation
@@ -81,8 +96,8 @@ Reproducibility
 ``seed`` seeds the draw (default 0). The same seed and the same clustering give the same
 cells at any ``n_jobs``; with ``seed=None`` every call draws afresh.
 
-Looking at a draw without building a grid
------------------------------------------
+Draw cells without building a grid
+----------------------------------
 
 :func:`~climclusterpy.draw_cells` makes the same draw from a label table and returns the
 same cells as ``selected_cells`` would, without extracting any climate or writing any file:
@@ -96,13 +111,13 @@ same cells as ``selected_cells`` would, without extracting any climate or writin
    cells = draw_cells(labels, "distributed", cells_per_cluster=25, seed=1)
    cells.groupby("cluster_label").cell_id.nunique()   # distinct cells per cluster
 
-Use it to check a draw before paying for a build, to draw many seeds cheaply, or, when the
-vegetation model has already been run on every cell, to emulate a choice on that output.
+Use it to inspect a draw before building a grid, to draw many seeds cheaply, or to emulate a
+choice on the output of a model that has already been run on every cell.
 
-Back to the full grid
----------------------
+Reconstruction
+--------------
 
-Run the model on the written grid, then:
+After the model has run on the written grid:
 
 .. code-block:: python
 
@@ -112,9 +127,9 @@ Run the model on the written grid, then:
    robust = reconstruct_original_grid("lpjml_output/vegc.nc", many,
                                       aggregate="median")                     # median
 
-The distributed path is picked from the result, so nothing else has to be passed. The
+The distributed path is chosen from the result, so nothing else has to be passed. The
 model output can use LPJmL's ``lat``/``lon`` names, may have its empty margins trimmed, and
-may have any file name: the chosen cells are found by coordinate.
+may have any file name: the selected cells are found by coordinate.
 
 ``aggregate`` says how a cluster's cells are combined into the value every member receives:
 
@@ -127,12 +142,12 @@ may have any file name: the chosen cells are found by coordinate.
 Missing values in the output are ignored; a cluster none of whose cells has a value stays NaN
 and is logged.
 
-A model that reads its own inputs: the grid only, then cut the rest
---------------------------------------------------------------------
+Models that read their own inputs
+---------------------------------
 
-A real model run opens more per-cell inputs than the climate and static fields the package
-clustered on (wind, deposition, soil chemistry, slopes, ...). Build only the grid and its
-mapping, then cut every input the run opens to the drawn cells.
+A model run usually reads more per-cell inputs than the climate and static fields the
+package clustered on (wind, deposition, soil chemistry, slopes, ...). Build only the grid and
+its mapping, then cut every input the run reads to the drawn cells.
 :func:`~climclusterpy.subset_inputs` cuts NetCDF inputs for any model and also reads LPJmL's
 binary formats; the example below is the LPJmL-FIT one (its ``climate/`` directory is the
 fixed file layout, with a ``soil_code`` file, and the ``.clm`` conversion is LPJmL-specific).
@@ -144,7 +159,7 @@ For another model, pass ``climate=``/``static=`` as usual and cut your own NetCD
 
    grid = create_regions(
        "climate/", "deploy/cluster_labels.csv", fraction=0.01,   # the cut nearest 1 % of the cells
-       representative="distributed", npatch=25, cells_per_cluster=25, seed=1,
+       cell_selection="distributed", npatch=25, cells_per_cluster=25, seed=1,
        write_fields=("soil_code",),                              # no climate read or written
        output_dir="grid_1pct/",
    )
@@ -158,7 +173,7 @@ For another model, pass ``climate=``/``static=`` as usual and cut your own NetCD
        target_grid="grid_1pct/clm/<the .grid.clm written above>",
    )
 
-Two hazards this takes care of, and which a hand-written cutter has to handle itself:
+The cutting handles two things that a hand-written cutter would have to handle itself:
 
 * **Cell order.** LPJmL reads ``.clm`` inputs by position. The package numbers cells
   latitude-major, LPJmL's global ``grid.bin`` is longitude-major, so a positional join between

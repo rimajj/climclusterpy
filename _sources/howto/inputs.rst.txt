@@ -104,7 +104,7 @@ variable (``tas`` or ``t2m``, ``pr`` or ``tp``, ``rsds`` or ``SWdown``, ``rlds``
      - Relative humidity, %.
 
 With both temperature and precipitation present, the Köppen–Geiger diagnostics are added
-too, and ``supervision="koppen_geiger"`` becomes available. Any other climate field is
+too (the full list of columns is in :doc:`features`), and ``supervision="koppen_geiger"`` becomes available. Any other climate field is
 summarised generically: its annual mean (or sum), its spread, and — when the series is
 whole years — its 12 monthly values and their seasonality, in its own units.
 
@@ -313,5 +313,5 @@ clusters, a run writes:
        learned from.
 
 This list was taken from running the one-call example
-(``examples/example_0_one_call_roundtrip.py``) with ``representative`` set to the
+(``examples/example_0_one_call_roundtrip.py``) with ``cell_selection`` set to the
 default, ``"random"`` and ``"distributed"``, plus the code for the LMNN-only folder.

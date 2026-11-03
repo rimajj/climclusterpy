@@ -1,19 +1,18 @@
 Tutorial 2 — LMNN metric-learning clustering
 ============================================
 
-**Capability 2: choose the clustering mode.** Here you cluster the same synthetic grid in
-``locally_weighted=True``, where a supervised distance metric is learned before clustering so that
-cells sharing a supervision class are drawn together. This tutorial needs the ``[lmnn]``
-extra (``pip install 'climclusterpy[lmnn]'``); if it is missing the script prints an
-install hint and exits cleanly.
+This tutorial clusters the same synthetic grid with ``locally_weighted=True``: a distance
+is learned from a supervision signal before clustering, so that cells of the same supervision
+class are grouped together. It needs PyTorch (``pip install climclusterpy``, or
+``pip install 'climclusterpy-base[lmnn]'``); without it the script prints an install hint and
+exits.
 
 Provide a supervision signal
 ----------------------------
 
-LMNN needs a per-cell class label aligned row-for-row with the features. In production
-this comes from :func:`~climclusterpy.compute_supervision` (see
-:doc:`supervision`); to keep this tutorial self-contained it derives three latitude bands
-directly from the cell metadata:
+LMNN needs a per-cell class label aligned row-for-row with the features. For real data it
+comes from :func:`~climclusterpy.compute_supervision` (see
+:doc:`supervision`). Here, three latitude bands are derived from the cell metadata:
 
 .. code-block:: python
 
@@ -25,9 +24,8 @@ directly from the cell metadata:
 Learn a metric and cluster
 --------------------------
 
-Passing ``locally_weighted=True`` with the supervision labels learns a distance metric, then
-clusters in the learned space. This example asks for the global (linear) Mahalanobis metric,
-the quickest to train:
+``locally_weighted=True`` with the supervision labels learns a distance, then clusters under
+it. This example uses the global (linear) Mahalanobis metric, the quickest to train:
 
 .. code-block:: python
 
@@ -39,12 +37,12 @@ the quickest to train:
    )
    result.diagnostics       # LMNN training info
 
-Leave ``lmnn_mode`` out for the default ``"lowrank"`` — a low-rank metric for every cell,
-the configuration of the published results — or pass ``"local"`` or ``"enhanced"`` for the
-diagonal per-cell variants; see :doc:`../explanation/methods` for what each does.
+Without ``lmnn_mode`` the default ``"lowrank"`` is used: a low-rank metric for every cell,
+as in the paper. ``"diagonal"`` is the same trainer with a diagonal per-cell metric; see
+:doc:`../explanation/methods`.
 
-The complete script
--------------------
+The script
+----------
 
 .. literalinclude:: ../../../examples/example_2_cluster_lmnn.py
    :language: python
@@ -55,7 +53,7 @@ Run it
 
 .. code-block:: console
 
-   $ pip install 'climclusterpy[lmnn]'
+   $ pip install climclusterpy
    $ python examples/example_2_cluster_lmnn.py
    Supervision: 3 classes over 64 cells
    LMNN clustering -> 6 clusters (mode=lmnn)
@@ -66,4 +64,4 @@ Next steps
 ----------
 
 * Build a real supervision signal (Köppen–Geiger / output / ecoregions): :doc:`supervision`.
-* The metric-learning mathematics: :doc:`../explanation/methods`.
+* The metric learning: :doc:`../explanation/methods`.
