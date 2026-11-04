@@ -5,15 +5,15 @@ climclusterpy
    :alt: climclusterpy
    :width: 420px
 
-****Ecologically-informed clustering of climate and static fields for reduced model grids.**
+**Ecologically informed clustering of climate and static fields for reduced model grids.**
 
 ``climclusterpy`` divides the cells of a model's grid into groups of similar climate and
-static fields (soil, elevation, land cover, ...). The model is run on one or a few cells of
-each group, written as a *reduced grid*, and every original cell then receives the output
-simulated for its group. The input is any set of gridded climate fields and static fields,
-under the names the model uses. The method is described in the accompanying paper.
+static fields (soil, elevation, land cover, ...). You run the model on one or a few cells of
+each group, which the package writes as a *reduced grid*, and every original cell then
+receives the output simulated for its group. The input is any set of gridded climate fields
+and static fields, under the names the model uses. The accompanying paper describes the method.
 
-Two calls do the whole job:
+Two calls cover the whole workflow:
 
 .. code-block:: python
 
@@ -31,9 +31,9 @@ Two calls do the whole job:
    # 2. Give every original cell the output simulated for its group.
    full = reconstruct_original_grid("vegc_output.nc", clusters=clusters)
 
-``locally_weighted=True`` learns the distance between cells before clustering. The learned
-distance is supervised by Köppen–Geiger classes computed from the climate input, by an
-ecoregion map, or by the model's own output traits:
+With ``locally_weighted=True``, the package learns the distance between cells before
+clustering. Köppen–Geiger classes computed from the climate input, an ecoregion map or the
+model's own output traits can supervise the learned distance. The following call uses output traits:
 
 .. code-block:: python
 
@@ -45,17 +45,17 @@ ecoregion map, or by the model's own output traits:
        supervision=["sla", "wooddens", "height", "biomass"],
    )
 
-The input can also be built beforehand as a :class:`~climclusterpy.GenericInputs`. The
-six-file input layout of LPJmL-FIT, the model the package was developed with, is accepted
-as a directory (:doc:`howto/inputs`). :func:`~climclusterpy.load_clusters` restores the
-result of ``create_clusters`` in a later session (:doc:`howto/reconstruct`).
+You can also build the input beforehand as a :class:`~climclusterpy.GenericInputs`. The
+package accepts the six-file input layout of LPJmL-FIT, the model it was developed with, as
+a directory (:doc:`howto/inputs`). :func:`~climclusterpy.load_clusters` restores the result
+of ``create_clusters`` in a later session (:doc:`howto/reconstruct`).
 
-The individual steps are available as functions too, for example
+The individual steps are also available as functions, for example
 :func:`~climclusterpy.cluster_matrix` and :func:`~climclusterpy.compute_supervision`
-(:doc:`reference/index`). Heavy dependencies are loaded only by the features that need them
+(:doc:`reference/index`). Only the features that need heavy dependencies load them
 (:doc:`howto/install`).
 
-The documentation follows the `Diátaxis <https://diataxis.fr/>`_ structure:
+The documentation follows the `Diátaxis <https://diataxis.fr/>`_ structure and has four parts:
 
 * :doc:`tutorials/index`: walkthroughs on built-in synthetic data. Start here.
 * :doc:`howto/index`: recipes for single tasks.

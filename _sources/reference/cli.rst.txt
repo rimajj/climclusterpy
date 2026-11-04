@@ -1,8 +1,8 @@
 Command-line interface (``climclu``)
 ====================================
 
-Installing the package puts a ``climclu`` command on your ``PATH`` (``python -m
-climclusterpy.cli`` does the same). It mirrors the public API:
+Installing the package puts a ``climclu`` command on your ``PATH``, and ``python -m
+climclusterpy.cli`` does the same. The command mirrors the public API:
 
 ==================================  ====================================================
 Command                             Python equivalent
@@ -21,8 +21,7 @@ Command                             Python equivalent
    $ climclu create-clusters --help
    $ climclu version
 
-``climclu <command> --help`` is the source of truth for every option; this page shows
-the common ones.
+``climclu <command> --help`` lists every option. This page shows the common ones.
 
 The two headline commands
 -------------------------
@@ -30,10 +29,10 @@ The two headline commands
 ``climclu create-clusters``
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Build a model-ready reduced grid. Name the input fields as ``create_clusters`` takes
-them: ``--climate NAME=PATH`` once per climate field, ``--static NAME=PATH:KIND`` once per
+This command builds a model-ready reduced grid. Name the input fields as ``create_clusters``
+takes them: ``--climate NAME=PATH`` once per climate field, ``--static NAME=PATH:KIND`` once per
 static field (``KIND`` is ``categorical`` or ``continuous``), and optionally
-``--land-mask FILE`` or ``--grid CELLS.csv``. Or give a directory in the LPJmL-FIT file
+``--land-mask FILE`` or ``--grid CELLS.csv``. Alternatively, give a directory in the LPJmL-FIT file
 layout (``temperature.nc``, ``precipitation.nc``, ``short_wave_radiation.nc``,
 ``long_wave_radiation.nc``, ``soil_code.nc``, ``soil_depth.nc``, optional ``humid.nc``) as
 the argument instead.
@@ -79,9 +78,9 @@ without clustering anything: it prints a short report and exits with code 0 if
 ``climclu create-regions``
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Build a reduced grid from a map you already have -- no metric is learned and nothing is
-clustered, so this is the cheapest route. The input is given as for ``create-clusters``;
-the argument after it (the only argument, with ``--climate``) is the map:
+This command builds a reduced grid from a map you already have. It learns no metric and
+clusters nothing, so it is the cheapest route. Give the input as for ``create-clusters``.
+The argument after it (the only argument, with ``--climate``) is the map:
 ``koppen_geiger`` (computed from the climate), ``ecoregions`` (with
 ``--ecoregions-shapefile``), or a labels CSV with a ``cell_id`` column. A CSV that holds
 several cuts of one dendrogram (``cluster_k7`` ... ``cluster_k21320``) needs ``--column`` to
@@ -107,9 +106,9 @@ model that reads its inputs from the original files through the mapping. Main op
 ``climclu reconstruct-grid``
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Project model output simulated on the reduced grid back onto the original grid. Give it
-the model output (one NetCDF or a directory of them) and the ``--output-dir`` that
-``create-clusters`` wrote; everything else is read from there.
+This command projects model output simulated on the reduced grid back onto the original
+grid. Give it the model output (one NetCDF or a directory of them) and the ``--output-dir``
+that ``create-clusters`` wrote. The command reads everything else from there.
 
 .. code-block:: console
 
@@ -134,8 +133,9 @@ Building blocks
 ``climclu cluster hierarchical``
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Cluster a feature-matrix CSV. Metadata columns (``cell_id``/``latitude``/``longitude``/…)
-are detected automatically; the remaining numeric columns are the features.
+This command clusters a feature-matrix CSV. It detects metadata columns (``cell_id``,
+``latitude``, ``longitude`` and similar) automatically and treats the remaining numeric
+columns as the features.
 
 .. code-block:: console
 
@@ -156,7 +156,7 @@ Options: ``-k/--n-clusters``, ``--locally-weighted/--euclidean``, ``--supervisio
 ``climclu supervision``
 ^^^^^^^^^^^^^^^^^^^^^^^
 
-Generate a supervision labels CSV from one of three sources:
+This command generates a supervision labels CSV from one of three sources:
 ``climclu supervision koppen-geiger``, ``climclu supervision output`` and
 ``climclu supervision ecoregions``.
 
@@ -214,9 +214,9 @@ Deprecated names
 Errors and exit codes
 ---------------------
 
-* ``0`` — success.
-* ``1`` — ``--dry-run`` found a problem.
-* ``2`` — a usage error (unknown option, missing argument, a value out of range such as
+* ``0``: success.
+* ``1``: ``--dry-run`` found a problem.
+* ``2``: a usage error (unknown option, missing argument, a value out of range such as
   ``-k 0``), or an input the library rejected. Library errors about the input are
   printed as one line, ``Error: <message>``, on stderr.
 

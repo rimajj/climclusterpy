@@ -1,8 +1,8 @@
 Background
 ==========
 
-The design of ``climclusterpy`` and the methods it implements. Walkthroughs are in the
-:doc:`../tutorials/index`, recipes in the :doc:`../howto/index`.
+This section describes the design of ``climclusterpy`` and the methods it implements.
+Walkthroughs are in the :doc:`../tutorials/index` and recipes in the :doc:`../howto/index`.
 
 .. toctree::
    :maxdepth: 2

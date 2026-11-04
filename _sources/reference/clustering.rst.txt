@@ -3,9 +3,9 @@ Clustering & metric learning
 
 .. py:module:: climclusterpy.clustering
 
-The clustering primitives the :func:`~climclusterpy.cluster_matrix` facade is built on.
-Prefer the facades for ordinary use; these are exposed for finer control.
-The supervision-label generators live in :doc:`supervision`.
+This page documents the clustering primitives that :func:`~climclusterpy.cluster_matrix`
+builds on. For ordinary use, call the top-level functions; the primitives give finer
+control. The supervision-label generators are on :doc:`supervision`.
 
 Hierarchical clustering
 -----------------------
@@ -27,7 +27,7 @@ LMNN metric learning
 
    Every LMNN mode needs ``torch``, through the ``[lmnn]`` extra. See
    :doc:`../howto/install`. Importing ``climclusterpy.clustering.lmnn`` does not import
-   it; a mode loads it when it trains.
+   it, and a mode loads it when it trains.
 
 .. autofunction:: climclusterpy.clustering.lmnn.run_lmnn_clustering
 
@@ -48,12 +48,12 @@ LMNN metric learning
 The per-cell trainer and its distance matrices
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The pieces behind the per-cell modes, for anyone tuning or extending them. They need
-``torch`` and are loaded on first use:
+These functions sit behind the per-cell modes and are useful if you tune or extend them.
+They need ``torch`` and load on first use:
 
-* ``train_local_mahalanobis_lmnn`` — the per-cell trainer behind ``lmnn_mode="lowrank"`` and
+* ``train_local_mahalanobis_lmnn``: the per-cell trainer behind ``lmnn_mode="lowrank"`` and
   ``"diagonal"`` (its ``metric_type`` argument);
-* ``compute_distance_matrix_local``, ``compute_local_mahalanobis_distance_matrix`` — the
+* ``compute_distance_matrix_local`` and ``compute_local_mahalanobis_distance_matrix``: the
   n × n distance matrix under a trained diagonal or low-rank network.
 
-Their docstrings are the reference: ``help(climclusterpy.clustering.lmnn.train_local_mahalanobis_lmnn)``.
+Their docstrings are the reference. For example, run ``help(climclusterpy.clustering.lmnn.train_local_mahalanobis_lmnn)``.

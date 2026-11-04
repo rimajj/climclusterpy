@@ -3,17 +3,16 @@ Feature engineering
 
 .. py:module:: climclusterpy.features
 
-Transform loaded climate + soil data into the interpretable feature matrix that
-clustering consumes: ecological summaries, then standardization / de-correlation / PCA
-filtering. The mathematics behind each step is in
-:doc:`../explanation/methods`.
+These functions transform loaded climate and soil data into the interpretable feature
+matrix that clustering uses: ecological summaries, then standardization, de-correlation and
+PCA filtering. :doc:`../explanation/methods` gives the mathematics of each step.
 
 .. note::
 
    The SPEI and potential-evapotranspiration diagnostics of
    :func:`~climclusterpy.features.summarize_climate_features` use ``pyet``, which is not part
-   of either install. Add the ``[spei]`` extra (or ``[all]``) for it. The rest of the feature
-   pipeline needs no extra.
+   of either install. Add the ``[spei]`` extra (or ``[all]``) to install it. The rest of the
+   feature pipeline needs no extra.
 
 Ecological summaries
 --------------------

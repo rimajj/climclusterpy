@@ -1,10 +1,10 @@
 Supervision labels
 ==================
 
-The three sources of LMNN class labels, all producing the same
-``cell_id, latitude, longitude, cluster_label`` table. Reached most easily through
-:func:`~climclusterpy.compute_supervision`; the generators below, all importable from
-``climclusterpy.supervision``, are exposed for finer control.
+LMNN class labels come from three sources, and all three produce the same
+``cell_id, latitude, longitude, cluster_label`` table. :func:`~climclusterpy.compute_supervision`
+is the easiest way to reach them. The generators below, all importable from
+``climclusterpy.supervision``, give finer control.
 
 .. py:module:: climclusterpy.supervision
 

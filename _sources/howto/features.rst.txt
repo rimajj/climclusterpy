@@ -4,19 +4,22 @@ Choose the features
 Every cell is described by a feature vector before it is clustered. The vector is built the
 same way for Euclidean and for learned distances. :func:`~climclusterpy.create_clusters`
 builds it from the climate and static input, standardizes it and removes redundant
-features; this page lists what goes in, what is removed, what happens when an input is
-missing, and how to use a different set. The paper describes the vector as monthly climate
+features. This page lists what goes in, what the package removes, what happens when an input
+is missing, and how to use a different set. The paper describes the vector as monthly climate
 and static properties (appendix "Definitions, tolerances and configuration").
 
 What is computed
 ----------------
 
-**Climate variables.** ``climate_variables`` selects them. The default is ``tas``
+Climate variables
+~~~~~~~~~~~~~~~~~
+
+``climate_variables`` selects the climate variables. The default is ``tas``
 (temperature), ``pr`` (precipitation), ``rsds`` and ``rlds`` (short- and long-wave
 radiation) and, only when the input has a humidity field, ``hurs``. With the generic input
 (``climate={name: path}``) the default is every declared climate field. A field is
 recognised as one of the five variables above by its name or its variable's name (for
-example ``temperature``, ``tas`` and ``t2m`` all give ``tas``; the recognised names are in :doc:`inputs`). ``"spei"`` is computed only when it is named.
+example ``temperature``, ``tas`` and ``t2m`` all give ``tas``; :doc:`inputs` lists the recognised names). The package computes ``"spei"`` only when you name it.
 
 Fixed summaries of the known variables, with the column names:
 
@@ -43,49 +46,58 @@ Fixed summaries of the known variables, with the column names:
 The ``_month_NN`` columns are the monthly climatology: the mean over all years of each
 calendar month, from monthly data or from daily data with dates.
 
-**Köppen–Geiger diagnostics.** When ``tas`` and ``pr`` both have their 12 monthly columns,
-eight further columns are added: ``kg_diag_T_cold``, ``kg_diag_T_warm``,
+Köppen–Geiger diagnostics
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
+When ``tas`` and ``pr`` both have their 12 monthly columns, the package adds eight further
+columns: ``kg_diag_T_cold``, ``kg_diag_T_warm``,
 ``kg_diag_P_dry_min``, ``kg_diag_P_wet_max``, ``kg_diag_P_dry_summer``,
 ``kg_diag_P_dry_winter``, ``kg_diag_P_seasonality_ratio`` and ``kg_diag_aridity_index``.
-They are the quantities of the Köppen–Geiger rules as continuous values.
+They hold the quantities of the Köppen–Geiger rules as continuous values.
 
-**Other climate variables** (a generic field that is none of the five). ``<name>_mean_annual``
-and ``<name>_std``, and, when a monthly climatology can be built (at least 12 time steps; daily
+Other climate variables
+~~~~~~~~~~~~~~~~~~~~~~~
+
+A generic field that is none of the five gets ``<name>_mean_annual``
+and ``<name>_std`` and, when a monthly climatology can be built (at least 12 time steps; daily
 data with dates, or monthly data covering whole years), ``<name>_seasonality`` (standard
 deviation of the 12 monthly values) and ``<name>_month_01`` … ``<name>_month_12``. With
 ``ClimateField(path, aggregation="sum")`` the annual column is ``<name>_sum_annual`` and
 daily values are summed to months; the default is the mean. A field without a time axis gives
-``<name>_mean`` and ``<name>_std``. The values stay in the field's own units; there is no
-unit conversion for these.
+``<name>_mean`` and ``<name>_std``. The values stay in the field's own units, because the package does not convert units for these fields.
 
-**Static fields.** A continuous field is one column under its own name. A categorical field
-is one-hot encoded, one 0/1 column ``<name>_<value>`` per class, so that class 5 is not
-"more" than class 2. With ``static={name: (path, kind)}`` the kind is the one given. For the
+Static fields
+~~~~~~~~~~~~~
+
+A continuous field gives one column under its own name. A categorical field is one-hot
+encoded into one 0/1 column ``<name>_<value>`` per class, so that class 5 is not "more" than
+class 2. With ``static={name: (path, kind)}``, the kind is the one you give. For the
 LPJmL-FIT layout the fields are ``soil_depth`` (continuous) and ``soil_code`` (categorical).
 
 Filtering
 ---------
 
-After the columns are built, three steps remove what carries no independent information
-(``correlation_threshold``, ``pca_variance_threshold``, ``pca_contrib_threshold`` of
-:func:`~climclusterpy.create_clusters`):
+After the package builds the columns, three steps remove what carries no independent
+information (``correlation_threshold``, ``pca_variance_threshold`` and
+``pca_contrib_threshold`` of :func:`~climclusterpy.create_clusters`):
 
-1. **Standardization.** Every column is scaled to mean 0 and standard deviation 1 across
+1. Standardization: the package scales every column to mean 0 and standard deviation 1 across
    cells, so units do not matter (apart from the thresholds of the Köppen–Geiger classes).
-2. **Correlation filter.** Where two columns have a Spearman correlation with absolute value
-   above ``correlation_threshold`` (default 0.9), the one with the larger mean absolute
-   correlation to all others is removed.
-3. **PCA filter.** A principal component analysis of the remaining columns finds the fewest
-   components that explain ``pca_variance_threshold`` of the variance (default 0.95); a column
-   whose normalized loading on these components is below ``pca_contrib_threshold`` (default
-   0.01) is removed. The data are not projected; the columns keep their meaning.
+2. Correlation filter: where two columns have a Spearman correlation with absolute value
+   above ``correlation_threshold`` (default 0.9), the package removes the one with the larger mean absolute
+   correlation to all others.
+3. PCA filter: a principal component analysis of the remaining columns finds the fewest
+   components that explain ``pca_variance_threshold`` of the variance (default 0.95). The
+   package removes a column whose normalized loading on these components is below
+   ``pca_contrib_threshold`` (default 0.01). It does not project the data, so the columns keep
+   their meaning.
 
-**Protected columns.** Columns whose names start with ``tas_month_``, ``pr_month_``,
-``kg_diag_``, ``soil_`` or ``eco_diag_`` skip steps 2 and 3. They are always kept. A static
-field with another name (for example ``elevation``) and the monthly columns of other
-variables are filtered like the rest.
+Columns whose names start with ``tas_month_``, ``pr_month_``, ``kg_diag_``, ``soil_`` or
+``eco_diag_`` are protected: they skip steps 2 and 3 and are always kept. The package filters
+a static field with another name (for example ``elevation``) and the monthly columns of other
+variables like the rest.
 
-The final set therefore depends on the data. Read it from the result:
+The final set therefore depends on the data. You can read it from the result:
 
 .. code-block:: python
 
@@ -97,8 +109,8 @@ With the four variables ``tas``, ``pr``, ``rsds`` and ``rlds`` and a soil code, 
 columns, the 8 ``kg_diag_`` columns and the soil columns are always present; the other
 summaries are present unless a filter removed them. The paper's global feature set of 25
 columns compresses the monthly columns by principal components, which
-:func:`~climclusterpy.create_clusters` does not do; its 24-monthly-column set corresponds to
-what ``create_clusters`` builds (see below for the compression).
+:func:`~climclusterpy.create_clusters` does not do. Its 24-monthly-column set corresponds to
+what ``create_clusters`` builds (the compression is described below).
 
 Missing inputs
 --------------
@@ -138,7 +150,10 @@ Missing inputs
 Use a different set
 -------------------
 
-**Other climate variables or thresholds.**
+Other climate variables or thresholds
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The following call changes the variables and the thresholds:
 
 .. code-block:: python
 
@@ -152,14 +167,17 @@ Use a different set
        n_clusters=500,
    )
 
-``climate_variables`` is checked: the names are the logical ones (``tas``) or, for a generic
-input, the field names you declared. A static field is dropped by not declaring it; its
-kind (continuous or categorical) is set in ``static=``. To switch a filter off, set
+The package checks ``climate_variables``: use the logical names (``tas``) or, for a generic
+input, the field names you declared. To drop a static field, do not declare it. You set its
+kind (continuous or categorical) in ``static=``. To switch a filter off, set
 ``correlation_threshold=1`` or ``pca_contrib_threshold=0``.
 
-**A fully custom feature table.** ``create_clusters`` builds its own table. To choose every
-column, build the table with the public building blocks and give it to
-:func:`~climclusterpy.cluster_matrix`, which returns the labels of the cells:
+A fully custom feature table
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+``create_clusters`` builds its own table. To choose every column, build the table with the
+public building blocks and pass it to :func:`~climclusterpy.cluster_matrix`, which returns
+the labels of the cells:
 
 .. code-block:: python
 
@@ -182,22 +200,26 @@ column, build the table with the public building blocks and give it to
    result.to_frame()          # cell_id, latitude, longitude, cluster_label
 
 ``cluster_matrix`` standardizes only with ``standardize=True`` (default ``False``), so
-standardize the columns first or pass that argument. Without ``feature_columns`` every numeric
-column of a DataFrame that is not ``cell_id``, ``latitude``, ``longitude``, ``lat``, ``lon``,
-``ecoregion_id`` or ``cluster_label`` is used. A learned distance works on such a table too:
+standardize the columns first or pass that argument. Without ``feature_columns``, it uses
+every numeric column of a DataFrame that is not ``cell_id``, ``latitude``, ``longitude``,
+``lat``, ``lon``, ``ecoregion_id`` or ``cluster_label``. A learned distance works on such a
+table too:
 ``cluster_matrix(table, n_clusters=500, feature_columns=cols, locally_weighted=True,
 supervision=sup)`` with ``sup`` from :func:`~climclusterpy.compute_supervision`, aligned
 row for row with the table (:doc:`clustering`).
 
 ``cluster_matrix`` writes no reduced grid. To get one from your labels, pass them to
 :func:`~climclusterpy.create_regions` as a label table (columns ``cell_id`` and
-``cluster_label``): it builds the grid, and with ``cell_selection="medoid"`` or
-``"centroid"`` computes the selected cells from its own default feature table, whereas
-``"random"`` and ``"distributed"`` need no features (:doc:`cell_selection`).
+``cluster_label``). It builds the grid and, with ``cell_selection="medoid"`` or
+``"centroid"``, computes the selected cells from its own default feature table. ``"random"``
+and ``"distributed"`` need no features (:doc:`cell_selection`).
 
-**Compressing the monthly columns.** :func:`~climclusterpy.features.apply_block_pca_compression`
-replaces the 12 ``tas_month_`` and the 12 ``pr_month_`` columns by whitened principal
-components (``tas_month_PC1`` …), as in the paper's global feature set; use it on the table above
-before ``cluster_matrix``. :func:`~climclusterpy.features.compute_all_ecology_diagnostic_features`
-adds thirteen ``eco_diag_`` columns (vapour pressure deficit, growing-degree days, water balance,
-dry spells) from the monthly columns; neither is applied by ``create_clusters``.
+Compressing the monthly columns
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+:func:`~climclusterpy.features.apply_block_pca_compression` replaces the 12 ``tas_month_``
+and the 12 ``pr_month_`` columns by whitened principal components (``tas_month_PC1`` ...), as
+in the paper's global feature set. Apply it to the table above before ``cluster_matrix``.
+:func:`~climclusterpy.features.compute_all_ecology_diagnostic_features` adds thirteen
+``eco_diag_`` columns (vapour pressure deficit, growing-degree days, water balance, dry
+spells) from the monthly columns. ``create_clusters`` applies neither.

@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Tutorial 3 — Supervision signals &mdash; climclusterpy 0.6</title>
+  <title>Tutorial 3: supervision signals &mdash; climclusterpy 0.6</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=f2cc2102" />
@@ -21,8 +21,8 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Tutorial 4 — Reconstruct the original grid" href="reconstruction.html" />
-    <link rel="prev" title="Tutorial 2 — LMNN metric-learning clustering" href="lmnn_clustering.html" /> 
+    <link rel="next" title="Tutorial 4: reconstruct the original grid" href="reconstruction.html" />
+    <link rel="prev" title="Tutorial 2: LMNN metric-learning clustering" href="lmnn_clustering.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -48,7 +48,7 @@
               <p class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">Tutorials</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="one_call_roundtrip.html">Tutorial 0 — the whole workflow in two calls</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="one_call_roundtrip.html">Tutorial 0: the whole workflow in two calls</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="one_call_roundtrip.html#build-the-reduced-grid">Build the reduced grid</a></li>
 <li class="toctree-l3"><a class="reference internal" href="one_call_roundtrip.html#rebuild-the-original-grid">Rebuild the original grid</a></li>
 <li class="toctree-l3"><a class="reference internal" href="one_call_roundtrip.html#the-script">The script</a></li>
@@ -56,7 +56,7 @@
 <li class="toctree-l3"><a class="reference internal" href="one_call_roundtrip.html#next-steps">Next steps</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="euclidean_clustering.html">Tutorial 1 — Euclidean clustering</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="euclidean_clustering.html">Tutorial 1: Euclidean clustering</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="euclidean_clustering.html#load-data-and-build-a-feature-matrix">Load data and build a feature matrix</a></li>
 <li class="toctree-l3"><a class="reference internal" href="euclidean_clustering.html#cluster">Cluster</a></li>
 <li class="toctree-l3"><a class="reference internal" href="euclidean_clustering.html#the-script">The script</a></li>
@@ -64,7 +64,7 @@
 <li class="toctree-l3"><a class="reference internal" href="euclidean_clustering.html#next-steps">Next steps</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="lmnn_clustering.html">Tutorial 2 — LMNN metric-learning clustering</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="lmnn_clustering.html">Tutorial 2: LMNN metric-learning clustering</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="lmnn_clustering.html#provide-a-supervision-signal">Provide a supervision signal</a></li>
 <li class="toctree-l3"><a class="reference internal" href="lmnn_clustering.html#learn-a-metric-and-cluster">Learn a metric and cluster</a></li>
 <li class="toctree-l3"><a class="reference internal" href="lmnn_clustering.html#the-script">The script</a></li>
@@ -72,7 +72,7 @@
 <li class="toctree-l3"><a class="reference internal" href="lmnn_clustering.html#next-steps">Next steps</a></li>
 </ul>
 </li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Tutorial 3 — Supervision signals</a><ul>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Tutorial 3: supervision signals</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#koppengeiger-from-monthly-climatology">Köppen–Geiger from monthly climatology</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#model-output-traits">Model output (traits)</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#the-script">The script</a></li>
@@ -80,7 +80,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#ecoregion-supervision">Ecoregion supervision</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="reconstruction.html">Tutorial 4 — Reconstruct the original grid</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="reconstruction.html">Tutorial 4: reconstruct the original grid</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="reconstruction.html#reconstruction">Reconstruction</a></li>
 <li class="toctree-l3"><a class="reference internal" href="reconstruction.html#check">Check</a></li>
 <li class="toctree-l3"><a class="reference internal" href="reconstruction.html#the-script">The script</a></li>
@@ -100,12 +100,12 @@
 <li class="toctree-l3"><a class="reference internal" href="../howto/install.html#geopandas-and-cartopy-with-conda">GeoPandas and Cartopy with conda</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../howto/install.html#pytorch-on-cpu-or-gpu">PyTorch on CPU or GPU</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../howto/install.html#environment-variables">Environment variables</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../howto/install.html#building-this-documentation">Building this documentation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/install.html#build-this-documentation">Build this documentation</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../howto/inputs.html">Prepare the input files</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../howto/inputs.html#describe-the-input">Describe the input</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../howto/inputs.html#what-the-climate-fields-are-used-for">What the climate fields are used for</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/inputs.html#how-the-package-uses-the-climate-fields">How the package uses the climate fields</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../howto/inputs.html#check-your-input-first">Check your input first</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../howto/inputs.html#grid-and-coordinates">Grid and coordinates</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../howto/inputs.html#the-time-axis">The time axis</a></li>
@@ -129,10 +129,10 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../howto/supervision.html">Build an LMNN supervision signal</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../howto/supervision.html#from-climate-koppengeiger">From climate — Köppen–Geiger</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../howto/supervision.html#from-model-output-traits">From model output — traits</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../howto/supervision.html#from-a-shapefile-ecoregions2017">From a shapefile — Ecoregions2017</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../howto/supervision.html#using-the-signal">Using the signal</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/supervision.html#from-climate-koppengeiger">From climate: Köppen–Geiger</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/supervision.html#from-model-output-traits">From model output: traits</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/supervision.html#from-a-shapefile-ecoregions2017">From a shapefile: Ecoregions2017</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../howto/supervision.html#use-the-signal">Use the signal</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../howto/supervision.html#in-one-call">In one call</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../howto/supervision.html#saved-results-are-reused-only-for-the-same-inputs">Saved results are reused only for the same inputs</a></li>
 </ul>
@@ -161,7 +161,7 @@
 <p class="caption" role="heading"><span class="caption-text">Reference</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../reference/index.html">Reference</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../reference/api.html">Public API — <code class="xref py py-mod docutils literal notranslate"><span class="pre">climclusterpy</span></code></a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../reference/api.html">Public API: <code class="xref py py-mod docutils literal notranslate"><span class="pre">climclusterpy</span></code></a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../reference/api.html#the-two-headline-functions">The two headline functions</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../reference/api.html#before-and-after-the-model-run">Before and after the model run</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../reference/api.html#describing-the-input">Describing the input</a></li>
@@ -216,7 +216,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../reference/cli.html#errors-and-exit-codes">Errors and exit codes</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../reference/index.html#which-function-do-i-need">Which function do I need?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/index.html#choose-a-function">Choose a function</a></li>
 </ul>
 </li>
 </ul>
@@ -230,14 +230,14 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../explanation/methods.html">Methods</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../explanation/methods.html#data-acquisition-and-preprocessing">Data Acquisition and Preprocessing</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../explanation/methods.html#ecoregion-assignment">Ecoregion Assignment</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../explanation/methods.html#ecological-feature-summarization">Ecological Feature Summarization</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../explanation/methods.html#feature-standardization-and-filtering">Feature Standardization and Filtering</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../explanation/methods.html#large-margin-nearest-neighbor-lmnn-metric-learning">Large Margin Nearest Neighbor (LMNN) Metric Learning</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../explanation/methods.html#hierarchical-clustering">Hierarchical Clustering</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../explanation/methods.html#cell-selection">Cell Selection</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../explanation/methods.html#the-reduced-grid">The Reduced Grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../explanation/methods.html#data-acquisition-and-preprocessing">Data acquisition and preprocessing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../explanation/methods.html#ecoregion-assignment">Ecoregion assignment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../explanation/methods.html#ecological-feature-summarization">Ecological feature summarization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../explanation/methods.html#feature-standardization-and-filtering">Feature standardization and filtering</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../explanation/methods.html#large-margin-nearest-neighbor-lmnn-metric-learning">Large margin nearest neighbor (LMNN) metric learning</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../explanation/methods.html#hierarchical-clustering">Hierarchical clustering</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../explanation/methods.html#cell-selection">Cell selection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../explanation/methods.html#the-reduced-grid">The reduced grid</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../explanation/methods.html#reconstruction">Reconstruction</a></li>
 </ul>
 </li>
@@ -260,7 +260,7 @@
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="index.html">Tutorials</a></li>
-      <li class="breadcrumb-item active">Tutorial 3 — Supervision signals</li>
+      <li class="breadcrumb-item active">Tutorial 3: supervision signals</li>
       <li class="wy-breadcrumbs-aside">
               <a href="https://gitlab.pik-potsdam.de/lpjmlfit_analysis/climclusterpy/blob/main/docs/src/tutorials/supervision.rst" class="fa fa-gitlab"> Edit on GitLab</a>
       </li>
@@ -271,16 +271,16 @@
            <div itemprop="articleBody">
              
   <section id="tutorial-3-supervision-signals">
-<h1>Tutorial 3 — Supervision signals<a class="headerlink" href="#tutorial-3-supervision-signals" title="Link to this heading"></a></h1>
+<h1>Tutorial 3: supervision signals<a class="headerlink" href="#tutorial-3-supervision-signals" title="Link to this heading"></a></h1>
 <p><a class="reference internal" href="../reference/api.html#climclusterpy.compute_supervision" title="climclusterpy.compute_supervision"><code class="xref py py-func docutils literal notranslate"><span class="pre">compute_supervision()</span></code></a> builds the per-cell class labels that LMNN learns
-from. This tutorial uses the two sources that run on small synthetic data, Köppen–Geiger
-classes (from climate) and model output (from traits). Ecoregions (a shapefile and the
-<code class="docutils literal notranslate"><span class="pre">[ecoregions]</span></code> extra) are outlined at the end.</p>
+from. This tutorial uses the two sources that run on small synthetic data: Köppen–Geiger
+classes (from climate) and model output (from traits). The last section outlines ecoregions,
+which need a shapefile and the <code class="docutils literal notranslate"><span class="pre">[ecoregions]</span></code> extra.</p>
 <section id="koppengeiger-from-monthly-climatology">
 <h2>Köppen–Geiger from monthly climatology<a class="headerlink" href="#koppengeiger-from-monthly-climatology" title="Link to this heading"></a></h2>
-<p>Köppen–Geiger classes are computed from a monthly-climatology feature table — 12 monthly
-temperature (°C) and precipitation (mm/month) columns per cell, plus <code class="docutils literal notranslate"><span class="pre">cell_id</span></code> /
-<code class="docutils literal notranslate"><span class="pre">latitude</span></code> / <code class="docutils literal notranslate"><span class="pre">longitude</span></code>. The helper builds that table from the synthetic series:</p>
+<p>The package computes Köppen–Geiger classes from a monthly-climatology feature table with 12
+monthly temperature (°C) and precipitation (mm/month) columns per cell, plus <code class="docutils literal notranslate"><span class="pre">cell_id</span></code>,
+<code class="docutils literal notranslate"><span class="pre">latitude</span></code> and <code class="docutils literal notranslate"><span class="pre">longitude</span></code>. The helper builds that table from the synthetic series:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">climclusterpy</span><span class="w"> </span><span class="kn">import</span> <span class="n">compute_supervision</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">_synthetic</span><span class="w"> </span><span class="kn">import</span> <span class="n">monthly_climatology_df</span>
 
@@ -294,8 +294,8 @@ temperature (°C) and precipitation (mm/month) columns per cell, plus <code clas
 <section id="model-output-traits">
 <h2>Model output (traits)<a class="headerlink" href="#model-output-traits" title="Link to this heading"></a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">kind=&quot;output&quot;</span></code> clusters cells by the similarity of simulated traits, given as a table with
-one row per cell. The trait columns are passed as <code class="docutils literal notranslate"><span class="pre">continuous_cols</span></code>, with the coordinates
-as parallel arrays:</p>
+one row per cell. Pass the trait columns as <code class="docutils literal notranslate"><span class="pre">continuous_cols</span></code> and the coordinates as
+parallel arrays:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">out</span> <span class="o">=</span> <span class="n">compute_supervision</span><span class="p">(</span>
     <span class="s2">"output"</span><span class="p">,</span>
     <span class="n">features_df</span><span class="o">=</span><span class="n">traits</span><span class="p">,</span>
@@ -308,9 +308,9 @@ as parallel arrays:</p>
 <span class="p">)</span>
 </pre></div>
 </div>
-<p>Each call returns a <a class="reference internal" href="../reference/api.html#climclusterpy.SupervisionResult" title="climclusterpy.SupervisionResult"><code class="xref py py-class docutils literal notranslate"><span class="pre">SupervisionResult</span></code></a> — <code class="docutils literal notranslate"><span class="pre">.labels</span></code> (the
-canonical <code class="docutils literal notranslate"><span class="pre">cell_id/latitude/longitude/cluster_label</span></code> table), <code class="docutils literal notranslate"><span class="pre">.labels_csv</span></code> (the CSV on
-disk), and <code class="docutils literal notranslate"><span class="pre">.y</span></code> / <code class="docutils literal notranslate"><span class="pre">.encoded_y</span></code> to feed <a class="reference internal" href="../reference/api.html#climclusterpy.cluster_matrix" title="climclusterpy.cluster_matrix"><code class="xref py py-func docutils literal notranslate"><span class="pre">cluster_matrix()</span></code></a>.</p>
+<p>Each call returns a <a class="reference internal" href="../reference/api.html#climclusterpy.SupervisionResult" title="climclusterpy.SupervisionResult"><code class="xref py py-class docutils literal notranslate"><span class="pre">SupervisionResult</span></code></a>. Its <code class="docutils literal notranslate"><span class="pre">.labels</span></code> is the
+canonical <code class="docutils literal notranslate"><span class="pre">cell_id/latitude/longitude/cluster_label</span></code> table, <code class="docutils literal notranslate"><span class="pre">.labels_csv</span></code> is the CSV on
+disk, and <code class="docutils literal notranslate"><span class="pre">.y</span></code> and <code class="docutils literal notranslate"><span class="pre">.encoded_y</span></code> go to <a class="reference internal" href="../reference/api.html#climclusterpy.cluster_matrix" title="climclusterpy.cluster_matrix"><code class="xref py py-func docutils literal notranslate"><span class="pre">cluster_matrix()</span></code></a>.</p>
 </section>
 <section id="the-script">
 <h2>The script<a class="headerlink" href="#the-script" title="Link to this heading"></a></h2>
@@ -407,8 +407,8 @@ disk), and <code class="docutils literal notranslate"><span class="pre">.y</span
 </section>
 <section id="ecoregion-supervision">
 <h2>Ecoregion supervision<a class="headerlink" href="#ecoregion-supervision" title="Link to this heading"></a></h2>
-<p>The third source assigns cells to WWF Ecoregions2017 polygons by spatial join. It needs
-the <code class="docutils literal notranslate"><span class="pre">[ecoregions]</span></code> extra and a shapefile, so it is not exercised on synthetic data:</p>
+<p>The third source assigns cells to WWF Ecoregions2017 polygons by a spatial join. It needs
+the <code class="docutils literal notranslate"><span class="pre">[ecoregions]</span></code> extra and a shapefile, so the tutorial does not run it on synthetic data:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sup</span> <span class="o">=</span> <span class="n">compute_supervision</span><span class="p">(</span>
     <span class="s2">"ecoregions"</span><span class="p">,</span>
     <span class="n">registry</span><span class="o">=</span><span class="n">registry</span><span class="p">,</span>
@@ -416,7 +416,7 @@ the <code class="docutils literal notranslate"><span class="pre">[ecoregions]</s
 <span class="p">)</span>
 </pre></div>
 </div>
-<p>See <a class="reference internal" href="../howto/supervision.html"><span class="doc">Build an LMNN supervision signal</span></a> for details and <a class="reference internal" href="lmnn_clustering.html"><span class="doc">Tutorial 2 — LMNN metric-learning clustering</span></a> to use the signal.</p>
+<p>See <a class="reference internal" href="../howto/supervision.html"><span class="doc">Build an LMNN supervision signal</span></a> for details and <a class="reference internal" href="lmnn_clustering.html"><span class="doc">Tutorial 2: LMNN metric-learning clustering</span></a> for how to use the signal.</p>
 </section>
 </section>
 
@@ -424,8 +424,8 @@ the <code class="docutils literal notranslate"><span class="pre">[ecoregions]</s
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="lmnn_clustering.html" class="btn btn-neutral float-left" title="Tutorial 2 — LMNN metric-learning clustering" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="reconstruction.html" class="btn btn-neutral float-right" title="Tutorial 4 — Reconstruct the original grid" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="lmnn_clustering.html" class="btn btn-neutral float-left" title="Tutorial 2: LMNN metric-learning clustering" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="reconstruction.html" class="btn btn-neutral float-right" title="Tutorial 4: reconstruct the original grid" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

@@ -1,28 +1,28 @@
 Reference
 =========
 
-Technical reference for the ``climclusterpy`` public API and command-line interface,
-generated from the source.
+This reference documents the public API and the command-line interface of ``climclusterpy``.
+It is generated from the source.
 
-Start with :doc:`api`: the two headline functions
+:doc:`api` comes first. It covers the two headline functions
 (:func:`~climclusterpy.create_clusters`, :func:`~climclusterpy.reconstruct_original_grid`),
 the functions around a long model run (:func:`~climclusterpy.check_inputs`,
 :func:`~climclusterpy.load_clusters`), two other ways to build the reduced grid
 (:func:`~climclusterpy.create_regions`, :func:`~climclusterpy.draw_cells`), two building
-blocks for driving the steps yourself (:func:`~climclusterpy.cluster_matrix`,
+blocks for running the steps yourself (:func:`~climclusterpy.cluster_matrix`,
 :func:`~climclusterpy.compute_supervision`) and the result objects they return. The
-remaining pages document the lower-level functions those are built on — data loading and
+remaining pages document the lower-level functions that these build on (data loading and
 coordinates, timeseries, file input/output, plotting, features, clustering, supervision
-labels, grid building and reconstruction — and the ``climclu`` command line.
+labels, grid building and reconstruction) and the ``climclu`` command line.
 
-**What is public.** What ``climclusterpy`` itself lists in ``__all__``, and what each of its
-concept packages — ``climclusterpy.data``, ``.features``, ``.supervision``, ``.clustering``,
-``.clustering.lmnn``, ``.grid``, ``.timeseries``, ``.io``, ``.preprocessing``, ``.viz`` —
-lists in its own ``__all__``: ``from climclusterpy.features import
-remove_correlated_features``. The modules inside those packages
-(``climclusterpy.features.filtering``, ``climclusterpy.clustering.lmnn.local``,
-``climclusterpy.api``, …) are internal and may move between releases. The pages below name
-every function by its public path.
+The public names are those that ``climclusterpy`` itself lists in ``__all__`` and those that
+each of its concept packages lists in its own ``__all__``. The concept packages are
+``climclusterpy.data``, ``.features``, ``.supervision``, ``.clustering``,
+``.clustering.lmnn``, ``.grid``, ``.timeseries``, ``.io``, ``.preprocessing`` and ``.viz``.
+An example import is ``from climclusterpy.features import remove_correlated_features``. The
+modules inside those packages (``climclusterpy.features.filtering``,
+``climclusterpy.clustering.lmnn.local``, ``climclusterpy.api``, ...) are internal and can
+move between releases. The pages below name every function by its public path.
 
 .. toctree::
    :maxdepth: 2
@@ -35,10 +35,10 @@ every function by its public path.
    grid
    cli
 
-Which function do I need?
--------------------------
+Choose a function
+-----------------
 
-Several functions do similar-sounding things. This table says which is which.
+Several functions do similar things. The tables below show which function to use.
 
 .. list-table:: Making the partition
    :header-rows: 1
@@ -49,12 +49,12 @@ Several functions do similar-sounding things. This table says which is which.
    * - :func:`~climclusterpy.create_clusters`
      - You have climate and soil input files and want a model-ready reduced grid. It builds
        the features, optionally learns a distance, clusters, picks the simulated cells and
-       writes everything. **The usual starting point.**
+       writes everything. This is the usual starting point.
    * - :func:`~climclusterpy.create_regions`
      - You already have a map to use as the partition (Köppen–Geiger classes computed from
-       your climate, an ecoregion shapefile, your own label table). Same output as
-       :func:`~climclusterpy.create_clusters`, but no distance is learned and nothing is
-       clustered; the number of regions is whatever the map contains.
+       your climate, an ecoregion shapefile, your own label table). It gives the same output as
+       :func:`~climclusterpy.create_clusters`, but it learns no distance and clusters nothing.
+       The number of regions is whatever the map contains.
    * - :func:`~climclusterpy.cluster_matrix`
      - You have your own per-cell feature matrix and only want cluster labels. It writes no
        grid and reads no input files.
@@ -66,7 +66,7 @@ Several functions do similar-sounding things. This table says which is which.
    * - Function
      - Use it when
    * - :func:`~climclusterpy.build_reduced_grid`
-     - **Recommended.** You have a per-cluster timeseries dataset and want the reduced grid
+     - Recommended. You have a per-cluster timeseries dataset and want the reduced grid
        written with every cell at the coordinates of the cell whose climate it carries, on
        the source grid's own lattice, checked after writing.
    * - :func:`~climclusterpy.grid.create_native_grid_from_dataset`
@@ -121,10 +121,10 @@ Several functions do similar-sounding things. This table says which is which.
    * - Function
      - Use it when
    * - :func:`~climclusterpy.reconstruct_original_grid`
-     - **The usual call.** You have the result of :func:`~climclusterpy.create_clusters`
+     - The usual call. You have the result of :func:`~climclusterpy.create_clusters`
        (or its output folder, via :func:`~climclusterpy.load_clusters`) and one or more
-       model-output files; it finds every mapping file itself and writes one reconstructed
-       NetCDF per input.
+       model-output files. The function finds every mapping file itself and writes one
+       reconstructed NetCDF per input.
    * - :func:`~climclusterpy.reconstruct_original_grid` with ``registry=``,
        ``id_mapping_csv=`` and ``compact_map_csv=``
      - You have no result object or run folder, only the mapping CSVs and a grid

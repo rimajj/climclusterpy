@@ -1,18 +1,18 @@
-Tutorial 2 — LMNN metric-learning clustering
-============================================
+Tutorial 2: LMNN metric-learning clustering
+===========================================
 
-This tutorial clusters the same synthetic grid with ``locally_weighted=True``: a distance
-is learned from a supervision signal before clustering, so that cells of the same supervision
-class are grouped together. It needs PyTorch (``pip install climclusterpy``, or
+This tutorial clusters the same synthetic grid with ``locally_weighted=True``. The package
+learns a distance from a supervision signal before clustering, so that cells of the same
+supervision class are grouped together. It needs PyTorch (``pip install climclusterpy``, or
 ``pip install 'climclusterpy-base[lmnn]'``); without it the script prints an install hint and
 exits.
 
 Provide a supervision signal
 ----------------------------
 
-LMNN needs a per-cell class label aligned row-for-row with the features. For real data it
-comes from :func:`~climclusterpy.compute_supervision` (see
-:doc:`supervision`). Here, three latitude bands are derived from the cell metadata:
+LMNN needs a per-cell class label aligned row by row with the features. For real data, the
+label comes from :func:`~climclusterpy.compute_supervision` (see :doc:`supervision`). Here,
+the example derives three latitude bands from the cell metadata:
 
 .. code-block:: python
 
@@ -24,8 +24,9 @@ comes from :func:`~climclusterpy.compute_supervision` (see
 Learn a metric and cluster
 --------------------------
 
-``locally_weighted=True`` with the supervision labels learns a distance, then clusters under
-it. This example uses the global (linear) Mahalanobis metric, the quickest to train:
+With ``locally_weighted=True`` and the supervision labels, the package learns a distance and
+then clusters under it. This example uses the global (linear) Mahalanobis metric, which is the
+quickest to train:
 
 .. code-block:: python
 
@@ -37,9 +38,9 @@ it. This example uses the global (linear) Mahalanobis metric, the quickest to tr
    )
    result.diagnostics       # LMNN training info
 
-Without ``lmnn_mode`` the default ``"lowrank"`` is used: a low-rank metric for every cell,
-as in the paper. ``"diagonal"`` is the same trainer with a diagonal per-cell metric; see
-:doc:`../explanation/methods`.
+Without ``lmnn_mode``, the package uses the default ``"lowrank"``: a low-rank metric for every
+cell, as in the paper. ``"diagonal"`` is the same trainer with a diagonal per-cell metric;
+see :doc:`../explanation/methods`.
 
 The script
 ----------
@@ -63,5 +64,5 @@ Run it
 Next steps
 ----------
 
-* Build a real supervision signal (Köppen–Geiger / output / ecoregions): :doc:`supervision`.
-* The metric learning: :doc:`../explanation/methods`.
+* Build a real supervision signal (Köppen–Geiger, output or ecoregions): :doc:`supervision`.
+* Read about the metric learning: :doc:`../explanation/methods`.

@@ -1,12 +1,12 @@
 Tutorials
 =========
 
-Start with :doc:`one_call_roundtrip`, which does the whole workflow (reduce a grid, run a
-model on it, rebuild the original) in two function calls. The other tutorials each take one
-building block, for driving the steps yourself.
+Start with :doc:`one_call_roundtrip`, which covers the whole workflow (reduce a grid, run a
+model on it, rebuild the original) in two function calls. The other tutorials each cover one
+building block, for when you want to run the steps yourself.
 
 Every tutorial runs on small synthetic climate and static-field data built in memory, with
-the base install (the learned-distance tutorial also needs PyTorch, ``[lmnn]``). The script
+the base install. The learned-distance tutorial also needs PyTorch (``[lmnn]``). The script
 of each tutorial is in ``examples/`` and is embedded in the tutorial.
 
 .. toctree::
@@ -21,7 +21,7 @@ of each tutorial is in ``examples/`` and is embedded in the tutorial.
 Synthetic data
 --------------
 
-The examples share a helper, ``examples/_synthetic.py``, that writes small climate and soil
+The examples share a helper, ``examples/_synthetic.py``. It writes small climate and soil
 NetCDF files on a regular 8×8 grid, loads them as the package loads real data (via
 :func:`~climclusterpy.data.create_test_data`) and derives a per-cell feature matrix. For real
-data the feature matrix comes from :func:`~climclusterpy.features.summarize_climate_features`.
+data, :func:`~climclusterpy.features.summarize_climate_features` builds the feature matrix.

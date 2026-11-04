@@ -1,8 +1,8 @@
 How-to guides
 =============
 
-Task-oriented recipes for people who already know what they want to do. New to the
-package? Start with the :doc:`../tutorials/index` instead.
+These recipes each cover one task and assume that you know what you want to do. If you are
+new to the package, start with the :doc:`../tutorials/index`.
 
 .. toctree::
    :maxdepth: 2

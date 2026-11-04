@@ -1,16 +1,15 @@
-Tutorial 0 — the whole workflow in two calls
-============================================
+Tutorial 0: the whole workflow in two calls
+===========================================
+
 
 This tutorial reduces a climate grid to *K* groups, takes the output of a (synthetic) model
-run on the reduced grid, and rebuilds the original grid from it. Two function calls, base
-install only.
+run on the reduced grid and rebuilds the original grid from it. It needs two function calls
+and the base install only.
 
-Running a land-surface model on a full global grid is expensive. When cells are grouped by
-similarity, the model needs to be run on one cell per group only (or a few; see
+Running a land-surface model on a full global grid is expensive. When you group cells by
+similarity, you need to run the model on only one cell per group, or a few (see
 :doc:`../howto/cell_selection`), and every original cell then receives the output simulated
-for its group.
-
-``climclusterpy`` provides the two ends of that:
+for its group. ``climclusterpy`` provides the two ends of this workflow:
 
 .. code-block:: python
 
@@ -29,8 +28,8 @@ Build the reduced grid
 
 :func:`~climclusterpy.create_clusters` takes the climate fields by name (``climate=``,
 each a NetCDF with a time axis) and any static fields (``static=``, each declared
-categorical or continuous; :doc:`../howto/inputs` lists the other ways to describe the
-input). It then:
+categorical or continuous). :doc:`../howto/inputs` lists the other ways to describe the
+input. The function then:
 
 1. loads the input and builds the registry of valid cells;
 2. summarizes each cell into ecological features (annual means, seasonality, Köppen
@@ -60,9 +59,9 @@ input). It then:
 Learned distance
 ~~~~~~~~~~~~~~~~
 
-The Euclidean distance weights all features equally. ``locally_weighted=True`` learns a
-distance first, so that the directions in feature space that separate ecologically different
-cells count for more (needs the ``[lmnn]`` extra):
+The Euclidean distance weights all features equally. With ``locally_weighted=True``, the
+package first learns a distance, so that the directions in feature space that separate
+ecologically different cells count for more. This needs the ``[lmnn]`` extra:
 
 .. code-block:: python
 
@@ -74,19 +73,20 @@ cells count for more (needs the ``[lmnn]`` extra):
        supervision=["sla", "wooddens", "height", "biomass"],
    )
 
-``supervision_data`` may be a directory of per-trait NetCDFs or a prepared per-cell CSV;
-the form is detected automatically. Without ``supervision_data``, Köppen–Geiger classes are
-computed from the climate input, so the learned distance needs no extra data.
+``supervision_data`` can be a directory of per-trait NetCDFs or a prepared per-cell CSV, and
+the package detects the form automatically. Without ``supervision_data``, the package
+computes Köppen–Geiger classes from the climate input, so the learned distance needs no
+extra data.
 
-With a learned metric available, the cell simulated for each group defaults to its **medoid**
-(the member with the smallest total distance to the others, measured in that metric) rather
-than the member nearest the cluster mean.
+With a learned metric, the cell simulated for each group defaults to its medoid (the member
+with the smallest total distance to the others, measured in that metric) instead of the
+member nearest the cluster mean.
 
 Rebuild the original grid
 -------------------------
 
 :func:`~climclusterpy.reconstruct_original_grid` takes the model output and the ``clusters``
-object, which carries the registry and both mapping CSVs:
+object, which holds the registry and both mapping CSVs:
 
 .. code-block:: python
 
@@ -94,9 +94,9 @@ object, which carries the registry and both mapping CSVs:
    full.path      # the reconstructed NetCDF
    full.files     # {source: reconstructed} for every input
 
-It accepts a single file, a list or a directory of model output. Cells are matched by group
-label, not by coordinate; cells outside the valid mask stay ``NaN``. How this is checked is
-described in :ref:`reconstruction-check`.
+It accepts a single file, a list or a directory of model output. It matches cells by group
+label, not by coordinate, and cells outside the valid mask stay ``NaN``.
+:ref:`reconstruction-check` describes how the package checks the result.
 
 The script
 ----------
@@ -122,10 +122,10 @@ Run it
 Next steps
 ----------
 
-* Prepare your own input files, and see what a run writes: :doc:`../howto/inputs`.
+* Prepare your own input files and see what a run writes: :doc:`../howto/inputs`.
 * Reconstruct in a later session, after a model run of several days:
   :doc:`../howto/reconstruct`.
-* Drive the steps yourself with the building blocks: :doc:`euclidean_clustering`,
+* Run the steps yourself with the building blocks: :doc:`euclidean_clustering`,
   :doc:`lmnn_clustering`, :doc:`supervision`, :doc:`reconstruction`.
 * Choose a mode and tune it: :doc:`../howto/clustering`.
 * The methods: :doc:`../explanation/methods`.

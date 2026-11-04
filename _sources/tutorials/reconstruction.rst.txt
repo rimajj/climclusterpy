@@ -1,7 +1,7 @@
-Tutorial 4 — Reconstruct the original grid
-==========================================
+Tutorial 4: reconstruct the original grid
+=========================================
 
-This tutorial runs the reconstruction on synthetic data: it clusters the cells, writes a
+This tutorial runs the reconstruction on synthetic data. It clusters the cells, writes a
 synthetic "model output" NetCDF on the reduced grid together with the two mapping CSVs,
 reconstructs the output onto every original cell and verifies that each cell received the
 value of its group.
@@ -16,9 +16,9 @@ NetCDF laid out as one latitude row with one longitude column per group, plus:
 * ``cluster_compact_map_{K}.csv``: each group's ``lat_index`` and column span on the
   reduced grid.
 
-:func:`~climclusterpy.reconstruct_original_grid` consumes both, with the grid description,
-and writes the reconstructed grid. Without a :func:`~climclusterpy.create_clusters` result,
-the three are passed explicitly:
+:func:`~climclusterpy.reconstruct_original_grid` reads both files, together with the grid
+description, and writes the reconstructed grid. Without a
+:func:`~climclusterpy.create_clusters` result, you pass the three explicitly:
 
 .. code-block:: python
 
@@ -66,4 +66,4 @@ Next steps
 ----------
 
 * Which mapping files each reconstruction path needs: :doc:`../howto/reconstruct`.
-* What is checked and how: :ref:`reconstruction-check`.
+* What the package checks and how: :ref:`reconstruction-check`.

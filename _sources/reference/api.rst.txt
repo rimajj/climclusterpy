@@ -1,17 +1,17 @@
-Public API — :mod:`climclusterpy`
-=================================
+Public API: :mod:`climclusterpy`
+================================
 
 .. py:module:: climclusterpy
 
-The whole package in a few calls: shrink a grid (:func:`create_clusters`), run your
-vegetation model on the small one, and get the full grid back
-(:func:`reconstruct_original_grid`). Everything on this page is imported from the
+A few calls cover the whole workflow: reduce a grid (:func:`create_clusters`), run your
+vegetation model on the small one, and rebuild the full grid
+(:func:`reconstruct_original_grid`). You import everything on this page from the
 package itself::
 
    from climclusterpy import create_clusters, reconstruct_original_grid
 
-Heavy or optional dependencies (``torch`` for metric learning, ``geopandas`` for
-ecoregions, ``pyet`` for SPEI) are imported inside the functions that use them, so
+The functions that use heavy or optional dependencies (``torch`` for metric learning,
+``geopandas`` for ecoregions, ``pyet`` for SPEI) import them when called, so
 ``import climclusterpy`` works on the core install.
 
 .. currentmodule:: climclusterpy
@@ -19,8 +19,8 @@ ecoregions, ``pyet`` for SPEI) are imported inside the functions that use them, 
 The two headline functions
 --------------------------
 
-Between them these cover the full workflow: reduce the grid, run your model, rebuild
-the original resolution.
+Together these two functions cover the full workflow: reduce the grid, run your model and
+rebuild the original resolution.
 
 .. autofunction:: create_clusters
 
@@ -29,8 +29,8 @@ the original resolution.
 Before and after the model run
 ------------------------------
 
-Check the input before a long run, and get a finished run back in a later session —
-the model run in between usually takes days.
+Check the input before a long run, and restore a finished run in a later session. The
+model run in between usually takes days.
 
 .. autofunction:: check_inputs
 
@@ -42,10 +42,10 @@ the model run in between usually takes days.
 Describing the input
 --------------------
 
-Any named climate and static fields and any land mask or cell list. Give them to
-:func:`create_clusters`, :func:`create_regions` or :func:`check_inputs` directly as
-``climate=``, ``static=``, ``land_mask=`` and ``grid=``, or build them first as a
-:class:`GenericInputs` and pass that (see :doc:`../howto/inputs`). The LPJmL-FIT file
+The package accepts any named climate and static fields and any land mask or cell list.
+Pass them to :func:`create_clusters`, :func:`create_regions` or :func:`check_inputs`
+directly as ``climate=``, ``static=``, ``land_mask=`` and ``grid=``, or build them first
+as a :class:`GenericInputs` and pass that (see :doc:`../howto/inputs`). The LPJmL-FIT file
 layout has its own preset, :class:`~climclusterpy.data.DataPaths`.
 
 .. autoclass:: GenericInputs
@@ -58,8 +58,8 @@ Other ways to build the reduced grid
 ------------------------------------
 
 :func:`create_regions` uses a map you already have as the partition instead of
-clustering. :func:`draw_cells` makes the random cell draw of
-``cell_selection="random"`` / ``"distributed"`` on its own, without building a grid.
+clustering. :func:`draw_cells` makes the random cell draw of ``cell_selection="random"``
+and ``"distributed"`` on its own, without building a grid.
 :func:`create_regions` returns the same result object as :func:`create_clusters`, so
 :func:`reconstruct_original_grid` works on it unchanged; :func:`draw_cells` returns the
 table that result carries as ``selected_cells``.
@@ -72,10 +72,10 @@ Reusing a trained metric
 ------------------------
 
 Every metric :func:`create_clusters` trains is saved to ``<output_dir>/learned_metric``.
-:func:`load_metric` reads it back -- or a ``model.pth`` from an earlier research run -- and
-``create_clusters(learned_metric=...)`` / ``cluster_matrix(learned_metric=...)`` cluster under it
-without training again. On the published global metric this reproduces the deployed labels
-exactly, at every number of clusters.
+:func:`load_metric` reads it back, or reads a ``model.pth`` from an earlier research run.
+``create_clusters(learned_metric=...)`` and ``cluster_matrix(learned_metric=...)`` then
+cluster under it without training again. On the published global metric, this reproduces
+the deployed labels exactly, at every number of clusters.
 
 .. autofunction:: load_metric
 
@@ -86,11 +86,11 @@ The model's other inputs
 ------------------------
 
 The reduced grid carries the fields it was clustered on. :func:`subset_inputs` brings every
-other input the model opens onto it -- NetCDF, or LPJmL ``.clm``/``.clm.json``/raw -- with each
-cell holding its source cell's values. LPJmL binaries are read by position, so their cells are
-matched by coordinate in the full run's grid file (:func:`cell_index_in_grid`): the package's
-cell order and that of LPJmL's global grid files differ, and a positional join between them is
-silently wrong. :attr:`CreateClustersResult.slot_sources` lists, for every written cell, where it
+other input that the model opens onto the reduced grid (NetCDF, or LPJmL
+``.clm``/``.clm.json``/raw), with each cell holding its source cell's values. LPJmL binaries
+are read by position, so the function matches their cells by coordinate in the full run's
+grid file (:func:`cell_index_in_grid`). The package's cell order and that of LPJmL's global
+grid files differ, and a positional join between them is silently wrong. :attr:`CreateClustersResult.slot_sources` lists, for every written cell, where it
 sits and whose data it carries.
 
 .. autofunction:: subset_inputs
@@ -101,20 +101,20 @@ are documented with the other file helpers on :doc:`toplevel`.
 Writing the reduced grid yourself
 ---------------------------------
 
-When you build the per-cluster timeseries yourself,
+If you build the per-cluster timeseries yourself,
 :func:`~climclusterpy.grid.build_reduced_grid` (also importable as
 ``climclusterpy.build_reduced_grid``) writes the model-ready grid with every cell at the
-coordinates of the cell whose climate it carries, and
-:func:`~climclusterpy.io.convert_netcdf_to_clm` (``climclusterpy.convert_netcdf_to_clm``)
-turns it into LPJmL's ``.clm`` binaries after
+coordinates of the cell whose climate it carries. After
 :func:`~climclusterpy.io.assert_uniform_axes` (``climclusterpy.assert_uniform_axes``) has
-checked it. All three, and the placement step's relatives, are documented on :doc:`grid`.
+checked the grid, :func:`~climclusterpy.io.convert_netcdf_to_clm`
+(``climclusterpy.convert_netcdf_to_clm``) turns it into LPJmL's ``.clm`` binaries. :doc:`grid`
+documents all three functions and the related placement functions.
 
 Building blocks
 ---------------
 
-For driving the steps yourself — a feature matrix you built, or a label signal on its
-own. A reconstruction from mapping CSVs you already have is
+These functions run single steps: clustering a feature matrix that you built, or building a
+label signal on its own. To reconstruct from mapping CSVs that you already have, call
 :func:`reconstruct_original_grid` with ``registry=``, ``id_mapping_csv=`` and
 ``compact_map_csv=`` instead of ``clusters=``.
 

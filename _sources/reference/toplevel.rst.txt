@@ -1,10 +1,10 @@
 Data, timeseries, I/O & plotting
 ================================
 
-The lower-level building blocks outside clustering and grid building: data loading and
-the grid registry, per-cluster timeseries, file input/output, preprocessing and the
-plotting helpers. Each is importable from its package (``climclusterpy.data``,
-``climclusterpy.timeseries``, ...); the grid descriptions are also importable from
+This page covers the lower-level building blocks outside clustering and grid building: data
+loading and the grid registry, per-cluster timeseries, file input/output, preprocessing and
+the plotting helpers. You import each from its package (``climclusterpy.data``,
+``climclusterpy.timeseries``, ...), and the grid descriptions are also importable from
 ``climclusterpy`` itself. All of it runs on the core install, except the map plots, which
 need the ``[viz]`` extra.
 
@@ -14,15 +14,15 @@ Data loading & the grid registry
 .. py:module:: climclusterpy.data
 
 A :class:`~climclusterpy.data.DataRegistry` describes the original grid: its coordinates,
-which cells exist and their ``cell_id``. You rarely build one
-yourself — :func:`~climclusterpy.create_clusters` makes it and saves it as
-``original_grid.nc`` in the output folder. When a function asks for one, use
+which cells exist and their ``cell_id``. You rarely build one yourself, because
+:func:`~climclusterpy.create_clusters` makes it and saves it as ``original_grid.nc`` in the
+output folder. When a function asks for one, call
 :meth:`DataRegistry.load(path) <climclusterpy.data.DataRegistry.load>` on that file, or
 rebuild it from what defined the cells:
 :meth:`~climclusterpy.data.DataRegistry.from_mask` (a land mask),
 :meth:`~climclusterpy.data.DataRegistry.from_cell_list` (a cell list), or
 :meth:`~climclusterpy.data.DataRegistry.from_soil_code` (the soil code of the LPJmL-FIT
-layout); each gives the same ``cell_id`` for every cell as the run did.
+layout). Each gives every cell the same ``cell_id`` as the run did.
 
 :class:`~climclusterpy.data.DataPaths` and
 :func:`~climclusterpy.data.load_climate_and_soil_data` are the LPJmL-FIT file layout and its
@@ -58,8 +58,8 @@ How much the package reports
 Coordinates
 -----------
 
-Coordinates are rounded to 5 decimals and stored as 32-bit floats everywhere in the
-package, so that the same cell always compares equal. Use these before joining your own
+The package rounds coordinates to 5 decimals and stores them as 32-bit floats everywhere,
+so that the same cell always compares equal. Use these functions before you join your own
 tables or datasets to the package's output.
 
 .. autodata:: climclusterpy.data.COORD_PRECISION
@@ -113,8 +113,8 @@ NetCDF:
 
 .. autofunction:: climclusterpy.io.inspect_structure
 
-LPJmL grid files (cutting the model's other inputs to the reduced grid is
-:func:`~climclusterpy.subset_inputs`; the ``.clm`` conversion is on :doc:`grid`):
+LPJmL grid files (:func:`~climclusterpy.subset_inputs` cuts the model's other inputs to the
+reduced grid, and the ``.clm`` conversion is on :doc:`grid`):
 
 .. autofunction:: climclusterpy.io.read_lpjml_grid
 

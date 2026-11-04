@@ -1,55 +1,55 @@
 Methods
 =======
 
-The algorithms and data transformations implemented in ``climclusterpy``, in the order in
-which a run applies them, followed by the reduced grid and the check that a reconstruction is
-correct.
+This page describes the algorithms and data transformations that ``climclusterpy``
+implements, in the order in which a run applies them. It ends with the reduced grid and the
+check that a reconstruction is correct.
 
-Data Acquisition and Preprocessing
------------------------------------
+Data acquisition and preprocessing
+----------------------------------
 
-Climate and Static-Field Loading
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Climate and static-field loading
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-NetCDF input is read by :mod:`climclusterpy.data.loader` (the fixed LPJmL-FIT file layout)
+The package reads NetCDF input with :mod:`climclusterpy.data.loader` (the fixed LPJmL-FIT file layout)
 and :mod:`climclusterpy.data.generic_input` (any named climate and static fields). Both
 share the characteristics below, and both align every field to one grid that the land mask
 or cell list defines.
 
-**Chunked Processing**
+Chunked processing:
 
-Climate datasets are loaded using Dask with configurable chunk sizes (default 500 time steps):
+The package loads climate datasets with Dask in chunks of configurable size (default 500 time steps):
 
 .. code-block:: python
 
    ds = xr.open_dataset(path, chunks={"time": 500})
 
-This enables:
+Chunking allows:
 
-* Parallel computation across chunks
-* Memory-efficient processing of large datasets (>10 GB)
-* Lazy evaluation of array operations
+* parallel computation across chunks,
+* memory-efficient processing of large datasets (>10 GB) and
+* lazy evaluation of array operations.
 
-**Memory Optimization**
+Memory optimization:
 
-All float64 data variables are automatically converted to float32:
+The package converts all float64 data variables to float32:
 
 .. math::
 
    \text{Memory}_{\text{optimized}} = 0.5 \times \text{Memory}_{\text{original}}
 
-This transformation preserves sufficient numerical precision (7 significant digits) for climate data while halving memory consumption.
+This conversion keeps 7 significant digits, which is enough for climate data, and halves memory consumption.
 
-**Coordinate Standardization**
+Coordinate standardization:
 
-Latitude and longitude coordinates are:
+The package processes latitude and longitude coordinates in three steps:
 
-1. Canonicalized to standard names (``latitude``, ``longitude``)
-2. Rounded to 5 decimal places (:math:`10^{-5}` degrees ≈ 1.1 m spatial resolution)
-3. Validated for grid compatibility across datasets
+1. It renames them to the standard names ``latitude`` and ``longitude``.
+2. It rounds them to 5 decimal places (:math:`10^{-5}` degrees ≈ 1.1 m spatial resolution).
+3. It validates grid compatibility across datasets.
 
-Variable names are resolved through these synonyms (a file with a single data variable is
-used whatever the variable is called):
+The package resolves variable names through these synonyms (it uses a file with a single
+data variable whatever the variable is called):
 
 .. code-block:: text
 
@@ -58,9 +58,9 @@ used whatever the variable is called):
    radiation: SWR, rsds, SWdown, swdown, LWR, rlds, LWdown
    humidity: hurs, humid, rh, relative_humidity
 
-**Grid Compatibility Validation**
+Grid compatibility validation:
 
-The ``climclusterpy.data.coords.check_grid_compatibility()`` function ensures spatial alignment:
+The ``climclusterpy.data.coords.check_grid_compatibility()`` function checks spatial alignment:
 
 .. math::
 
@@ -68,16 +68,16 @@ The ``climclusterpy.data.coords.check_grid_compatibility()`` function ensures sp
 
 where :math:`\epsilon = 10^{-5}` degrees, i.e. the coordinates must be identical after rounding
 to 5 decimals. A climate input that is not on the grid of the land mask (or cell list, or
-first field) is an error, not regridded: regrid it before loading. Static fields may sit on a
-slightly different grid and are then mapped onto the reference grid by nearest neighbour,
-with a warning.
+first field) raises an error and is not regridded, so regrid it before loading. Static fields
+can sit on a slightly different grid, and the package then maps them onto the reference grid
+by nearest neighbour and warns.
 
-Data Registry
+Data registry
 ~~~~~~~~~~~~~
 
-The :class:`climclusterpy.data.DataRegistry` manages spatial grids and valid cell identification.
+The :class:`climclusterpy.data.DataRegistry` manages spatial grids and identifies valid cells.
 
-**Valid Cell Identification**
+Valid cell identification:
 
 A boolean mask :math:`\mathbf{M} \in \{0,1\}^{n_{\text{lat}} \times n_{\text{lon}}}` identifies valid cells.
 It is built from whatever defines the model's cells: a land-mask file (non-zero and not
@@ -91,13 +91,13 @@ For the LPJmL-FIT file layout the mask is the soil code:
    0 & \text{otherwise}
    \end{cases}
 
-Missing values in a mask file or soil code are detected hierarchically:
+The package detects missing values in a mask file or soil code in this order:
 
 1. NetCDF encoding attributes (``_FillValue``, ``missing_value``)
 2. Common integer sentinels, when neither attribute is set: :math:`-9999, -999, 9999, -32768, -10^6`
 3. NaN values in floating-point arrays
 
-**Flattening Operation**
+Flattening operation:
 
 The :meth:`climclusterpy.data.DataRegistry.flatten_on_valid` method projects multi-dimensional arrays onto the 1D valid cell space:
 
@@ -107,18 +107,16 @@ The :meth:`climclusterpy.data.DataRegistry.flatten_on_valid` method projects mul
 
 where :math:`n_{\text{valid}} = \sum_{i,j} M_{ij}`.
 
-This operation:
+This operation reduces memory by dropping invalid cells (ocean, missing data), speeds up
+computation by working on contiguous arrays, and keeps the spatial correspondence through the
+registry's ID mapping.
 
-* Reduces memory by eliminating invalid cells (ocean, missing data)
-* Accelerates computation by operating on contiguous arrays
-* Maintains spatial correspondence through the registry's ID mapping
-
-Ecoregion Assignment
+Ecoregion assignment
 --------------------
 
 The :mod:`climclusterpy.supervision.ecoregions` module assigns grid cells to ecological regions through spatial intersection.
 
-**Spatial Join Algorithm**
+Spatial join algorithm:
 
 Given:
 
@@ -134,7 +132,7 @@ The assignment function is:
    \text{null} & \text{otherwise}
    \end{cases}
 
-**Coordinate Normalization**
+Coordinate normalization:
 
 Longitude coordinates are normalized to :math:`[-180, 180)`:
 
@@ -142,11 +140,11 @@ Longitude coordinates are normalized to :math:`[-180, 180)`:
 
    \text{lon}_{\text{norm}} = ((\text{lon} + 180) \mod 360) - 180
 
-This ensures consistency with standard ecoregion shapefiles (e.g., Ecoregions2017 from Dinerstein et al., 2017).
+This matches the convention of standard ecoregion shapefiles (e.g., Ecoregions2017 from Dinerstein et al., 2017).
 
-**Implementation**
+Implementation:
 
-The :func:`climclusterpy.supervision.assign_cells_to_ecoregions` function uses GeoPandas vectorized spatial join:
+The :func:`climclusterpy.supervision.assign_cells_to_ecoregions` function uses a vectorized GeoPandas spatial join:
 
 .. code-block:: python
 
@@ -157,72 +155,72 @@ The :func:`climclusterpy.supervision.assign_cells_to_ecoregions` function uses G
        predicate='intersects'
    )
 
-The ``intersects`` predicate (rather than ``within``) includes cells lying precisely on polygon boundaries, maximizing spatial coverage.
+The ``intersects`` predicate (rather than ``within``) includes cells that lie exactly on polygon boundaries, which maximizes spatial coverage.
 
-Ecological Feature Summarization
----------------------------------
+Ecological feature summarization
+--------------------------------
 
-Time series climate data are transformed into interpretable ecological summary statistics by the :mod:`climclusterpy.features` module. The columns that :func:`~climclusterpy.create_clusters` builds, and how to choose them, are listed in :doc:`../howto/features`. The ecology diagnostics and the block PCA below are building blocks that ``create_clusters`` does not apply.
+The :mod:`climclusterpy.features` module turns climate time series into interpretable ecological summary statistics. :doc:`../howto/features` lists the columns that :func:`~climclusterpy.create_clusters` builds and explains how to choose them. ``create_clusters`` does not apply the ecology diagnostics and the block PCA below; they are building blocks.
 
-Temperature Features
+Temperature features
 ~~~~~~~~~~~~~~~~~~~~
 
-For temperature time series :math:`\{T_1, T_2, \ldots, T_{n_t}\}`, the following statistics are computed by ``climclusterpy.features.climate._summarize_temperature()``:
+For temperature time series :math:`\{T_1, T_2, \ldots, T_{n_t}\}`, ``climclusterpy.features.climate._summarize_temperature()`` computes the following statistics:
 
-**Annual Mean**
+Annual mean:
 
 .. math::
 
    \mu_T = \frac{1}{n_t} \sum_{t=1}^{n_t} T_t
 
-**Annual Standard Deviation**
+Annual standard deviation:
 
 .. math::
 
    \sigma_T = \sqrt{\frac{1}{n_t} \sum_{t=1}^{n_t} (T_t - \mu_T)^2}
 
-**Annual Range**
+Annual range:
 
 .. math::
 
    R_T = \max_t(T_t) - \min_t(T_t)
 
-**Seasonality**
+Seasonality:
 
-Monthly climatology is computed by averaging each calendar month across all years:
+The monthly climatology averages each calendar month across all years:
 
 .. math::
 
    \bar{T}_m = \frac{1}{n_y} \sum_{y=1}^{n_y} T_{y,m} \quad \text{for } m \in \{1, 2, \ldots, 12\}
 
-Seasonality is then defined as the standard deviation of monthly means:
+Seasonality is the standard deviation of the monthly means:
 
 .. math::
 
    S_T = \sqrt{\frac{1}{12} \sum_{m=1}^{12} (\bar{T}_m - \mu_T)^2}
 
-This captures the amplitude of seasonal temperature variation.
+It measures the amplitude of seasonal temperature variation.
 
-Precipitation Features
+Precipitation features
 ~~~~~~~~~~~~~~~~~~~~~~
 
 For precipitation time series :math:`\{P_1, P_2, \ldots, P_{n_t}\}`, ``climclusterpy.features.climate._summarize_precipitation()`` computes:
 
-**Annual Mean**
+Annual mean:
 
 .. math::
 
    \mu_P = \frac{1}{n_t} \sum_{t=1}^{n_t} P_t
 
-**Coefficient of Variation**
+Coefficient of variation:
 
 .. math::
 
    \text{CV}_P = \frac{\sigma_P}{\mu_P}
 
-where :math:`\sigma_P` is the temporal standard deviation. CV quantifies relative precipitation variability.
+where :math:`\sigma_P` is the temporal standard deviation. CV measures relative precipitation variability.
 
-**Wet-Day Frequency**
+Wet-Day frequency:
 
 .. math::
 
@@ -230,15 +228,15 @@ where :math:`\sigma_P` is the temporal standard deviation. CV quantifies relativ
 
 where :math:`\theta = 1` mm is the wet-day threshold and :math:`\mathbb{1}(\cdot)` is the indicator function.
 
-**Maximum Monthly Precipitation**
+Maximum monthly precipitation:
 
 .. math::
 
    P_{\max} = \max_{t \in \{1, \ldots, n_t\}} P_t
 
-This captures extreme precipitation events.
+It captures extreme precipitation events.
 
-Radiation Features
+Radiation features
 ~~~~~~~~~~~~~~~~~~
 
 For shortwave (:math:`R_s`) and longwave (:math:`R_l`) radiation, ``climclusterpy.features.climate._summarize_radiation()`` computes:
@@ -251,7 +249,7 @@ For shortwave (:math:`R_s`) and longwave (:math:`R_l`) radiation, ``climclusterp
    A_R &= \max_t(R_t) - \min_t(R_t) \quad \text{(seasonal amplitude)}
    \end{align}
 
-Humidity Features
+Humidity features
 ~~~~~~~~~~~~~~~~~
 
 For relative humidity :math:`\{H_1, H_2, \ldots, H_{n_t}\}`, ``climclusterpy.features.climate._summarize_humidity()`` computes:
@@ -264,7 +262,7 @@ For relative humidity :math:`\{H_1, H_2, \ldots, H_{n_t}\}`, ``climclusterpy.fea
    H_{\min} &= \min_t(H_t) \quad \text{(dry-season minimum)}
    \end{align}
 
-Static-Field Features
+Static-field features
 ~~~~~~~~~~~~~~~~~~~~~
 
 Every static field (soil, elevation, land cover, …) is declared ``"continuous"`` (kept as one
@@ -275,25 +273,25 @@ feature and the soil code as a categorical one.
 
 For a static field with a time dimension, the first time step is used, under the assumption of temporal invariance.
 
-Köppen–Geiger Diagnostic Scalar Features
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Köppen–Geiger diagnostic scalar features
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Eight continuous KG-diagnostic scalar features are computed directly from the monthly climatologies and latitude by :func:`climclusterpy.features.compute_kg_diagnostic_features`, capturing the core rule quantities used by Köppen–Geiger classification:
 
-* **kg_diag_T_cold**, **kg_diag_T_warm**: Coldest and warmest month temperature
-* **kg_diag_P_dry_min**, **kg_diag_P_wet_max**: Driest and wettest month precipitation
-* **kg_diag_P_dry_summer**, **kg_diag_P_dry_winter**: Hemisphere-aware dry-season precipitation minima
-* **kg_diag_P_seasonality_ratio**: Wettest-to-driest precipitation ratio, clipped to :math:`[1, 100]`
-* **kg_diag_aridity_index**: Aridity index offset from the KG threshold :math:`P_{\text{ann}} - (2 T_{\text{ann}} + 28)`
+* ``kg_diag_T_cold``, ``kg_diag_T_warm``: Coldest and warmest month temperature
+* ``kg_diag_P_dry_min``, ``kg_diag_P_wet_max``: Driest and wettest month precipitation
+* ``kg_diag_P_dry_summer``, ``kg_diag_P_dry_winter``: Hemisphere-aware dry-season precipitation minima
+* ``kg_diag_P_seasonality_ratio``: Wettest-to-driest precipitation ratio, clipped to :math:`[1, 100]`
+* ``kg_diag_aridity_index``: Aridity index offset from the KG threshold :math:`P_{\text{ann}} - (2 T_{\text{ann}} + 28)`
 
 These ``kg_diag_`` features are protected from removal in the filtering stages.
 
-Ecology Diagnostic Features
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Ecology diagnostic features
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Thirteen ecophysiological features are computed from the monthly climatologies by :func:`climclusterpy.features.compute_all_ecology_diagnostic_features`, capturing water-balance characteristics and thermal thresholds relevant to vegetation dynamics. These ``eco_diag_`` features are protected from removal during correlation and PCA filtering stages.
 
-**Vapour Pressure Deficit (VPD)**
+Vapour pressure deficit (VPD):
 
 Monthly VPD is computed from monthly temperature :math:`\bar{T}_m` and relative humidity :math:`\bar{H}_m`:
 
@@ -303,11 +301,11 @@ Monthly VPD is computed from monthly temperature :math:`\bar{T}_m` and relative 
 
 Three features are derived:
 
-* **eco_diag_vpd_mean**: Annual mean :math:`\overline{\mathrm{VPD}} = \tfrac{1}{12}\sum_m \mathrm{VPD}_m`
-* **eco_diag_vpd_max_monthly**: Maximum monthly value :math:`\max_m \mathrm{VPD}_m`
-* **eco_diag_vpd_stress_months**: Count of months with :math:`\mathrm{VPD}_m > 1.5` kPa
+* ``eco_diag_vpd_mean``: Annual mean :math:`\overline{\mathrm{VPD}} = \tfrac{1}{12}\sum_m \mathrm{VPD}_m`
+* ``eco_diag_vpd_max_monthly``: Maximum monthly value :math:`\max_m \mathrm{VPD}_m`
+* ``eco_diag_vpd_stress_months``: Count of months with :math:`\mathrm{VPD}_m > 1.5` kPa
 
-**Growing Degree Days (GDD)**
+Growing degree days (GDD):
 
 Thermal accumulation indices computed from monthly temperature:
 
@@ -315,40 +313,40 @@ Thermal accumulation indices computed from monthly temperature:
 
    \mathrm{GDD}_b = \sum_{m=1}^{12} \max(0,\;\bar{T}_m - b)\,\cdot\, n_{\mathrm{days},m}
 
-* **eco_diag_gdd_5**: Base :math:`b = 5\,°\text{C}` (cool-season crops, boreal vegetation)
-* **eco_diag_gdd_10**: Base :math:`b = 10\,°\text{C}` (warm-season crops, temperate vegetation)
+* ``eco_diag_gdd_5``: Base :math:`b = 5\,°\text{C}` (cool-season crops, boreal vegetation)
+* ``eco_diag_gdd_10``: Base :math:`b = 10\,°\text{C}` (warm-season crops, temperate vegetation)
 
-**Frost-Free Days**
+Frost-Free days:
 
 .. math::
 
    F = \sum_{m=1}^{12} \mathbb{1}(\bar{T}_m > 0)\,\cdot\, n_{\mathrm{days},m}
 
-* **eco_diag_frost_free_days**: Distinguishes transitional climates where frost occurrence is intermittent.
+* ``eco_diag_frost_free_days``: Distinguishes transitional climates where frost occurrence is intermittent.
 
-**Potential Evapotranspiration and Moisture Balance**
+Potential evapotranspiration and moisture balance:
 
 Monthly PET is estimated via the Priestley–Taylor method (where radiation data are available) or Thornthwaite approximation:
 
-* **eco_diag_pet_mean**: Annual mean PET (mm day\ :sup:`-1`)
-* **eco_diag_p_pet_ratio**: Annual precipitation-to-PET ratio :math:`\overline{P}/\overline{\mathrm{PET}}` (moisture index)
-* **eco_diag_water_deficit_months**: Count of months where :math:`\bar{P}_m < \mathrm{PET}_m`
+* ``eco_diag_pet_mean``: Annual mean PET (mm day\ :sup:`-1`)
+* ``eco_diag_p_pet_ratio``: Annual precipitation-to-PET ratio :math:`\overline{P}/\overline{\mathrm{PET}}` (moisture index)
+* ``eco_diag_water_deficit_months``: Count of months where :math:`\bar{P}_m < \mathrm{PET}_m`
 
-**Dry Spells**
+Dry spells:
 
 Consecutive runs of months with :math:`\bar{P}_m < 30` mm are identified:
 
-* **eco_diag_dry_spell_max**: Maximum spell length across the annual cycle
-* **eco_diag_dry_spell_mean**: Mean spell length
+* ``eco_diag_dry_spell_max``: Maximum spell length across the annual cycle
+* ``eco_diag_dry_spell_mean``: Mean spell length
 
 These capture the persistence of dry seasons beyond their total duration.
 
-**Precipitation Intensity and Seasonality**
+Precipitation intensity and seasonality:
 
-* **eco_diag_precip_intensity_wet_days**: Mean precipitation per wet month :math:`\bar{P}_{\mathrm{wet}} = \sum_m \bar{P}_m \mathbb{1}(\bar{P}_m > 30) / \sum_m \mathbb{1}(\bar{P}_m > 30)`
-* **eco_diag_precip_wettest_quarter_frac**: Fraction of annual precipitation falling in the wettest quarter :math:`f_{\mathrm{wq}} = P_{\mathrm{wq}} / P_{\mathrm{ann}}`
+* ``eco_diag_precip_intensity_wet_days``: Mean precipitation per wet month :math:`\bar{P}_{\mathrm{wet}} = \sum_m \bar{P}_m \mathbb{1}(\bar{P}_m > 30) / \sum_m \mathbb{1}(\bar{P}_m > 30)`
+* ``eco_diag_precip_wettest_quarter_frac``: Fraction of annual precipitation falling in the wettest quarter :math:`f_{\mathrm{wq}} = P_{\mathrm{wq}} / P_{\mathrm{ann}}`
 
-Feature Combination
+Feature combination
 ~~~~~~~~~~~~~~~~~~~
 
 :func:`climclusterpy.features.combine_features` merges climate and soil DataFrames through an inner join on ``cell_id``, ``latitude``, and ``longitude``, producing the raw feature matrix:
@@ -359,10 +357,10 @@ Feature Combination
 
 where :math:`n` is the number of cells and :math:`p` is the total feature count (typically :math:`p \approx 20`–50 before filtering).
 
-Feature Standardization and Filtering
---------------------------------------
+Feature standardization and filtering
+-------------------------------------
 
-Z-Score Standardization
+Z-score standardization
 ~~~~~~~~~~~~~~~~~~~~~~~
 
 :func:`climclusterpy.features.standardize_features` applies z-score transformation:
@@ -386,22 +384,22 @@ This ensures:
 * Unit variance: :math:`\text{Var}(\mathbf{X}_{:j}^{\text{std}}) = 1`
 * Comparability across features with disparate units
 
-Correlation-Based Feature Removal
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Correlation-based feature removal
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 :func:`climclusterpy.features.remove_correlated_features` eliminates highly correlated features to mitigate multicollinearity.
 
-**Correlation Computation**
+Correlation computation:
 
-Spearman rank correlation coefficients are computed for all feature pairs:
+The package computes Spearman rank correlation coefficients for all feature pairs:
 
 .. math::
 
    \rho_{jk} = \text{corr}_{\text{Spearman}}(\mathbf{X}_{:j}^{\text{std}}, \mathbf{X}_{:k}^{\text{std}})
 
-Spearman correlation is preferred over Pearson as it captures monotonic (not just linear) relationships and is robust to outliers.
+The package uses Spearman instead of Pearson correlation because Spearman captures monotonic (not only linear) relationships and is less sensitive to outliers.
 
-**Iterative Removal**
+Iterative removal:
 
 For each pair :math:`(j, k)` satisfying :math:`|\rho_{jk}| > \theta_{\text{corr}}` (default :math:`\theta_{\text{corr}} = 0.9`):
 
@@ -417,16 +415,16 @@ For each pair :math:`(j, k)` satisfying :math:`|\rho_{jk}| > \theta_{\text{corr}
 
       \text{remove}(j) \text{ if } \bar{\rho}_j > \bar{\rho}_k
 
-This greedy strategy preserves features with lower overall correlation.
+This greedy strategy keeps the features with lower overall correlation.
 
 Soil features are excluded from correlation analysis as they represent static, discrete properties.
 
-Block PCA Compression of Monthly Profiles
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Block PCA compression of monthly profiles
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 :func:`climclusterpy.features.apply_block_pca_compression` reduces redundancy in the 12-dimensional monthly climatology profiles while preserving seasonal structure.
 
-A separate PCA is fit to the temperature-monthly block (``tas_month_01..12``) and the precipitation-monthly block (``pr_month_01..12``). For each block, the minimum number of components explaining at least 99% of within-block variance is retained. Raw monthly columns are dropped and replaced by **whitened** PC scores:
+A separate PCA is fit to the temperature-monthly block (``tas_month_01..12``) and the precipitation-monthly block (``pr_month_01..12``). For each block, the minimum number of components explaining at least 99% of within-block variance is retained. Raw monthly columns are dropped and replaced by whitened PC scores:
 
 .. math::
 
@@ -436,12 +434,12 @@ where :math:`z_{ik}` is the raw PCA score of cell :math:`i` on block-PC :math:`k
 
 The resulting features are named ``tas_month_PC1..N_T`` and ``pr_month_PC1..N_P``. Fitted PCA objects are cached to disk (``block_pca_tas.pkl``, ``block_pca_pr.pkl``) to ensure consistent reuse across runs.
 
-PCA-Based Diagnostic Filtering
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+PCA-based diagnostic filtering
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 :func:`climclusterpy.features.diagnostic_pca_filter` uses PCA to identify low-contribution features without dimensionality reduction.
 
-**Algorithm**
+Algorithm:
 
 1. Compute full PCA decomposition of :math:`\mathbf{X}^{\text{decorr}}`:
 
@@ -473,15 +471,15 @@ PCA-Based Diagnostic Filtering
 
 This retains features substantially contributing to the dominant variance modes while eliminating redundant or low-information variables.
 
-**Output**
+Output:
 
 The final feature set :math:`\mathbf{X} \in \mathbb{R}^{n \times d}` (where :math:`d \ll p`) combines:
 
 * Filtered climate features (correlation + PCA filtered)
 * Unfiltered soil features (preserved as static environmental descriptors)
 
-Large Margin Nearest Neighbor (LMNN) Metric Learning
------------------------------------------------------
+Large margin nearest neighbor (LMNN) metric learning
+----------------------------------------------------
 
 The :mod:`climclusterpy.clustering` module learns a distance from a supervision signal in one of three modes (``lmnn_mode``): ``"global"``, and the per-cell ``"lowrank"`` and ``"diagonal"`` forms.
 
@@ -490,7 +488,7 @@ Global LMNN
 
 :mod:`climclusterpy.clustering.lmnn` implements classic LMNN (Weinberger & Saul, 2009) with a single global Mahalanobis distance.
 
-**Mahalanobis Distance**
+Mahalanobis distance:
 
 The learned metric is defined by transformation matrix :math:`\mathbf{L} \in \mathbb{R}^{d' \times d}`:
 
@@ -506,7 +504,7 @@ where:
 
 is the learned Mahalanobis matrix.
 
-**Optimization Objective**
+Optimization objective:
 
 LMNN minimizes:
 
@@ -536,12 +534,12 @@ Here:
 * :math:`\mu \in [0,1]` balances pull vs. margin terms
 * :math:`\xi_{ijl}` are slack variables for soft constraints
 
-**Interpretation**
+Interpretation:
 
-* **Pull term**: Minimizes distances to same-ecoregion neighbors
-* **Margin term**: Enforces separation from different-ecoregion cells with margin = 1
+* The pull term minimizes distances to same-ecoregion neighbors.
+* The margin term enforces separation from different-ecoregion cells with margin = 1.
 
-**Feature Importance**
+Feature importance:
 
 Feature importance is extracted from the diagonal of :math:`\mathbf{M}`:
 
@@ -557,7 +555,7 @@ with normalization:
 
 Large values indicate features strongly influencing the learned metric.
 
-**Feature Transformation**
+Feature transformation:
 
 :func:`climclusterpy.clustering.lmnn.transform_features` projects data into the learned metric space:
 
@@ -606,7 +604,7 @@ only in what the network predicts and in how that is turned into a distance.
 
 The weights of the diagonal form are positive (a softplus) and normalized to sum to one.
 
-**Distance.** The distance between two cells uses the mean of their two metrics, which makes it
+Distance: The distance between two cells uses the mean of their two metrics, which makes it
 symmetric:
 
 .. math::
@@ -621,7 +619,7 @@ diagonal form it is :math:`\tfrac12 \sum_k (w_{ik} + w_{jk})\, d_k^2`.
 :func:`~climclusterpy.clustering.lmnn.compute_distance_matrix_local` return the full
 :math:`n \times n` matrix of the two forms.
 
-**Loss.** For each anchor :math:`i`, the target neighbours :math:`\mathcal{T}_i` are its nearest
+Loss: For each anchor :math:`i`, the target neighbours :math:`\mathcal{T}_i` are its nearest
 same-class cells under the current metric, and the impostors :math:`\mathcal{I}_i` are the cells
 of other classes:
 
@@ -647,19 +645,19 @@ with :math:`n_i` the number of other cells of the anchor's class in the batch an
 with a small jitter so that they can supply targets. Training uses AdamW with early stopping on a
 20 % validation split; ``seed`` fixes every random stream.
 
-**Networks.** Both networks are multilayer perceptrons with ReLU and dropout. The low-rank
+Networks: Both networks are multilayer perceptrons with ReLU and dropout. The low-rank
 network (:class:`~climclusterpy.clustering.lmnn.local.LocalMahalanobisMLP`) has two hidden layers
 of :math:`\lfloor d \cdot \texttt{hidden\_width\_factor} \rfloor` units (factor 2 by default) and an output of
 :math:`d \cdot r` units. The diagonal network
 (:class:`~climclusterpy.clustering.lmnn.local.LocalWeightNetwork`) has hidden layers of
 :math:`\max(16, \mathrm{round}(d \cdot \texttt{hidden\_width\_factor}))` and half that, and an output of :math:`d` units.
 
-**Feature importance.** The package returns the trained model (``return_model=True``); from it, the importance of feature :math:`j` can be read, for the low-rank form, as
+Feature importance: The package returns the trained model (``return_model=True``); from it, the importance of feature :math:`j` can be read, for the low-rank form, as
 the diagonal of the mean metric :math:`[\tfrac1n \sum_i \mathbf{M}_i]_{jj}` and, for the diagonal form, as the mean weight
 :math:`\tfrac1n \sum_i w_{ij}`. The off-diagonal entries of the mean low-rank metric show which
 pairs of features act together.
 
-Hierarchical Clustering
+Hierarchical clustering
 -----------------------
 
 :mod:`climclusterpy.clustering.hierarchical` implements agglomerative hierarchical
@@ -667,7 +665,7 @@ clustering. ``linkage_method`` accepts the criteria of SciPy; the default is ``"
 Complete linkage bounds the largest distance within a group, so every member of a group is
 similar to the cell simulated for it.
 
-Linkage Methods
+Linkage methods
 ~~~~~~~~~~~~~~~
 
 :func:`scipy.cluster.hierarchy.linkage` (called through
@@ -686,12 +684,12 @@ distance matrix of a learned per-cell distance.
 
 where :math:`\mathbf{c}_k` is the centroid of :math:`C_k`.
 
-**Dendrogram.** The linkage matrix :math:`\mathbf{Z} \in \mathbb{R}^{(n-1) \times 4}` holds, per
+The dendrogram: the linkage matrix :math:`\mathbf{Z} \in \mathbb{R}^{(n-1) \times 4}` holds, per
 merge, the indices of the two merged groups, the merge distance and the size of the new group.
 :func:`scipy.cluster.hierarchy.fcluster` with ``criterion='maxclust'`` cuts it into
 :math:`K` groups, with labels :math:`1, \ldots, K`. One dendrogram serves every :math:`K`.
 
-Cell Selection
+Cell selection
 --------------
 
 ``cell_selection`` sets which cells of a group the model simulates
@@ -709,7 +707,7 @@ In the *random mode* (``"random"``) one member is drawn, :math:`i^* \sim
 ``cells_per_cluster`` members are drawn at random and the group's ``npatch`` patches are
 divided evenly between them. Both drawn modes compute no distance and no centroid.
 
-Parallel Processing and Memory
+Parallel processing and memory
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The number of workers is the ``n_jobs`` argument of :func:`~climclusterpy.create_clusters`
@@ -719,7 +717,7 @@ computed (:ref:`environment-variables`). Intermediate results (a dendrogram, an 
 assignment) are saved in the output folder and reused only when a fingerprint of their inputs
 matches.
 
-The Reduced Grid
+The reduced grid
 ----------------
 
 :func:`climclusterpy.grid.build_reduced_grid` writes the selected cells as NetCDF input of
@@ -765,7 +763,7 @@ by group label through the mapping tables, never by coordinate.
 Checking a reconstruction
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
-**Why.** The reduced grid is a re-arrangement of the original one: groups are packed into
+Why check: the reduced grid is a re-arrangement of the original one: groups are packed into
 latitude rows, and when :math:`K` approaches the number of cells several groups share a row.
 A reconstruction that took a value from a neighbouring group's column, or placed a value in
 the wrong cell, would look plausible on a map. The error would then be attributed to the
@@ -773,7 +771,7 @@ clustering, which is judged by how closely the reconstructed field agrees with a
 simulation. The checks below separate the two: if the mapping is exact, any remaining
 difference comes from the grouping and the cell selection.
 
-**What is checked.** Three things, in three places.
+What is checked: three things, in three places.
 
 1. *Before anything is written*, every reconstruction checks that the inputs belong
    together. The ID mapping and the compact map must describe the same groups; the number of
@@ -794,7 +792,7 @@ difference comes from the grouping and the cell selection.
    reconstructs it, and asserts that every valid cell holds the value of its group and every invalid cell is
    missing.
 
-**How it is computed: a small example.** Six valid cells with labels
+How it is computed, in a small example: six valid cells with labels
 :math:`g = (1, 1, 2, 3, 3, 3)` and a model output with one value per group at :math:`t = 0`:
 :math:`o = (10, 20, 30)`. The reconstruction is :math:`\hat{y} = (10, 10, 20, 30, 30, 30)`.
 The round-trip test compares, for every valid cell and time step, the reconstructed value
@@ -809,14 +807,14 @@ larger. Every cell of group 3 reads :math:`30`; had the reconstruction read the 
 group 2 for one of them, the difference would be :math:`10` and the test would fail. The test
 also requires every cell outside the valid mask to be missing.
 
-**What passes and what fails.** The round-trip test passes only when every valid cell matches its group's
+What passes and what fails: the round-trip test passes only when every valid cell matches its group's
 value and every invalid cell is missing. The paper reports that the mapping reproduced
 all 28 reduced grids it reconstructed (two clusterings, sixteen cluster counts from 7 to
 60 678) bit for bit. The check does *not* measure how well the groups represent their cells:
 that is the accuracy against a full-grid simulation described in the paper, computed in the
 ``climclusterpy-research`` repository.
 
-**How to run it.**
+To run the checks:
 
 .. code-block:: python
 
@@ -831,6 +829,6 @@ that is the accuracy against a full-grid simulation described in the paper, comp
    $ pytest -m roundtrip                       # step 3, on the synthetic data of the test suite
    $ python examples/example_4_reconstruct.py   # the same round trip as a script
 
-Own model output can be checked the same way: the reconstructed value of every cell of a
-group must equal the value in the reduced-grid output at that group's column, which a
-``numpy`` comparison of the two files verifies directly.
+You can check your own model output the same way. The reconstructed value of every cell of a
+group must equal the value in the reduced-grid output at that group's column, and a
+``numpy`` comparison of the two files verifies this directly.

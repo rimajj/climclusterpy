@@ -1,17 +1,17 @@
-Tutorial 3 — Supervision signals
-================================
+Tutorial 3: supervision signals
+===============================
 
 :func:`~climclusterpy.compute_supervision` builds the per-cell class labels that LMNN learns
-from. This tutorial uses the two sources that run on small synthetic data, Köppen–Geiger
-classes (from climate) and model output (from traits). Ecoregions (a shapefile and the
-``[ecoregions]`` extra) are outlined at the end.
+from. This tutorial uses the two sources that run on small synthetic data: Köppen–Geiger
+classes (from climate) and model output (from traits). The last section outlines ecoregions,
+which need a shapefile and the ``[ecoregions]`` extra.
 
 Köppen–Geiger from monthly climatology
 --------------------------------------
 
-Köppen–Geiger classes are computed from a monthly-climatology feature table — 12 monthly
-temperature (°C) and precipitation (mm/month) columns per cell, plus ``cell_id`` /
-``latitude`` / ``longitude``. The helper builds that table from the synthetic series:
+The package computes Köppen–Geiger classes from a monthly-climatology feature table with 12
+monthly temperature (°C) and precipitation (mm/month) columns per cell, plus ``cell_id``,
+``latitude`` and ``longitude``. The helper builds that table from the synthetic series:
 
 .. code-block:: python
 
@@ -27,8 +27,8 @@ Model output (traits)
 ---------------------
 
 ``kind="output"`` clusters cells by the similarity of simulated traits, given as a table with
-one row per cell. The trait columns are passed as ``continuous_cols``, with the coordinates
-as parallel arrays:
+one row per cell. Pass the trait columns as ``continuous_cols`` and the coordinates as
+parallel arrays:
 
 .. code-block:: python
 
@@ -43,9 +43,9 @@ as parallel arrays:
        output_dir=tmp,
    )
 
-Each call returns a :class:`~climclusterpy.SupervisionResult` — ``.labels`` (the
-canonical ``cell_id/latitude/longitude/cluster_label`` table), ``.labels_csv`` (the CSV on
-disk), and ``.y`` / ``.encoded_y`` to feed :func:`~climclusterpy.cluster_matrix`.
+Each call returns a :class:`~climclusterpy.SupervisionResult`. Its ``.labels`` is the
+canonical ``cell_id/latitude/longitude/cluster_label`` table, ``.labels_csv`` is the CSV on
+disk, and ``.y`` and ``.encoded_y`` go to :func:`~climclusterpy.cluster_matrix`.
 
 The script
 ----------
@@ -68,8 +68,8 @@ Run it
 Ecoregion supervision
 ---------------------
 
-The third source assigns cells to WWF Ecoregions2017 polygons by spatial join. It needs
-the ``[ecoregions]`` extra and a shapefile, so it is not exercised on synthetic data:
+The third source assigns cells to WWF Ecoregions2017 polygons by a spatial join. It needs
+the ``[ecoregions]`` extra and a shapefile, so the tutorial does not run it on synthetic data:
 
 .. code-block:: python
 
@@ -79,4 +79,4 @@ the ``[ecoregions]`` extra and a shapefile, so it is not exercised on synthetic 
        ecoregions_shapefile="Ecoregions2017/Ecoregions2017.shp",
    )
 
-See :doc:`../howto/supervision` for details and :doc:`lmnn_clustering` to use the signal.
+See :doc:`../howto/supervision` for details and :doc:`lmnn_clustering` for how to use the signal.

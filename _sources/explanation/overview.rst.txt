@@ -2,43 +2,42 @@ Overview
 ========
 
 ``climclusterpy`` groups the cells of a model grid by their climate and static fields, so
-that the model needs to be run on only some cells of each group. It is model-independent:
-the input is any set of named climate fields and static fields, and the LPJmL-FIT file layout
-is one supported format among others.
+so that you need to run the model on only some cells of each group. It does not depend on a
+particular model. The input is any set of named climate fields and static fields, and the
+LPJmL-FIT file layout is one supported format among others.
 
-The workflow below is run by :func:`~climclusterpy.create_clusters` (steps 1 to 7) and
+The workflow below runs in :func:`~climclusterpy.create_clusters` (steps 1 to 7) and
 :func:`~climclusterpy.reconstruct_original_grid` (step 9). Each step is also available as a
-function; the :doc:`../reference/api` lists them. Every step is described in
-:doc:`methods`.
+function, and the :doc:`../reference/api` lists them. :doc:`methods` describes every step.
 
 Workflow
 --------
 
-1. **Loading** (:mod:`climclusterpy.data`). The input is opened lazily in chunks, its
-   coordinates are standardized, and a registry records which cells are valid.
-2. **Features** (:mod:`climclusterpy.features`). Each cell is described by summaries of its
+1. Loading (:mod:`climclusterpy.data`). The package opens the input lazily in chunks,
+   standardizes its coordinates and records which cells are valid in a registry.
+2. Features (:mod:`climclusterpy.features`). Each cell is described by summaries of its
    climate (annual means and variability, the 12 monthly means, Köppen–Geiger diagnostics)
-   and its static fields. The features are standardized and filtered for correlation and
-   low contribution (:doc:`../howto/features`).
-3. **Supervision** (:mod:`climclusterpy.supervision`), only for a learned distance. Each cell
-   is assigned a class: a Köppen–Geiger zone computed from the climate, an ecoregion, or a
+   and its static fields. The package standardizes the features and filters them for
+   correlation and low contribution (:doc:`../howto/features`).
+3. Supervision (:mod:`climclusterpy.supervision`), only for a learned distance. Each cell
+   receives a class: a Köppen–Geiger zone computed from the climate, an ecoregion, or a
    class built from the model's own output.
-4. **Distance.** The Euclidean distance between feature vectors (``locally_weighted=False``),
+4. Distance. The Euclidean distance between feature vectors (``locally_weighted=False``),
    or a distance learned from the supervision classes by large-margin nearest-neighbour
    learning (``locally_weighted=True``, :mod:`climclusterpy.clustering.lmnn`).
-5. **Clustering** (:mod:`climclusterpy.clustering`). Agglomerative hierarchical clustering
-   under that distance; the dendrogram is cut into *K* groups.
-6. **Cell selection** (:mod:`climclusterpy.timeseries`). The cells the model will simulate are
-   chosen in each group, set by the argument ``cell_selection`` (:doc:`../howto/cell_selection`).
-7. **Reduced grid** (:mod:`climclusterpy.grid`). The selected cells are written as NetCDF
-   input of their own, with two tables that map every original cell to its group.
-8. The model is run on the reduced grid.
-9. **Reconstruction** (:func:`~climclusterpy.reconstruct_original_grid`). Every original cell
+5. Clustering (:mod:`climclusterpy.clustering`). Agglomerative hierarchical clustering
+   under that distance, with the dendrogram cut into *K* groups.
+6. Cell selection (:mod:`climclusterpy.timeseries`). The package chooses the cells the model
+   will simulate in each group, as set by the argument ``cell_selection`` (:doc:`../howto/cell_selection`).
+7. Reduced grid (:mod:`climclusterpy.grid`). The package writes the selected cells as
+   NetCDF input of their own, with two tables that map every original cell to its group.
+8. You run the model on the reduced grid.
+9. Reconstruction (:func:`~climclusterpy.reconstruct_original_grid`). Every original cell
    receives the output simulated for its group.
 
-Evaluation metrics and diagnostics (agreement with reference classes, cluster maps,
-feature-importance plots) are in the separate ``climclusterpy-research`` repository, which
-calls this package's public interface.
+The separate ``climclusterpy-research`` repository holds evaluation metrics and diagnostics
+(agreement with reference classes, cluster maps, feature-importance plots). It calls this
+package's public interface.
 
 Package layout
 --------------
@@ -58,7 +57,7 @@ Package layout
    ├── preprocessing/ # coordinate alignment, region masking
    └── viz/           # plotting helpers
 
-Each of these packages lists its public names in ``__all__``; the modules inside them are
+Each of these packages lists its public names in ``__all__``. The modules inside them are
 internal.
 
 References
