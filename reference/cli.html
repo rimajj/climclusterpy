@@ -343,7 +343,8 @@ a share of the valid cells, e.g. <code class="docutils literal notranslate"><spa
 <code class="docutils literal notranslate"><span class="pre">--output-dir</span></code>, <code class="docutils literal notranslate"><span class="pre">--n-repeat</span></code>, <code class="docutils literal notranslate"><span class="pre">--npatch</span></code>, <code class="docutils literal notranslate"><span class="pre">--cells-per-cluster</span></code>, <code class="docutils literal notranslate"><span class="pre">--seed</span></code>
 (default 0, so the same command gives the same grid), <code class="docutils literal notranslate"><span class="pre">--min-grid-spacing</span></code>
 (<code class="docutils literal notranslate"><span class="pre">--placement</span> <span class="pre">cluster_center</span></code> only), <code class="docutils literal notranslate"><span class="pre">--n-jobs</span></code>, <code class="docutils literal notranslate"><span class="pre">--write-fields</span></code> (comma list of the
-input fields to write; default all). The defaults of the metric-learning options are the
+input fields to write; default all), <code class="docutils literal notranslate"><span class="pre">--drop-leap-days</span></code> (remove 29 February from the
+written climate files and write a 365-day calendar). The defaults of the metric-learning options are the
 configuration of the published results, so the second example needs no more than the
 supervision.</p>
 <p><code class="docutils literal notranslate"><span class="pre">--dry-run</span></code> checks the climate input (files present, variables and grid readable)
@@ -376,7 +377,7 @@ model that reads its inputs from the original files through the mapping. Main op
 <code class="docutils literal notranslate"><span class="pre">distributed</span></code>), <code class="docutils literal notranslate"><span class="pre">--placement</span></code>, <code class="docutils literal notranslate"><span class="pre">--cold-threshold</span></code>, <code class="docutils literal notranslate"><span class="pre">--ecoregion-id-column</span></code>,
 <code class="docutils literal notranslate"><span class="pre">--climate-variables</span></code>, <code class="docutils literal notranslate"><span class="pre">--n-repeat</span></code>, <code class="docutils literal notranslate"><span class="pre">--npatch</span></code>, <code class="docutils literal notranslate"><span class="pre">--cells-per-cluster</span></code>, <code class="docutils literal notranslate"><span class="pre">--seed</span></code>,
 <code class="docutils literal notranslate"><span class="pre">--min-grid-spacing</span></code>, <code class="docutils literal notranslate"><span class="pre">--n-jobs</span></code>, <code class="docutils literal notranslate"><span class="pre">--preload/--no-preload</span></code>, <code class="docutils literal notranslate"><span class="pre">--write-fields</span></code>,
-<code class="docutils literal notranslate"><span class="pre">--output-dir</span></code>. <code class="docutils literal notranslate"><span class="pre">--dry-run</span></code> checks the climate input and that the partition file exists.</p>
+<code class="docutils literal notranslate"><span class="pre">--drop-leap-days</span></code>, <code class="docutils literal notranslate"><span class="pre">--output-dir</span></code>. <code class="docutils literal notranslate"><span class="pre">--dry-run</span></code> checks the climate input and that the partition file exists.</p>
 </section>
 <section id="climclu-reconstruct-grid">
 <h3><code class="docutils literal notranslate"><span class="pre">climclu</span> <span class="pre">reconstruct-grid</span></code><a class="headerlink" href="#climclu-reconstruct-grid" title="Link to this heading"></a></h3>

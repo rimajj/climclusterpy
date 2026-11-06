@@ -1168,14 +1168,25 @@
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2"> must be a fraction in </span><span class="si">{</span><span class="n">bound</span><span class="si">}</span><span class="s2">; got </span><span class="si">{</span><span class="n">value</span><span class="si">!r}</span><span class="s2">."</span><span class="p">)</span>
 
 
-<span class="k">def</span><span class="w"> </span><span class="nf">_check_before_run</span><span class="p">(</span><span class="n">datasets</span><span class="p">,</span> <span class="n">registry</span><span class="p">,</span> <span class="n">n_clusters</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span> <span class="n">climate_input</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_check_before_run</span><span class="p">(</span>
+    <span class="n">datasets</span><span class="p">,</span>
+    <span class="n">registry</span><span class="p">,</span>
+    <span class="n">n_clusters</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">climate_input</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="o">*</span><span class="p">,</span>
+    <span class="n">drop_leap_days</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">"""The cheap input checks, before any feature is built: raise on a problem, warn otherwise."""</span>
     <span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
 
     <span class="kn">from</span><span class="w"> </span><span class="nn">.data.checks</span><span class="w"> </span><span class="kn">import</span> <span class="n">check_loaded_inputs</span>
 
     <span class="n">report</span> <span class="o">=</span> <span class="n">check_loaded_inputs</span><span class="p">(</span><span class="n">datasets</span><span class="p">,</span> <span class="n">registry</span><span class="p">,</span> <span class="n">static_names</span><span class="o">=</span><span class="n">_static_names</span><span class="p">(</span><span class="n">climate_input</span><span class="p">))</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">.data.calendar</span><span class="w"> </span><span class="kn">import</span> <span class="n">LEAP_DAY_WARNING_START</span>
+
     <span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">report</span><span class="o">.</span><span class="n">warnings</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">drop_leap_days</span> <span class="ow">and</span> <span class="n">w</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="n">LEAP_DAY_WARNING_START</span><span class="p">):</span>
+            <span class="k">continue</span>
         <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="ne">UserWarning</span><span class="p">,</span> <span class="n">stacklevel</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
     <span class="n">report</span><span class="o">.</span><span class="n">raise_if_problems</span><span class="p">()</span>
     <span class="k">if</span> <span class="n">n_clusters</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
@@ -1625,6 +1636,15 @@
     <span class="k">return</span> <span class="n">fields</span>
 
 
+<span class="k">def</span><span class="w"> </span><span class="nf">_apply_leap_days</span><span class="p">(</span><span class="n">timeseries</span><span class="p">,</span> <span class="n">drop_leap_days</span><span class="p">:</span> <span class="nb">bool</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""``timeseries`` without 29 February on a 365-day calendar when asked; else unchanged."""</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">drop_leap_days</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">timeseries</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">.data.calendar</span><span class="w"> </span><span class="kn">import</span> <span class="n">drop_leap_days_from</span>
+
+    <span class="k">return</span> <span class="n">drop_leap_days_from</span><span class="p">(</span><span class="n">timeseries</span><span class="p">)</span>
+
+
 <span class="k">def</span><span class="w"> </span><span class="nf">_only_fields</span><span class="p">(</span><span class="n">timeseries</span><span class="p">,</span> <span class="n">fields</span><span class="p">,</span> <span class="n">datasets</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">"""``timeseries`` without the input fields that are not to be written.</span>
 
@@ -1739,6 +1759,7 @@
     <span class="n">write_fields</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="n">learned_metric_dir</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">static_fields</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span> <span class="o">=</span> <span class="p">(),</span>
+    <span class="n">drop_leap_days</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">CreateClustersResult</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">"""The tail every reduced-grid route shares: timeseries, id mapping, NetCDFs, result.</span>
 
@@ -1762,6 +1783,7 @@
     <span class="n">diagnostics</span><span class="p">[</span><span class="s2">"cell_selection"</span><span class="p">]</span> <span class="o">=</span> <span class="n">resolved_cell_selection</span>
     <span class="n">diagnostics</span><span class="p">[</span><span class="s2">"placement"</span><span class="p">]</span> <span class="o">=</span> <span class="n">placement</span>
     <span class="n">diagnostics</span><span class="p">[</span><span class="s2">"cells_per_cluster"</span><span class="p">]</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">cells_per_cluster</span><span class="p">)</span>
+    <span class="n">diagnostics</span><span class="p">[</span><span class="s2">"drop_leap_days"</span><span class="p">]</span> <span class="o">=</span> <span class="nb">bool</span><span class="p">(</span><span class="n">drop_leap_days</span><span class="p">)</span>
     <span class="n">diagnostics</span><span class="p">[</span><span class="s2">"patches_per_cell"</span><span class="p">]</span> <span class="o">=</span> <span class="n">patches_per_cell</span>
     <span class="k">if</span> <span class="n">resolved_cell_selection</span> <span class="ow">in</span> <span class="n">_SAMPLED_CELL_CHOICES</span><span class="p">:</span>
         <span class="n">diagnostics</span><span class="p">[</span><span class="s2">"cell_selection_seed"</span><span class="p">]</span> <span class="o">=</span> <span class="n">seed</span>
@@ -1813,6 +1835,7 @@
         <span class="p">)</span>
         <span class="n">_require_complete_series</span><span class="p">(</span><span class="n">timeseries</span><span class="p">)</span>
         <span class="n">timeseries</span> <span class="o">=</span> <span class="n">_only_fields</span><span class="p">(</span><span class="n">timeseries</span><span class="p">,</span> <span class="n">fields</span><span class="p">,</span> <span class="n">datasets</span><span class="p">)</span>
+        <span class="n">timeseries</span> <span class="o">=</span> <span class="n">_apply_leap_days</span><span class="p">(</span><span class="n">timeseries</span><span class="p">,</span> <span class="n">drop_leap_days</span><span class="p">)</span>
         <span class="n">netcdf_files</span> <span class="o">=</span> <span class="n">write_distributed_grid</span><span class="p">(</span>
             <span class="n">timeseries</span><span class="p">,</span>
             <span class="n">registry</span><span class="p">,</span>
@@ -1840,6 +1863,7 @@
         <span class="p">)</span>
         <span class="n">_require_complete_series</span><span class="p">(</span><span class="n">timeseries</span><span class="p">)</span>
         <span class="n">timeseries</span> <span class="o">=</span> <span class="n">_only_fields</span><span class="p">(</span><span class="n">timeseries</span><span class="p">,</span> <span class="n">fields</span><span class="p">,</span> <span class="n">datasets</span><span class="p">)</span>
+        <span class="n">timeseries</span> <span class="o">=</span> <span class="n">_apply_leap_days</span><span class="p">(</span><span class="n">timeseries</span><span class="p">,</span> <span class="n">drop_leap_days</span><span class="p">)</span>
         <span class="n">netcdf_files</span> <span class="o">=</span> <span class="n">build_reduced_grid</span><span class="p">(</span>
             <span class="n">timeseries</span><span class="p">,</span>
             <span class="n">output_dir</span><span class="p">,</span>
@@ -1867,6 +1891,7 @@
         <span class="p">)</span>
         <span class="n">_require_complete_series</span><span class="p">(</span><span class="n">timeseries</span><span class="p">)</span>
         <span class="n">timeseries</span> <span class="o">=</span> <span class="n">_only_fields</span><span class="p">(</span><span class="n">timeseries</span><span class="p">,</span> <span class="n">fields</span><span class="p">,</span> <span class="n">datasets</span><span class="p">)</span>
+        <span class="n">timeseries</span> <span class="o">=</span> <span class="n">_apply_leap_days</span><span class="p">(</span><span class="n">timeseries</span><span class="p">,</span> <span class="n">drop_leap_days</span><span class="p">)</span>
         <span class="n">netcdf_files</span> <span class="o">=</span> <span class="n">build_reduced_grid</span><span class="p">(</span>
             <span class="n">timeseries</span><span class="p">,</span>
             <span class="n">output_dir</span><span class="p">,</span>
@@ -1893,6 +1918,7 @@
         <span class="p">)</span>
         <span class="n">_require_complete_series</span><span class="p">(</span><span class="n">timeseries</span><span class="p">)</span>
         <span class="n">timeseries</span> <span class="o">=</span> <span class="n">_only_fields</span><span class="p">(</span><span class="n">timeseries</span><span class="p">,</span> <span class="n">fields</span><span class="p">,</span> <span class="n">datasets</span><span class="p">)</span>
+        <span class="n">timeseries</span> <span class="o">=</span> <span class="n">_apply_leap_days</span><span class="p">(</span><span class="n">timeseries</span><span class="p">,</span> <span class="n">drop_leap_days</span><span class="p">)</span>
 
         <span class="c1"># Create the id mapping first so its path is known, and so the grid writer puts</span>
         <span class="c1"># the compact map next to it — both CSVs are needed to reconstruct.</span>
@@ -2257,6 +2283,7 @@
     <span class="n">overwrite</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
     <span class="n">write_fields</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="n">representative</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">drop_leap_days</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">CreateClustersResult</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">"""Turn a climate grid into a model-ready cluster grid in one call.</span>
 
@@ -2501,6 +2528,13 @@
 <span class="sd">    representative : str, optional</span>
 <span class="sd">        Deprecated former name of ``cell_selection`` (same values), which raises a</span>
 <span class="sd">        :class:`DeprecationWarning`. Giving both is an error.</span>
+<span class="sd">    drop_leap_days : bool, optional</span>
+<span class="sd">        Daily input on a standard calendar contains 29 February, which LPJmL and other models</span>
+<span class="sd">        with a 365-day year cannot read. By default the written files keep the input's</span>
+<span class="sd">        calendar and all days, and the run warns once. With ``True`` the written climate files</span>
+<span class="sd">        have no 29 February and a 365-day (``noleap``) calendar. The clusters do not change:</span>
+<span class="sd">        the features already skip 29 February. Monthly input and input on a 365-day calendar</span>
+<span class="sd">        are written as they are.</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
@@ -2625,7 +2659,7 @@
     <span class="n">datasets</span><span class="p">,</span> <span class="n">registry</span> <span class="o">=</span> <span class="n">_load_input</span><span class="p">(</span><span class="n">climate_input</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">fraction</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">n_clusters</span> <span class="o">=</span> <span class="n">_clusters_for_fraction</span><span class="p">(</span><span class="n">fraction</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">registry</span><span class="o">.</span><span class="n">get_valid_original_ids</span><span class="p">()))</span>
-    <span class="n">_check_before_run</span><span class="p">(</span><span class="n">datasets</span><span class="p">,</span> <span class="n">registry</span><span class="p">,</span> <span class="n">n_clusters</span><span class="p">,</span> <span class="n">climate_input</span><span class="p">)</span>
+    <span class="n">_check_before_run</span><span class="p">(</span><span class="n">datasets</span><span class="p">,</span> <span class="n">registry</span><span class="p">,</span> <span class="n">n_clusters</span><span class="p">,</span> <span class="n">climate_input</span><span class="p">,</span> <span class="n">drop_leap_days</span><span class="o">=</span><span class="n">drop_leap_days</span><span class="p">)</span>
     <span class="n">_resolve_write_fields</span><span class="p">(</span><span class="n">write_fields</span><span class="p">,</span> <span class="n">datasets</span><span class="p">)</span>  <span class="c1"># fail before the expensive part</span>
     <span class="n">static_fields</span> <span class="o">=</span> <span class="n">_extra_static_fields</span><span class="p">(</span><span class="n">climate_input</span><span class="p">,</span> <span class="n">datasets</span><span class="p">,</span> <span class="n">write_fields</span><span class="p">)</span>
     <span class="n">_check_static_placement</span><span class="p">(</span><span class="n">static_fields</span><span class="p">,</span> <span class="n">placement</span><span class="p">)</span>
@@ -2821,6 +2855,7 @@
         <span class="n">placement</span><span class="o">=</span><span class="n">placement</span><span class="p">,</span>
         <span class="n">learned_metric_dir</span><span class="o">=</span><span class="n">learned_metric_dir</span><span class="p">,</span>
         <span class="n">static_fields</span><span class="o">=</span><span class="n">static_fields</span><span class="p">,</span>
+        <span class="n">drop_leap_days</span><span class="o">=</span><span class="n">drop_leap_days</span><span class="p">,</span>
     <span class="p">)</span></div>
 
 
@@ -3004,6 +3039,7 @@
     <span class="n">overwrite</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
     <span class="n">write_fields</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="n">representative</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">drop_leap_days</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">CreateClustersResult</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">"""Build a reduced grid from an existing map of regions, without learning a distance or clustering.</span>
 
@@ -3144,6 +3180,13 @@
 <span class="sd">    representative : str, optional</span>
 <span class="sd">        Deprecated former name of ``cell_selection`` (same values), which raises a</span>
 <span class="sd">        :class:`DeprecationWarning`. Giving both is an error.</span>
+<span class="sd">    drop_leap_days : bool, optional</span>
+<span class="sd">        Daily input on a standard calendar contains 29 February, which LPJmL and other models</span>
+<span class="sd">        with a 365-day year cannot read. By default the written files keep the input's</span>
+<span class="sd">        calendar and all days, and the run warns once. With ``True`` the written climate files</span>
+<span class="sd">        have no 29 February and a 365-day (``noleap``) calendar. The clusters do not change:</span>
+<span class="sd">        the features already skip 29 February. Monthly input and input on a 365-day calendar</span>
+<span class="sd">        are written as they are.</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
@@ -3216,7 +3259,7 @@
 
     <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">output_dir</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="n">datasets</span><span class="p">,</span> <span class="n">registry</span> <span class="o">=</span> <span class="n">_load_input</span><span class="p">(</span><span class="n">climate_input</span><span class="p">)</span>
-    <span class="n">_check_before_run</span><span class="p">(</span><span class="n">datasets</span><span class="p">,</span> <span class="n">registry</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="n">climate_input</span><span class="p">)</span>
+    <span class="n">_check_before_run</span><span class="p">(</span><span class="n">datasets</span><span class="p">,</span> <span class="n">registry</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="n">climate_input</span><span class="p">,</span> <span class="n">drop_leap_days</span><span class="o">=</span><span class="n">drop_leap_days</span><span class="p">)</span>
     <span class="n">_resolve_write_fields</span><span class="p">(</span><span class="n">write_fields</span><span class="p">,</span> <span class="n">datasets</span><span class="p">)</span>  <span class="c1"># fail before the expensive part</span>
     <span class="n">static_fields</span> <span class="o">=</span> <span class="n">_extra_static_fields</span><span class="p">(</span><span class="n">climate_input</span><span class="p">,</span> <span class="n">datasets</span><span class="p">,</span> <span class="n">write_fields</span><span class="p">)</span>
     <span class="n">_check_static_placement</span><span class="p">(</span><span class="n">static_fields</span><span class="p">,</span> <span class="n">placement</span><span class="p">)</span>
@@ -3333,6 +3376,7 @@
         <span class="n">seed</span><span class="o">=</span><span class="n">seed</span> <span class="k">if</span> <span class="n">cell_selection</span> <span class="ow">in</span> <span class="n">_SAMPLED_CELL_CHOICES</span> <span class="k">else</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">placement</span><span class="o">=</span><span class="n">placement</span><span class="p">,</span>
         <span class="n">static_fields</span><span class="o">=</span><span class="n">static_fields</span><span class="p">,</span>
+        <span class="n">drop_leap_days</span><span class="o">=</span><span class="n">drop_leap_days</span><span class="p">,</span>
     <span class="p">)</span></div>
 
 

@@ -444,6 +444,24 @@ diagnostics built on them, with a warning.</p></li>
 <li><p>Daily data need dates. The package drops 29 February for the monthly climatology of
 standard calendars and uses <code class="docutils literal notranslate"><span class="pre">noleap</span></code> calendars as they are.</p></li>
 </ul>
+<section id="calendars-and-29-february">
+<h3>Calendars and 29 February<a class="headerlink" href="#calendars-and-29-february" title="Link to this heading"></a></h3>
+<p>LPJmL and other models with a 365-day year cannot read forcing files that contain
+29 February. <code class="docutils literal notranslate"><span class="pre">create_clusters</span></code> and <code class="docutils literal notranslate"><span class="pre">create_regions</span></code> write the reduced-grid climate files
+with the calendar of the input, so daily data on a standard calendar keep their leap days. If
+a daily input contains 29 February, the run warns once, and <code class="docutils literal notranslate"><span class="pre">check_inputs</span></code> lists the same
+warning in <code class="docutils literal notranslate"><span class="pre">report.warnings</span></code>. To remove the days, pass <code class="docutils literal notranslate"><span class="pre">drop_leap_days=True</span></code> (command
+line: <code class="docutils literal notranslate"><span class="pre">--drop-leap-days</span></code>):</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">create_clusters</span><span class="p">(</span><span class="n">climate</span><span class="o">=</span><span class="n">climate</span><span class="p">,</span> <span class="n">n_clusters</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">drop_leap_days</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Every written climate file then has no 29 February and a <code class="docutils literal notranslate"><span class="pre">noleap</span></code> calendar, with 365 steps
+per year; the other days keep their values. The option changes only the written files. The
+features skip 29 February in either case, so the clusters are the same. Monthly input and
+input already on a 365-day calendar are written unchanged and give no warning. The run record
+<code class="docutils literal notranslate"><span class="pre">climclusterpy_run.json</span></code> stores the setting. A 360-day or all-leap calendar cannot be
+converted to 365 days; the package warns and writes it as it is.</p>
+</section>
 </section>
 <section id="missing-values">
 <h2>Missing values<a class="headerlink" href="#missing-values" title="Link to this heading"></a></h2>

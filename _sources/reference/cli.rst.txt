@@ -63,7 +63,8 @@ a share of the valid cells, e.g. ``0.01``; give one of the two), ``--locally-wei
 ``--output-dir``, ``--n-repeat``, ``--npatch``, ``--cells-per-cluster``, ``--seed``
 (default 0, so the same command gives the same grid), ``--min-grid-spacing``
 (``--placement cluster_center`` only), ``--n-jobs``, ``--write-fields`` (comma list of the
-input fields to write; default all). The defaults of the metric-learning options are the
+input fields to write; default all), ``--drop-leap-days`` (remove 29 February from the
+written climate files and write a 365-day calendar). The defaults of the metric-learning options are the
 configuration of the published results, so the second example needs no more than the
 supervision.
 
@@ -101,7 +102,7 @@ model that reads its inputs from the original files through the mapping. Main op
 ``distributed``), ``--placement``, ``--cold-threshold``, ``--ecoregion-id-column``,
 ``--climate-variables``, ``--n-repeat``, ``--npatch``, ``--cells-per-cluster``, ``--seed``,
 ``--min-grid-spacing``, ``--n-jobs``, ``--preload/--no-preload``, ``--write-fields``,
-``--output-dir``. ``--dry-run`` checks the climate input and that the partition file exists.
+``--drop-leap-days``, ``--output-dir``. ``--dry-run`` checks the climate input and that the partition file exists.
 
 ``climclu reconstruct-grid``
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
